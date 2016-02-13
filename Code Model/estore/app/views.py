@@ -21,9 +21,9 @@ class AddCostumer(View):
         country = request.POST['country']
         phone = request.POST['phone']
         email = request.POST['email']
-        user_id = request.POST['user_id]
+        user_id = request.POST['user_id']
         billing_address = request.POST['billing_address']
-        shipping_address = request.POST['shipping_address']
+        shipping_address = request.POST['shipping_addess']
 
 
 class AddProduct(View):
@@ -37,6 +37,14 @@ class AddProduct(View):
         unit_price = request.POST['unit_price']
         on_hand = request.POST['on_hand']
         re_order_level = request.POST['re_order_level']
+
+
+class RemoveProduct(View):
+    def post(self, request):
+        product_id = request.POST['product_id']
+        query = Product.objects.get(id=product_id)
+        query.delete()
+        return HttpResponse()
         
         
         
