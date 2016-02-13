@@ -1,4 +1,5 @@
-from flask import render_template, flash, redirect, request
+import json
+from flask import render_template, flash, redirect, request, session
 from flask import jsonify
 from app import app
 from app import db
@@ -7,44 +8,15 @@ from .models import *
 
 @app.route('/')
 def index():
-	return render_template('index.html', title='Home') 
+	return render_template('index.html', title='Home')
 
-class AddCostumer(View):
-    def post(self, request):
-        # Get data
-        costumer_id = request.POST['costumer_id']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        city = request.POST['city']
-        state = request.POST['state']
-        postal_code = request.POST['postal_code']
-        country = request.POST['country']
-        phone = request.POST['phone']
-        email = request.POST['email']
-        user_id = request.POST['user_id']
-        billing_address = request.POST['billing_address']
-        shipping_address = request.POST['shipping_addess']
-
-
-class AddProduct(View):
-    def post(self, request):
-        # Get data
-        product_id = request.POST['product_id']
-        sku = request.POST['sku']
-        supplier_id = request.POST['supplier_id']
-        title = request.POST['title']
-        description = request.POST['description']
-        unit_price = request.POST['unit_price']
-        on_hand = request.POST['on_hand']
-        re_order_level = request.POST['re_order_level']
-
-
-class RemoveProduct(View):
-    def post(self, request):
-        product_id = request.POST['product_id']
-        query = Product.objects.get(id=product_id)
-        query.delete()
-        return HttpResponse()
-        
-        
-        
+@app.route('/api/login/', methods=['POST'])
+def login():
+	json_data = request.json
+	user = User.query.filter_by(email=json_data['email']).first()
+	if user and bcrypt.check_password_hash(user.password, json_data['password']):
+		session['logged_in'] = True
+		status = True
+	else:
+		status = False
+	return jsonify({'result': status})
