@@ -24,6 +24,19 @@ class AddCostumer(View):
         user_id = request.POST['user_id]
         billing_address = request.POST['billing_address']
         shipping_address = request.POST['shipping_address']
+
+
+class AddProduct(View):
+    def post(self, request):
+        # Get data
+        product_id = request.POST['product_id']
+        sku = request.POST['sku']
+        supplier_id = request.POST['supplier_id']
+        title = request.POST['title']
+        description = request.POST['description']
+        unit_price = request.POST['unit_price']
+        on_hand = request.POST['on_hand']
+        re_order_level = request.POST['re_order_level']
         
         
         
