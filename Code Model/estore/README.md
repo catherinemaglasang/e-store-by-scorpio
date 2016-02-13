@@ -13,7 +13,7 @@ mkvirtualenv estore
 workon e-store		# activate virtualenv
 
 # Add the ff lines in you virtualenv activate.py file
-# export DATABASE_URL = "postgresql://yourusername:yourpassword@localhost/yournewdb"
+# export DATABASE_URL="postgresql://yourusername:yourpassword@localhost/yournewdb"
 # export APP_SETTINGS="config.DevelopmentConfig"
 
 pip install -r requirements.txt
