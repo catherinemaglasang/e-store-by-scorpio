@@ -1,0 +1,8 @@
+supplier1 = {
+	'id': 0,
+	'name': 'Cromwell Marketing',
+	'address': 'San Miguel St.',
+	'phone': '1234-123',
+	'fax': '1234-123',
+	'email': 'supplier1@gmail.com',
+}
