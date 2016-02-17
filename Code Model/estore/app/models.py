@@ -20,10 +20,10 @@ class User(db.Model):
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sku = db.Column(db.String)
-    supplier_id = db.Column(db.Integer, db.ForeignKey('Supplier.id'))
+    supplier_id = db.Column(db.Integer, db.ForeignKey('supplier.id'))
     title = db.Column(db.Integer)
     description = db.Column(db.String)
-    category_id = db.Column(db.Integer, db.ForeignKey('Category.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     unit_price = db.Column(db.Float)
     on_hand = db.Column(db.Integer)
     re_order_level = db.Column(db.Integer)
@@ -42,26 +42,25 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     description = db.Column(db.Text)
-    main_image = db.Column()
+    main_image = db.Column(db.LargeBinary)
     is_active = db.Column(db.Boolean, default=True)
 
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     session_id = db.Column(db.Integer)
     date_created = db.Column(db.Integer)
-    customer_id = db.relationship()
     is_active = db.Column(db.Boolean, default=True)
 
 class CartDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    cart_id = db.Column(db.Integer, db.ForeignKey('Cart.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('Product.id'))
+    cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     quantity = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
 
 class WishlistDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    wishlist_id = db.Column(db.Integer, db.ForeignKey('Wishlist.id'))
+    wishlist_id = db.Column(db.Integer, db.ForeignKey('wishlist.id'))
     product_id = db.Column(db.Integer)
     timestamp = db.Column(db.DateTime)
 
@@ -86,7 +85,7 @@ class Customer(db.Model):
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.Integer, db.ForeignKey('Customer.id'))
+    customer_id = db.Column(db.Integer, db.ForeignKey('customer.id'))
     payment_id = db.Column(db.Integer)
     transaction_date = db.Column(db.DateTime)
     shipping_date = db.Column(db.DateTime)
@@ -96,7 +95,7 @@ class Order(db.Model):
 
 class OrderDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey('Order.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
     product_id = db.Column(db.Integer)
     unit_price = db.Column(db.Float)
     discount = db.Column(db.Float)
