@@ -1,0 +1,6 @@
+1. Create db with 
+user: bookshop
+pass: bookshop
+dbname: bookshopdb
+
+  

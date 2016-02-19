@@ -14,5 +14,3 @@ class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
     TESTING = True
-    
-print(os.environ['DATABASE_URL'])
