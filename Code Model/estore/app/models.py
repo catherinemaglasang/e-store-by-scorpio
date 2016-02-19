@@ -3,11 +3,7 @@ import os
 
 class DBconn:
     def __init__(self):
-<<<<<<< HEAD
-        engine = create_engine("postgresql://magic2:asdasd@127.0.0.1:5432/estore", echo=False)
-=======
         engine = create_engine("postgresql://bookshop:bookshop@127.0.0.1:5432/bookshopdb", echo=False)
->>>>>>> e9d81a075da6fa1e60838d8f2b258cf5aa0744dc
         self.conn = engine.connect()
         self.trans = self.conn.begin()
 
@@ -18,7 +14,24 @@ class DBconn:
     def dbcommit(self):
         self.trans.commit()
 
-<<<<<<< HEAD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ # engine = create_engine("postgresql://magic2:asdasd@127.0.0.1:5432/estore", echo=False)
+
 
 # from app import db
 # from datetime import datetime
@@ -122,5 +135,3 @@ class DBconn:
 #     unit_price = db.Column(db.Float)
 #     discount = db.Column(db.Float)
 #     quantity = db.Column(db.Integer)
-=======
->>>>>>> e9d81a075da6fa1e60838d8f2b258cf5aa0744dc
