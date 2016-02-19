@@ -1,9 +1,6 @@
-import json
-from flask import render_template, flash, redirect, request, session
-from flask import jsonify
-from app import app, db
-from app.models import User
-
+import flask 
+from flask import Flask, jsonify, render_template
+from app import app 
 
 @app.route('/')
 def index():
