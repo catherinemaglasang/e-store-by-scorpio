@@ -1,10 +1,21 @@
-from flask import Flask, jsonify, make_response, abort, request
-from flask.ext.sqlalchemy import SQLAlchemy
 import os 
-
+import flask 
+from flask import Flask, jsonify
+from app.models import DBconn
 
 app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTINGS'])
-db = SQLAlchemy(app)
 
-from app import views, models
+def spcall(qry, param, commit=False):
+    try:
+        dbo = DBconn()
+        cursor = dbo.getcursor()
+        cursor.callproc(qry, param)
+        res = cursor.fetchall()
+        if commit:
+            dbo.dbcommit()
+        return res
+    except:
+        res = [("Error: " + str(sys.exc_info()[0]) + " " + str(sys.exc_info()[1]),)]
+    return res
+
+from app import views
