@@ -14,4 +14,3 @@ class DBconn:
     def dbcommit(self):
         self.trans.commit()
 
-
