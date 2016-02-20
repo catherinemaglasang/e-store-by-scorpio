@@ -24,6 +24,20 @@ def spcall(qry, param, commit=False):
 def index():
 	return render_template('index.html', title='Home')
 
+
+@app.route('/api/v1/products', methods=['GET'])
+def get_all_products():
+    res = spcall('get_product', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": r[0], "sku": r[1], "supplier_id": r[2], "title": r[3], "description": r[4], "category_id": r[5], "unit_price": [6], "on_hand": r[7], "re_order_level": r[8], "is_active": str(r[9])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+
 """ Todo: This route should be protected """
 @app.route('/api/v1/users', methods=['GET'])
 def get_all_users():
