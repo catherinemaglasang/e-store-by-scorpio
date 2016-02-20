@@ -37,10 +37,12 @@ def get_all_users():
         recs.append({"id": r[0], "username": r[1], "password": r[2], "is_admin": str(r[3])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
-@app.route('/api/v1/users/<int:id>')
-def get_user(id):
-	res = spcall('get_user', (id), True)
+@app.route('/api/v1/users/<user_id>', methods=['GET'])
+def get_user(user_id):
+	res = spcall('get_user', (user_id))
 
 	if 'Error' in res[0][0]:
 		return jsonify({'status': 'error', 'message': res[0][0]})
-	return jsonify({'status': 'ok', "id": r[0], "username": r[1], "password": r[2], "is_admin": str(r[3])})
+	
+	rec = res[0]
+	return jsonify({"username": rec[0], "password": rec[1], "is_admin": str(rec[2])})
