@@ -1,48 +1,43 @@
-create table tasks (
+create table users (
    id int8 primary key,
-   title text,
-   description text,
-   done boolean
+   username text,
+   password text,
+   is_admin boolean
 );
 
-create or replace function newtask(par_id int8, par_title  text, par_description text, par_done boolean) returns text as
+create or replace function new_user(par_id int8, par_username text, par_password text, par_is_admin boolean) returns text as
 $$
   declare
     loc_id text;
+    loc_username text;
+    loc_passwrod text;
+    loc_is_admin boolean;
     loc_res text;
   begin
-     select into loc_id id from tasks where id = par_id;
-     if loc_id isnull then
-
-       insert into tasks (id, title, description, done) values (par_id, par_title, par_description, par_done);
-       loc_res = 'OK';
-
-     else
-       loc_res = 'ID EXISTED';  
-     end if;
-     return loc_res;
+    select into loc_id id from users where id = par_id;
+    if loc_id isnull then
+      insert into users(id, username, password, is_admin) values (par_id, par_username, par_password, par_is_admin);
+      loc_res = 'OK';
+    else
+      loc_res = 'USER EXISTS';
+    end if;
+    return loc_res;
   end;
 $$
- language 'plpgsql';
+  language 'plpgsql';
 
---select newtask(1, 'Buy Groceries','Milk, Cheese, Pizza, Fruit, Tylenol', false); 
---select newtask(2, 'Learn Python','Need to find a good Python tutorial on the web', false); 
+--select new_user(1, 'roselle', 'roselle', true);
 
-create or replace function gettasks(out int8, out text, out text, out boolean) returns setof record as
+create or replace function get_users(out int8, out text, out text, out boolean) returns setof record as
 $$
-   select id, title, description, done from tasks;
-
+   select id, username, password, is_admin from users;
 $$
  language 'sql';
  
---select * from gettasks();
+--select * from get_users();
 
-create or replace function gettaskid(in par_id int8, out text, out text, out boolean) returns setof record as
+create or replace function get_user(in par_id int8, out text, out text, out boolean) returns setof record as
 $$
-   select title, description, done from tasks where id = par_id;
-
+  select username, password, is_admin from users where id = par_id
 $$
- language 'sql';
- 
---select * from gettaskid(2);
-
+  language 'sql';
