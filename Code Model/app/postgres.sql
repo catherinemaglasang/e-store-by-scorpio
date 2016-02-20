@@ -163,4 +163,33 @@ create or replace function get_suppliers(out int8, out text, out text, out text,
  $$
    select  name, address, phone, fax, email, is_active from suppliers where id = par_id
  $$
-   language 'sql';
+   language 'sql';s
+
+
+create table cart (
+     id int8 primary key,
+     session_id int8,
+     date_created text,
+     customer_id int8,
+     is_active boolean
+  );
+
+  create or replace function new_cart(in par_id int8, in par_session_id int8, in par_date_created text, in par_customer_id int8, in par_is_active boolean) returns text as
+  $$
+    declare
+      loc_id text;
+      loc_res text;
+    begin
+       select into loc_id id from cart where id = par_id;
+       if loc_id isnull then
+
+         insert into cart(id, session_id, date_created, customer_id, is_active) values (par_id, par_session_id, par_date_created, par_customer_id, par_is_active);
+         loc_res = 'OK';
+
+       else
+         loc_res = 'ID EXISTED';  
+       end if;
+       return loc_res;
+    end;
+  $$
+   language 'plpgsql';
