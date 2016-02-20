@@ -110,4 +110,15 @@ def get_supplier(supplier_id):
     return jsonify({"name": r[0], "phone": r[1],"fax":r[2], "email":r[3], "is_active": str(r[4])})
 
 
+@app.route('/api/v1/cart/', methods=['GET'])
+def get_all_cart():
+    res = spcall('get_carts', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": r[0], "session_id": r[1],"date_created":r[2], "customer_id":r[3], "is_active": str(r[4])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 

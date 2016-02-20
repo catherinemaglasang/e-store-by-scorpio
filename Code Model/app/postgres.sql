@@ -166,7 +166,7 @@ create or replace function get_suppliers(out int8, out text, out text, out text,
    language 'sql';s
 
 
-create table cart (
+create table carts (
      id int8 primary key,
      session_id int8,
      date_created text,
@@ -174,16 +174,16 @@ create table cart (
      is_active boolean
   );
 
-  create or replace function new_cart(in par_id int8, in par_session_id int8, in par_date_created text, in par_customer_id int8, in par_is_active boolean) returns text as
+create or replace function new_cart(in par_id int8, in par_session_id int8, in par_date_created text, in par_customer_id int8, in par_is_active boolean) returns text as
   $$
     declare
       loc_id text;
       loc_res text;
     begin
-       select into loc_id id from cart where id = par_id;
+       select into loc_id id from carts where id = par_id;
        if loc_id isnull then
 
-         insert into cart(id, session_id, date_created, customer_id, is_active) values (par_id, par_session_id, par_date_created, par_customer_id, par_is_active);
+         insert into carts(id, session_id, date_created, customer_id, is_active) values (par_id, par_session_id, par_date_created, par_customer_id, par_is_active);
          loc_res = 'OK';
 
        else
@@ -193,3 +193,11 @@ create table cart (
     end;
   $$
    language 'plpgsql';
+
+create or replace function get_carts(out int8, out int8, out text, out int8, out boolean) returns setof record as
+  $$
+     select id, session_id, date_created, customer_id, is_active from carts;
+  $$
+   language 'sql';
+
+
