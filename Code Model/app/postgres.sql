@@ -52,8 +52,28 @@
    
   --select * from get_product_id(2);
 
+create or replace function new_user(in par_id int8, in par_username text, in par_password text, in par_is_admin boolean) returns text as
+$$
+  declare
+    loc_id text;
+    loc_username text;
+    loc_passwrod text;
+    loc_is_admin boolean;
+    loc_res text;
+  begin
+    select into loc_id id from users where id = par_id;
+    if loc_id isnull then
+      insert into users(id, username, password, is_admin) values (par_id, par_username, par_password, par_is_admin);
+      loc_res = 'OK';
+    else
+      loc_res = 'USER EXISTS';
+    end if;
+    return loc_res;
+    end;
+$$
+  language 'plpgsql';
 
-
+--select new_user(1, 'roselle', 'roselle', true);
   create table users (
      id int8 primary key,
      username text,
@@ -97,3 +117,11 @@
     select username, password, is_admin from users where id = par_id
   $$
     language 'sql';
+
+create or replace function get_user(in par_id int8, out text, out text, out boolean) returns setof record as
+$$
+  select username, password, is_admin from users where id = par_id
+$$
+  language 'sql';
+
+  --select * from get_user(1);
