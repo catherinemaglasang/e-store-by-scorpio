@@ -120,3 +120,34 @@ $$
 
 
   --select * from get_user(1);
+
+
+create table suppliers (
+     id int8 primary key,
+     name text,
+     address text,
+     phone text,
+     fax text,
+     email text,
+     is_active boolean
+  );
+
+  create or replace function new_supplier(in par_id int8, in par_name text, in par_address text, in par_phone text, in par_fax text, in par_is_active boolean) returns text as
+  $$
+    declare
+      loc_id text;
+      loc_res text;
+    begin
+       select into loc_id id from suppliers where id = par_id;
+       if loc_id isnull then
+
+         insert into suppliers(id, name, address, phone, fax, email, is_active) values (par_id, par_name, par_address, par_phone, par_fax, par_email, par_is_active);
+         loc_res = 'OK';
+
+       else
+         loc_res = 'ID EXISTED';  
+       end if;
+       return loc_res;
+    end;
+  $$
+   language 'plpgsql';
