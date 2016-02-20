@@ -1,3 +1,55 @@
+  create table category (
+     id int8 primary key,	
+     name text,
+     description text,
+     main_image bytea,
+     is_active boolean,
+     parent_category_id int8
+  );
+
+  create or replace function new_category(in par_id int8, in par_name text, in par_description text, in par_main_image bytea, in par_is_active boolean, in par_parent_category_id int8 )
+  $$
+    declare
+      loc_id text;
+      loc_res text;
+    begin
+       select into loc_id id from category where id = par_id;
+       if loc_id isnull then
+
+         insert into category(id, name, description, main_image, is_active, parent_category_id) values (par_id, par_name, par_description, par_main_image, par_is_active, par_parent_category_id);
+         loc_res = 'OK';
+
+       else
+         loc_res = 'ID EXISTED';
+       end if;
+       return loc_res;
+    end;
+  $$
+   language 'plpgsql';
+
+  --select new_category(1, 'gaming gear', 'used by the professional gamers', 'gadgets', false, 1101);
+  --select new_category(2, 'pro-gear', 'professional gamer's signature gear', 'costumized gears', false, 2202),
+
+   create or replace function get_category(out int8, out text, out text, out bytea, out boolean, out int8) returns setof record as
+  $$
+     select id, name, description, main_image, is_active, parent_category_id from category;
+
+  $$
+   language 'sql';
+   
+  --select * from get_category();
+
+  create or replace function get_category_id(in par_id int8, out text, out text, out bytea, out boolean, out int8) returns setof record as
+  $$
+     select id, name, description, main_image, is_active, parent_category_id from category where id = par_id;
+
+  $$
+   language 'sql';
+   
+  --select * from get_category_id(2);
+
+
+
   create table products (
      id int8 primary key,
      sku text,
@@ -31,8 +83,9 @@
   $$
    language 'plpgsql';
 
-  --select new_product(1, '0111AB',, 11, 'Webster', 'Dictionary', '0111', 999.99, 20, 10, false); 
+  --select new_product(1, '0111AB', 11, 'Webster', 'Dictionary', '0111', 999.99, 20, 10, false); 
   --select new_product(2, '0222AB', 22, 'Python', 'Learning Python', '0222', 1500.00, 20, 10, false); 
+
 
   create or replace function get_product(out int8, out text, out int8, out text, out text, out int8, out float8, out int8, out int8, out boolean) returns setof record as
   $$
@@ -51,6 +104,7 @@
    language 'sql';
    
   --select * from get_product_id(2);
+
 
 create or replace function new_user(in par_id int8, in par_username text, in par_password text, in par_is_admin boolean) returns text as
 $$
@@ -74,6 +128,7 @@ $$
   language 'plpgsql';
 
 --select new_user(1, 'roselle', 'roselle', true);
+
   create table users (
      id int8 primary key,
      username text,

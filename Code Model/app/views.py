@@ -25,6 +25,20 @@ def index():
 	return render_template('index.html', title='Home')
 
 
+@app.route('/api/v1/category', methods=['GET'])
+def get_all_category():
+    res = spcall('get_category', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": r[0], "name": r[1], "description": r[2], "main_image": r[3], "is_active": r[4], "parent_category_id": r[5]})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+
+
 @app.route('/api/v1/products', methods=['GET'])
 def get_all_products():
     res = spcall('get_product', ())
