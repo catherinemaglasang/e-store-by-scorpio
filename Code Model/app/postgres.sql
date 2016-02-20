@@ -151,3 +151,9 @@ create table suppliers (
     end;
   $$
    language 'plpgsql';
+
+create or replace function get_suppliers(out int8, out text, out text, out text, out text, out text, out boolean) returns setof record as
+  $$
+     select id, name, address, phone, fax, email, is_active from suppliers;
+  $$
+   language 'sql';

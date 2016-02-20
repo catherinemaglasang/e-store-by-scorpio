@@ -84,3 +84,16 @@ def new_user():
 	if 'Error' in res[0][0]:
 		return jsonify({'status': 'error', 'message': res[0][0]})
 	return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+@app.route('/api/v1/suppliers/', methods=['GET'])
+def get_all_suppliers():
+    res = spcall('get_suppliers', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": r[0], "name": r[1], "phone": r[2],"fax":r[3], "email":r[4], "is_active": str(r[5])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
