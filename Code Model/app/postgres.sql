@@ -50,7 +50,7 @@ create table users (
    is_admin boolean
 );
 
-create or replace function new_user(par_id int8, par_username text, par_password text, par_is_admin boolean) returns text as
+create or replace function new_user(in par_id int8, in par_username text, in par_password text, in par_is_admin boolean) returns text as
 $$
   declare
     loc_id text;
@@ -81,7 +81,7 @@ $$
  
 --select * from get_users();
 
-create or replace function get_user(in par_id int, out text, out text, out boolean) returns setof record as
+create or replace function get_user(in par_id int8, out text, out text, out boolean) returns setof record as
 $$
   select username, password, is_admin from users where id = par_id
 $$
