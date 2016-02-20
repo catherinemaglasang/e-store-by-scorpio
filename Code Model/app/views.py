@@ -97,3 +97,17 @@ def get_all_suppliers():
     for r in res:
         recs.append({"id": r[0], "name": r[1], "phone": r[2],"fax":r[3], "email":r[4], "is_active": str(r[5])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+
+@app.route('/api/v1/suppliers/<supplier_id>', methods=['GET'])
+def get_supplier(supplier_id):
+    res = spcall('get_supplier', (supplier_id))
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    
+    r = res[0]
+    return jsonify({"name": r[0], "phone": r[1],"fax":r[2], "email":r[3], "is_active": str(r[4])})
+
+
+
