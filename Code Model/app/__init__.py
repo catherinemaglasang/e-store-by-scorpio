@@ -1,10 +1,5 @@
-import os 
-import flask
-import sys
-from flask import Flask, jsonify
-
+from flask import Flask
 
 app = Flask(__name__)
-
 
 from app import views
