@@ -1,8 +1,0 @@
-1. Create db with 
-user: bookshop
-pass: bookshop
-dbname: bookshopdb
-
-2. Run the app via python run.py
-
-  
