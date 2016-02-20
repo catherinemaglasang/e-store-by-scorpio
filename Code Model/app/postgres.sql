@@ -118,10 +118,5 @@ $$
   $$
     language 'sql';
 
-create or replace function get_user(in par_id int8, out text, out text, out boolean) returns setof record as
-$$
-  select username, password, is_admin from users where id = par_id
-$$
-  language 'sql';
 
   --select * from get_user(1);

@@ -38,6 +38,17 @@ def get_all_products():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
+@app.route('/api/v1/products/<product_id>',  methods=['GET'])
+def get_product(product_id):
+    res = spcall('get_product_id', (product_id))
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    
+    r = res[0]
+    return jsonify({"sku": r[0], "supplier_id": r[1], "title": r[2], "description": r[3], "category_id": r[4], "unit_price": r[5], "on_hand": r[6], "re_order_level": r[7], "is_active": str(r[8])})
+
+
 """ Todo: This route should be protected """
 @app.route('/api/v1/users', methods=['GET'])
 def get_all_users():
