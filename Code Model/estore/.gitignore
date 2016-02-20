@@ -1,6 +1,0 @@
-migrations/
-db.sqlite3
-*.py[co]
-.sass-cache
-venv/
-.idea
