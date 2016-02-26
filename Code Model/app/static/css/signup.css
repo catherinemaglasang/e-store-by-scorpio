@@ -1,0 +1,34 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.form-add-product {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-add-productin .form-add-product-heading,
+.form-add-product .checkbox {
+  margin-bottom: 10px;
+}
+.form-add-product .checkbox {
+  font-weight: normal;
+}
+.form-add-product .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-add-product .form-control:focus {
+  z-index: 2;
+}
+.form-add-product input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}

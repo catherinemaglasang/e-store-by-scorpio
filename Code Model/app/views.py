@@ -25,6 +25,18 @@ def index():
 	return render_template('index.html', title='Home')
 
 
+# ADD PRODUCT
+# @app.route('/api/v1/add_product/')
+# def add_product():
+
+
+@app.route('/api/v1/add_product_form/')
+def add_product_form():
+    return render_template('add_product_form.html', title='Add Product')
+
+# END OF ADD PRODUCT
+
+
 @app.route('/api/v1/products', methods=['GET'])
 def get_all_products():
     res = spcall('get_product', ())
