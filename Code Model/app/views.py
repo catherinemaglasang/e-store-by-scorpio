@@ -26,9 +26,9 @@ def index():
 
 
 # ADD PRODUCT
-@app.route('/api/v1/add_product_form/')
-def add_product_form():
-    return render_template('add_product_form.html', title='Add Product')
+# @app.route('/api/v1/add_product_form/')
+# def add_product_form():
+#     return render_template('add_product_form.html', title='Add Product')
 
 
 @app.route('/api/v1/products/', methods=['POST'])
