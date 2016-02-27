@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>E-store</title> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Add Product Page">
+    <meta name="author" content="Catherine B. Maglasang">
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/jumbotron-narrow.css" rel="stylesheet">
-    <link href="/static/css/signup.css" rel="stylesheet">
-    <script type="text/javascript" src="/static/js/app.js"></script>
+    
+    <title>E-store</title> 
   </head>
 
   <body>
@@ -23,44 +27,80 @@
 
       <div class="jumbotron">
         <h2>Add Product</h2>
-        <form class="form-add-product">
-          <label for="inputID" class="sr-only">ID</label>
-          <input type="text" name="inputID" id="inputID" class="form-control" placeholder="ID" required autofocus>
-
-          <label for="inputSku" class="sr-only">SKU</label>
-          <input type="text" name="inputSku" id="inputSku" class="form-control" placeholder="SKU" required autofocus>
-
-          <label for="inputSupplierID" class="sr-only">Supplier ID</label>
-          <input type="text" name="inputSupplierID" id="inputSupplierID" class="form-control" placeholder="Supplier ID" required>
-
-          <label for="inputTitle" class="sr-only">Title</label>
-          <input type="text" name="inputTitle" id="inputTitle" class="form-control" placeholder="Title" required autofocus>
-
-          <label for="inputDescription" class="sr-only">Description</label>
-          <input type="text" name="inputDescription" id="inputDescription" class="form-control" placeholder="Description" required autofocus>
-
-          <label for="inputCategoryID" class="sr-only">Category ID</label>
-          <input type="text" name="inputCategoryID" id="inputCategoryID" class="form-control" placeholder="Category ID" required>
-
-          <label for="inputUnitPrice" class="sr-only">Unit Price</label>
-          <input type="text" name="inputUnitPrice" id="inputUnitPrice" class="form-control" placeholder="Unit Price" required>
-
-          <label for="inputOnHand" class="sr-only">On-hand</label>
-          <input type="text" name="inputOnHand" id="inputOnHand" class="form-control" placeholder="On-hand" required autofocus>
-
-          <label for="inputReorderLevel" class="sr-only">Re-order Level</label>
-          <input type="text" name="inputReorderLevel" id="inputReorderLevel" class="form-control" placeholder="Re-order Level" required autofocus>
-
-           <button class="btn btn-sm btn-primary btn-block" type="button">ADD</button>
-      </form>
+        <div class="row">
+          <div class="col-sm-6">
+            <form id="new_product_form" class="product" method="POST" action="http://127.0.0.1:5000/api/v1/products/">
+              <div class="form-group">
+                <label for="inputID"></label>
+                <input type="number" name="inputID" class="form-control" placeholder="ID" required autofocus>
+              </div>
+              <div class="form-group">
+                <label for="inputSku"></label>
+                <input type="text" name="inputSku" class="form-control" placeholder="SKU" required autofocus>
+              </div>
+              <div class="form-group">
+                <label for="inputSupplierID"></label>
+                <input type="number" name="inputSupplierID" class="form-control" placeholder="Supplier ID" required>
+              </div>
+              <div class="form-group">
+                <label for="inputTitle"></label>
+                <input type="text" name="inputTitle" class="form-control" placeholder="Title" required autofocus>
+              </div>
+              <div class="form-group">
+                <label for="inputDescription"></label>
+                <input type="text" name="inputDescription" class="form-control" placeholder="Description" required autofocus>
+              </div>
+              <div class="form-group">
+                <label for="inputCategoryID"></label>
+                <input type="number" name="inputCategoryID" class="form-control" placeholder="Category ID" required>
+              </div>
+              <div class="form-group">
+                <label for="inputUnitPrice"></label>
+                <input type="number" name="inputUnitPrice" class="form-control" placeholder="Unit Price" required>
+              </div>
+              <div>
+                <label for="inputOnHand"></label>
+                <input type="number" name="inputOnHand" class="form-control" placeholder="On-hand" required autofocus>
+              </div>
+              <div>
+                <label for="inputReorderLevel"></label>
+                <input type="text" name="inputReorderLevel" class="form-control" placeholder="Re-order Level" required autofocus>
+              </div><br>
+              <div>
+                <input type="submit" value="Add Product" class="btn btn-primary btn-block">
+              </div>            
+            </form>
+          </div>
+        </div>
       </div>
 
+      <button class="btn btn-primary" onclick="add_new_product();">Product List</button><br><br>
+         <table class="table table-striped">
+             <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>SKU</th>
+                    <th>Supplier ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Category ID</th>
+                    <th>Unit Price</th>
+                    <th>On-hand</th>
+                    <th>Re-order Product</th>
+                    <th>Is Active</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+             </thead>
+             <tbody id="products"></tbody>
+         </table>
 
       <footer class="footer">
         <p>&copy; Scorpio 2015</p>
       </footer>
 
     </div>
+    <script src="/static/js/jQuery-2.1.4.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
     <script src="/static/js/app.js"></script>
   </body>
 </html>

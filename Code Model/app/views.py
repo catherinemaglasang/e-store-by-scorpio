@@ -1,6 +1,6 @@
 import os
 from os import sys
-import json
+import json, flask
 from flask import render_template, request
 from flask import jsonify
 from app import app
@@ -26,18 +26,35 @@ def index():
 
 
 # ADD PRODUCT
-# @app.route('/api/v1/add_product/')
-# def add_product():
-
-
 @app.route('/api/v1/add_product_form/')
 def add_product_form():
     return render_template('add_product_form.html', title='Add Product')
 
+
+@app.route('/api/v1/products/', methods=['POST'])
+def new_product():
+    print "STARTING ADD"
+    id = request.form['inputID']
+    sku = request.form['inputSku']
+    supplier_id = request.form['inputSupplierID']
+    title = request.form['inputTitle']
+    description = request.form['inputDescription']
+    category_id = request.form['inputCategoryID']
+    unit_price = request.form['inputUnitPrice']
+    on_hand = request.form['inputOnHand']
+    re_order_level = request.form['inputReorderLevel']
+    is_active = False
+
+    res = spcall('new_product', (id, sku, supplier_id, title, description, category_id, unit_price, on_hand, re_order_level, is_active), True)
+    
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    return jsonify({'status': 'ok', 'message': res[0][0]})
 # END OF ADD PRODUCT
 
 
-@app.route('/api/v1/products', methods=['GET'])
+@app.route('/api/v1/products/', methods=['GET'])
 def get_all_products():
     res = spcall('get_product', ())
 
@@ -59,6 +76,15 @@ def get_product(product_id):
     
     r = res[0]
     return jsonify({"sku": r[0], "supplier_id": r[1], "title": r[2], "description": r[3], "category_id": r[4], "unit_price": r[5], "on_hand": r[6], "re_order_level": r[7], "is_active": str(r[8])})
+
+@app.route('/api/v1/products/<int:id>/', methods=['DELETE'])
+def delete_product(id):
+    res = spcall("delete_product", (id,), True)
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
 
 
 """ Todo: This route should be protected """
@@ -134,3 +160,13 @@ def get_all_cart():
         recs.append({"id": r[0], "session_id": r[1],"date_created":r[2], "customer_id":r[3], "is_active": str(r[4])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
+@app.after_request
+def add_cors(resp):
+    resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
+    resp.headers['Access-Control-Allow-Credentials'] = True
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
+    resp.headers['Access-Control-Allow-Headers'] = flask.request.headers.get('Access-Control-Request-Headers',
+                                                                             'Authorization')
+    if app.debug:
+        resp.headers["Access-Control-Max-Age"] = '1'
+    return resp
