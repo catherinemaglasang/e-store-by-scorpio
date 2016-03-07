@@ -1,0 +1,75 @@
+<div class="content-wrapper">
+    <section class="content">
+      <div class="row">
+        <div class="col-sm-6">
+          <form id="new_customer_form" class="customer" method="POST" action="http://127.0.0.1:5000/api/v1/customers/">
+            <div class="form-group">
+              <label for="inputID"></label>
+              <input type="number" name="inputID" class="form-control" placeholder="ID" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="inputCustomerFname"></label>
+              <input type="text" name="inputCustomerFname" class="form-control" placeholder="First Name" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="inputCustomerLname"></label>
+              <input type="text" name="inputCustomerLname" class="form-control" placeholder="Last Name" required>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress"></label>
+              <input type="text" name="inputAddress" class="form-control" placeholder="Address" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="inputCity"></label>
+              <input type="text" name="inputCity" class="form-control" placeholder="City" required autofocus>
+            </div>
+            <div class="form-group">
+              <label for="inputState"></label>
+              <input type="text" name="inputState" class="form-control" placeholder="State" required>
+            </div>
+            <div class="form-group">
+              <label for="inputPostalCode"></label>
+              <input type="text" name="inputPostalCode" class="form-control" placeholder="Postal Code" required>
+            </div>
+            <div>
+              <label for="inputCountry"></label>
+              <input type="text" name="inputCountry" class="form-control" placeholder="Country" required autofocus>
+            </div>
+            <div>
+              <label for="inputPhone"></label>
+              <input type="number" name="inputPhone" class="form-control" placeholder="Phone Number" required autofocus>
+            </div>
+            <div>
+              <label for="inputEmail"></label>
+              <input type="email" name="inputEmail" class="form-control" placeholder="Email" required autofocus>
+            </div>
+            <div>
+              <label for="inputUserID"></label>
+              <input type="number" name="inputUserID" class="form-control" placeholder="User ID" required autofocus>
+            </div>
+            <div>
+              <label for="inputBillingAdd"></label>
+              <input type="text" name="inputBillingAdd" class="form-control" placeholder="Billing Address" required autofocus>
+            </div>
+            <div>
+              <label for="inputShippingAdd"></label>
+              <input type="text" name="inputShippingAdd" class="form-control" placeholder="Shipping Address" required autofocus>
+            </div>
+            <div>
+              <label for="inputDateCreated"></label>
+              <input type="text" name="inputDateCreated" class="form-control" placeholder="Date Created" required autofocus>
+            </div>
+            <br>
+            <div>
+              <input type="submit" value="Add Customer" class="btn btn-primary btn-block">
+            </div>            
+          </form>
+        </div>
+      </div>
+
+    </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+
+<!-- TODO
+    multiple product like formsets
+ -->
