@@ -28,6 +28,18 @@ function add_product(){
     $("#content").load("/static/partials/forms/add_product.html");
 }
 
+function add_order(){
+	 $("#content").load("/static/partials/forms/add_order.html");
+}
+
+function add_customer(){
+	$("#content").load("/static/partials/forms/add_customer.html");
+}
+
+function add_supplier(){
+	$("#content").load("/static/partials/forms/add_supplier.html");
+}
+
 function populate_product_list(){
 	// This is just dummy data
 	var product_div = $('#product_list');
