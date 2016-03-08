@@ -1,8 +1,21 @@
+var user = (function(){
+	var isLoggedIn = true;
+
+	var login = function(){
+		var $form = $('#loginForm');
+		
+	}
+
+	var register = function(){
+
+	}
+}());
+
 $(document).ready(function(){
-	$("#header").load("/static/partials/header.html");
-    $("#footer").load("/static/partials/footer.html");
-    $("#sidebar").load("/static/partials/sidebar.html");
-    $("#content").load("/static/partials/home.html");	
+	// $("#header").load("/static/partials/header.html");
+    // $("#footer").load("/static/partials/footer.html");
+    // $("#sidebar").load("/static/partials/sidebar.html");
+    // $("#content").load("/static/partials/home.html");	
 })
 
 function load_products(){
