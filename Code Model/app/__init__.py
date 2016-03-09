@@ -1,5 +1,5 @@
 from flask import Flask
 
-app = Flask(__name__, template_folder="../frontend", static_folder="../frontend/static")
+app = Flask(__name__, static_folder="../frontend")
 
 from app import views

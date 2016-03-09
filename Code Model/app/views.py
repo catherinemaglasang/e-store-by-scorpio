@@ -22,7 +22,7 @@ def spcall(qry, param, commit=False):
 
 @app.route('/')
 def index():
-	return render_template('index.html', title='Home')
+	return app.send_static_file('index.html')
 
 
 @app.route('/api/v1/products/', methods=['POST'])
@@ -78,8 +78,6 @@ def delete_product(id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     return jsonify({'status': 'ok', 'message': res[0][0]})
-
-
 
 """ Todo: This route should be protected """
 @app.route('/api/v1/users', methods=['GET'])
