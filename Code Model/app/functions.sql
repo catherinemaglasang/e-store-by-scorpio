@@ -162,3 +162,23 @@ $$
  language 'sql';
 
 
+create or replace function new_category(in par_id int8, in par_name text, in par_description text,  in par_main_image bytea, in par_parent_category_id int8, in par_is_active boolean) returns text as
+$$
+  declare
+    loc_id text;
+    loc_res text;
+  begin
+    select into loc_id id from categories where id=par_id;
+    if loc_id isnull then
+
+       insert into categories(id, name, description, main_image, parent_category_id, is_active) values (par_id, par_name, par_description, par_main_image, par_parent_category_id, par_is_active);
+       loc_res = 'OK';
+
+     else
+       loc_res = 'ID EXISTED';
+     end if;
+     return loc_res;
+  end;
+$$  
+
+language 'plpgsql';
