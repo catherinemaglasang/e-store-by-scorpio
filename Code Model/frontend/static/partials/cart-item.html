@@ -1,0 +1,10 @@
+<li>
+    <a class="dropdown-menu-shipping-cart-img" href="{{ cart_item.item_link }}">
+        <img src="{{ cart_item.primary_image }}" alt="{{ cart_item.title }}" title="{{ cart_item.title }}" />
+    </a>
+    <div class="dropdown-menu-shipping-cart-inner">
+        <p class="dropdown-menu-shipping-cart-price">${{ cart_item.price }}</p>
+        <p class="dropdown-menu-shipping-cart-item"><a href="#">{{ cart_item.title }}</a>
+        </p>
+    </div>
+</li>

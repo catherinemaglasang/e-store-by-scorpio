@@ -23,7 +23,8 @@ def spcall(qry, param, commit=False):
 @app.route('/')
 def index():
 	# return app.send_static_file('index.html')
-    return render_template('index.html')
+    # return render_template('index.html')
+    return jsonify({"status": "ok"})
 
 @app.route('/api/v1/products/', methods=['POST'])
 def new_product():
