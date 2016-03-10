@@ -50,8 +50,6 @@ $('#shipping-address-checkbox').on('ifUnchecked', function() {
     $('#shipping-address').addClass('hide');
 });
 
-
-
 $('.owl-carousel').each(function(){
   $(this).owlCarousel();
 });

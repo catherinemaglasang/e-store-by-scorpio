@@ -1,8 +1,7 @@
-<div ng-controller="HomeController">
-    <div class="owl-carousel owl-loaded owl-nav-dots-inner" data-options='{"items":1,"loop":true}'>
-        <div ng-repeat="promotion in promotions" class="owl-item">
+    <div owl-carousel='{"items":1,"loop":true}}' class="owl-loaded owl-nav-dots-inner">
+        <div class="owl-item">
             <!-- Slider Slide / Promotion Banner Template -->
-            <div class="slider-item" style="background-color:#3D3D3D;">
+            <div ng-repeat="promotion in promotions" class="slider-item" style="background-color:#3D3D3D;">
                 <div class="container">
                     <div class="slider-item-inner">
                         <div class="slider-item-caption-left slider-item-caption-white">
@@ -45,7 +44,7 @@
         <h3 class="widget-title-lg">Shop by Category</h3>
         <div class="row row-sm-gap" data-gutter="15">
             <div ng-repeat="category in categories" class="col-md-2">
-                <a class="banner-category" href="/#">
+                <a class="banner-category" href="/#/category/1">
                     <img class="banner-category-img" src="{{ category.primary_image }}" alt="{{ category.title }}"
                          title="Image Title"/>
                     <h5 class="banner-category-title">{{ category.title }}</h5>
@@ -55,4 +54,3 @@
         </div>
     </div>
     <div class="gap"></div>
-</div>

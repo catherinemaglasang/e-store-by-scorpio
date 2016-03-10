@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html ng-app="mainApp">
+<html ng-app="MainApp">
 
 <head>
     <title>the box - Index</title>
@@ -18,15 +18,9 @@
     <link rel="stylesheet" href="static/css/font-awesome.css">
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="static/css/mystyles.css">
-
-    <!-- Angular Resources -->
-    <script src="static/app/angular.min.js"></script>
-    <script src="static/app/angular-route.min.js"></script>
-    <script src="static/app/app.module.js"></script>
-
 </head>
 
-<body>
+<body ng-controller="MainController">
 
     <div class="global-wrapper clearfix" id="global-wrapper">
         <div class="navbar-before mobile-hidden">
@@ -37,17 +31,17 @@
                     </div>
                     <div class="col-md-6">
                         <ul class="nav navbar-nav navbar-right navbar-right-no-mar">
-                            <li><a href="#">About Us</a>
+                            <li><a href="#/page">About Us</a>
                             </li>
-                            <li><a href="#">Blog</a>
+                            <li><a href="#/blog">Blog</a>
                             </li>
-                            <li><a href="#">Contact Us</a>
+                            <li><a href="#/contact">Contact Us</a>
                             </li>
-                            <li><a href="#">FAQ</a>
+                            <li><a href="#/page">FAQ</a>
                             </li>
-                            <li><a href="#">Wishlist</a>
+                            <li><a href="#/page">Wishlist</a>
                             </li>
-                            <li><a href="#">Help</a>
+                            <li><a href="#/page">Help</a>
                             </li>
                         </ul>
                     </div>
@@ -131,15 +125,16 @@
                 <div class="navbar-header">
                     <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-nav-collapse" area_expanded="false"><span class="sr-only">Main Menu</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/index.html">
-                        <img src="static/img/logo-w.png" alt="Image Alternative text" title="Image Title" />
+                    <a class="navbar-brand" href="#/">
+                        <img src="static/img/logo-w.png" alt="TheStore" title="TheStore" />
                     </a>
                 </div>
                 <div class="collapse navbar-collapse" id="main-nav-collapse">
                     <ul class="nav navbar-nav">
                         <li class="dropdown"><a href="#"><i class="fa fa-reorder"></i>&nbsp; Shop by Category<i class="drop-caret" data-toggle="dropdown"></i></a>
                             <ul class="dropdown-menu dropdown-menu-category">
-                                <li><a href="#"><i class="fa fa-home dropdown-menu-category-icon"></i>Tech</a>
+                                <li ng-repeat="node in category_tree">
+                                    <a href="#/category/1"><i class="fa fa-home dropdown-menu-category-icon"></i>Tech</a>
                                     <div class="dropdown-menu-category-section">
                                         <div class="dropdown-menu-category-section-inner">
                                             <div class="dropdown-menu-category-section-content">
@@ -147,10 +142,10 @@
                                                     <div class="col-md-6">
                                                         <h5 class="dropdown-menu-category-title">Laptops</h5>
                                                         <ul class="dropdown-menu-category-list">
-                                                            <li><a href="#">Home</a>
+                                                            <li><a href="#/category/1">Home</a>
                                                                 <p>Hac primis inceptos diam volutpat</p>
                                                             </li>
-                                                            <li><a href="#">Kitchen</a>
+                                                            <li><a href="#/category/1">Kitchen</a>
                                                                 <p>Arcu fermentum integer penatibus laoreet</p>
                                                             </li>
                                                         </ul>
@@ -176,51 +171,21 @@
                         <li><a href="#nav-account-dialog" data-effect="mfp-move-from-top" class="popup-text">Create Account</a>
                         </li>
                         <li class="dropdown">
-                            <a class="fa fa-shopping-cart" href="/shopping-cart.html"></a>
+                            <a class="fa fa-shopping-cart" href="#/cart"></a>
                             <ul class="dropdown-menu dropdown-menu-shipping-cart">
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="/#">
-                                        <img src="static/img/100x100.png" alt="Image Alternative text" title="Image Title" />
+                                <li ng-repeat="item in cart.items">
+                                    <a class="dropdown-menu-shipping-cart-img" href="{{ item.item_link }}">
+                                        <img src="{{ item.primary_image }}" alt="{{ item.title }}" title="{{ item.title }}" />
                                     </a>
                                     <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$13</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Gucci Patent Leather Open Toe Platform</a>
+                                        <p class="dropdown-menu-shipping-cart-price">${{ item.price }}</p>
+                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">{{ item.title }}</a>
                                         </p>
                                     </div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="/#">
-                                        <img src="static/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$76</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Nikon D5200 24.1 MP Digital SLR Camera</a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="/#">
-                                        <img src="static/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$46</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Apple 11.6" MacBook Air Notebook </a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-menu-shipping-cart-img" href="/#">
-                                        <img src="static/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                                    </a>
-                                    <div class="dropdown-menu-shipping-cart-inner">
-                                        <p class="dropdown-menu-shipping-cart-price">$23</p>
-                                        <p class="dropdown-menu-shipping-cart-item"><a href="#">Fossil Women's Original Boyfriend</a>
-                                        </p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <p class="dropdown-menu-shipping-cart-total">Total: $150</p>
-                                    <button class="dropdown-menu-shipping-cart-checkout btn btn-primary">Checkout</button>
+                                    <p class="dropdown-menu-shipping-cart-total">Total: ${{ cart.total }}</p>
+                                    <button class="dropdown-menu-shipping-cart-checkout btn btn-primary" href="#/checkout">Checkout</button>
                                 </li>
                             </ul>
                         </li>
@@ -294,25 +259,25 @@
                     </div>
                 </div>
                 <ul class="main-footer-links-list">
-                    <li><a href="#">About Us</a>
+                    <li><a href="#/page">About Us</a>
                     </li>
-                    <li><a href="#">Jobs</a>
+                    <li><a href="#/page">Jobs</a>
                     </li>
-                    <li><a href="#">Legal</a>
+                    <li><a href="#/page">Legal</a>
                     </li>
-                    <li><a href="#">Support & Customer Service</a>
+                    <li><a href="#/page">Support & Customer Service</a>
                     </li>
-                    <li><a href="#">Blog</a>
+                    <li><a href="#/blog">Blog</a>
                     </li>
-                    <li><a href="#">Privacy</a>
+                    <li><a href="#/page">Privacy</a>
                     </li>
-                    <li><a href="#">Terms</a>
+                    <li><a href="#/page">Terms</a>
                     </li>
-                    <li><a href="#">Press</a>
+                    <li><a href="#/page">Press</a>
                     </li>
-                    <li><a href="#">Shipping</a>
+                    <li><a href="#/page">Shipping</a>
                     </li>
-                    <li><a href="#">Payments & Refunds</a>
+                    <li><a href="#/page">Payments & Refunds</a>
                     </li>
                 </ul>
                 <img class="main-footer-img" src="static/img/test_footer2-i.png" alt="Image Alternative text" title="Image Title" />
@@ -360,6 +325,9 @@
     <script src="static/js/magnific.js"></script>
     <script src="static/js/custom.js"></script>
 
-
+    <!-- Angular Resources -->
+    <script src="static/app/angular.min.js"></script>
+    <script src="static/app/angular-route.min.js"></script>
+    <script src="static/app/app.module.js"></script>
 </body>
 </html>
