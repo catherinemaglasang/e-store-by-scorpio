@@ -61,7 +61,7 @@ def get_all_products():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@app.route('/api/v1/products/<product_id>',  methods=['GET'])
+@app.route('/api/v1/products/<product_id>/',  methods=['GET'])
 def get_product(product_id):
     res = spcall('get_product_id', (product_id))
 
@@ -80,7 +80,7 @@ def delete_product(id):
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 """ Todo: This route should be protected """
-@app.route('/api/v1/users', methods=['GET'])
+@app.route('/api/v1/users/', methods=['GET'])
 def get_all_users():
     res = spcall('get_users', ())
 
@@ -92,13 +92,13 @@ def get_all_users():
         recs.append({"id": r[0], "username": r[1], "password": r[2], "is_admin": str(r[3])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
-@app.route('/api/v1/users/<user_id>', methods=['GET'])
+@app.route('/api/v1/users/<user_id>/', methods=['GET'])
 def get_user(user_id):
 	res = spcall('get_user', (user_id))
 
 	if 'Error' in res[0][0]:
 		return jsonify({'status': 'error', 'message': res[0][0]})
-	
+
 	rec = res[0]
 	return jsonify({"username": rec[0], "password": rec[1], "is_admin": str(rec[2])})
 
@@ -129,7 +129,7 @@ def get_all_suppliers():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@app.route('/api/v1/suppliers/<supplier_id>', methods=['GET'])
+@app.route('/api/v1/suppliers/<supplier_id>/', methods=['GET'])
 def get_supplier(supplier_id):
     res = spcall('get_supplier', (supplier_id))
 
@@ -138,19 +138,6 @@ def get_supplier(supplier_id):
     
     r = res[0]
     return jsonify({"name": r[0], "phone": r[1],"fax":r[2], "email":r[3], "is_active": str(r[4])})
-
-
-@app.route('/api/v1/cart/', methods=['GET'])
-def get_all_cart():
-    res = spcall('get_carts', ())
-
-    if 'Error' in str(res[0][0]):
-        return jsonify({'status': 'error', 'message': res[0][0]})
-
-    recs = []
-    for r in res:
-        recs.append({"id": r[0], "session_id": r[1],"date_created":r[2], "customer_id":r[3], "is_active": str(r[4])})
-    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 @app.after_request
 def add_cors(resp):
