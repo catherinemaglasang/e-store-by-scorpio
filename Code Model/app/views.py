@@ -62,7 +62,7 @@ def get_all_products():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@app.route('/api/v1/products/<product_id>',  methods=['GET'])
+@app.route('/api/v1/products/<product_id>/',  methods=['GET'])
 def get_product(product_id):
     res = spcall('get_product_id', (product_id))
 
@@ -81,7 +81,7 @@ def delete_product(id):
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 """ Todo: This route should be protected """
-@app.route('/api/v1/users', methods=['GET'])
+@app.route('/api/v1/users/', methods=['GET'])
 def get_all_users():
     res = spcall('get_users', ())
 
@@ -93,13 +93,13 @@ def get_all_users():
         recs.append({"id": r[0], "username": r[1], "password": r[2], "is_admin": str(r[3])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
-@app.route('/api/v1/users/<user_id>', methods=['GET'])
+@app.route('/api/v1/users/<user_id>/', methods=['GET'])
 def get_user(user_id):
 	res = spcall('get_user', (user_id))
 
 	if 'Error' in res[0][0]:
 		return jsonify({'status': 'error', 'message': res[0][0]})
-	
+
 	rec = res[0]
 	return jsonify({"username": rec[0], "password": rec[1], "is_admin": str(rec[2])})
 
@@ -130,7 +130,7 @@ def get_all_suppliers():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@app.route('/api/v1/suppliers/<supplier_id>', methods=['GET'])
+@app.route('/api/v1/suppliers/<supplier_id>/', methods=['GET'])
 def get_supplier(supplier_id):
     res = spcall('get_supplier', (supplier_id))
 
@@ -141,17 +141,45 @@ def get_supplier(supplier_id):
     return jsonify({"name": r[0], "phone": r[1],"fax":r[2], "email":r[3], "is_active": str(r[4])})
 
 
-@app.route('/api/v1/cart/', methods=['GET'])
-def get_all_cart():
-    res = spcall('get_carts', ())
+@app.route('/api/v1/cart_details/', methods=['POST'])
+def new_cart_detail():
+    json = request.json
+    id = json['id']
+    cart_id = json['cart_id']
+    product_id = json['product_id']
+    quantity = json['quantity']
+    time_stamp = json['time_stamp']
+    res = spcall('new_cart_detail', (id, cart_id, product_id, quantity, time_stamp), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+@app.route('/api/v1/cart_details/', methods=['GET'])
+def get_cart_details():
+    res = spcall('get_cart_details', ())
 
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     recs = []
     for r in res:
-        recs.append({"id": r[0], "session_id": r[1],"date_created":r[2], "customer_id":r[3], "is_active": str(r[4])})
+        recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "quantity":r[3], "time_stamp":r[4]})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+    
+
+
+@app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
+def get_cart_detail(cart_detail_id):
+    res = spcall('get_cart_detail', (cart_detail_id))
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    
+    r = res[0]
+    return jsonify({"cart_id": r[0], "product_id": r[1], "quantity":r[2], "time_stamp":str(r[3])})
+
 
 @app.after_request
 def add_cors(resp):
