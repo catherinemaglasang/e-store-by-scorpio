@@ -182,3 +182,39 @@ $$
 $$  
 
 language 'plpgsql';
+
+
+create or replace function new_cart_detail(in par_id int8, in par_cart_id int8, in par_product_id int8, in par_quantity int8, in par_time_stamp timestamp) returns text as
+$$
+  declare
+    loc_id text;
+    loc_res text;
+  begin
+    select into loc_id id from cart_detail where id=par_id;
+    if loc_id isnull then
+
+       insert into cart_details(id, cart_id, product_id, quantity, time_stamp) values (par_id, par_cart_id, par_product_id, par_quantity, par_time_stamp);
+       loc_res = 'OK';
+
+     else
+       loc_res = 'ID EXISTED';
+     end if;
+     return loc_res;
+  end;
+$$  
+
+language 'plpgsql';
+
+
+create or replace function get_cart_details(out int8, out int8, out int8, out int8, out timestamp) returns setof record as
+$$
+   select id, cart_id, product_id, quantity, time_stamp from cart_details;
+$$
+ language 'sql';
+ 
+
+create or replace function get_cart_detail(in par_id int8, out int8, out int8, out int8, out timestamp) returns setof record as
+$$
+  select cart_id, product_id, quantity, time_stamp from cart_details where id = par_id;
+$$
+  language 'sql';

@@ -44,3 +44,11 @@ create table categories (
    parent_category_id int8,
    is_active boolean
 );
+
+create table cart_details (
+   id int8 primary key,
+   cart_id int8,
+   product_id int8,
+   quantity int8,
+   time_stamp timestamp
+)

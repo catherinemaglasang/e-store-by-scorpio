@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 	// This tells javascript to immediately load task on browser load. Hence, we won't be needing load tasks button.
 	add_new_product();

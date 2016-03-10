@@ -139,6 +139,47 @@ def get_supplier(supplier_id):
     r = res[0]
     return jsonify({"name": r[0], "phone": r[1],"fax":r[2], "email":r[3], "is_active": str(r[4])})
 
+
+@app.route('/api/v1/cart_details/', methods=['POST'])
+def new_cart_detail():
+    json = request.json
+    id = json['id']
+    cart_id = json['cart_id']
+    product_id = json['product_id']
+    quantity = json['quantity']
+    time_stamp = json['time_stamp']
+    res = spcall('new_cart_detail', (id, cart_id, product_id, quantity, time_stamp), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+@app.route('/api/v1/cart_details/', methods=['GET'])
+def get_cart_details():
+    res = spcall('get_cart_details', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "quantity":r[3], "time_stamp":r[4]})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+    
+
+
+# @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
+# def get_cart_detail(cart_detail_id):
+#     res = spcall('get_cart_detail', (cart_detail_id))
+
+#     if 'Error' in res[0][0]:
+#         return jsonify({'status': 'error', 'message': res[0][0]})
+    
+#     r = res[0]
+#     return jsonify({"cart_id": r[0], "product_id": r[1], "quantity":r[2], "time_stamp":r[3]})
+
+
 @app.after_request
 def add_cors(resp):
     resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
