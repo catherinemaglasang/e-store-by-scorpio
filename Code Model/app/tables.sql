@@ -52,3 +52,10 @@ create table cart_details (
    quantity int8,
    time_stamp timestamp
 )
+
+create table wishlist_details (
+   id int8 primary key,
+   wishlist_id int8,
+   product_id int8,
+   time_stamp timestamp
+)

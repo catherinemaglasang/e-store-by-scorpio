@@ -169,15 +169,15 @@ def get_cart_details():
     
 
 
-# @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
-# def get_cart_detail(cart_detail_id):
-#     res = spcall('get_cart_detail', (cart_detail_id))
+@app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
+def get_cart_detail(cart_detail_id):
+    res = spcall('get_cart_detail', (cart_detail_id))
 
-#     if 'Error' in res[0][0]:
-#         return jsonify({'status': 'error', 'message': res[0][0]})
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
     
-#     r = res[0]
-#     return jsonify({"cart_id": r[0], "product_id": r[1], "quantity":r[2], "time_stamp":r[3]})
+    r = res[0]
+    return jsonify({"cart_id": r[0], "product_id": r[1], "quantity":r[2], "time_stamp":str(r[3])})
 
 
 @app.after_request
