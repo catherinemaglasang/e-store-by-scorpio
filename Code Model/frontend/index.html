@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html ng-app="mainApp">
 
 <head>
     <title>the box - Index</title>
@@ -19,9 +19,15 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="static/css/mystyles.css">
 
+    <!-- Angular Resources -->
+    <script src="static/app/angular.min.js"></script>
+    <script src="static/app/angular-route.min.js"></script>
+    <script src="static/app/app.module.js"></script>
+
 </head>
 
 <body>
+
     <div class="global-wrapper clearfix" id="global-wrapper">
         <div class="navbar-before mobile-hidden">
             <div class="container">
@@ -223,312 +229,7 @@
             </div>
         </nav>
 
-        <div class="owl-carousel owl-loaded owl-nav-dots-inner" data-options='{"items":1,"loop":true}'>
-            <div class="owl-item">
-                <div class="slider-item" style="background-color:#3D3D3D;">
-                    <div class="container">
-                        <div class="slider-item-inner">
-                            <div class="slider-item-caption-left slider-item-caption-white">
-                                <h4 class="slider-item-caption-title">Save up to $150 on Your Next Laptop</h4>
-                                <p class="slider-item-caption-desc">I'm Not Gonna Pay A Lot For This Laptop.</p><a class="btn btn-lg btn-ghost btn-white" href="/#">Shop Now</a>
-                            </div>
-                            <img class="slider-item-img-right" src="static/img/test_slider/1-i.png" alt="Image Alternative text" title="Image Title" style="top: 60%; width: 56%;" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="owl-item">
-                <div class="slider-item" style="background-image:url(img/1200x500.png);">
-                    <div class="container">
-                        <div class="slider-item-inner">
-                            <div class="slider-item-caption-right slider-item-caption-white">
-                                <h4 class="slider-item-caption-title">World Top Guitars from $350</h4>
-                                <p class="slider-item-caption-desc">Fill It To The Rim With Guitar.</p><a class="btn btn-lg btn-ghost btn-white" href="/#">Shop Now</a>
-                            </div>
-                            <img class="slider-item-img-left" src="static/img/test_slider/2-i.png" alt="Image Alternative text" title="Image Title" style="transform:translateY(-50%) rotate(14deg); width: 55%;" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="owl-item">
-                <div class="slider-item" style="background-color:#93282B;">
-                    <div class="container">
-                        <div class="slider-item-inner">
-                            <div class="slider-item-caption-left slider-item-caption-white">
-                                <h4 class="slider-item-caption-title">Run! Run! Run!</h4>
-                                <p class="slider-item-caption-desc">Your Running Shoes, Right Away.</p><a class="btn btn-lg btn-ghost btn-white" href="/#">Shop Now</a>
-                            </div>
-                            <img class="slider-item-img-right" src="static/img/test_slider/3-i.png" alt="Image Alternative text" title="Image Title" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="gap"></div>
-        <div class="container">
-            <div class="row" data-gutter="15">
-                <div class="col-md-3">
-                    <div class="product product-sm-left ">
-                        <ul class="product-labels"></ul>
-                        <div class="product-img-wrap">
-                            <img class="product-img" src="static/img/500x500.png" alt="Image Alternative text" title="Image Title" />
-                        </div>
-                        <a class="product-link" href="/#"></a>
-                        <div class="product-caption">
-                            <ul class="product-caption-rating">
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <h5 class="product-caption-title">Samsung Chromebook 11.6" LED HD 16GB 1.7GHz Webcam Notebook Laptop -XE303C12-A01</h5>
-                            <div class="product-caption-price"><span class="product-caption-price-old">$143</span><span class="product-caption-price-new">$86</span>
-                            </div>
-                            <ul class="product-caption-feature-list">
-                                <li>Free Shipping</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product product-sm-left ">
-                        <ul class="product-labels"></ul>
-                        <div class="product-img-wrap">
-                            <img class="product-img" src="static/img/500x500.png" alt="Image Alternative text" title="Image Title" />
-                        </div>
-                        <a class="product-link" href="/#"></a>
-                        <div class="product-caption">
-                            <ul class="product-caption-rating">
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <h5 class="product-caption-title">Dooney & Bourke Pebble Grain Lexington</h5>
-                            <div class="product-caption-price"><span class="product-caption-price-new">$110</span>
-                            </div>
-                            <ul class="product-caption-feature-list">
-                                <li>Free Shipping</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product product-sm-left ">
-                        <ul class="product-labels"></ul>
-                        <div class="product-img-wrap">
-                            <img class="product-img" src="static/img/500x500.png" alt="Image Alternative text" title="Image Title" />
-                        </div>
-                        <a class="product-link" href="/#"></a>
-                        <div class="product-caption">
-                            <ul class="product-caption-rating">
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <h5 class="product-caption-title">New 26" Folding 6 Speed Mountain Bike Bicycle Shimano School Sport Black</h5>
-                            <div class="product-caption-price"><span class="product-caption-price-new">$66</span>
-                            </div>
-                            <ul class="product-caption-feature-list">
-                                <li>Free Shipping</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product product-sm-left ">
-                        <ul class="product-labels"></ul>
-                        <div class="product-img-wrap">
-                            <img class="product-img" src="static/img/500x500.png" alt="Image Alternative text" title="Image Title" />
-                        </div>
-                        <a class="product-link" href="/#"></a>
-                        <div class="product-caption">
-                            <ul class="product-caption-rating">
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <h5 class="product-caption-title">Samsung Galaxy Note 4 IV 4G FACTORY UNLOCKED Black or White</h5>
-                            <div class="product-caption-price"><span class="product-caption-price-new">$66</span>
-                            </div>
-                            <ul class="product-caption-feature-list">
-                                <li>Free Shipping</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" data-gutter="15">
-                <div class="col-md-3">
-                    <div class="product product-sm-left ">
-                        <ul class="product-labels"></ul>
-                        <div class="product-img-wrap">
-                            <img class="product-img" src="static/img/500x500.png" alt="Image Alternative text" title="Image Title" />
-                        </div>
-                        <a class="product-link" href="/#"></a>
-                        <div class="product-caption">
-                            <ul class="product-caption-rating">
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <h5 class="product-caption-title">Diesel Not So Basic Brown Leather Analog Mens Watch DZ1206</h5>
-                            <div class="product-caption-price"><span class="product-caption-price-old">$150</span><span class="product-caption-price-new">$75</span>
-                            </div>
-                            <ul class="product-caption-feature-list">
-                                <li>Free Shipping</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product product-sm-left ">
-                        <ul class="product-labels"></ul>
-                        <div class="product-img-wrap">
-                            <img class="product-img" src="static/img/500x500.png" alt="Image Alternative text" title="Image Title" />
-                        </div>
-                        <a class="product-link" href="/#"></a>
-                        <div class="product-caption">
-                            <ul class="product-caption-rating">
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <h5 class="product-caption-title">Cuisinart CSB-76BC SmartStick 200-Watt Immersion Hand Blender, Brushed Chrome</h5>
-                            <div class="product-caption-price"><span class="product-caption-price-new">$99</span>
-                            </div>
-                            <ul class="product-caption-feature-list">
-                                <li>Free Shipping</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product product-sm-left ">
-                        <ul class="product-labels"></ul>
-                        <div class="product-img-wrap">
-                            <img class="product-img" src="static/img/500x500.png" alt="Image Alternative text" title="Image Title" />
-                        </div>
-                        <a class="product-link" href="/#"></a>
-                        <div class="product-caption">
-                            <ul class="product-caption-rating">
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <h5 class="product-caption-title">Nikon D5200 24.1 MP Digital SLR Camera - Black (Kit w/ 18-55 VR Lens)</h5>
-                            <div class="product-caption-price"><span class="product-caption-price-new">$129</span>
-                            </div>
-                            <ul class="product-caption-feature-list">
-                                <li>Free Shipping</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="product product-sm-left ">
-                        <ul class="product-labels"></ul>
-                        <div class="product-img-wrap">
-                            <img class="product-img" src="static/img/500x500.png" alt="Image Alternative text" title="Image Title" />
-                        </div>
-                        <a class="product-link" href="/#"></a>
-                        <div class="product-caption">
-                            <ul class="product-caption-rating">
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                                <li class="rated"><i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <h5 class="product-caption-title">Lady's Women's Golden Band Dial Bracelet Style Quartz Analog Wrist Watch</h5>
-                            <div class="product-caption-price"><span class="product-caption-price-new">$81</span>
-                            </div>
-                            <ul class="product-caption-feature-list">
-                                <li>Free Shipping</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="gap"></div>
-        <div class="slider-item-sm" style="background-color:#E66514;">
-            <div class="container">
-                <div class="slider-item-inner">
-                    <div class="slider-item-caption-left slider-item-caption-white">
-                        <h4 class="slider-item-caption-title">Time to Upgrade Your Smartphone</h4>
-                        <p class="slider-item-caption-desc">It's Smartphone Time.</p><a class="btn btn-lg btn-ghost btn-white" href="/#">Shop Now</a>
-                    </div>
-                    <img class="slider-item-img" src="static/img/test_slider/7-i.png" alt="Image Alternative text" title="Image Title" style="right: 0; bottom: 0; width: 22%;" />
-                </div>
-            </div>
-        </div>
-        <div class="gap"></div>
-        <div class="container">
-            <h3 class="widget-title-lg">Shop by Category</h3>
-            <div class="row row-sm-gap" data-gutter="15">
-                <div class="col-md-2">
-                    <a class="banner-category" href="/#">
-                        <img class="banner-category-img" src="static/img/100x100.png" alt="Image Alternative text" title="Image Title" />
-                        <h5 class="banner-category-title">Home & Garden</h5>
-                        <p class="banner-category-desc">152 products</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="gap"></div>
+        <div ng-view></div>
 
         <footer class="main-footer">
             <div class="container">
@@ -660,9 +361,5 @@
     <script src="static/js/custom.js"></script>
 
 
-
-
-
 </body>
-
 </html>
