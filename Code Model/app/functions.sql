@@ -133,7 +133,7 @@ create or replace function get_supplier(in par_id int8, out text, out text, out 
 $$
  select  name, address, phone, fax, email, is_active from suppliers where id = par_id
 $$
- language 'sql';s
+ language 'sql';
 
 create or replace function new_cart(in par_id int8, in par_session_id int8, in par_date_created text, in par_customer_id int8, in par_is_active boolean) returns text as
 $$
