@@ -9,14 +9,15 @@ from app.views import PRODUCTS
 @before.all
 def before_all():
     world.app = app.test_client()
+    world.product1 = json.loads(world.app.get('/api/v1/products/1/').data)
 
 @step("some products are in a system")
 def given_some_products_are_in_the_system(step):
     """
     :type step: lettuce.core.Step
     """
-    PRODUCTS.update({'1': {'id': '1', 'sku': '123', 'title': 'Patata', 'description': 'Baked Potato', 'unit_price': '10','category_id': '1', 'on_hand': '100', 're_order_level': '10', 'is_active': 'true'}})
-
+    pass
+    # PRODUCTS.update({'1': {'id': '1', 'sku': '123', 'title': 'Patata', 'description': 'Baked Potato', 'unit_price': '10','category_id': '1', 'on_hand': '100', 're_order_level': '10', 'is_active': 'true'}})
 
 @step("I retrieve the product \'(.*)\'")
 def when_i_retrieve_the_product1(step, id):
@@ -39,4 +40,4 @@ def the_following_product_details(step):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(step.hashes, [json.loads(world.response.data)])
+    assert_equals(world.product1, json.loads(world.response.data))
