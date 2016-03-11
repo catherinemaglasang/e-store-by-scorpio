@@ -10,6 +10,7 @@ PRODUCTS = {}
 SUPPLIERS = {}
 USERS = {}
 
+
 def spcall(qry, param, commit=False):
     try:
         dbo = DBconn()
@@ -23,11 +24,13 @@ def spcall(qry, param, commit=False):
         res = [("Error: " + str(sys.exc_info()[0]) + " " + str(sys.exc_info()[1]),)]
     return res
 
+
 @app.route('/')
 def index():
-	# return app.send_static_file('index.html')
+    # return app.send_static_file('index.html')
     # return render_template('index.html')
     return jsonify({"status": "ok"})
+
 
 @app.route('/api/v1/products/', methods=['POST'])
 def new_product():
@@ -43,12 +46,15 @@ def new_product():
     re_order_level = request.form['inputReorderLevel']
     is_active = False
 
-    res = spcall('new_product', (id, sku, supplier_id, title, description, category_id, unit_price, on_hand, re_order_level, is_active), True)
-    
+    res = spcall('new_product', (
+    id, sku, supplier_id, title, description, category_id, unit_price, on_hand, re_order_level, is_active), True)
+
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
 
-    return jsonify({'status': 'ok', 'message': res[0][0]})          
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
 # END OF ADD PRODUCT
 
 
@@ -61,19 +67,25 @@ def get_all_products():
 
     recs = []
     for r in res:
-        recs.append({"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]), "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]), "is_active": str(r[9])})
+        recs.append(
+            {"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]),
+             "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]),
+             "is_active": str(r[9])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@app.route('/api/v1/products/<product_id>/',  methods=['GET'])
+@app.route('/api/v1/products/<product_id>/', methods=['GET'])
 def get_product(product_id):
     res = spcall('get_product_id', (product_id))
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
-    
+
     r = res[0]
-    return jsonify({"id": str(product_id), "sku": str(r[0]), "supplier_id": str(r[1]), "title": str(r[2]), "description": str(r[3]), "category_id": str(r[4]), "unit_price": str(r[5]), "on_hand": str(r[6]), "re_order_level": str(r[7]), "is_active": str(r[8])})
+    return jsonify({"id": str(product_id), "sku": str(r[0]), "supplier_id": str(r[1]), "title": str(r[2]),
+                    "description": str(r[3]), "category_id": str(r[4]), "unit_price": str(r[5]), "on_hand": str(r[6]),
+                    "re_order_level": str(r[7]), "is_active": str(r[8])})
+
 
 @app.route('/api/v1/products/<int:id>/', methods=['DELETE'])
 def delete_product(id):
@@ -83,7 +95,10 @@ def delete_product(id):
 
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
+
 """ Todo: This route should be protected """
+
+
 @app.route('/api/v1/users/', methods=['GET'])
 def get_all_users():
     res = spcall('get_users', ())
@@ -96,28 +111,30 @@ def get_all_users():
         recs.append({"id": r[0], "username": r[1], "password": r[2], "is_admin": str(r[3])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
+
 @app.route('/api/v1/users/<user_id>/', methods=['GET'])
 def get_user(user_id):
-	res = spcall('get_user', (user_id))
+    res = spcall('get_user', (user_id))
 
-	if 'Error' in res[0][0]:
-		return jsonify({'status': 'error', 'message': res[0][0]})
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
 
-	rec = res[0]
-	return jsonify({"username": rec[0], "password": rec[1], "is_admin": str(rec[2])})
+    rec = res[0]
+    return jsonify({"username": rec[0], "password": rec[1], "is_admin": str(rec[2])})
+
 
 @app.route('/api/v1/users/', methods=['POST'])
 def new_user():
-	json = request.json
-	user_id = json['id']
-	username = json['username']
-	password = json['password']
-	is_admin = json['is_admin']
-	res = spcall('new_user', (user_id, username, password, is_admin), True)
+    json = request.json
+    user_id = json['id']
+    username = json['username']
+    password = json['password']
+    is_admin = json['is_admin']
+    res = spcall('new_user', (user_id, username, password, is_admin), True)
 
-	if 'Error' in res[0][0]:
-		return jsonify({'status': 'error', 'message': res[0][0]})
-	return jsonify({'status': 'ok', 'message': res[0][0]})
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
 @app.route('/api/v1/suppliers/', methods=['GET'])
@@ -129,19 +146,21 @@ def get_all_suppliers():
 
     recs = []
     for r in res:
-        recs.append({"id": r[0], "name": r[1], "phone": r[2],"fax":r[3], "email":r[4], "is_active": str(r[5])})
+        recs.append({"id": str(r[0]), "name": str(r[1]), "address": str(r[2]), "phone": str(r[3]), "fax": str(r[4]),
+                     "email": str(r[5]), "is_active": str(r[6])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
 @app.route('/api/v1/suppliers/<supplier_id>/', methods=['GET'])
 def get_supplier(supplier_id):
-    res = spcall('get_supplier', (supplier_id))
+    res = spcall('get_supplier', supplier_id)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
-    
+
     r = res[0]
-    return jsonify({"name": r[0], "phone": r[1],"fax":r[2], "email":r[3], "is_active": str(r[4])})
+    return jsonify({"id": str(supplier_id), "name": r[0], "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
+                    "email": str(r[4]), "is_active": str(r[5])})
 
 
 @app.route('/api/v1/cart_details/', methods=['POST'])
@@ -168,9 +187,8 @@ def get_cart_details():
 
     recs = []
     for r in res:
-        recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "quantity":r[3], "time_stamp":r[4]})
+        recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "quantity": r[3], "time_stamp": r[4]})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
-    
 
 
 # @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
@@ -179,7 +197,7 @@ def get_cart_details():
 
 #     if 'Error' in res[0][0]:
 #         return jsonify({'status': 'error', 'message': res[0][0]})
-    
+
 #     r = res[0]
 #     return jsonify({"cart_id": r[0], "product_id": r[1], "quantity":r[2], "time_stamp":str(r[3])})
 
@@ -207,9 +225,8 @@ def get_wishlist_details():
 
     recs = []
     for r in res:
-        recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "time_stamp":r[3]})
+        recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "time_stamp": r[3]})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
- 
 
 
 @app.after_request
