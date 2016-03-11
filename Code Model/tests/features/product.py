@@ -9,15 +9,15 @@ from app.views import PRODUCTS
 @before.all
 def before_all():
     world.app = app.test_client()
-    world.product1 = json.loads(world.app.get('/api/v1/products/1/').data)
+
 
 @step("some products are in a system")
 def given_some_products_are_in_the_system(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
-    # PRODUCTS.update({'1': {'id': '1', 'sku': '123', 'title': 'Patata', 'description': 'Baked Potato', 'unit_price': '10','category_id': '1', 'on_hand': '100', 're_order_level': '10', 'is_active': 'true'}})
+    PRODUCTS.update({'sku': '123', 'category_id': '1', u'description': u'Baked Potato', u'title': u'Patata', u'is_active': u'True', u'unit_price': u'10.0', u'supplier_id': u'1', u'on_hand': u'100', u're_order_level': u'10'})
+
 
 @step("I retrieve the product \'(.*)\'")
 def when_i_retrieve_the_product1(step, id):
@@ -27,7 +27,7 @@ def when_i_retrieve_the_product1(step, id):
     world.response = world.app.get('/api/v1/products/{}/'.format(id))
 
 
-@step("I should get a \'(.*)\' response")
+@step(u"I should get a \'(.*)\' response")
 def then_i_should_get_a_200_response(step, expected_status_code):
     """
     :param expected_status_code:
@@ -35,9 +35,10 @@ def then_i_should_get_a_200_response(step, expected_status_code):
     """
     assert_equals(world.response.status_code, int(expected_status_code))
 
+
 @step("the following product details are returned:")
 def the_following_product_details(step):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(world.product1, json.loads(world.response.data))
+    assert_equals(step.hashes, [json.loads(world.response.data)])

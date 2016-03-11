@@ -61,7 +61,7 @@ def get_all_products():
 
     recs = []
     for r in res:
-        recs.append({"id": r[0], "sku": r[1], "supplier_id": r[2], "title": r[3], "description": r[4], "category_id": r[5], "unit_price": [6], "on_hand": r[7], "re_order_level": r[8], "is_active": str(r[9])})
+        recs.append({"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]), "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]), "is_active": str(r[9])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
@@ -73,7 +73,7 @@ def get_product(product_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
     
     r = res[0]
-    return jsonify({"sku": r[0], "supplier_id": r[1], "title": r[2], "description": r[3], "category_id": r[4], "unit_price": r[5], "on_hand": r[6], "re_order_level": r[7], "is_active": str(r[8])})
+    return jsonify({"id": str(product_id), "sku": str(r[0]), "supplier_id": str(r[1]), "title": str(r[2]), "description": str(r[3]), "category_id": str(r[4]), "unit_price": str(r[5]), "on_hand": str(r[6]), "re_order_level": str(r[7]), "is_active": str(r[8])})
 
 @app.route('/api/v1/products/<int:id>/', methods=['DELETE'])
 def delete_product(id):
