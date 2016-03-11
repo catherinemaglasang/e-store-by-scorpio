@@ -66,12 +66,20 @@ def get_all_products():
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     recs = []
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5ff9173a0031e68dcbbd607d1d46c015dcbf85d6
     for r in res:
         recs.append(
             {"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]),
              "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]),
              "is_active": str(r[9])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5ff9173a0031e68dcbbd607d1d46c015dcbf85d6
     if len(res) > 0:
         for r in res:
             recs.append({"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]), "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]), "is_active": str(r[9])})
@@ -79,6 +87,10 @@ def get_all_products():
     else:
         return jsonify({'status': 'no entries in database'})
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5ff9173a0031e68dcbbd607d1d46c015dcbf85d6
 
 @app.route('/api/v1/products/<product_id>/', methods=['GET'])
 def get_product(product_id):
@@ -114,7 +126,7 @@ def get_all_users():
 
     recs = []
     for r in res:
-        recs.append({"id": r[0], "username": r[1], "password": r[2], "is_admin": str(r[3])})
+        recs.append({"id": str(r[0]), "username": str(r[1]), "password": str(r[2]), "is_admin": str(r[3])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
@@ -126,8 +138,7 @@ def get_user(user_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     rec = res[0]
-    return jsonify({"username": rec[0], "password": rec[1], "is_admin": str(rec[2])})
-
+    return jsonify({"id": str(user_id), "username": str(rec[0]), "password": str(rec[1]), "is_admin": str(rec[2])})
 
 @app.route('/api/v1/users/', methods=['POST'])
 def new_user():
@@ -165,7 +176,7 @@ def get_supplier(supplier_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"id": str(supplier_id), "name": r[0], "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
+    return jsonify({"id": str(supplier_id), "name": str(r[0]), "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
                     "email": str(r[4]), "is_active": str(r[5])})
 
 
@@ -215,7 +226,7 @@ def new_wishlist_detail():
     wishlist_id = json['wishlist_id']
     product_id = json['product_id']
     time_stamp = json['time_stamp']
-    res = spcall('new_wishlist_detail', (id, cart_id, product_id, time_stamp), True)
+    res = spcall('new_wishlist_detail', (id, wishlist_id, product_id, time_stamp), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
