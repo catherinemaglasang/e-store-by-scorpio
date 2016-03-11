@@ -6,6 +6,7 @@ from flask import jsonify
 from app import app
 from .models import DBconn
 
+PRODUCTS = {}
 
 def spcall(qry, param, commit=False):
     try:
