@@ -17,7 +17,7 @@ def given_some_suppliers_are_in_the_system(step):
     """
     :type step: lettuce.core.Step
     """
-    SUPPLIERS.update({'1': {'id': '1', 'name': 'Bruce', 'address': 'Tibanga', 'phone': '222-2222', 'fax': '100', 'email': 'bruce@gmail.com', 'is_active': 'true'}})
+    SUPPLIERS.update({'1': {'id': '1', 'name': 'sup1', 'address': 'iligan', 'phone': '221-9999', 'fax': '222-2288', 'email': 'sup1@estore.com', 'is_active': 'true'}})
 
 
 @step("I retrieve the supplier \'(.*)\'")

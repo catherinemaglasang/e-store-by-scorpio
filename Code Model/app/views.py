@@ -7,11 +7,8 @@ from app import app
 from .models import DBconn
 
 PRODUCTS = {}
-<<<<<<< HEAD
 SUPPLIERS = {}
-=======
 USERS = {}
->>>>>>> a749f11974a8235d79972bb91ff1016733ab42c4
 
 def spcall(qry, param, commit=False):
     try:
