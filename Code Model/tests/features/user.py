@@ -15,17 +15,17 @@ def Given_some_users_are_in_the_system(step):
     """
     :type step: lettuce.core.Step
     """
-    USERS.update({'1': {'user_id': '1', 'username': 'king', 'password': 'test', 'is_active': 'true'}})
+    USERS.update({'username': 'king', 'password': 'test', 'is_admin': 'True'})
 
 
 @step("I retrieve the user \'(.*)\'")
-def When_I_retrieve_the_user1(step, user_id):
+def When_I_retrieve_the_user1(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/users/{}'.format(user_id))
+    world.response = world.app.get('/api/v1/users/{}/'.format(id))
 
-@step("I should get a \'(.*)\' response")
+@step(u"I should get a \'(.*)\' response")
 def then_i_should_get_a_200_response(step, expected_status_code):
     """
     :type step: lettuce.core.Step

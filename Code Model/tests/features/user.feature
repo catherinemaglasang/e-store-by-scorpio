@@ -1,8 +1,8 @@
 Feature: Handle storing, retrieving and deleting customer details
   Scenario: Retrieve a user details
     Given some users are in the system
-    When I retrieve the user '1'
+    When I retrieve the user '2'
     Then I should get a '200' response
     And the following user details are returned:
-    | user_id | username | password | is_admin |
-    | 1 | king | test | true |
+    | id | username | password | is_admin |
+    | 2  | rebel | test2 | True |

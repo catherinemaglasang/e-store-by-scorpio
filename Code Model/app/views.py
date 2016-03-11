@@ -93,7 +93,7 @@ def get_all_users():
 
     recs = []
     for r in res:
-        recs.append({"id": r[0], "username": r[1], "password": r[2], "is_admin": str(r[3])})
+        recs.append({"id": str(r[0]), "username": str(r[1]), "password": str(r[2]), "is_admin": str(r[3])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 @app.route('/api/v1/users/<user_id>/', methods=['GET'])
@@ -104,7 +104,7 @@ def get_user(user_id):
 		return jsonify({'status': 'error', 'message': res[0][0]})
 
 	rec = res[0]
-	return jsonify({"username": rec[0], "password": rec[1], "is_admin": str(rec[2])})
+	return jsonify({"id": str(user_id), "username": str(rec[0]), "password": str(rec[1]), "is_admin": str(rec[2])})
 
 @app.route('/api/v1/users/', methods=['POST'])
 def new_user():
