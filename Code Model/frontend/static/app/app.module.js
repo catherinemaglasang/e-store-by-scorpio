@@ -65,7 +65,6 @@ mainApp.controller("MainController", ['$scope','$http', function($scope,$http) {
 	$scope.cart = {'total': '150', 'items': cart_items, 'shipping_fee': '0', 'total_tax': '0'};
 
 	$scope.brands = [{'title': 'Apple', 'item_count': 50}, {'title': 'Orange', 'item_count': 50}, ]
-
 }]);
 
 mainApp.directive("singleProduct", function(){

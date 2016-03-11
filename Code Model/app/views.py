@@ -7,6 +7,8 @@ from app import app
 from .models import DBconn
 
 PRODUCTS = {}
+SUPPLIERS = {}
+USERS = {}
 
 def spcall(qry, param, commit=False):
     try:
@@ -46,7 +48,7 @@ def new_product():
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
 
-    return jsonify({'status': 'ok', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})          
 # END OF ADD PRODUCT
 
 
@@ -171,15 +173,43 @@ def get_cart_details():
     
 
 
-@app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
-def get_cart_detail(cart_detail_id):
-    res = spcall('get_cart_detail', (cart_detail_id))
+# @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
+# def get_cart_detail(cart_detail_id):
+#     res = spcall('get_cart_detail', (cart_detail_id))
+
+#     if 'Error' in res[0][0]:
+#         return jsonify({'status': 'error', 'message': res[0][0]})
+    
+#     r = res[0]
+#     return jsonify({"cart_id": r[0], "product_id": r[1], "quantity":r[2], "time_stamp":str(r[3])})
+
+
+@app.route('/api/v1/wishlist_details/', methods=['POST'])
+def new_wishlist_detail():
+    json = request.json
+    id = json['id']
+    wishlist_id = json['wishlist_id']
+    product_id = json['product_id']
+    time_stamp = json['time_stamp']
+    res = spcall('new_wishlist_detail', (id, cart_id, product_id, time_stamp), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
-    
-    r = res[0]
-    return jsonify({"cart_id": r[0], "product_id": r[1], "quantity":r[2], "time_stamp":str(r[3])})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+@app.route('/api/v1/wishlist_details/', methods=['GET'])
+def get_wishlist_details():
+    res = spcall('get_wishlist_details', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "time_stamp":r[3]})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+ 
 
 
 @app.after_request
