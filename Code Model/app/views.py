@@ -7,6 +7,7 @@ from app import app
 from .models import DBconn
 
 PRODUCTS = {}
+USERS = {}
 
 def spcall(qry, param, commit=False):
     try:
