@@ -1,6 +1,6 @@
 Feature: Handle storing and retrieving supplier details
 
-Scenario: Retrieve a supplier's details
+Scenario: Get supplier
   Given some suppliers are in a system
   When I retrieve the supplier '2'
   Then I should get a '200' response
