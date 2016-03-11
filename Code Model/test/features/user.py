@@ -1,6 +1,8 @@
+import json
+
 from lettuce import step, world, before
 from nose.tools import assert_equals
-from flask import json
+
 from app import app
 from app.views import USERS
 
@@ -9,7 +11,7 @@ def before_all():
     world.app = app.test_client()
 
 @step("some users are in the system")
-def step_impl(step):
+def Given_some_users_are_in_the_system(step):
     """
     :type step: lettuce.core.Step
     """
@@ -17,15 +19,21 @@ def step_impl(step):
 
 
 @step("I retrieve the user \'(.*)\'")
-def step_impl(step, user_id):
+def When_I_retrieve_the_user1(step, user_id):
     """
     :type step: lettuce.core.Step
     """
     world.response = world.app.get('/api/v1/users/{}'.format(user_id))
 
+@step("I should get a \'(.*)\' response")
+def then_i_should_get_a_200_response(step, expected_status_code):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.response.status_code, int(expected_status_code))
 
 @step("the following user details are returned:")
-def step_impl(step):
+def and_the_following_user_details_are_returned(step):
     """
     :type step: lettuce.core.Step
     """
