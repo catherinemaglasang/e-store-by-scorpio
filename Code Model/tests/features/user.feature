@@ -1,4 +1,4 @@
-Feature: Handle storing, retrieving and deleting customer details
+Feature: Handle storing and retrieving customer details
   Scenario: Retrieve a user details
     Given some users are in the system
     When I retrieve the user '2'
