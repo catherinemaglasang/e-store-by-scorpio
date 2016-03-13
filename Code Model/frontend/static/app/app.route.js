@@ -37,6 +37,14 @@ mainApp.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'static/pages/dashboard/home.html',
             controller: 'DashboardController'
 		}).
+		when('/dashboard/products', {
+			templateUrl: 'static/pages/dashboard/products/products.html',
+            controller: 'DashboardController',
+		}).
+		when('/dashboard/products/add', {
+			templateUrl: 'static/pages/dashboard/products/add_product.html',
+            controller: 'DashboardController'
+		}).
 		when('/account', {
 			templateUrl: 'static/pages/account/home.html'
 		}).
