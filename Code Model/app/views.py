@@ -66,20 +66,7 @@ def get_all_products():
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     recs = []
-<<<<<<< HEAD
-=======
 
->>>>>>> 5ff9173a0031e68dcbbd607d1d46c015dcbf85d6
-    for r in res:
-        recs.append(
-            {"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]),
-             "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]),
-             "is_active": str(r[9])})
-    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
-<<<<<<< HEAD
-=======
-
->>>>>>> 5ff9173a0031e68dcbbd607d1d46c015dcbf85d6
     if len(res) > 0:
         for r in res:
             recs.append({"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]), "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]), "is_active": str(r[9])})
@@ -87,10 +74,6 @@ def get_all_products():
     else:
         return jsonify({'status': 'no entries in database'})
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 5ff9173a0031e68dcbbd607d1d46c015dcbf85d6
 
 @app.route('/api/v1/products/<product_id>/', methods=['GET'])
 def get_product(product_id):
