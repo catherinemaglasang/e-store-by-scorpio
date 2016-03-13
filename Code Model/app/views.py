@@ -9,6 +9,7 @@ from .models import DBconn
 PRODUCTS = {}
 SUPPLIERS = {}
 USERS = {}
+CATEGORIES = {}
 
 
 def spcall(qry, param, commit=False):
@@ -65,21 +66,15 @@ def get_all_products():
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
-    recs = []
-<<<<<<< HEAD
-=======
+    recs =[]
 
->>>>>>> 5ff9173a0031e68dcbbd607d1d46c015dcbf85d6
     for r in res:
         recs.append(
             {"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]),
              "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]),
              "is_active": str(r[9])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
-<<<<<<< HEAD
-=======
 
->>>>>>> 5ff9173a0031e68dcbbd607d1d46c015dcbf85d6
     if len(res) > 0:
         for r in res:
             recs.append({"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]), "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]), "is_active": str(r[9])})
@@ -87,10 +82,7 @@ def get_all_products():
     else:
         return jsonify({'status': 'no entries in database'})
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 5ff9173a0031e68dcbbd607d1d46c015dcbf85d6
 
 @app.route('/api/v1/products/<product_id>/', methods=['GET'])
 def get_product(product_id):
@@ -114,7 +106,72 @@ def delete_product(id):
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
-""" Todo: This route should be protected """
+@app.route('/api/v1/product_categories/', methods=['POST'])
+def new_product_category():
+    print "STARTING ADD"
+    id = request.form['inputID']
+    name = request.form['inputName']
+    description = request.form['inputDescription']
+    main_image = request.form['inputMainImage']
+    parent_category_id = request.form['inputParentCategoryId']
+    is_active = False
+
+    res = spcall('new_product_category', (
+    id, name, description, main_image, parent_category_id, is_active), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+
+@app.route('/api/v1/products_category/', methods=['GET'])
+def get_all_product_categories():
+    res = spcall('get_product_category', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs =[]
+
+    for r in res:
+        recs.append(
+            {"id": str(r[0]), "name": str(r[1]), "description": str(r[2]), "main_image": str(r[3]), "parent_category_id": str(r[4]),
+             "is_active": str(r[5])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+    if len(res) > 0:
+        for r in res:
+            recs.append({"id": str(r[0]), "name": str(r[1]), "description": str(r[2]), "main_image": str(r[3]), "parent_category_id": str(r[4]), "is_active": str(r[5])})
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+    else:
+        return jsonify({'status': 'no entries in database'})
+
+
+@app.route('/api/v1/product_categories/<product_category_id>/', methods=['GET'])
+def get_product_category(product_category_id):
+    res = spcall('get_product_category_id', (product_category_id))
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    r = res[0]
+    return jsonify({"id": str(product_category_id), "name": str(r[0]), "description": str(r[1]), "main_image": str(r[2]),
+                    "parent_category_id": str(r[3]), "is_active": str(r[4])})
+
+
+@app.route('/api/v1/product_category/<int:id>/', methods=['DELETE'])
+def delete_product_category(id):
+    res = spcall("delete_product_category", (id,), True)
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+
+    """ Todo: This route should be protected """
 
 
 @app.route('/api/v1/users/', methods=['GET'])
