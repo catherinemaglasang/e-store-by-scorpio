@@ -1,54 +1,68 @@
-mainApp.config(['$routeProvider', function($routeProvider) {
-	$routeProvider.
-		when('/', {
-			templateUrl: 'static/pages/shop/home.html',
-		}).
-		when('/page', {
-			templateUrl: 'static/pages/shop/page.html',
+mainApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+	$urlRouterProvider.otherwise('/shop/');
+	$stateProvider
+		.state('dashboard', {
+			url: '/dashboard',
+			templateUrl: 'static/pages/dashboard/base.html'
 		})
-		.when('/blog/:id', {
-			templateUrl: 'static/pages/shop/single_blog.html',
+		.state('dashboard.home', {
+			url: '/',
+			templateUrl: 'static/pages/dashboard/home.html'
 		})
-		.when('/blog', {
-			templateUrl: 'static/pages/shop/blog.html',
-		}).
-		when('/contact', {
-			templateUrl: 'static/pages/shop/contact.html',
-		}).
-		when('/wishlist', {
-			templateUrl: 'static/pages/shop/wishlist.html',
-		}).
-		when('/cart', {
-			templateUrl: 'static/pages/shop/cart.html',
-		}).
-		when('/category/:id', {
+		.state('dashboard.products', {
+			url: '/products',
+			templateUrl: 'static/pages/dashboard/products/products.html'
+		})
+		.state('dashboard.add_product', {
+			url: '/products/add',
+			templateUrl: 'static/pages/dashboard/products/add_product.html'
+		})
+
+		.state('shop', {
+			url: '/shop',
+			templateUrl: 'static/pages/shop/base.html'
+		})
+		.state('shop.home', {
+			url: '/',
+			templateUrl: 'static/pages/shop/home.html'
+		})
+		.state('shop.page', {
+			url: '/page',
+			templateUrl: 'static/pages/shop/page.html'
+		})
+		.state('shop.blog', {
+			url: '/blog',
+			templateUrl: 'static/pages/shop/blog.html'
+		})
+		.state('shop.contact', {
+			templateUrl: 'static/pages/shop/contact.html'
+		})
+		.state('shop.wishlist', {
+			url: '/wishlist',
+			templateUrl: 'static/pages/shop/wishlist.html'
+		})
+		.state('shop.cart', {
+			url: '/cart',
+			templateUrl: 'static/pages/shop/cart.html'
+		})
+		.state('shop.category', {
+			url: '/category',
 			templateUrl: 'static/pages/shop/category.html'
-		}).
-		when('/category', {
-			templateUrl: 'static/pages/shop/category.html'
-		}).
-		when('/product/:id', {
+		})
+		.state('shop.product', {
+			url: '/product',
 			templateUrl: 'static/pages/shop/product.html'
-		}).
-		when('/product', {
-			templateUrl: 'static/pages/shop/product.html'
-		}).
-		when('/dashboard', {
-			templateUrl: 'static/pages/dashboard/home.html',
-            controller: 'DashboardController'
-		}).
-		when('/dashboard/products', {
-			templateUrl: 'static/pages/dashboard/products/products.html',
-            controller: 'DashboardController',
-		}).
-		when('/dashboard/products/add', {
-			templateUrl: 'static/pages/dashboard/products/add_product.html',
-            controller: 'DashboardController'
-		}).
-		when('/account', {
-			templateUrl: 'static/pages/account/home.html'
-		}).
-		otherwise({
-			templateUrl: 'static/pages/404.html'
+		})
+		.state('login', {
+			url: '/login',
+			templateUrl: 'static/pages/login.html'
+		})
+		.state('register', {
+			url: '/register',
+			templateUrl: 'static/pages/register.html'
+		})
+		.state('password_reset', {
+			url: '/password/reset',
+			templateUrl: 'static/pages/password_reset.html'
 		});
 }]);
