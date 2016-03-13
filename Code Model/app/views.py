@@ -303,6 +303,31 @@ def get_wishlist_details():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
+@app.route('/api/v1/wishlist/', methods=['POST'])
+def new_wishlist():
+    json = request.json
+    id = json['id']
+    res = spcall('new_wishlist', (id), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+@app.route('/api/v1/wishlist/', methods=['GET'])
+def get_wishlist():
+    res = spcall('get_wishlist', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": r[0]})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+
+
 @app.after_request
 def add_cors(resp):
     resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
