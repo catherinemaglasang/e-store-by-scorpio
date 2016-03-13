@@ -10,6 +10,7 @@ PRODUCTS = {}
 SUPPLIERS = {}
 USERS = {}
 CATEGORIES = {}
+WISHLISTS = {}
 
 
 def spcall(qry, param, commit=False):
@@ -235,6 +236,8 @@ def get_supplier(supplier_id):
     r = res[0]
     return jsonify({"id": str(supplier_id), "name": str(r[0]), "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
                     "email": str(r[4]), "is_active": str(r[5])})
+
+
 
 
 @app.route('/api/v1/cart_details/', methods=['POST'])
