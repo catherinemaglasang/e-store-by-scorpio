@@ -331,6 +331,8 @@ def get_wishlist():
 
 
 
+
+
 @app.after_request
 def add_cors(resp):
     resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
