@@ -12,7 +12,7 @@
                     <ul class="nav navbar-nav navbar-right navbar-right-no-mar">
                         <li><a href="#/dashboard">Dashboard</a>
                         </li>
-                        <li><a href="#/account">Account</a>
+                        <li><a href="#/shop/account">Account</a>
                         </li>
                         <!--<li><a href="#/page">About Us</a>
                         </li>
@@ -22,9 +22,9 @@
                         </li>
                         <li><a href="#/page">Help</a>
                         </li>-->
-                        <li><a href="#/page">Wishlist</a>
+                        <li><a href="#/shop/page">Wishlist</a>
                         </li>
-                        <li><a href="#/blog">Blog</a>
+                        <li><a href="#/shop/blog">Blog</a>
                         </li>
 
                     </ul>
@@ -44,30 +44,11 @@
             </div>
             <div class="collapse navbar-collapse" id="main-nav-collapse">
                 <ul class="nav navbar-nav">
+                    <li><a href="#/shop/catalogue">Catalogue</a></li>
                     <li class="dropdown"><a href="#"><i class="fa fa-reorder"></i>&nbsp; Shop by Category<i class="drop-caret" data-toggle="dropdown"></i></a>
                         <ul class="dropdown-menu dropdown-menu-category">
                             <li ng-repeat="node in category_tree">
-                                <a href="#/category/1"><i class="fa fa-home dropdown-menu-category-icon"></i>Tech</a>
-                                <div class="dropdown-menu-category-section">
-                                    <div class="dropdown-menu-category-section-inner">
-                                        <div class="dropdown-menu-category-section-content">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <h5 class="dropdown-menu-category-title">Laptops</h5>
-                                                    <ul class="dropdown-menu-category-list">
-                                                        <li><a href="#/category/1">Home</a>
-                                                            <p>Hac primis inceptos diam volutpat</p>
-                                                        </li>
-                                                        <li><a href="#/category/1">Kitchen</a>
-                                                            <p>Arcu fermentum integer penatibus laoreet</p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <img class="dropdown-menu-category-section-theme-img" src="static/img/test_cat/2-i.png" alt="Image Alternative text" title="Image Title" style="right: -10px;" />
-                                    </div>
-                                </div>
+                                <a href="#/shop/category/1"><i class="fa fa-home dropdown-menu-category-icon"></i>Tech</a>
                             </li>
                         </ul>
                     </li>
@@ -79,9 +60,9 @@
                     <a class="fa fa-search navbar-main-search-submit" href="/#"></a>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#nav-login-dialog" data-effect="mfp-move-from-top" class="popup-text">Sign In</a>
+                    <li><a href="#/shop/login" data-effect="mfp-move-from-top" class="popup-text">Sign In</a>
                     </li>
-                    <li><a href="#nav-account-dialog" data-effect="mfp-move-from-top" class="popup-text">Create Account</a>
+                    <li><a href="#/shop/register" data-effect="mfp-move-from-top" class="popup-text">Create Account</a>
                     </li>
                     <li class="dropdown">
                         <a class="fa fa-shopping-cart" href="#/cart"></a>
@@ -107,5 +88,13 @@
         </div>
     </nav>
     <div ui-view></div>
-
+    <div class="copyright-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="copyright-text">Copyright &copy; <a href="#">TheStore</a> 2014. All rights reseved</p>
+            </div>
+        </div>
+    </div>
+</div>
 </div>

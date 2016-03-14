@@ -20,7 +20,8 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
 
 		.state('shop', {
 			url: '/shop',
-			templateUrl: 'static/pages/shop/base.html'
+			templateUrl: 'static/pages/shop/base.html',
+			controller: 'ShopController'
 		})
 		.state('shop.home', {
 			url: '/',
@@ -45,24 +46,40 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
 			url: '/cart',
 			templateUrl: 'static/pages/shop/cart.html'
 		})
-		.state('shop.category', {
-			url: '/category',
+		.state('shop.catalogue', {
+			url: '/catalogue',
+			templateUrl: 'static/pages/shop/category.html'
+		})
+		.state('shop.categoryDetail', {
+			url: '/category/:id',
 			templateUrl: 'static/pages/shop/category.html'
 		})
 		.state('shop.product', {
 			url: '/product',
 			templateUrl: 'static/pages/shop/product.html'
 		})
-		.state('login', {
+		.state('shop.login', {
 			url: '/login',
 			templateUrl: 'static/pages/login.html'
 		})
-		.state('register', {
+		.state('shop.register', {
 			url: '/register',
 			templateUrl: 'static/pages/register.html'
 		})
-		.state('password_reset', {
+		.state('shop.password_reset', {
 			url: '/password/reset',
 			templateUrl: 'static/pages/password_reset.html'
+		})
+		.state('shop.account', {
+			url: '/account',
+			templateUrl: 'static/pages/account/base.html'
+		})
+		.state('shop.account.home', {
+			url: '/',
+			templateUrl: 'static/pages/account/profile.html'
+		})
+		.state('shop.account.orders', {
+			url: '/orders',
+			templateUrl: 'static/pages/account/orders.html'
 		});
 }]);
