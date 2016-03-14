@@ -130,7 +130,7 @@ def new_product_category():
 
 
 
-@app.route('/api/v1/products_category/', methods=['GET'])
+@app.route('/api/v1/product_categories/', methods=['GET'])
 def get_all_product_categories():
     res = spcall('get_product_category', ())
 
@@ -382,6 +382,7 @@ def new_orders():
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
     return jsonify({'status': 'ok', 'message': res[0][0]})
+
 
 
 @app.after_request

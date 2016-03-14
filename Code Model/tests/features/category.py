@@ -25,7 +25,7 @@ def when_I_retrieve_the_category1(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/product_category/{}/'.format(id))
+    world.response = world.app.get('/api/v1/product_categories/'.format(id))
 
 
 @step("I should get a \'(.*)\' response")
@@ -41,4 +41,6 @@ def the_following_category_details(step):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(step.hashes, [json.loads(world.response.data)])
+    assert_equals(int(step.hashes[0]['id']), int([json.loads(world.response.data)][0]['entries'][0]['id']))
+    assert_equals(step.hashes[0]['name'], [json.loads(world.response.data)][0]['entries'][0]['name'])
+    assert_equals(step.hashes[0]['description'], [json.loads(world.response.data)][0]['entries'][0]['description'])
