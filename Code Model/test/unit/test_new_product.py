@@ -9,4 +9,5 @@ class ProductTestCase(TestCase):
 
     def test_new_product(self):
         self.assertEqual(5,5)
-        self.assertRaises(AttributeError, [].get)
+        self.assertAlmostEqual(1, 1.0001, places=4)
+        self.assertRaises(AttributeError)
