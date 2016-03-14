@@ -67,6 +67,7 @@ def get_all_products():
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
+
     recs =[]
 
     for r in res:
@@ -75,6 +76,7 @@ def get_all_products():
              "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]),
              "is_active": str(r[9])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
     if len(res) > 0:
         for r in res:
