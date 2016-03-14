@@ -129,7 +129,7 @@ def new_product_category():
 
 
 
-@app.route('/api/v1/products_category/', methods=['GET'])
+@app.route('/api/v1/product_categories/', methods=['GET'])
 def get_all_product_categories():
     res = spcall('get_product_category', ())
 
@@ -330,7 +330,6 @@ def get_wishlist():
     for r in res:
         recs.append({"id": r[0]})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
-
 
 
 
