@@ -9,6 +9,8 @@ from .models import DBconn
 PRODUCTS = {}
 SUPPLIERS = {}
 USERS = {}
+CATEGORIES = {}
+WISHLISTS = {}
 
 
 def spcall(qry, param, commit=False):
@@ -65,7 +67,16 @@ def get_all_products():
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
-    recs = []
+
+    recs =[]
+
+    for r in res:
+        recs.append(
+            {"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]),
+             "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]),
+             "is_active": str(r[9])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
     if len(res) > 0:
         for r in res:
@@ -73,6 +84,7 @@ def get_all_products():
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
     else:
         return jsonify({'status': 'no entries in database'})
+
 
 
 @app.route('/api/v1/products/<product_id>/', methods=['GET'])
@@ -97,7 +109,72 @@ def delete_product(id):
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
-""" Todo: This route should be protected """
+@app.route('/api/v1/product_categories/', methods=['POST'])
+def new_product_category():
+    print "STARTING ADD"
+    id = request.form['inputID']
+    name = request.form['inputName']
+    description = request.form['inputDescription']
+    main_image = request.form['inputMainImage']
+    parent_category_id = request.form['inputParentCategoryId']
+    is_active = False
+
+    res = spcall('new_product_category', (
+    id, name, description, main_image, parent_category_id, is_active), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+
+@app.route('/api/v1/products_category/', methods=['GET'])
+def get_all_product_categories():
+    res = spcall('get_product_category', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs =[]
+
+    for r in res:
+        recs.append(
+            {"id": str(r[0]), "name": str(r[1]), "description": str(r[2]), "main_image": str(r[3]), "parent_category_id": str(r[4]),
+             "is_active": str(r[5])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+    if len(res) > 0:
+        for r in res:
+            recs.append({"id": str(r[0]), "name": str(r[1]), "description": str(r[2]), "main_image": str(r[3]), "parent_category_id": str(r[4]), "is_active": str(r[5])})
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+    else:
+        return jsonify({'status': 'no entries in database'})
+
+
+@app.route('/api/v1/product_categories/<product_category_id>/', methods=['GET'])
+def get_product_category(product_category_id):
+    res = spcall('get_product_category_id', (product_category_id))
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    r = res[0]
+    return jsonify({"id": str(product_category_id), "name": str(r[0]), "description": str(r[1]), "main_image": str(r[2]),
+                    "parent_category_id": str(r[3]), "is_active": str(r[4])})
+
+
+@app.route('/api/v1/product_category/<int:id>/', methods=['DELETE'])
+def delete_product_category(id):
+    res = spcall("delete_product_category", (id,), True)
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+
+    """ Todo: This route should be protected """
 
 
 @app.route('/api/v1/users/', methods=['GET'])
@@ -161,6 +238,8 @@ def get_supplier(supplier_id):
     r = res[0]
     return jsonify({"id": str(supplier_id), "name": str(r[0]), "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
                     "email": str(r[4]), "is_active": str(r[5])})
+
+
 
 
 @app.route('/api/v1/cart_details/', methods=['POST'])
@@ -227,6 +306,31 @@ def get_wishlist_details():
     for r in res:
         recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "time_stamp": r[3]})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+
+@app.route('/api/v1/wishlist/', methods=['POST'])
+def new_wishlist():
+    json = request.json
+    id = json['id']
+    res = spcall('new_wishlist', (id), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+@app.route('/api/v1/wishlist/', methods=['GET'])
+def get_wishlist():
+    res = spcall('get_wishlist', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": r[0]})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
 
 @app.after_request

@@ -254,3 +254,28 @@ $$
   select wishlist_id, product_id, time_stamp from wishlist_details where id = par_id;
 $$
   language 'sql';
+
+
+create or replace function new_wishlist(in par_id int8) returns text as
+$$
+  declare
+    loc_id text;
+    loc_res text;
+  begin
+    select into loc_id id from cart where id=par_id;
+    if loc_id isnull then
+
+       insert into cart(id) values (par_id);
+       loc_res = 'OK';
+
+     else
+       loc_res = 'ID EXISTED';
+     end if;
+     return loc_res;
+  end;
+$$  
+
+language 'plpgsql';
+
+
+

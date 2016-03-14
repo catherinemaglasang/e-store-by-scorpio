@@ -59,3 +59,7 @@ create table wishlist_details (
    product_id int8,
    time_stamp timestamp
 );
+
+create table wishlist (
+   id int8 primary key
+);
