@@ -29,33 +29,33 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
 		})
 		.state('shop.page', {
 			url: '/page',
-			templateUrl: 'static/pages/shop/page.html'
+			templateUrl: 'static/pages/shop/simple/page.html'
 		})
 		.state('shop.blog', {
 			url: '/blog',
-			templateUrl: 'static/pages/shop/blog.html'
+			templateUrl: 'static/pages/shop/blog/blog.html'
 		})
 		.state('shop.contact', {
-			templateUrl: 'static/pages/shop/contact.html'
-		})
-		.state('shop.wishlist', {
-			url: '/wishlist',
-			templateUrl: 'static/pages/shop/wishlist.html'
+			templateUrl: 'static/pages/shop/simple/contact.html'
 		})
 		.state('shop.cart', {
 			url: '/cart',
-			templateUrl: 'static/pages/shop/cart.html'
+			templateUrl: 'static/pages/shop/checkout/cart.html'
+		})
+		.state('shop.checkout', {
+			url: '/checkout',
+			templateUrl: 'static/pages/shop/checkout/checkout.html'
 		})
 		.state('shop.catalogue', {
 			url: '/catalogue',
-			templateUrl: 'static/pages/shop/category.html'
+			templateUrl: 'static/pages/shop/product/category.html'
 		})
 		.state('shop.categoryDetail', {
 			url: '/category/:id',
-			templateUrl: 'static/pages/shop/category.html'
+			templateUrl: 'static/pages/shop/product/category.html'
 		})
-		.state('shop.product', {
-			url: '/product',
+		.state('shop.productDetail', {
+			url: '/product/:id',
 			templateUrl: 'static/pages/shop/product.html'
 		})
 		.state('shop.login', {
@@ -81,5 +81,14 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
 		.state('shop.account.orders', {
 			url: '/orders',
 			templateUrl: 'static/pages/account/orders.html'
+		}).state('shop.account.address', {
+			url: '/address',
+			templateUrl: 'static/pages/account/address_book.html'
+		}).state('shop.account.notifications', {
+			url: '/notifications',
+			templateUrl: 'static/pages/account/notifications.html'
+		}).state('shop.account.wishlist', {
+			url: '/wishlist',
+			templateUrl: 'static/pages/account/wishlist.html'
 		});
 }]);

@@ -12,6 +12,7 @@
     </header>
     <div class="row">
         <div class="col-md-6">
+
             <div class="product-page-product-wrap jqzoom-stage jqzoom-stage-lg">
                 <div class="clearfix">
                     <a href="img/800x800.png" id="jqzoom" data-rel="gal-1">
@@ -19,7 +20,15 @@
                     </a>
                 </div>
             </div>
-            <ul class="jqzoom-list">
+            <ul class="jqzoom-list" product-zoom="{
+				'zoomType': 'standard',
+				'lens': true,
+				'preloadImages': false,
+				'alwaysOn': false,
+				'zoomWidth': 460,
+				'zoomHeight': 460,
+				'yOffset': 0,
+				'position': 'left'}">
                 <li>
                     <a class="zoomThumbActive" href="javascript:void(0)" data-rel="{gallery:'gal-1', smallimage: 'img/500x500.png', largeimage: 'img/800x800.png'}">
                         <img src="static/img/100x100.png" alt="Image Alternative text" title="Image Title" />

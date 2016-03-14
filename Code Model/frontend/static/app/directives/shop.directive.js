@@ -31,6 +31,15 @@ mainApp.directive("priceSlider", function(){
 	}
 });
 
+mainApp.directive("productZoom", function(){
+	return {
+		restrict: 'A',
+		link: function(scope, element, attrs){
+			$(element).jqzoom(scope.$eval(attrs.productZoom));
+		}
+	}
+})
+
 mainApp.directive("iCheck", function(){
 	return {
 		restrict: 'A',

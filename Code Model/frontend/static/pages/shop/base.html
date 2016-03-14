@@ -12,7 +12,7 @@
                     <ul class="nav navbar-nav navbar-right navbar-right-no-mar">
                         <li><a href="#/dashboard">Dashboard</a>
                         </li>
-                        <li><a href="#/shop/account">Account</a>
+                        <li><a href="#/shop/account/">Account</a>
                         </li>
                         <!--<li><a href="#/page">About Us</a>
                         </li>
@@ -22,7 +22,7 @@
                         </li>
                         <li><a href="#/page">Help</a>
                         </li>-->
-                        <li><a href="#/shop/page">Wishlist</a>
+                        <li><a href="#/shop/account/wishlist">Wishlist</a>
                         </li>
                         <li><a href="#/shop/blog">Blog</a>
                         </li>
@@ -65,7 +65,7 @@
                     <li><a href="#/shop/register" data-effect="mfp-move-from-top" class="popup-text">Create Account</a>
                     </li>
                     <li class="dropdown">
-                        <a class="fa fa-shopping-cart" href="#/cart"></a>
+                        <a class="fa fa-shopping-cart" href="#/shop/cart"></a>
                         <ul class="dropdown-menu dropdown-menu-shipping-cart">
                             <li ng-repeat="item in cart.items">
                                 <a class="dropdown-menu-shipping-cart-img" href="{{ item.item_link }}">
@@ -79,7 +79,7 @@
                             </li>
                             <li>
                                 <p class="dropdown-menu-shipping-cart-total">Total: ${{ cart.total }}</p>
-                                <button class="dropdown-menu-shipping-cart-checkout btn btn-primary" href="#/checkout">Checkout</button>
+                                <a href="#/shop/checkout"><button class="dropdown-menu-shipping-cart-checkout btn btn-primary">Checkout</button></a>
                             </li>
                         </ul>
                     </li>

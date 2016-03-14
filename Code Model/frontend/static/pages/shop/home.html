@@ -1,7 +1,7 @@
-<div owl-carousel='{"items":1,"loop":true}}' class="owl-loaded owl-nav-dots-inner">
-    <div class="owl-item">
+<div owl-carousel='{"items":1,"loop":true}' class="owl-loaded owl-nav-dots-inner">
+    <div class="owl-item" ng-repeat="promotion in promotions" >
         <!-- Slider Slide / Promotion Banner Template -->
-        <div ng-repeat="promotion in promotions" class="slider-item" style="background-color:#3D3D3D;">
+        <div class="slider-item" style="background-color:#3D3D3D;">
             <div class="container">
                 <div class="slider-item-inner">
                     <div class="slider-item-caption-left slider-item-caption-white">
@@ -22,34 +22,6 @@
     <div class="row" data-gutter="15">
         <div class="col-md-3" ng-repeat="product in products">
             <single-product></single-product>
-        </div>
-    </div>
-</div>
-<div class="gap"></div>
-<div class="slider-item-sm" style="background-color:#E66514;">
-    <div class="container">
-        <div class="slider-item-inner">
-            <div class="slider-item-caption-left slider-item-caption-white">
-                <h4 class="slider-item-caption-title">Time to Upgrade Your Smartphone</h4>
-                <p class="slider-item-caption-desc">It's Smartphone Time.</p><a class="btn btn-lg btn-ghost btn-white"
-                                                                                href="/#">Shop Now</a>
-            </div>
-            <img class="slider-item-img" src="static/img/test_slider/7-i.png" alt="Image Alternative text"
-                 title="Image Title" style="right: 0; bottom: 0; width: 22%;"/>
-        </div>
-    </div>
-</div>
-<div class="gap"></div>
-<div class="container">
-    <h3 class="widget-title-lg">Shop by Category</h3>
-    <div class="row row-sm-gap" data-gutter="15">
-        <div ng-repeat="category in categories" class="col-md-2">
-            <a class="banner-category" href="/#/shop/category/1">
-                <img class="banner-category-img" src="{{ category.primary_image }}" alt="{{ category.title }}"
-                     title="Image Title"/>
-                <h5 class="banner-category-title">{{ category.title }}</h5>
-                <p class="banner-category-desc">{{ category.product_count }} products</p>
-            </a>
         </div>
     </div>
 </div>
