@@ -274,9 +274,9 @@ def get_cart_details():
 @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
 def get_cart_detail(cart_detail_id):
     res = spcall('get_cart_detail', cart_detail_id)
-    #
-    # if 'Error' in res[0][0]:
-    #     return jsonify({'status': 'error', 'message': res[0][0]})
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
     return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
