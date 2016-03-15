@@ -57,7 +57,20 @@ $$
     loc_product_id text;
     loc_res text;
   begin
-     update products set (title, description, date_added, ordering, supplier_id, category_id, site_id, product_type_id, on_hand, re_order_level, is_active) = (par_title, par_description, par_date_added, par_ordering, par_supplier_id, par_category_id, par_site_id, par_product_type_id, par_on_hand, par_re_order_level, par_is_active) where product_id = par_product_id;
+     update products set
+       title = COALESCE(par_title, title),
+       description = COALESCE(par_description, description),
+       date_added = COALESCE(par_date_added, date_added),
+       ordering = COALESCE(par_ordering, ordering),
+       supplier_id = COALESCE(par_supplier_id, supplier_id),
+       category_id = COALESCE(par_category_id, category_id),
+       site_id = COALESCE(par_site_id, site_id),
+       product_type_id = COALESCE(par_product_type_id, product_type_id),
+       on_hand = COALESCE(par_on_hand, on_hand),
+       re_order_level = COALESCE(par_re_order_level, re_order_level),
+       is_active = COALESCE(par_is_active, is_active)
+     where product_id = par_product_id;
+
      loc_res = 'ok';
      return loc_res;
   end;

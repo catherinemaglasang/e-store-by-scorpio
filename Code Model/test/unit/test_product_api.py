@@ -123,8 +123,8 @@ class ProductTestCase(unittest.TestCase):
     def test_update_product(self):
         new_product = {
             'product_id': '1',
-            # 'title': 'NEWNEW Product Name',
-            # 'description': 'NEW  Product Description',
+            'title': 'NEWNEW Product Name',
+            'description': 'NEW  Product Description',
             'date_added': '1/1/1 1:1:1',
             'ordering': '0',
             'supplier_id': '1',
