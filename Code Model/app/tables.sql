@@ -31,7 +31,7 @@ create table suppliers (
 create table carts (
    id int8 primary key,
    session_id int8,
-   date_created text,
+   date_created DATE,
    customer_id int8,
    is_active boolean
 );
