@@ -214,6 +214,7 @@ def new_user():
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
+""" my task """
 @app.route('/api/v1/suppliers/', methods=['GET'])
 def get_all_suppliers():
     res = spcall('get_suppliers', ())
@@ -238,8 +239,6 @@ def get_supplier(supplier_id):
     r = res[0]
     return jsonify({"id": str(supplier_id), "name": str(r[0]), "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
                     "email": str(r[4]), "is_active": str(r[5])})
-
-
 
 
 @app.route('/api/v1/cart_details/', methods=['POST'])
@@ -273,10 +272,10 @@ def get_cart_details():
 # @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
 # def get_cart_detail(cart_detail_id):
 #     res = spcall('get_cart_detail', (cart_detail_id))
-
+#
 #     if 'Error' in res[0][0]:
 #         return jsonify({'status': 'error', 'message': res[0][0]})
-
+#
 #     r = res[0]
 #     return jsonify({"cart_id": r[0], "product_id": r[1], "quantity":r[2], "time_stamp":str(r[3])})
 
