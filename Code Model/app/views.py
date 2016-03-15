@@ -13,7 +13,7 @@ CATEGORIES = {}
 WISHLISTS = {}
 ORDER = {}
 CART_DETAILS = {}
-
+ORDER_DETAILS = {}
 
 def spcall(qry, param, commit=False):
     try:
