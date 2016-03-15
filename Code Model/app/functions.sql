@@ -1,4 +1,4 @@
-create or replace function new_product(in par_id int8, in par_sku text, in par_supplier_id int8, in par_title  text, in par_description text,in par_category_id int8, in par_unit_price float8, in par_on_hand int8, in par_re_order_level int8, in par_is_active boolean) returns text as
+create or replace function new_product(in par_id int, in par_sku text, in par_supplier_id int, in par_title  text, in par_description text,in par_category_id int, in par_unit_price float8, in par_on_hand int, in par_re_order_level int, in par_is_active boolean) returns text as
 $$
   declare
     loc_id text;
@@ -21,7 +21,7 @@ $$
 --select new_product(1, '0111AB',, 11, 'Webster', 'Dictionary', '0111', 999.99, 20, 10, false);
 --select new_product(2, '0222AB', 22, 'Python', 'Learning Python', '0222', 1500.00, 20, 10, false);
 
-create or replace function get_product(out int8, out text, out int8, out text, out text, out int8, out float8, out int8, out int8, out boolean) returns setof record as
+create or replace function get_product(out int, out text, out int, out text, out text, out int, out float8, out int, out int, out boolean) returns setof record as
 $$
    select id, sku, supplier_id, title, description, category_id, unit_price, on_hand, re_order_level, is_active from products;
 
@@ -30,7 +30,7 @@ $$
 
 --select * from get_products();
 
-create or replace function get_product_id(in par_id int8, out text, out int8, out text, out text, out int8, out float8, out int8, out int8, out boolean) returns setof record as
+create or replace function get_product_id(in par_id int, out text, out int, out text, out text, out int, out float8, out int, out int, out boolean) returns setof record as
 $$
    select sku, supplier_id, title, description, category_id, unit_price, on_hand, re_order_level, is_active from products where id = par_id;
 
