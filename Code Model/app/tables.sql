@@ -63,3 +63,14 @@ create table wishlist_details (
 create table wishlist (
    id int8 primary key
 );
+
+create table orders(
+   id int8 primary key,
+   customer_id int8,
+   payment_id int8,
+   transaction_date timestamp,
+   shipping_date timestamp,
+   time_stamp timestamp,
+   transaction_status text,
+   total float8
+)

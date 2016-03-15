@@ -11,6 +11,7 @@ SUPPLIERS = {}
 USERS = {}
 CATEGORIES = {}
 WISHLISTS = {}
+ORDER = {}
 
 
 def spcall(qry, param, commit=False):
@@ -129,7 +130,7 @@ def new_product_category():
 
 
 
-@app.route('/api/v1/products_category/', methods=['GET'])
+@app.route('/api/v1/product_categories/', methods=['GET'])
 def get_all_product_categories():
     res = spcall('get_product_category', ())
 
@@ -330,6 +331,57 @@ def get_wishlist():
         recs.append({"id": r[0]})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
+@app.route('/api/v1/orders', methods=['GET'])
+def get_all_orders():
+    """
+    Retrieve All Orders
+    """
+
+    res = spcall('get_orders', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": str(r[0]), "customer_id": str(r[1]), "payment_id": str(r[2]), "transaction_date": str(r[3]), "shipping_date": str(r[4]),
+                     "time_stamp": str(r[5]), "transaction_status": str(r[6]), "total": str(r[7])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+@app.route('/api/v1/orders/<orders_id>/', methods=['GET'])
+def get_orders(orders_id):
+    """
+    Retrieve Single Order
+    """
+    res = spcall('get_order_id', orders_id)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    r = res[0]
+    return jsonify({"id": str(orders_id), "customer_id": str(r[0]), "payment_id": str(r[1]), "transaction_date": str(r[2]), "shipping_date": str(r[3]),
+                    "time_stamp": str(r[4]), "transaction_status": str(r[5]), "total": str(r[6])})
+
+@app.route('/api/v1/orders/', methods=['POST'])
+def new_orders():
+    """
+    Create New Orders
+    """
+    json = request.json
+    id = json['id']
+    customer_id = json['customer_id']
+    payment_id = json['payment_id']
+    transaction_date = json['transaction_date']
+    shipping_date = json['shipping_date']
+    time_stamp = json['time_stamp']
+    transaction_status = json['transaction_status']
+    total = json['total']
+    res = spcall('new_order', (id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
 
 
 @app.after_request
@@ -342,3 +394,4 @@ def add_cors(resp):
     if app.debug:
         resp.headers["Access-Control-Max-Age"] = '1'
     return resp
+

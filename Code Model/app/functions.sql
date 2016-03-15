@@ -279,3 +279,37 @@ language 'plpgsql';
 
 
 
+create or replace function new_orders(in par_id int8, in par_customer_id int8, in par_payment_id int8, in par_transaction_date timestamp, in par_shipping_date timestamp, in par_time_stamp timestamp, in par_transaction_status text, par_total float8) returns text as
+$$
+  declare
+    loc_id text;
+    loc_res text;
+  begin
+    select into loc_id id from orders where id=par_id;
+    if loc_id isnull then
+
+       insert into orders(id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_id, par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
+       loc_res = 'OK';
+
+     else
+       loc_res = 'ID EXISTED';
+     end if;
+     return loc_res;
+  end;
+$$
+
+language 'plpgsql';
+
+create or replace function get_orders(out int8, out int8, out int8, out timestamp, out timestamp, out timestamp, out text, out float8) returns setof record as
+$$
+  select id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total from orders
+$$
+
+language 'sql';
+
+create or replace function get_order_id(in par_id int8, out int8, out int8, out timestamp, out timestamp, out timestamp, out text, out float8) returns setof record as
+$$
+   select customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total from orders where id = par_id;
+
+$$
+ language 'sql';
