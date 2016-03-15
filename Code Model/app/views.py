@@ -13,12 +13,9 @@ CATEGORIES = {}
 WISHLISTS = {}
 ORDER = {}
 CART_DETAILS = {}
-<<<<<<< HEAD
 CARTS = {}
-
-=======
 ORDER_DETAILS = {}
->>>>>>> 9761990fa306a76556c48bad46b2c9385a92ef2e
+
 
 def spcall(qry, param, commit=False):
     try:
@@ -56,7 +53,7 @@ def new_product():
     is_active = False
 
     res = spcall('new_product', (
-    id, sku, supplier_id, title, description, category_id, unit_price, on_hand, re_order_level, is_active), True)
+        id, sku, supplier_id, title, description, category_id, unit_price, on_hand, re_order_level, is_active), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
@@ -74,8 +71,7 @@ def get_all_products():
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
-
-    recs =[]
+    recs = []
 
     for r in res:
         recs.append(
@@ -84,14 +80,14 @@ def get_all_products():
              "is_active": str(r[9])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
-
     if len(res) > 0:
         for r in res:
-            recs.append({"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]), "description": str(r[4]), "category_id": str(r[5]), "unit_price": str([6]), "on_hand": str(r[7]), "re_order_level": str(r[8]), "is_active": str(r[9])})
+            recs.append({"id": str(r[0]), "sku": str(r[1]), "supplier_id": str(r[2]), "title": str(r[3]),
+                         "description": str(r[4]), "category_id": str(r[5]), "unit_price": str([6]),
+                         "on_hand": str(r[7]), "re_order_level": str(r[8]), "is_active": str(r[9])})
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
     else:
         return jsonify({'status': 'no entries in database'})
-
 
 
 @app.route('/api/v1/products/<product_id>/', methods=['GET'])
@@ -127,13 +123,12 @@ def new_product_category():
     is_active = False
 
     res = spcall('new_product_category', (
-    id, name, description, main_image, parent_category_id, is_active), True)
+        id, name, description, main_image, parent_category_id, is_active), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     return jsonify({'status': 'ok', 'message': res[0][0]})
-
 
 
 @app.route('/api/v1/product_categories/', methods=['GET'])
@@ -143,17 +138,19 @@ def get_all_product_categories():
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
-    recs =[]
+    recs = []
 
     for r in res:
         recs.append(
-            {"id": str(r[0]), "name": str(r[1]), "description": str(r[2]), "main_image": str(r[3]), "parent_category_id": str(r[4]),
+            {"id": str(r[0]), "name": str(r[1]), "description": str(r[2]), "main_image": str(r[3]),
+             "parent_category_id": str(r[4]),
              "is_active": str(r[5])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
     if len(res) > 0:
         for r in res:
-            recs.append({"id": str(r[0]), "name": str(r[1]), "description": str(r[2]), "main_image": str(r[3]), "parent_category_id": str(r[4]), "is_active": str(r[5])})
+            recs.append({"id": str(r[0]), "name": str(r[1]), "description": str(r[2]), "main_image": str(r[3]),
+                         "parent_category_id": str(r[4]), "is_active": str(r[5])})
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
     else:
         return jsonify({'status': 'no entries in database'})
@@ -167,8 +164,9 @@ def get_product_category(product_category_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"id": str(product_category_id), "name": str(r[0]), "description": str(r[1]), "main_image": str(r[2]),
-                    "parent_category_id": str(r[3]), "is_active": str(r[4])})
+    return jsonify(
+        {"id": str(product_category_id), "name": str(r[0]), "description": str(r[1]), "main_image": str(r[2]),
+         "parent_category_id": str(r[3]), "is_active": str(r[4])})
 
 
 @app.route('/api/v1/product_category/<int:id>/', methods=['DELETE'])
@@ -178,8 +176,6 @@ def delete_product_category(id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     return jsonify({'status': 'ok', 'message': res[0][0]})
-
-
 
     """ Todo: This route should be protected """
 
@@ -207,6 +203,7 @@ def get_user(user_id):
     rec = res[0]
     return jsonify({"id": str(user_id), "username": str(rec[0]), "password": str(rec[1]), "is_admin": str(rec[2])})
 
+
 @app.route('/api/v1/users/', methods=['POST'])
 def new_user():
     json = request.json
@@ -222,6 +219,8 @@ def new_user():
 
 
 """ my task """
+
+
 @app.route('/api/v1/suppliers/', methods=['GET'])
 def get_all_suppliers():
     res = spcall('get_suppliers', ())
@@ -244,8 +243,9 @@ def get_supplier(supplier_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"id": str(supplier_id), "name": str(r[0]), "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
-                    "email": str(r[4]), "is_active": str(r[5])})
+    return jsonify(
+        {"id": str(supplier_id), "name": str(r[0]), "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
+         "email": str(r[4]), "is_active": str(r[5])})
 
 
 @app.route('/api/v1/cart_details/', methods=['POST'])
@@ -276,6 +276,7 @@ def get_cart_details():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
+
 @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
 def get_cart_detail(cart_detail_id):
     res = spcall('get_cart_detail', cart_detail_id)
@@ -284,19 +285,36 @@ def get_cart_detail(cart_detail_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
+    return jsonify({"id": str(cart_detail_id), "cart_id": str(r[0]), "product_id": str(r[1]), "quantity": str(r[3]),
+                    "time_stamp": str(r[4])})
 
 
-@app.route('/api/v1/carts/<cartid>/', methods=['GET'])
-def get_cart_detail(cart_id):
+
+@app.route('/api/v1/carts/', methods=['POST'])
+def new_cart():
+    json = request.json
+    id = json['id']
+    session_id = json['session_id']
+    date_created = json['customer_id']
+    customer_id = json['product_id']
+    is_active = json['is_active']
+    res = spcall('new_cart', (id, session_id, date_created, customer_id, is_active), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+@app.route('/api/v1/carts/<cart_id>/', methods=['GET'])
+def get_cart(cart_id):
     res = spcall('get_cart', cart_id)
 
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
-
+    return jsonify({"id": str(cart_id), "session_id": str(r[0]), "date_created": str(r[1]), "customer_id": str(r[3]),
+                    "is_active": str(r[4])})
 
 
 @app.route('/api/v1/wishlist_details/', methods=['POST'])
@@ -349,6 +367,7 @@ def get_wishlist():
         recs.append({"id": r[0]})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
+
 @app.route('/api/v1/orders', methods=['GET'])
 def get_all_orders():
     """
@@ -362,9 +381,11 @@ def get_all_orders():
 
     recs = []
     for r in res:
-        recs.append({"id": str(r[0]), "customer_id": str(r[1]), "payment_id": str(r[2]), "transaction_date": str(r[3]), "shipping_date": str(r[4]),
+        recs.append({"id": str(r[0]), "customer_id": str(r[1]), "payment_id": str(r[2]), "transaction_date": str(r[3]),
+                     "shipping_date": str(r[4]),
                      "time_stamp": str(r[5]), "transaction_status": str(r[6]), "total": str(r[7])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
 @app.route('/api/v1/orders/<orders_id>/', methods=['GET'])
 def get_orders(orders_id):
@@ -377,8 +398,11 @@ def get_orders(orders_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"id": str(orders_id), "customer_id": str(r[0]), "payment_id": str(r[1]), "transaction_date": str(r[2]), "shipping_date": str(r[3]),
-                    "time_stamp": str(r[4]), "transaction_status": str(r[5]), "total": str(r[6])})
+    return jsonify(
+        {"id": str(orders_id), "customer_id": str(r[0]), "payment_id": str(r[1]), "transaction_date": str(r[2]),
+         "shipping_date": str(r[3]),
+         "time_stamp": str(r[4]), "transaction_status": str(r[5]), "total": str(r[6])})
+
 
 @app.route('/api/v1/orders/', methods=['POST'])
 def new_orders():
@@ -394,11 +418,14 @@ def new_orders():
     time_stamp = json['time_stamp']
     transaction_status = json['transaction_status']
     total = json['total']
-    res = spcall('new_order', (id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total), True)
+    res = spcall('new_order',
+                 (id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total),
+                 True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
     return jsonify({'status': 'ok', 'message': res[0][0]})
+
 
 @app.route('/api/v1/order_details', methods=['GET'])
 def get_all_order_details():
@@ -413,9 +440,11 @@ def get_all_order_details():
 
     recs = []
     for r in res:
-        recs.append({"id": str(r[0]), "order_id": str(r[1]), "product_id": str(r[2]), "unit_price": str(r[3]), "discount": str(r[4]),
+        recs.append({"id": str(r[0]), "order_id": str(r[1]), "product_id": str(r[2]), "unit_price": str(r[3]),
+                     "discount": str(r[4]),
                      "quantity": str(r[5])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
 @app.route('/api/v1/order_details/<order_detail_id>/', methods=['GET'])
 def get_order_detail(order_detail_id):
@@ -428,8 +457,10 @@ def get_order_detail(order_detail_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"id": str(order_detail_id), "order_id": str(r[0]), "product_id": str(r[1]), "unit_price": str(r[2]), "discount": str(r[3]),
+    return jsonify({"id": str(order_detail_id), "order_id": str(r[0]), "product_id": str(r[1]), "unit_price": str(r[2]),
+                    "discount": str(r[3]),
                     "quantity": str(r[4])})
+
 
 @app.route('/api/v1/order_details/', methods=['POST'])
 def new_order_details():
@@ -450,7 +481,6 @@ def new_order_details():
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
-
 @app.after_request
 def add_cors(resp):
     resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
@@ -461,4 +491,3 @@ def add_cors(resp):
     if app.debug:
         resp.headers["Access-Control-Max-Age"] = '1'
     return resp
-
