@@ -159,6 +159,14 @@ $$
 $$
  language 'sql';
 
+create or replace function get_cart(in par_id int8, out int8, out DATE, out int8, out boolean) returns setof record as
+$$
+   select session_id, date_created, customer_id, is_active from carts where id = par_id;
+
+$$
+ language 'sql';
+
+
 
 create or replace function new_category(in par_id int8, in par_name text, in par_description text,  in par_main_image bytea, in par_parent_category_id int8, in par_is_active boolean) returns text as
 $$

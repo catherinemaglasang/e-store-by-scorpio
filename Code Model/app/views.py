@@ -287,6 +287,18 @@ def get_cart_detail(cart_detail_id):
     return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
 
 
+@app.route('/api/v1/carts/<cartid>/', methods=['GET'])
+def get_cart_detail(cart_id):
+    res = spcall('get_cart', cart_id)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    r = res[0]
+    return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
+
+
+
 @app.route('/api/v1/wishlist_details/', methods=['POST'])
 def new_wishlist_detail():
     json = request.json
