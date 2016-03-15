@@ -10,5 +10,5 @@ Feature: Handle Creating and Retrieving Order information
 
   Scenario: Get Order Information not in the database
     Given some Orders are in the system
-    When I retrieve the Order '2'
+    When I retrieve the order '2'
     Then I should get a '500' response
