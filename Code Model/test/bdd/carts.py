@@ -17,7 +17,7 @@ def some_carts_are_in_a_system(step):
     """
     :type step: lettuce.core.Step
     """
-    CARTS.update({'id': '1', 'session_id': '1', 'date_created': '2016-03-15', 'customer_id': '1', 'time_stamp': '2016-03-15 11:49:17'})
+    CARTS.update({'id': '1', 'session_id': '1', 'date_created': '2016-03-15', 'customer_id': '1', 'is_acive': 'True'})
 
 
 @step("I retrieve the cart \'(.*)\'")

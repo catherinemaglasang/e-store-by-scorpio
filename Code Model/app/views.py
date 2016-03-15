@@ -218,7 +218,7 @@ def new_user():
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
-""" my task """
+""" SUPPLIER """
 
 
 @app.route('/api/v1/suppliers/', methods=['GET'])
@@ -246,6 +246,11 @@ def get_supplier(supplier_id):
     return jsonify(
         {"id": str(supplier_id), "name": str(r[0]), "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
          "email": str(r[4]), "is_active": str(r[5])})
+
+""" END OF SUPPLIER """
+
+
+""" CART DETAIL """
 
 
 @app.route('/api/v1/cart_details/', methods=['POST'])
@@ -276,7 +281,6 @@ def get_cart_details():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-
 @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
 def get_cart_detail(cart_detail_id):
     res = spcall('get_cart_detail', cart_detail_id)
@@ -285,9 +289,12 @@ def get_cart_detail(cart_detail_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"id": str(cart_detail_id), "cart_id": str(r[0]), "product_id": str(r[1]), "quantity": str(r[3]),
-                    "time_stamp": str(r[4])})
+    return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
 
+""" END CART DETAIL """
+
+
+""" CART """
 
 
 @app.route('/api/v1/carts/', methods=['POST'])
@@ -313,9 +320,11 @@ def get_cart(cart_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"id": str(cart_id), "session_id": str(r[0]), "date_created": str(r[1]), "customer_id": str(r[3]),
-                    "is_active": str(r[4])})
+    return jsonify({"id": str(cart_id), "session_id": str(r[0]), "date_created": str(r[1]), "customer_id": str(r[2]),
+                    "is_active": str(r[3])})
 
+
+""" END OF CART """
 
 @app.route('/api/v1/wishlist_details/', methods=['POST'])
 def new_wishlist_detail():
