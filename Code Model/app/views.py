@@ -13,7 +13,12 @@ CATEGORIES = {}
 WISHLISTS = {}
 ORDER = {}
 CART_DETAILS = {}
+<<<<<<< HEAD
+CARTS = {}
+
+=======
 ORDER_DETAILS = {}
+>>>>>>> 9761990fa306a76556c48bad46b2c9385a92ef2e
 
 def spcall(qry, param, commit=False):
     try:
@@ -274,12 +279,24 @@ def get_cart_details():
 @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
 def get_cart_detail(cart_detail_id):
     res = spcall('get_cart_detail', cart_detail_id)
-    #
-    # if 'Error' in res[0][0]:
-    #     return jsonify({'status': 'error', 'message': res[0][0]})
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
     return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
+
+
+@app.route('/api/v1/carts/<cartid>/', methods=['GET'])
+def get_cart_detail(cart_id):
+    res = spcall('get_cart', cart_id)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    r = res[0]
+    return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
+
 
 
 @app.route('/api/v1/wishlist_details/', methods=['POST'])
