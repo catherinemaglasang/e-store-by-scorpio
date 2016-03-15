@@ -4,7 +4,7 @@ from lettuce import step, world, before
 from nose.tools import assert_equals
 
 from app import app
-from app.views import CART_DETAILS
+from app.views import CARTS
 
 
 @before.all
@@ -12,20 +12,20 @@ def before_all():
     world.app = app.test_client()
 
 
-@step("some cart details are in a system")
-def given_some_cart_details_are_in_a_system(step):
+@step("some carts are in a system")
+def some_carts_are_in_a_system(step):
     """
     :type step: lettuce.core.Step
     """
-CART_DETAILS.update({'cart_id': '1', 'product_id': '1', 'quantity': '1', 'time_stamp': '2016-03-15 11:49:17'})
+    CARTS.update({'id': '1', 'session_id': '1', 'date_created': '2016-03-15', 'customer_id': '1', 'time_stamp': '2016-03-15 11:49:17'})
 
 
-@step("I retrieve the cart detail \'(.*)\'")
-def when_I_retrieve_the_cart_detail1(step, id):
+@step("I retrieve the cart \'(.*)\'")
+def step_impl(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/cart_details/{}/'.format(id))
+    world.response = world.app.get('/api/v1/carts/{}/'.format(id))
 
 
 @step("I should get a \'(.*)\' response")
