@@ -74,3 +74,12 @@ create table orders(
    transaction_status text,
    total float8
 )
+
+create table order_details(
+  id int8 primary key,
+  order_id int8,
+  product_id int8,
+  unit_price float8,
+  discount float8,
+  quantity int8
+)
