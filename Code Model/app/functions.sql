@@ -133,7 +133,7 @@ $$
 $$
  language 'sql';
 
-create or replace function new_cart(in par_id int8, in par_session_id int8, in par_date_created text, in par_customer_id int8, in par_is_active boolean) returns text as
+create or replace function new_cart(in par_id int8, in par_session_id int8, in par_date_created DATE, in par_customer_id int8, in par_is_active boolean) returns text as
 $$
   declare
     loc_id text;
@@ -153,7 +153,7 @@ $$
 $$
  language 'plpgsql';
 
-create or replace function get_carts(out int8, out int8, out text, out int8, out boolean) returns setof record as
+create or replace function get_carts(out int8, out int8, out DATE, out int8, out boolean) returns setof record as
 $$
    select id, session_id, date_created, customer_id, is_active from carts;
 $$
