@@ -132,6 +132,7 @@ def get_product(product_id):
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
     else:
         row = response[0]
+        print row
         entries.append({"product_id": row[0],
                         "title": row[1],
                         "description": row[2],

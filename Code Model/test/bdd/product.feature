@@ -2,9 +2,10 @@ Feature: Get product details
   As an admin
   I want to get a product's details
 
-  Scenario: Admin gets a product successfully
+  Scenario: Admin retrieves a product successfully
     Given product id 1 is an existing product
     When I try to get the details for product id 1
-    Then the following product details are returned:
-      | id | sku | supplier_id | title | description | category_id | unit_price | on_hand | re_order_level | is_active |
-      | 1 | 123 | 1            | Patata | Baked Potato | 1 | 10.0 | 100 | 10 | True |
+    Then i get a 200 response
+    And the following product details are returned:
+      | category_id | date_added | description | is_active | on_hand | ordering | product_id | product_type_id | re_order_level | site_id | supplier_id | title |
+      | 1           | Tue, 15 Mar 2016 18:40:08 GMT | NEW  Product Description | true | 100 | 0 | 1         | 1               | 10             | 1       | 1           | NEWNEW Product Name |
