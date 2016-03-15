@@ -68,8 +68,8 @@ create table orders(
    id int8 primary key,
    customer_id int8,
    payment_id int8,
-   transaction_date timestamp,
-   shipping_date timestamp,
+   transaction_date date,
+   shipping_date date,
    time_stamp timestamp,
    transaction_status text,
    total float8
