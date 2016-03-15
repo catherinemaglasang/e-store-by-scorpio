@@ -18,8 +18,6 @@ $$
 $$
  language 'plpgsql';
 
---select new_product(1, '0111AB',, 11, 'Webster', 'Dictionary', '0111', 999.99, 20, 10, false);
---select new_product(2, '0222AB', 22, 'Python', 'Learning Python', '0222', 1500.00, 20, 10, false);
 
 create or replace function get_product(out int8, out text, out int8, out text, out text, out int8, out float8, out int8, out int8, out boolean) returns setof record as
 $$
