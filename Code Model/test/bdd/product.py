@@ -31,3 +31,5 @@ def then_the_following_product_details_are_returned(step):
     :type step: lettuce.core.Step
     """
     pass
+
+

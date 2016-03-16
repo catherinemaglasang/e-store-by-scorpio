@@ -35,12 +35,6 @@ create table carts (
    customer_id int8,
    is_active boolean
 );
-Given I am at the add product form page
-When I add new product with the following details:
-| id | sku | supplier_id | title | description  | category_id | unit_price| on_hand | re_order_level | is_active |
-| 1  | 100  | 1                  | title1| description1| 1                 | 100             | 20        | 10                          | True       |
-Then I should get a '200' response
-And the new product should appear on the product table
 create table categories (
    id int8 primary key,
    name text,
@@ -86,5 +80,5 @@ create table order_details(
   product_id int8,
   unit_price float8,
   discount float8,
-  quantity int8
+  quantity int8s
 )
