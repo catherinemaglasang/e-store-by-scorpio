@@ -221,6 +221,23 @@ def new_user():
 """ SUPPLIER """
 
 
+@app.route('/api/v1/suppliers/', methods=['POST'])
+def new_supplier():
+    json = request.json
+    id = json['id']
+    name = json['name']
+    address = json['address']
+    phone = json['phone']
+    fax = json['fax']
+    email = json['email']
+    is_active = json['is_active']
+    res = spcall('new_supplier', (id, name, address, phone, fax, email, is_active), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
 @app.route('/api/v1/suppliers/', methods=['GET'])
 def get_all_suppliers():
     res = spcall('get_suppliers', ())
@@ -247,8 +264,8 @@ def get_supplier(supplier_id):
         {"id": str(supplier_id), "name": str(r[0]), "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
          "email": str(r[4]), "is_active": str(r[5])})
 
-""" END OF SUPPLIER """
 
+""" END OF SUPPLIER """
 
 """ CART DETAIL """
 
@@ -289,10 +306,11 @@ def get_cart_detail(cart_detail_id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     r = res[0]
-    return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
+    return jsonify(
+        {"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
+
 
 """ END CART DETAIL """
-
 
 """ CART """
 
@@ -325,6 +343,7 @@ def get_cart(cart_id):
 
 
 """ END OF CART """
+
 
 @app.route('/api/v1/wishlist_details/', methods=['POST'])
 def new_wishlist_detail():
