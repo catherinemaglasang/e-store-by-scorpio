@@ -18,8 +18,6 @@ $$
 $$
  language 'plpgsql';
 
---select new_product(1, '0111AB',, 11, 'Webster', 'Dictionary', '0111', 999.99, 20, 10, false);
---select new_product(2, '0222AB', 22, 'Python', 'Learning Python', '0222', 1500.00, 20, 10, false);
 
 create or replace function get_product(out int, out text, out int, out text, out text, out int, out float8, out int, out int, out boolean) returns setof record as
 $$
@@ -135,7 +133,7 @@ $$
 $$
  language 'sql';
 
-create or replace function new_cart(in par_id int8, in par_session_id int8, in par_date_created text, in par_customer_id int8, in par_is_active boolean) returns text as
+create or replace function new_cart(in par_id int8, in par_session_id int8, in par_date_created DATE, in par_customer_id int8, in par_is_active boolean) returns text as
 $$
   declare
     loc_id text;
@@ -155,7 +153,7 @@ $$
 $$
  language 'plpgsql';
 
-create or replace function get_carts(out int8, out int8, out text, out int8, out boolean) returns setof record as
+create or replace function get_carts(out int8, out int8, out DATE, out int8, out boolean) returns setof record as
 $$
    select id, session_id, date_created, customer_id, is_active from carts;
 $$
@@ -279,3 +277,37 @@ language 'plpgsql';
 
 
 
+create or replace function new_orders(in par_id int8, in par_customer_id int8, in par_payment_id int8, in par_transaction_date date, in par_shipping_date date, in par_time_stamp timestamp, in par_transaction_status text, par_total float8) returns text as
+$$
+  declare
+    loc_id text;
+    loc_res text;
+  begin
+    select into loc_id id from orders where id=par_id;
+    if loc_id isnull then
+
+       insert into orders(id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_id, par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
+       loc_res = 'OK';
+
+     else
+       loc_res = 'ID EXISTED';
+     end if;
+     return loc_res;
+  end;
+$$
+
+language 'plpgsql';
+
+create or replace function get_orders(out int8, out int8, out int8, out date, out date, out timestamp, out text, out float8) returns setof record as
+$$
+  select id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total from orders
+$$
+
+language 'sql';
+
+create or replace function get_order_id(in par_id int8, out int8, out int8, out date, out date, out timestamp, out text, out float8) returns setof record as
+$$
+   select customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total from orders where id = par_id;
+
+$$
+ language 'sql';

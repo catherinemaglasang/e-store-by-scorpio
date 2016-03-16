@@ -12,6 +12,8 @@ SUPPLIERS = {}
 USERS = {}
 CATEGORIES = {}
 WISHLISTS = {}
+ORDER = {}
+CART_DETAILS = {}
 
 
 def spcall(qry, param, commit=False):
@@ -197,7 +199,7 @@ def new_product_category():
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
-@app.route('/api/v1/products_category/', methods=['GET'])
+@app.route('/api/v1/product_categories/', methods=['GET'])
 def get_all_product_categories():
     res = spcall('get_product_category', ())
 
@@ -284,6 +286,7 @@ def new_user():
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
+""" my task """
 @app.route('/api/v1/suppliers/', methods=['GET'])
 def get_all_suppliers():
     res = spcall('get_suppliers', ())
@@ -309,7 +312,6 @@ def get_supplier(supplier_id):
     return jsonify(
         {"id": str(supplier_id), "name": str(r[0]), "address": str(r[1]), "phone": str(r[2]), "fax": str(r[3]),
          "email": str(r[4]), "is_active": str(r[5])})
-
 
 @app.route('/api/v1/cart_details/', methods=['POST'])
 def new_cart_detail():
@@ -339,15 +341,15 @@ def get_cart_details():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-# @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
-# def get_cart_detail(cart_detail_id):
-#     res = spcall('get_cart_detail', (cart_detail_id))
+@app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
+def get_cart_detail(cart_detail_id):
+    res = spcall('get_cart_detail', cart_detail_id)
 
-#     if 'Error' in res[0][0]:
-#         return jsonify({'status': 'error', 'message': res[0][0]})
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
 
-#     r = res[0]
-#     return jsonify({"cart_id": r[0], "product_id": r[1], "quantity":r[2], "time_stamp":str(r[3])})
+    r = res[0]
+    return jsonify({"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
 
 
 @app.route('/api/v1/wishlist_details/', methods=['POST'])
@@ -400,13 +402,66 @@ def get_wishlist():
         recs.append({"id": r[0]})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
-# @app.after_request
-# def add_cors(resp):
-#     resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
-#     resp.headers['Access-Control-Allow-Credentials'] = True
-#     resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
-#     resp.headers['Access-Control-Allow-Headers'] = flask.request.headers.get('Access-Control-Request-Headers',
-#                                                                              'Authorization')
-#     if app.debug:
-#         resp.headers["Access-Control-Max-Age"] = '1'
-#     return resp
+@app.route('/api/v1/orders', methods=['GET'])
+def get_all_orders():
+    """
+    Retrieve All Orders
+    """
+
+    res = spcall('get_orders', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": str(r[0]), "customer_id": str(r[1]), "payment_id": str(r[2]), "transaction_date": str(r[3]), "shipping_date": str(r[4]),
+                     "time_stamp": str(r[5]), "transaction_status": str(r[6]), "total": str(r[7])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+@app.route('/api/v1/orders/<orders_id>/', methods=['GET'])
+def get_orders(orders_id):
+    """
+    Retrieve Single Order
+    """
+    res = spcall('get_order_id', orders_id)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    r = res[0]
+    return jsonify({"id": str(orders_id), "customer_id": str(r[0]), "payment_id": str(r[1]), "transaction_date": str(r[2]), "shipping_date": str(r[3]),
+                    "time_stamp": str(r[4]), "transaction_status": str(r[5]), "total": str(r[6])})
+
+@app.route('/api/v1/orders/', methods=['POST'])
+def new_orders():
+    """
+    Create New Orders
+    """
+    json = request.json
+    id = json['id']
+    customer_id = json['customer_id']
+    payment_id = json['payment_id']
+    transaction_date = json['transaction_date']
+    shipping_date = json['shipping_date']
+    time_stamp = json['time_stamp']
+    transaction_status = json['transaction_status']
+    total = json['total']
+    res = spcall('new_order', (id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+
+@app.after_request
+def add_cors(resp):
+    resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
+    resp.headers['Access-Control-Allow-Credentials'] = True
+    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
+    resp.headers['Access-Control-Allow-Headers'] = flask.request.headers.get('Access-Control-Request-Headers',
+                                                                             'Authorization')
+    if app.debug:
+        resp.headers["Access-Control-Max-Age"] = '1'
+    return resp

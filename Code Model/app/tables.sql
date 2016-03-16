@@ -19,7 +19,7 @@ create table suppliers (
 create table carts (
    id int8 primary key,
    session_id int8,
-   date_created text,
+   date_created DATE,
    customer_id int8,
    is_active boolean
 );
@@ -51,3 +51,14 @@ create table wishlist_details (
 create table wishlist (
    id int8 primary key
 );
+
+create table orders(
+   id int8 primary key,
+   customer_id int8,
+   payment_id int8,
+   transaction_date date,
+   shipping_date date,
+   time_stamp timestamp,
+   transaction_status text,
+   total float8
+)
