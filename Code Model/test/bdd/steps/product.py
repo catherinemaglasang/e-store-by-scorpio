@@ -162,7 +162,7 @@ def and_i_should_get_a_field_message_containing_id_exists(step):
 
 # Scenario 5: Get newly created product
 @step("the new product id 99 details that i recently added")
-def step_impl(step):
+def given_the_new_product_99_details_recently_added(step):
     """
     :type step: lettuce.core.Step
     """
@@ -170,7 +170,7 @@ def step_impl(step):
 
 
 @step("I access to the product resource url '/api/v1/products/99/' to get the new product id 99")
-def step_impl(step):
+def when_i_access_the_resource_url_for_product_99(step):
     """
     :type step: lettuce.core.Step
     """
