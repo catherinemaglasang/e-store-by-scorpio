@@ -392,7 +392,7 @@ def new_supplier():
 #
 @app.route('/api/v1/suppliers/<supplier_id>/', methods=['GET'])
 def get_supplier(supplier_id):
-    response = spcall('get_product_id', (supplier_id))
+    response = spcall('get_product_id', (supplier_id,))
     entries = []
     if len(response) == 0:
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
@@ -405,8 +405,8 @@ def get_supplier(supplier_id):
                         "fax": row[4],
                         "email": row[5],
                         "is_active": row[6]})
-
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
+
 
 """ END OF SUPPLIER """
 

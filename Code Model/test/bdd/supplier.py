@@ -114,7 +114,7 @@ def given_I_retrieve_a_supplier2(step, url):
     :param url:
     :type step: lettuce.core.Step
     """
-    pass
+    world.supplier_uri = url
 
 
 @step("I retrieve the JSON result")
@@ -122,7 +122,7 @@ def when_I_retrieve_the_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    world.response = world.app.get(world.supplier_uri)
 
 
 @step("I should get a status code \'(.*)\'")
@@ -131,7 +131,7 @@ def then_I_should_get_a_status_code(step, expected_status_code):
     :param expected_status_code:
     :type step: lettuce.core.Step
     """
-    pass
+    assert_equals(world.response.status_code, int(expected_status_code))
 
 
 @step('It should have a field "status" "ok"')
@@ -139,7 +139,8 @@ def and_it_should_have_a_field_status_ok(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    world.resp = json.loads(world.response.data)
+    assert_equals(world.resp['status'], 'ok')
 
 
 @step('It should have a field "message" "No entries found"')
@@ -147,7 +148,8 @@ def and_it_should_have_a_field_message_ok(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    world.resp = json.loads(world.response.data)
+    assert_equals(world.resp['message'], 'No entries found')
 
 
 @step('It should have a field "count" 0')
@@ -155,7 +157,7 @@ def and_it_should_have_a_field_count0(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    assert_equals(world.resp['count'], '0')
 
 
 @step('It should have an empty field "entries"')
@@ -163,6 +165,6 @@ def and_it_should_have_an_empty_field_entries(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    assert_equals(len(world.resp['entries']), 0)
 
 

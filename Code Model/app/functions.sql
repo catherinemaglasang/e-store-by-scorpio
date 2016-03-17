@@ -100,7 +100,7 @@ $$
 
 --select * from get_user(1);
 
-create or replace function new_supplier(in par_id int8, in par_name text, in par_address text, in par_phone text, in par_fax text, in par_is_active boolean) returns text as
+create or replace function new_supplier(in par_id int8, in par_name text, in par_address text, in par_phone text, in par_fax text,in par_email text, in par_is_active boolean) returns text as
 $$
   declare
     loc_id text;

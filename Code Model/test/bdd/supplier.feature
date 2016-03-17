@@ -18,7 +18,7 @@ Feature: Create, Get and Update supplier details
     | id | name     | address  | phone   | fax         | email                | is_active |
     | 1  | supplier1| address1 | 221-2277| 063-221-2277| supplier1@estore.com | True      |
 
-  """ Rainy Case """
+#  """ Rainy Case """
   Scenario: Get a supplier that doesn't exist
     Given I retrieve a supplier with resource url '/api/v1/suppliers/2/'
     When I retrieve the JSON result
