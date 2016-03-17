@@ -5,6 +5,7 @@ from flask import render_template, request
 from flask import jsonify
 from app import app
 from .models import DBconn
+import datetime
 
 PRODUCTS = {}
 SUPPLIERS = {}
@@ -18,6 +19,13 @@ ORDER_DETAILS = {}
 
 
 def spcall(qry, param, commit=False):
+    """
+    Stored procedure util function
+    :param qry:
+    :param param:
+    :param commit:
+    :return: rows or response returned by database
+    """
     try:
         dbo = DBconn()
         cursor = dbo.getcursor()
@@ -33,8 +41,6 @@ def spcall(qry, param, commit=False):
 
 @app.route('/')
 def index():
-    # return app.send_static_file('index.html')
-    # return render_template('index.html')
     return jsonify({"status": "ok"})
 
 
@@ -60,8 +66,61 @@ def new_product():
 
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
+    """
+    Example JSON request from client
+    {
+        'product_id': '1',
+        'title': 'Product Name',
+        'description': 'Product Description',
+        'date_added': '1/1/1 1:1:1',
+        'ordering': '0',
+        'supplier_id': '1',
+        'category_id': '1',
+        'site_id': '1',
+        'product_type_id': '1',
+        'product_attributes': [
+            {'isbn': 'isbn1'},
+            {'author': 'author1'},
+        ],
+        'on_hand': '0',
+        're_order_level': '0',
+        'is_active': 'true',
+    }
+    :return: json response indicating status of POST request, 201 status code
+    """
 
-# END OF ADD PRODUCT
+    product_id = request.json['product_id']
+    title = request.json['title']
+    description = request.json['description']
+    date_added = datetime.datetime.now()  # Default
+    ordering = 0  # Default
+    supplier_id = request.json['supplier_id']
+    category_id = request.json['category_id']
+    site_id = request.json['site_id']
+    product_type_id = request.json['product_type_id']
+    # product_attributes = request.json['product_attributes']
+    on_hand = request.json['on_hand']
+    re_order_level = request.json['re_order_level']
+    is_active = True                    # Default
+
+    response = spcall('new_product', (
+        product_id,
+        title,
+        description,
+        date_added,
+        ordering,
+        supplier_id,
+        category_id,
+        site_id,
+        product_type_id,
+        on_hand,
+        re_order_level,
+        is_active), True)
+
+    if 'Error' in response[0][0]:
+        return jsonify({'status': 'error', 'message': response[0][0]})
+
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
 
 
 @app.route('/api/v1/products/', methods=['GET'])
@@ -89,28 +148,82 @@ def get_all_products():
     else:
         return jsonify({'status': 'no entries in database'})
 
+    response = spcall('get_product', ())
+    entries = []
+
+    if len(response) == 0:
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+    elif 'Error' in str(response[0][0]):
+        return jsonify({'status': 'error', 'message': response[0][0]})
+    else:
+        for row in response:
+            entries.append({"product_id": row[0],
+                        "title": row[1],
+                        "description": row[2],
+                        "date_added": row[3],
+                        "ordering": row[4],
+                        "supplier_id": row[5],
+                        "category_id": row[6],
+                        "site_id": row[7],
+                        "product_type_id": row[8],
+                        "on_hand": row[9],
+                        "re_order_level": row[10],
+                        "is_active": row[11]})
+        return jsonify({'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)})
 
 @app.route('/api/v1/products/<product_id>/', methods=['GET'])
 def get_product(product_id):
-    res = spcall('get_product_id', (product_id))
+    response = spcall('get_product_id', (product_id,))
+    entries = []
+    if len(response) == 0:
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+    else:
+        row = response[0]
+        print row
+        entries.append({"product_id": row[0],
+                        "title": row[1],
+                        "description": row[2],
+                        "date_added": row[3],
+                        "ordering": row[4],
+                        "supplier_id": row[5],
+                        "category_id": row[6],
+                        "site_id": row[7],
+                        "product_type_id": row[8],
+                        "on_hand": row[9],
+                        "re_order_level": row[10],
+                        "is_active": row[11]})
+        return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
+@app.route('/api/v1/products/<product_id>/', methods=['PUT'])
+def update_product(product_id):
+    product_id = request.json.get('product_id', '')
+    title = request.json.get('title', ''),
+    description = request.json.get('description', ''),
+    date_added = datetime.datetime.now()  # Default
+    ordering = 0  # Default
+    supplier_id = request.json.get('supplier_id', ''),
+    category_id = request.json.get('category_id', ''),
+    site_id = request.json.get('site_id', ''),
+    product_type_id = request.json.get('product_type_id', ''),
+    # product_attributes = request.json['product_attributes']
+    on_hand = request.json.get('on_hand', ''),
+    re_order_level = request.json.get('re_order_level', ''),
+    is_active = True
 
-    r = res[0]
-    return jsonify({"id": str(product_id), "sku": str(r[0]), "supplier_id": str(r[1]), "title": str(r[2]),
-                    "description": str(r[3]), "category_id": str(r[4]), "unit_price": str(r[5]), "on_hand": str(r[6]),
-                    "re_order_level": str(r[7]), "is_active": str(r[8])})
-
-
-@app.route('/api/v1/products/<int:id>/', methods=['DELETE'])
-def delete_product(id):
-    res = spcall("delete_product", (id,), True)
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
-
-    return jsonify({'status': 'ok', 'message': res[0][0]})
-
+    response = spcall('update_product_id', (
+        product_id,
+        title,
+        description,
+        date_added,
+        ordering,
+        supplier_id,
+        category_id,
+        site_id,
+        product_type_id,
+        on_hand,
+        re_order_level,
+        is_active), True)
+    return jsonify({"status": "ok"})
 
 @app.route('/api/v1/product_categories/', methods=['POST'])
 def new_product_category():
@@ -268,7 +381,6 @@ def get_supplier(supplier_id):
 """ END OF SUPPLIER """
 
 """ CART DETAIL """
-
 
 @app.route('/api/v1/cart_details/', methods=['POST'])
 def new_cart_detail():
