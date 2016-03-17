@@ -414,17 +414,38 @@ def get_supplier(supplier_id):
 
 @app.route('/api/v1/cart_details/', methods=['POST'])
 def new_cart_detail():
-    json = request.json
-    id = json['id']
-    cart_id = json['cart_id']
-    product_id = json['product_id']
-    quantity = json['quantity']
-    time_stamp = json['time_stamp']
-    res = spcall('new_cart_detail', (id, cart_id, product_id, quantity, time_stamp), True)
+    print "STARTING ADD"
+    id = request.form['inputID']
+    cart_id = request.form['inputCartID']
+    product_id = request.form['inputProductID']
+    quantity = request.form['inputQuantity']
+    time_stamp = request.form['inputTimeStamp']
+
+    res = spcall('new_supplier', (id, cart_id, product_id, quantity, time_stamp), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
+
     return jsonify({'status': 'ok', 'message': res[0][0]})
+
+    jsn = json.loads(request.data)
+    id = jsn['id']
+    cart_id = jsn['name']
+    product_id = jsn['address']
+    quantity = jsn['phone']
+    time_stamp = jsn['fax']
+
+    response = spcall('new_cart_detail', (
+        id,
+        cart_id,
+        product_id,
+        quantity,
+        time_stamp), True)
+
+    if 'Error' in response[0][0]:
+        return jsonify({'status': 'error', 'message': response[0][0]})
+
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
 
 
 @app.route('/api/v1/cart_details/', methods=['GET'])
@@ -436,20 +457,30 @@ def get_cart_details():
 
     recs = []
     for r in res:
-        recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "quantity": r[3], "time_stamp": r[4]})
-    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+        recs.append({"id": r[0],
+                     "cart_id": r[1],
+                     "product_id": r[2],
+                     "quantity": r[3],
+                     "time_stamp": r[4]})
+
+        return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
 @app.route('/api/v1/cart_details/<cart_detail_id>/', methods=['GET'])
 def get_cart_detail(cart_detail_id):
-    res = spcall('get_cart_detail', cart_detail_id)
+    res = spcall('get_cart_detail', (cart_detail_id,))
 
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
-    r = res[0]
-    return jsonify(
-        {"cart_id": str(cart_detail_id), "product_id": str(r[0]), "quantity": str(r[1]), "time_stamp": str(r[3])})
+    recs = []
+    for r in res:
+        recs.append({"cart_id": r[0],
+                     "product_id": r[1],
+                     "quantity": r[2],
+                     "time_stamp": str(r[3])})
+
+        return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
 """ END CART DETAIL """

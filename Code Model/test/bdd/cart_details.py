@@ -4,7 +4,7 @@ from lettuce import step, world, before
 from nose.tools import assert_equals
 
 from app import app
-from app.views import CART_DETAILS
+from webtest import TestApp
 
 
 @before.all
@@ -12,12 +12,20 @@ def before_all():
     world.app = app.test_client()
 
 
-@step("some cart details are in a system")
-def given_some_cart_details_are_in_a_system(step):
+@step("cart detail \'(.*)\' is in the system")
+def given_cart_detail1_is_in_the_system(step, id):
     """
+    :param id:
     :type step: lettuce.core.Step
     """
-CART_DETAILS.update({'cart_id': '1', 'product_id': '1', 'quantity': '1', 'time_stamp': '2016-03-15 11:49:17'})
+    world.browser = TestApp(app)
+    world.response = world.browser.get('/#/dashboard/cart_details/add')
+    world.response.charset = 'utf8'
+    assert_equals(world.response.status_code, 200)
+    assert_equals(json.loads(world.response.text), {"status": "ok"})
+    world.cart_detail = world.app.get('/api/v1/cart_details/{}/'.format(id))
+    world.resp = json.loads(world.cart_detail.data)
+    assert_equals(world.resp['status'], 'ok')
 
 
 @step("I retrieve the cart detail \'(.*)\'")
@@ -42,4 +50,5 @@ def the_following_cart_details(step):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(step.hashes, [json.loads(world.response.data)])
+    resp = json.loads(world.response.data)
+    assert_equals(world.resp['entries'], resp['entries'])

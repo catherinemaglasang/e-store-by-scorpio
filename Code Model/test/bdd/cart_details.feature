@@ -1,7 +1,9 @@
 Feature: Handle storing and retrieving cart details
 
-Scenario: Get cart details
-  Given some cart details are in a system
+
+  """ Sunny Case """
+  Scenario: Get cart detail
+  Given cart detail '1' is in the system
   When I retrieve the cart detail '1'
   Then I should get a '200' response
   And the following cart details are returned:
