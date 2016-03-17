@@ -10,8 +10,8 @@ from app.views import USERS
 def before_all():
     world.app = app.test_client()
 
-@step("some users are in the system")
-def Given_some_users_are_in_the_system(step):
+@step("user id \'(.*)\' is in the system")
+def Given_some_users_are_in_the_system(step, id):
     """
     :type step: lettuce.core.Step
     """
@@ -38,3 +38,11 @@ def and_the_following_user_details_are_returned(step):
     :type step: lettuce.core.Step
     """
     assert_equals(step.hashes, [json.loads(world.response.data)])
+
+
+@step("user id \'(.*)' is not in the system")
+def step_impl(step, id):
+    """
+    :type step: lettuce.core.Step
+    """
+    USERS.update()
