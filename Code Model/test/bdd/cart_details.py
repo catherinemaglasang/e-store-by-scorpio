@@ -55,12 +55,13 @@ def the_following_cart_details(step):
 
 
 # """ """
-@step("I retrieve a cart detail with resource url /api/v1/cart_details/2/")
-def step_impl(step):
+@step("I retrieve a cart detail with resource url \'(.*)\'")
+def step_impl(step, url):
     """
+    :param url:
     :type step: lettuce.core.Step
     """
-    pass
+    world.cart_detail_uri = url
 
 
 @step("i retrieve JSON result")
@@ -68,15 +69,16 @@ def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    world.response = world.app.get(world.cart_detail_uri)
 
-
-@step("i should get a status code '200'")
-def step_impl(step):
+@step("i should get a status code \'(.*)\'")
+def step_impl(step, expected_status_code):
     """
+    :param expected_status_code:
     :type step: lettuce.core.Step
     """
-    pass
+
+    assert_equals(world.response.status_code, int(expected_status_code))
 
 
 @step('it should have a field "status" "ok"')
@@ -84,7 +86,9 @@ def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    world.resp = json.loads(world.response.data)
+    assert_equals(world.resp['status'], 'ok')
+
 
 
 @step('it should have a field "count" 0')
@@ -92,7 +96,7 @@ def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    assert_equals(world.resp['count'], '0')
 
 
 @step('it should have an empty field " entries "')
@@ -100,7 +104,7 @@ def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    assert_equals(len(world.resp['entries']), 0)
 
 
 @step('it should have a field "message" "No entries found"')
@@ -108,5 +112,7 @@ def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
-    pass
+    world.resp = json.loads(world.response.data)
+    assert_equals(world.resp['message'], 'No entries found')
+
 # """ """

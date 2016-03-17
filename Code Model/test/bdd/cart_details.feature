@@ -13,7 +13,7 @@ Feature: Handle storing and retrieving cart details
 
 #  """ Rainy Case """
   Scenario: Get cart detail that doesn't exist
-    Given I retrieve a cart detail with resource url /api/v1/cart_details/2/
+    Given I retrieve a cart detail with resource url '/api/v1/cart_details/2/'
     When i retrieve JSON result
     Then i should get a status code '200'
     And it should have a field "status" "ok"
