@@ -11,8 +11,8 @@ def before_all():
     world.app = app.test_client()
 
 
-@step("some order details are in the system")
-def give_some_order_details_are_in_the_system(step):
+@step("order detail id \'(.*)\' is filled")
+def give_some_order_details_are_in_the_system(step,id):
     """
     :type step: lettuce.core.Step
     """
@@ -40,3 +40,11 @@ def and_the_following_user_details_are_returned(step):
     :type step: lettuce.core.Step
     """
     assert_equals(step.hashes, [json.loads(world.response.data)])
+
+
+@step("order detail id \'(.*)\' is not filled")
+def step_impl(step,id):
+    """
+    :type step: lettuce.core.Step
+    """
+    ORDER_DETAILS.update()
