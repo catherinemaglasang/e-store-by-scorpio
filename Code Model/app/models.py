@@ -1,9 +1,10 @@
 from sqlalchemy import create_engine
 import os
+from app import app
 
 class DBconn:
     def __init__(self):
-        engine = create_engine("postgresql://bookshop:bookshop@127.0.0.1:5432/bookshopdb", echo=False)
+        engine = create_engine("%s" % (app.config['DATABASE']), echo=False)
         self.conn = engine.connect()
         self.trans = self.conn.begin()
 

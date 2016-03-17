@@ -1,16 +1,4 @@
-create table products (
-   id int8 primary key,
-   sku text,
-   supplier_id int8,
-   title text,
-   description text,
-   category_id int8,
-   unit_price float8,
-   on_hand int8,
-   re_order_level int8,
-   is_active boolean
-);
-
+-- Source: http://codehandbook.org/creating-restful-api-using-python-flask-mysql/
 create table users (
    id int8 primary key,
    username text,
@@ -35,7 +23,6 @@ create table carts (
    customer_id int8,
    is_active boolean
 );
-
 create table categories (
    id int8 primary key,
    name text,
@@ -81,5 +68,5 @@ create table order_details(
   product_id int8,
   unit_price float8,
   discount float8,
-  quantity int8
+  quantity int8s
 )

@@ -6,4 +6,4 @@ Feature: Handle storing, retrieving and deleting product details
     Then I should get a '200' response
     And the following product details are returned:
       | id | 
-      | 11 |
+      | 1 |
