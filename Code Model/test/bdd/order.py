@@ -10,8 +10,8 @@ from app.views import ORDER
 def before_all():
     world.app = app.test_client()
 
-@step("some Orders are in the system")
-def given_some_orders_are_in_the_system(step):
+@step("Order id \'(.*)\' is in the system")
+def given_some_orders_are_in_the_system(step, id):
     """
     :type step: lettuce.core.Step
     """
@@ -39,3 +39,11 @@ def step_impl(step):
     :type step: lettuce.core.Step
     """
     assert_equals(step.hashes, [json.loads(world.response.data)])
+
+
+@step("Order id \'(.*)\' is not in the system")
+def step_impl(step, id):
+    """
+    :type step: lettuce.core.Step
+    """
+    ORDER.update()
