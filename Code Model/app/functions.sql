@@ -159,6 +159,13 @@ $$
 $$
  language 'sql';
 
+create or replace function get_cart(in par_id int8, out int8, out DATE, out int8, out boolean) returns setof record as
+$$
+   select session_id, date_created, customer_id, is_active from carts where id = par_id;
+
+$$
+ language 'sql';
+
 
 create or replace function new_category(in par_id int8, in par_name text, in par_description text,  in par_main_image bytea, in par_parent_category_id int8, in par_is_active boolean) returns text as
 $$
@@ -308,6 +315,42 @@ language 'sql';
 create or replace function get_order_id(in par_id int8, out int8, out int8, out date, out date, out timestamp, out text, out float8) returns setof record as
 $$
    select customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total from orders where id = par_id;
+
+$$
+ language 'sql';
+
+
+create or replace function new_order_details(in par_id int8, in par_order_id int8, in par_product_id int8, in par_unit_price float8, in par_discount float8, in par_quantity int8) returns text as
+$$
+  declare
+    loc_id text;
+    loc_res text;
+  begin
+    select into loc_id id from orders where id=par_id;
+    if loc_id isnull then
+
+       insert into orders(id, order_id, product_id, unit_price, discount, quantity) values (par_id, par_order_id, par_product_id, par_unit_price, par_discount, par_quantity);
+       loc_res = 'OK';
+
+     else
+       loc_res = 'ID EXISTED';
+     end if;
+     return loc_res;
+  end;
+$$
+
+language 'plpgsql';
+
+create or replace function get_order_details(out int8, out int8, out int8, out float8, out float8, out int8) returns setof record as
+$$
+  select id, order_id, product_id, unit_price, discount, quantity from order_details
+$$
+
+language 'sql';
+
+create or replace function get_order_details_id(in par_id int8, out int8, out int8, out float8, out float8, out int8) returns setof record as
+$$
+   select order_id, product_id, unit_price, discount, quantity from order_details where id = par_id;
 
 $$
  language 'sql';

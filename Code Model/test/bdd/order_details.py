@@ -4,26 +4,28 @@ from lettuce import step, world, before
 from nose.tools import assert_equals
 
 from app import app
-from app.views import USERS
+from app.views import ORDER_DETAILS
 
 @before.all
 def before_all():
     world.app = app.test_client()
 
-@step("user id \'(.*)\' is in the system")
-def Given_some_users_are_in_the_system(step, id):
+
+@step("order detail id \'(.*)\' is filled")
+def give_some_order_details_are_in_the_system(step,id):
     """
     :type step: lettuce.core.Step
     """
-    USERS.update({'username': 'king', 'password': 'test', 'is_admin': 'True'})
+    ORDER_DETAILS.update()
 
 
-@step("I retrieve the user \'(.*)\'")
-def When_I_retrieve_the_user1(step, id):
+@step("I retrieve the order detail \'(.*)\'")
+def when_i_retrieve_the_order_detail1(step, order_details_id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/users/{}/'.format(id))
+    world.response = world.app.get('/api/v1/order_details/{}/'.format(order_details_id))
+
 
 @step(u"I should get a \'(.*)\' response")
 def then_i_should_get_a_200_response(step, expected_status_code):
@@ -40,9 +42,9 @@ def and_the_following_user_details_are_returned(step):
     assert_equals(step.hashes, [json.loads(world.response.data)])
 
 
-@step("user id \'(.*)' is not in the system")
-def step_impl(step, id):
+@step("order detail id \'(.*)\' is not filled")
+def step_impl(step,id):
     """
     :type step: lettuce.core.Step
     """
-    USERS.update()
+    ORDER_DETAILS.update()

@@ -23,7 +23,6 @@ create table carts (
    customer_id int8,
    is_active boolean
 );
-
 create table categories (
    id int8 primary key,
    name text,
@@ -61,4 +60,13 @@ create table orders(
    time_stamp timestamp,
    transaction_status text,
    total float8
+)
+
+create table order_details(
+  id int8 primary key,
+  order_id int8,
+  product_id int8,
+  unit_price float8,
+  discount float8,
+  quantity int8s
 )

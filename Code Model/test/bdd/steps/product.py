@@ -46,6 +46,7 @@ def and_the_following_product_details_are_returned(step):
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
 
+
 # SCENARIO 2
 @step("I access the resource url \'(.*)\'")
 def give_i_access_the_product_resource_url(step, url):
