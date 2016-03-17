@@ -15,7 +15,6 @@ WISHLISTS = {}
 ORDER = {}
 CART_DETAILS = {}
 
-
 def spcall(qry, param, commit=False):
     """
     Stored procedure util function
@@ -66,19 +65,19 @@ def new_product():
     }
     :return: json response indicating status of POST request, 201 status code
     """
-
-    product_id = request.json['product_id']
-    title = request.json['title']
-    description = request.json['description']
+    jsn = json.loads(request.data)
+    product_id = jsn['product_id']
+    title = jsn['title']
+    description = jsn['description']
     date_added = datetime.datetime.now()  # Default
     ordering = 0  # Default
-    supplier_id = request.json['supplier_id']
-    category_id = request.json['category_id']
-    site_id = request.json['site_id']
-    product_type_id = request.json['product_type_id']
+    supplier_id = jsn['supplier_id']
+    category_id = jsn['category_id']
+    site_id = jsn['site_id']
+    product_type_id = jsn['product_type_id']
     # product_attributes = request.json['product_attributes']
-    on_hand = request.json['on_hand']
-    re_order_level = request.json['re_order_level']
+    on_hand = jsn['on_hand']
+    re_order_level = jsn['re_order_level']
     is_active = True                    # Default
 
     response = spcall('new_product', (
@@ -134,7 +133,6 @@ def get_product(product_id):
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
     else:
         row = response[0]
-        print row
         entries.append({"product_id": row[0],
                         "title": row[1],
                         "description": row[2],
@@ -151,18 +149,19 @@ def get_product(product_id):
 
 @app.route('/api/v1/products/<product_id>/', methods=['PUT'])
 def update_product(product_id):
-    product_id = request.json.get('product_id', '')
-    title = request.json.get('title', ''),
-    description = request.json.get('description', ''),
+    jsn = json.loads(request.data)
+    product_id = jsn.get('product_id', '')
+    title = jsn.get('title', ''),
+    description = jsn.get('description', ''),
     date_added = datetime.datetime.now()  # Default
     ordering = 0  # Default
-    supplier_id = request.json.get('supplier_id', ''),
-    category_id = request.json.get('category_id', ''),
-    site_id = request.json.get('site_id', ''),
-    product_type_id = request.json.get('product_type_id', ''),
+    supplier_id = jsn.get('supplier_id', ''),
+    category_id = jsn.get('category_id', ''),
+    site_id = jsn.get('site_id', ''),
+    product_type_id = jsn.get('product_type_id', ''),
     # product_attributes = request.json['product_attributes']
-    on_hand = request.json.get('on_hand', ''),
-    re_order_level = request.json.get('re_order_level', ''),
+    on_hand = jsn.get('on_hand', ''),
+    re_order_level = jsn.get('re_order_level', ''),
     is_active = True
 
     response = spcall('update_product_id', (
@@ -182,7 +181,6 @@ def update_product(product_id):
 
 @app.route('/api/v1/product_categories/', methods=['POST'])
 def new_product_category():
-    print "STARTING ADD"
     id = request.form['inputID']
     name = request.form['inputName']
     description = request.form['inputDescription']
