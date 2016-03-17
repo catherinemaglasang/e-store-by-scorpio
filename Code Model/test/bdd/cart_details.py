@@ -52,3 +52,61 @@ def the_following_cart_details(step):
     """
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
+
+
+# """ """
+@step("I retrieve a cart detail with resource url /api/v1/cart_details/2/")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    pass
+
+
+@step("i retrieve JSON result")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    pass
+
+
+@step("i should get a status code '200'")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    pass
+
+
+@step('it should have a field "status" "ok"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    pass
+
+
+@step('it should have a field "count" 0')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    pass
+
+
+@step('it should have an empty field " entries "')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    pass
+
+
+@step('it should have a field "message" "No entries found"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    pass
+# """ """
