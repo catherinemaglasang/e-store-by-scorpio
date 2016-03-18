@@ -25,7 +25,7 @@ def given_user_id_1_is_in_the_system(step, id):
     assert_equals(json.loads(world.response.text), {"status": "ok"})
     world.user = world.app.get('/api/v1/users/{}/'.format(id))
     world.resp = json.loads(world.user.data)
-#    assert_equals(world.resp['status'], 'ok')
+    assert_equals(world.resp['status'], 'ok')
 
 @step("I retrieve the user \'(.*)\'")
 def step_impl(step, id):
@@ -35,7 +35,7 @@ def step_impl(step, id):
     world.response = world.app.get('/api/v1/users/{}/'.format(id))
 
 
-@step("I get \'(.*)\' response")
+@step("I get the \'(.*)\' response")
 def then_i_get_a_200_response(step, exp_status_code):
     """
     :type step: lettuce.core.Step
@@ -55,7 +55,7 @@ Get User Rainy Case
 """
 
 
-@step("I access the url \'(.*)\'")
+@step("I access the user url \'(.*)\'")
 def step_impl(step, url):
     """
     :type step: lettuce.core.Step
@@ -63,7 +63,7 @@ def step_impl(step, url):
     world.user_uri = url
 
 
-@step("I retrieve the JSON results")
+@step("I retrieve the user JSON result")
 def when_i_retrieve_the_json_results(step):
     """
     :type step: lettuce.core.Step
@@ -71,12 +71,12 @@ def when_i_retrieve_the_json_results(step):
     world.response = world.app.get(world.user_uri)
 
 
-@step("it should have a field \'(.*)\' containing \'(.*)\'")
+@step("it should have a user field \'(.*)\' containing \'(.*)\'")
 def step_impl(step, status, txt):
     """
     :type step: lettuce.core.Step
     """
-    world.resp = json.load(world.response.data)
+    world.resp = json.loads(world.response.data)
     assert_equals(world.resp[status], txt)
 
 
@@ -85,4 +85,5 @@ def step_impl(step, entries):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(len(world.resp[entries], 0))
+    assert_equals(len(world.resp[entries]), 0)
+
