@@ -108,3 +108,4 @@ def step_impl(step):
     :type step: lettuce.core.Step
     """
     assert_equals(len(world.resp['entries']), 0)
+

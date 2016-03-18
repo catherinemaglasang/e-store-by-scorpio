@@ -168,3 +168,41 @@ def and_it_should_have_an_empty_field_entries(step):
     assert_equals(len(world.resp['entries']), 0)
 
 
+@step("the supplier id 1 is in the database with the following details")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.supplier_old = step.hashes[0]
+
+
+@step("the new supplier details for supplier id 1")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.supplier_new = step.hashes[0]
+
+
+@step("I send a PUT request to the supplier resource url \'(.*)\'")
+def step_impl(step, url):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.put_response = world.app.put(url, data=json.dumps(world.supplier_new))
+    world.put_response_json = json.loads(world.put_response.data)
+
+@step("i should get a 200 response in the update request")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.put_response.status_code, 200)
+
+
+@step('i should get a field for "status" containing "ok" for update request')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.put_response_json['status'], 'ok')

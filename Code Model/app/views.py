@@ -228,7 +228,6 @@ def update_product(product_id):
     return jsonify({"status": "ok"})
     
 
-
 @app.route('/api/v1/product_categories/', methods=['POST'])
 def new_product_category():
     id = request.form['inputID']
@@ -454,7 +453,7 @@ def new_supplier():
 #
 @app.route('/api/v1/suppliers/<supplier_id>/', methods=['GET'])
 def get_supplier(supplier_id):
-    response = spcall('get_product_id', (supplier_id,))
+    response = spcall('get_supplier', (supplier_id,))
     entries = []
     if len(response) == 0:
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
@@ -468,6 +467,30 @@ def get_supplier(supplier_id):
                         "email": row[5],
                         "is_active": row[6]})
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
+
+
+
+@app.route('/api/v1/suppliers/<supplier_id>/', methods=['PUT'])
+def update_supplier(supplier_id):
+    jsn = json.loads(request.data)
+    id = jsn.get('id', '')
+    name = jsn.get('name', ''),
+    address = jsn.get('address', ''),
+    phone = jsn.get('phone', ''),
+    fax = jsn.get('fax', ''),
+    email = jsn.get('email', ''),
+    is_active = True
+    response = spcall('update_product_id', (
+        id,
+        name,
+        address,
+        phone,
+        fax,
+        email,
+        is_active), True)
+
+    return jsonify({"status": "ok"})
+
 
 
 """ END OF SUPPLIER """
@@ -607,6 +630,7 @@ def get_order(order_id):
                          "total": r[6]})
 
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
 
 # @app.route('/api/v1/orders/', methods=['GET'])
