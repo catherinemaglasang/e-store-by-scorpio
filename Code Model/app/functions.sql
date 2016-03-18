@@ -37,18 +37,18 @@ $$
 
 --select * from get_product_id(2);
 
-create or replace function new_user(in par_id int8, in par_username text, in par_password text, in par_is_admin boolean) returns text as
+create or replace function new_user(in par_id int8, in par_username text, in par_password text, in par_email text, in par_is_admin boolean) returns text as
 $$
 declare
   loc_id text;
   loc_username text;
-  loc_passwrod text;
+  loc_password text;
   loc_is_admin boolean;
   loc_res text;
 begin
   select into loc_id id from users where id = par_id;
   if loc_id isnull then
-    insert into users(id, username, password, is_admin) values (par_id, par_username, par_password, par_is_admin);
+    insert into users(id, username, password, email, is_admin) values (par_id, par_username, par_password, par_email, par_is_admin);
     loc_res = 'OK';
   else
     loc_res = 'USER EXISTS';
@@ -58,42 +58,17 @@ begin
 $$
 language 'plpgsql';
 
---select new_user(1, 'roselle', 'roselle', true);
-
-create or replace function new_user(par_id int8, par_username text, par_password text, par_is_admin boolean) returns text as
+create or replace function get_users(out int8, out text, out text, out text, out boolean) returns setof record as
 $$
-  declare
-    loc_id text;
-    loc_username text;
-    loc_passwrod text;
-    loc_is_admin boolean;
-    loc_res text;
-  begin
-    select into loc_id id from users where id = par_id;
-    if loc_id isnull then
-      insert into users(id, username, password, is_admin) values (par_id, par_username, par_password, par_is_admin);
-      loc_res = 'OK';
-    else
-      loc_res = 'USER EXISTS';
-    end if;
-    return loc_res;
-    end;
-$$
-  language 'plpgsql';
-
---select new_user(1, 'roselle', 'roselle', true);
-
-create or replace function get_users(out int8, out text, out text, out boolean) returns setof record as
-$$
-   select id, username, password, is_admin from users;
+   select id, username, password, email, is_admin from users;
 $$
  language 'sql';
 
 --select * from get_users();
 
-create or replace function get_user(in par_id int8, out text, out text, out boolean) returns setof record as
+create or replace function get_user(in par_id int8, out text, out text, out text, out boolean) returns setof record as
 $$
-  select username, password, is_admin from users where id = par_id
+  select username, password, email, is_admin from users where id = par_id
 $$
   language 'sql';
 
@@ -326,7 +301,7 @@ $$
     loc_id text;
     loc_res text;
   begin
-    select into loc_id id from orders where id=par_id;
+    select into loc_id id from order_details where id=par_id;
     if loc_id isnull then
 
        insert into orders(id, order_id, product_id, unit_price, discount, quantity) values (par_id, par_order_id, par_product_id, par_unit_price, par_discount, par_quantity);
@@ -354,3 +329,34 @@ $$
 
 $$
  language 'sql';
+
+create or replace function new_customer(in par_id int8, in par_first_name text, in par_last_name text, in par_address text, in par_city text, in par_state text, in par_postal_code text, in par_country text, in par_phone text, in par_email text, in par_user_id int8, in billing_address text, in shipping_address text, in date_created timestamp) returns text as
+$$
+  declare
+    loc_id text;
+    loc_res text;
+  begin
+    select into loc_id id from customer where id=par_id;
+    if loc_id isnull then
+
+      insert into customer(id, first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address, shipping_address, date_created) values (par_id, par_first_name, par_last_name, par_address, par_city, par_state, par_postal_code, par_country, par_phone, par_email, par_user_id, par_billing_address, par_shipping_address, par_date_created);
+      loc_res = 'ok';
+    else
+      loc_res = 'ID EXISTED';
+    end if;
+  end;
+$$
+
+language 'plpgsql';
+
+create or replace function get_all_customers(out int8, out text, out text, out text, out text, out text, out text, out text, out text, out text, out int8, out text, out text, out timestamp) returns setof record as
+$$
+  select id, first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address, shipping_address, date_created from customer
+$$
+  language 'sql';
+
+create or replace function get_single_customer(in par_id int8, out text, out text, out text, out text, out text, out text, out text, out text, out text, out int8, out text, out text, out timestamp) returns setof record as
+$$
+  select first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address, shipping_address, date_created from customer where id = par_id
+$$
+  language 'sql';
