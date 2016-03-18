@@ -80,7 +80,7 @@ def step_impl(step, status, txt):
     assert_equals(world.resp[status], txt)
 
 
-@step("it should have an empty field 'entries'")
+@step("it should have an empty field \'(.*)\'")
 def step_impl(step, entries):
     """
     :type step: lettuce.core.Step
