@@ -63,13 +63,13 @@ create table orders(
    total float8
 )
 
-create table order_details(
+create table order_items(
   id int8 primary key,
   order_id int8,
   product_id int8,
   unit_price float8,
   discount float8,
-  quantity int8s
+  quantity int8
 )
 
 create table customer(

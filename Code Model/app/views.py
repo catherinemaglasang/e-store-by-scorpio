@@ -435,22 +435,6 @@ def new_supplier():
     return jsonify({'status': 'ok', 'message': response[0][0]}), 201
 
 
-#
-#
-# @app.route('/api/v1/suppliers/', methods=['GET'])
-# def get_all_suppliers():
-#     res = spcall('get_suppliers', ())
-#
-#     if 'Error' in str(res[0][0]):
-#         return jsonify({'status': 'error', 'message': res[0][0]})
-#
-#     recs = []
-#     for r in res:
-#         recs.append({"id": str(r[0]), "name": str(r[1]), "address": str(r[2]), "phone": str(r[3]), "fax": str(r[4]),
-#                      "email": str(r[5]), "is_active": str(r[6])})
-#     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
-#
-#
 @app.route('/api/v1/suppliers/<supplier_id>/', methods=['GET'])
 def get_supplier(supplier_id):
     response = spcall('get_supplier', (supplier_id,))
@@ -480,7 +464,7 @@ def update_supplier(supplier_id):
     fax = jsn.get('fax', ''),
     email = jsn.get('email', ''),
     is_active = True
-    response = spcall('update_product_id', (
+    response = spcall('update_supplier_id', (
         id,
         name,
         address,
@@ -492,10 +476,23 @@ def update_supplier(supplier_id):
     return jsonify({"status": "ok"})
 
 
+# @app.route('/api/v1/suppliers/', methods=['GET'])
+# def get_all_suppliers():
+#     res = spcall('get_suppliers', ())
+#
+#     if 'Error' in str(res[0][0]):
+#         return jsonify({'status': 'error', 'message': res[0][0]})
+#
+#     recs = []
+#     for r in res:
+#         recs.append({"id": str(r[0]), "name": str(r[1]), "address": str(r[2]), "phone": str(r[3]), "fax": str(r[4]),
+#                      "email": str(r[5]), "is_active": str(r[6])})
+#     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
 """ END OF SUPPLIER """
 
-""" CART DETAIL """
+""" CART ITEM """
 
 
 @app.route('/api/v1/cart_items/', methods=['POST'])
@@ -569,7 +566,7 @@ def get_cart_item(cart_item_id):
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-""" END CART DETAIL """
+""" END CART ITEM """
 
 """ CART """
 
@@ -675,40 +672,44 @@ def new_orders():
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
-@app.route('/api/v1/order_details', methods=['GET'])
-def get_all_order_details():
-    """
-    Retrieve All Order_Details
-    """
+""" ORDER ITEM """
+# @app.route('/api/v1/order_details', methods=['GET'])
+# def get_all_order_details():
+#     """
+#     Retrieve All Order_Details
+#     """
+#
+#     res = spcall('get_order_details', ())
+#
+#     if 'Error' in str(res[0][0]):
+#         return jsonify({'status': 'error', 'message': res[0][0]})
+#
+#     recs = []
+#     for r in res:
+#         recs.append({"id": str(r[0]), "order_id": str(r[1]), "product_id": str(r[2]), "unit_price": str(r[3]),
+#                      "discount": str(r[4]),
+#                      "quantity": str(r[5])})
+#     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
-    res = spcall('get_order_details', ())
 
-    if 'Error' in str(res[0][0]):
-        return jsonify({'status': 'error', 'message': res[0][0]})
-
-    recs = []
-    for r in res:
-        recs.append({"id": str(r[0]), "order_id": str(r[1]), "product_id": str(r[2]), "unit_price": str(r[3]),
-                     "discount": str(r[4]),
-                     "quantity": str(r[5])})
-    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
-
-
-@app.route('/api/v1/order_details/<order_detail_id>/', methods=['GET'])
-def get_order_detail(order_detail_id):
+@app.route('/api/v1/order_items/<order_item_id>/', methods=['GET'])
+def get_order_item(order_item_id):
     """
     Retrieve Single Order_Detail
     """
-    res = spcall('get_order_details_id', order_detail_id)
+    res = spcall('get_order_item_id', order_item_id)
+    if len(res) == 0:
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+    else:
+        recs = []
+        for r in res:
+            recs.append({"order_id": r[0],
+                         "product_id": r[1],
+                         "unit_price": r[2],
+                         "discount": r[3],
+                         "quantity": r[4]})
 
-    if 'Error' in str(res[0][0]):
-        return jsonify({'status': 'error', 'message': res[0][0]})
-
-    r = res[0]
-    return jsonify({"id": str(order_detail_id), "order_id": str(r[0]), "product_id": str(r[1]), "unit_price": str(r[2]),
-                    "discount": str(r[3]),
-                    "quantity": str(r[4])})
-
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 @app.route('/api/v1/order_details/', methods=['POST'])
 def new_order_details():

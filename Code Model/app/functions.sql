@@ -323,9 +323,9 @@ $$
 
 language 'sql';
 
-create or replace function get_order_details_id(in par_id int8, out int8, out int8, out float8, out float8, out int8) returns setof record as
+create or replace function get_order_item_id(in par_id int8, out int8, out int8, out float8, out float8, out int8) returns setof record as
 $$
-   select order_id, product_id, unit_price, discount, quantity from order_details where id = par_id;
+   select order_id, product_id, unit_price, discount, quantity from order_items where id = par_id;
 
 $$
  language 'sql';
