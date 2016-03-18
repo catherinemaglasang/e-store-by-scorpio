@@ -1,5 +1,5 @@
 Feature: Handle storing and retrieving customer details
-  Scenario: Retrieve a user detail
+  Scenario: Get User
     Given user id '1' is in the system
     When I retrieve the user '1'
     Then I get the '200' response
@@ -8,7 +8,7 @@ Feature: Handle storing and retrieving customer details
     | 1  | user1 | pass1 | True |
 
 
-  Scenario: Retrieving a user detail not inside the database
+  Scenario: Get User not in the Database
     Given I access the user url '/api/v1/users/2/'
     When I retrieve the user JSON result
     Then I get the '200' response
