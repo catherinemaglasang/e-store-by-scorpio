@@ -12,7 +12,7 @@ def before_all():
     world.app = app.test_client()
 
 
-
+""" Get Cart sunny case """
 @step("cart \'(.*)\' is in the system")
 def step_impl(step, id):
     """
@@ -54,3 +54,63 @@ def step_impl(step):
     """
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
+
+
+""" Get Cart rainy case """
+@step("I retrieve a cart with resource url \'(.*)\'")
+def step_impl(step, url):
+    """
+    :param url:
+    :type step: lettuce.core.Step
+    """
+    world.cart_uri = url
+
+
+@step("i retrieve a JSON result")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.response = world.app.get(world.cart_uri)
+
+
+@step("i should get a \'(.*)\' status code")
+def step_impl(step, expected_status_code):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.response.status_code, int(expected_status_code))
+
+
+@step('it should  have a field "status" "ok"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.resp = json.loads(world.response.data)
+    assert_equals(world.resp['status'], 'ok')
+
+
+@step('it should  have a field "count" 0')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.resp['count'], '0')
+
+
+@step('it should  have an empty field " entries "')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(len(world.resp['entries']), 0)
+
+
+@step('it should  have a field "message" "No entries found"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.resp = json.loads(world.response.data)
+    assert_equals(world.resp['message'], 'No entries found')
