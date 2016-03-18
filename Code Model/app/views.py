@@ -315,6 +315,7 @@ def delete_product_category(id):
 
     """ Todo: This route should be protected """
 
+
 """  USER  """
 
 @app.route('/api/v1/users/', methods=['GET'])
@@ -329,7 +330,8 @@ def get_all_users():
         recs.append({"id": r[0],
                      "username": r[1],
                      "password": r[2],
-                     "is_admin": r[3]})
+                     "email": r[3],
+                     "is_admin": r[4]})
 
         return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
@@ -347,7 +349,8 @@ def get_user(user_id):
             recs.append({"id": user_id,
                          "username": r[0],
                          "password": r[1],
-                         "is_admin": r[2]})
+                         "email": r[2],
+                         "is_admin": r[3]})
 
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
@@ -358,9 +361,10 @@ def new_user():
     id = request.form['inputID']
     username = request.form['inputUsername']
     password = request.form['inputPassword']
+    email = request.form['inputEmail']
     is_admin = request.form['inputIsAdmin']
 
-    res = spcall('new_user', (id, username, password, is_admin), True)
+    res = spcall('new_user', (id, username, password, email, is_admin), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
@@ -371,12 +375,14 @@ def new_user():
     id = jsn['id']
     username = jsn['username']
     password = jsn['password']
+    email = jsn['email']
     is_admin = jsn['is_admin']
 
     response = spcall('new_user', (
         id,
         username,
         password,
+        email,
         is_admin), True)
 
     if 'Error' in response[0][0]:

@@ -87,3 +87,36 @@ def step_impl(step, entries):
     """
     assert_equals(len(world.resp[entries]), 0)
 
+""" CREATE USER """
+
+@step("I have the following user details:")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.user1 = step.hashes[0]
+
+
+@step("I POST to the user url \'(.*)\'")
+def step_impl(step, url):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.user_post_uri = url
+    world.user_post_response = world.app.post(world.user_post_uri, data=json.dumps(world.user1))
+
+@step("I get the create \'(.*)\' response")
+def step_impl(step, exp_status_code):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.user_post_response.status_code, int(exp_status_code))
+
+@step("I should get a user field \'(.*)\' containing \'(.*)\'")
+def step_impl(step, status, txt):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.user_post_response_json = json.loads(world.user_post_response_json.data)
+    assert_equals(world.user_post_response_json[status], txt)
+

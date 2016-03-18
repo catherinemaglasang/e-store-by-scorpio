@@ -3,6 +3,7 @@ create table users (
    id int8 primary key,
    username text,
    password text,
+   email text unique,
    is_admin boolean
 );
 
@@ -69,4 +70,21 @@ create table order_details(
   unit_price float8,
   discount float8,
   quantity int8s
+)
+
+create table customer(
+  id int8 primary key,
+  first_name text,
+  last_name text,
+  address text,
+  city text,
+  state text,
+  postal_code text,
+  country text,
+  phone text,
+  email text unique,
+  user_id int8,
+  billing_address text,
+  shipping_address text,
+  date_created timestamp
 )
