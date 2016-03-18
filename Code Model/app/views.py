@@ -288,7 +288,7 @@ def update_product_category(product_category_id):
     name = jsn.get('name', ''),
     description = jsn.get('description', ''),
     main_image = jsn.get('main_image', ''),
-    parent_category_id = jsn.get('parent_category_id', '')''
+    parent_category_id = jsn.get('parent_category_id', ''),
     is_active = True
 
     response = spcall('update_product_id', (
@@ -536,7 +536,7 @@ def get_wishlist_details():
 
 
 @app.route('/api/v1/wishlist/', methods=['POST'])
-def new_supplier():
+def new_wishlist():
 
     print "STARTING ADD"
     id = request.form['inputID']
