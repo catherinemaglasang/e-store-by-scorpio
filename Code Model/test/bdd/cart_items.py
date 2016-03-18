@@ -13,24 +13,24 @@ def before_all():
 
 
 """ Get Cart sunny case """
-@step("cart detail \'(.*)\' is in the system")
-def given_cart_detail1_is_in_the_system(step, id):
+@step("cart item \'(.*)\' is in the system")
+def given_cart_item1_is_in_the_system(step, id):
     """
     :param id:
     :type step: lettuce.core.Step
     """
     world.browser = TestApp(app)
-    world.response = world.browser.get('/#/dashboard/cart_details/add')
+    world.response = world.browser.get('/#/dashboard/cart_items/add')
     world.response.charset = 'utf8'
     assert_equals(world.response.status_code, 200)
     assert_equals(json.loads(world.response.text), {"status": "ok"})
-    world.cart_detail = world.app.get('/api/v1/cart_details/{}/'.format(id))
-    world.resp = json.loads(world.cart_detail.data)
+    world.cart_item = world.app.get('/api/v1/cart_details/{}/'.format(id))
+    world.resp = json.loads(world.cart_item.data)
     assert_equals(world.resp['status'], 'ok')
 
 
-@step("I retrieve the cart detail \'(.*)\'")
-def when_I_retrieve_the_cart_detail1(step, id):
+@step("I retrieve the cart item \'(.*)\'")
+def when_I_retrieve_the_cart_item1(step, id):
     """
     :type step: lettuce.core.Step
     """
@@ -46,8 +46,8 @@ def then_i_should_get_a_200_response(step, expected_status_code):
 
 
 
-@step("the following cart details are returned:")
-def the_following_cart_details(step):
+@step("the following cart item details are returned:")
+def the_following_cart_item_details(step):
     """
     :type step: lettuce.core.Step
     """
@@ -57,14 +57,14 @@ def the_following_cart_details(step):
 
 """ end """
 
-""" Get Cart Detail rainy case """
-@step("I retrieve a cart detail with resource url \'(.*)\'")
+""" Get Cart Item rainy case """
+@step("I retrieve a cart item with resource url \'(.*)\'")
 def step_impl(step, url):
     """
     :param url:
     :type step: lettuce.core.Step
     """
-    world.cart_detail_uri = url
+    world.cart_item_uri = url
 
 
 @step("i retrieve JSON result")
@@ -72,7 +72,7 @@ def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get(world.cart_detail_uri)
+    world.response = world.app.get(world.cart_item_uri)
 
 @step("i should get a status code \'(.*)\'")
 def step_impl(step, expected_status_code):
