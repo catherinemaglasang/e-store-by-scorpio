@@ -3,13 +3,15 @@ import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
 
-from app import app
+from flask import current_app as app
 from app.views import ORDER_DETAILS
+
+from app import create_app
 
 @before.all
 def before_all():
-    world.app = app.test_client()
-
+    world.app = create_app('testing')
+    world.client = world.app.test_client()
 
 @step("order detail id \'(.*)\' is filled")
 def give_some_order_details_are_in_the_system(step,id):

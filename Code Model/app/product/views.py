@@ -1,11 +1,13 @@
 import json
 import datetime
-from flask import request
-from flask import jsonify
-from app import app
+from flask import current_app
+from flask import request, Blueprint
+from flask import jsonify, render_template
 from app.models import spcall
+from app import api
 
-@app.route('/api/v1/products/', methods=['POST'])
+
+@api.route('/api/v1/products/', methods=['POST'])
 def new_product():
     jsn = json.loads(request.data)
     product_id = jsn['product_id']
@@ -20,7 +22,7 @@ def new_product():
     # product_attributes = request.json['product_attributes']
     on_hand = jsn['on_hand']
     re_order_level = jsn['re_order_level']
-    is_active = True                    # Default
+    is_active = True  # Default
 
     response = spcall('new_product', (
         product_id,
@@ -42,7 +44,7 @@ def new_product():
     return jsonify({'status': 'ok', 'message': response[0][0]}), 201
 
 
-@app.route('/api/v1/products/', methods=['GET'])
+@api.route('/api/v1/products/', methods=['GET'])
 def get_all_products():
     response = spcall('get_product', ())
     entries = []
@@ -54,20 +56,21 @@ def get_all_products():
     else:
         for row in response:
             entries.append({"product_id": row[0],
-                        "title": row[1],
-                        "description": row[2],
-                        "date_added": row[3],
-                        "ordering": row[4],
-                        "supplier_id": row[5],
-                        "category_id": row[6],
-                        "site_id": row[7],
-                        "product_type_id": row[8],
-                        "on_hand": row[9],
-                        "re_order_level": row[10],
-                        "is_active": row[11]})
+                            "title": row[1],
+                            "description": row[2],
+                            "date_added": row[3],
+                            "ordering": row[4],
+                            "supplier_id": row[5],
+                            "category_id": row[6],
+                            "site_id": row[7],
+                            "product_type_id": row[8],
+                            "on_hand": row[9],
+                            "re_order_level": row[10],
+                            "is_active": row[11]})
         return jsonify({'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)})
 
-@app.route('/api/v1/products/<product_id>/', methods=['GET'])
+
+@api.route('/api/v1/products/<product_id>/', methods=['GET'])
 def get_product(product_id):
     response = spcall('get_product_id', (product_id,))
     entries = []
@@ -89,7 +92,8 @@ def get_product(product_id):
                         "is_active": row[11]})
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
-@app.route('/api/v1/products/<product_id>/', methods=['PUT'])
+
+@api.route('/api/v1/products/<product_id>/', methods=['PUT'])
 def update_product(product_id):
     jsn = json.loads(request.data)
     product_id = jsn.get('product_id', '')

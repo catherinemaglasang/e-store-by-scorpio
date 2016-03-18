@@ -1,8 +1,16 @@
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, current_app
 from config import config
 
-app = Flask(__name__)
-app.config.from_object(config['development'])
+api = Blueprint('api', __name__)
 
-from app import views
-from app.product import views
+def create_app(_config='development'):
+    app = Flask(__name__)
+    app.config.from_object(config[_config])
+
+    from app import views
+    from app.product import views
+    from app.product.views import api
+
+    app.register_blueprint(api)
+
+    return app

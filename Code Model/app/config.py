@@ -7,15 +7,15 @@ class Config(object):
     TESTING = False
     DATABASE = 'postgresql://bookshop:bookshop@127.0.0.1:5432/bookshopdb'
 
-class ProductionConfig(Config):
-    DATABASE = 'mysql://user@localhost/foo'
-
 class DevelopmentConfig(Config):
     DEBUG = True
 
 class TestingConfig(Config):
     TESTING = True
     DATABASE = 'postgresql://bookshop:bookshop@127.0.0.1:5432/test_bookshopdb'
+
+class ProductionConfig(Config):
+    DATABASE = 'mysql://user@localhost/foo'
 
 config = {
     'development': DevelopmentConfig,

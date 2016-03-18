@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
-import os
-from app import app
+from flask import current_app as app
+
 
 class DBconn:
     def __init__(self):
@@ -20,24 +20,20 @@ class DBconn:
 
 
 def spcall(qry, param, commit=False):
-    """
-    Stored procedure util function
-    :param qry:
-    :param param:
-    :param commit:
-    :return: rows or response returned by database
-    """
+    """ Stored procedure util function """
     try:
         dbo = DBconn()
         cursor = dbo.getcursor()
         cursor.callproc(qry, param)
         res = cursor.fetchall()
+
         if commit:
             dbo.dbcommit()
 
-        # Rollback transaction if in testing environment
-        if app.config['TESTING']:
-            dbo.rollback_transaction()
+            # Rollback transaction if in testing environment
+            if app.config['TESTING']:
+                print app.config['TESTING']
+                dbo.rollback_transaction()
 
         return res
     except:

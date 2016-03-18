@@ -1,11 +1,6 @@
-import os
 import json
-import app
 import unittest
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
-from app.config import config
-Session = sessionmaker()
+from app import create_app
 
 
 class ProductTestCase(unittest.TestCase):
@@ -13,37 +8,22 @@ class ProductTestCase(unittest.TestCase):
 
     def setUp(self):
         # Use configs for testing environment
-        app.app.config.from_object(config['testing'])
-
-        # connect to the database using sqlalchemy engine
-        engine = create_engine("%s" % (app.app.config['DATABASE']), echo=False)
-        self.connection = engine.connect()
-        self.trans = self.connection.begin()
-        # self.cursor = self.connection.cursor()
-
-        # Reset and setup db
-        # self.cursor.execute("""DROP TABLE products;""")
-        # self.cursor.execute("""CREATE TABLE products;""")
-
-        self.session = Session(bind=self.connection)
-        self.app = app.app.test_client()
-
-    def tearDown(self):
-        self.trans.rollback()
-        self.connection.close()
+        self.app = create_app('testing')
+        self.client = self.app.test_client()
 
     def check_content_type(self, headers):
         self.assertEqual(headers['Content-Type'], 'application/json')
 
     def test_home(self):
-        rv = self.app.get('/')
+        rv = self.client.get('/')
+        print rv
         resp = json.loads(rv.data)
         self.assertEqual(resp['status'], 'ok')
 
     def test_empty_db(self):
 
         # Get all products in db
-        rv = self.app.get('/api/v1/products/')
+        rv = self.client.get('/api/v1/products/')
         resp = json.loads(rv.data)
 
         self.check_content_type(rv.headers)
@@ -67,7 +47,7 @@ class ProductTestCase(unittest.TestCase):
             self.assertEqual(len(resp['entries']), 0)
 
     def test_invalid_product_id(self):
-        rv = self.app.get('/api/v1/products/abcxyz')
+        rv = self.client.get('/api/v1/products/abcxyz')
         self.assertRaises(AttributeError)
 
     def test_create_product(self):
@@ -86,7 +66,7 @@ class ProductTestCase(unittest.TestCase):
             'is_active': 'True'
         }
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-        rv = self.app.post("/api/v1/products/",
+        rv = self.client.post("/api/v1/products/",
                            headers=headers,
                            data=json.dumps(data))
 
@@ -109,7 +89,7 @@ class ProductTestCase(unittest.TestCase):
             'is_active': 'True'
         }
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-        rv = self.app.post("/api/v1/products/",
+        rv = self.client.post("/api/v1/products/",
                            headers=headers,
                            data=json.dumps(data))
 
@@ -136,7 +116,7 @@ class ProductTestCase(unittest.TestCase):
             'is_active': 'True'
         }
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-        rv = self.app.put("/api/v1/products/1/", headers=headers, data=json.dumps(new_product))
+        rv = self.client.put("/api/v1/products/1/", headers=headers, data=json.dumps(new_product))
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(json.loads(rv.data)['status'], 'ok')
 
