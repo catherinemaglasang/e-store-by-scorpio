@@ -1,4 +1,4 @@
-Feature: Handle Creating and Retrieving Order information
+Feature: Create and Get Order
 
   Scenario: Get Order Information
     Given Order id '1' is in the system
@@ -11,5 +11,5 @@ Feature: Handle Creating and Retrieving Order information
   Scenario: Retrieving an Order Information not in the database
     Given Order id '2' is not in the system
     When I retrieve the order '2'
-    Then I should get a '500' response
+    Then I should get a '200' response
     | 3 | 8123 | 1239 | 2016-07-20 00:00:00 | 2016-08-15 00:00:00 | 2016-12-25 00:00:00 | blank | 121.99 |
