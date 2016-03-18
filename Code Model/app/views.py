@@ -514,32 +514,36 @@ def get_cart_detail(cart_detail_id):
 """ CART """
 
 
-@app.route('/api/v1/carts/', methods=['POST'])
-def new_cart():
-    json = request.json
-    id = json['id']
-    session_id = json['session_id']
-    date_created = json['customer_id']
-    customer_id = json['product_id']
-    is_active = json['is_active']
-    res = spcall('new_cart', (id, session_id, date_created, customer_id, is_active), True)
-
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
-    return jsonify({'status': 'ok', 'message': res[0][0]})
+# @app.route('/api/v1/carts/', methods=['POST'])
+# def new_cart():
+#     json = request.json
+#     id = json['id']
+#     session_id = json['session_id']
+#     date_created = json['customer_id']
+#     customer_id = json['product_id']
+#     is_active = json['is_active']
+#     res = spcall('new_cart', (id, session_id, date_created, customer_id, is_active), True)
+#
+#     if 'Error' in res[0][0]:
+#         return jsonify({'status': 'error', 'message': res[0][0]})
+#     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
 @app.route('/api/v1/carts/<cart_id>/', methods=['GET'])
 def get_cart(cart_id):
-    res = spcall('get_cart', cart_id)
+    res = spcall('get_cart', (cart_id,))
 
-    if 'Error' in str(res[0][0]):
-        return jsonify({'status': 'error', 'message': res[0][0]})
+    if len(res) == 0:
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+    else:
+        recs = []
+        for r in res:
+            recs.append({"session_id": r[0],
+                         "date_created": r[1],
+                         "customer_id": r[2],
+                         "is_active": r[3]})
 
-    r = res[0]
-    return jsonify({"id": str(cart_id), "session_id": str(r[0]), "date_created": str(r[1]), "customer_id": str(r[2]),
-                    "is_active": str(r[3])})
-
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 """ END OF CART """
 

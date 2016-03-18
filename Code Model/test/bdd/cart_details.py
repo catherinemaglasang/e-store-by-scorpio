@@ -12,6 +12,7 @@ def before_all():
     world.app = app.test_client()
 
 
+""" Get Cart sunny case """
 @step("cart detail \'(.*)\' is in the system")
 def given_cart_detail1_is_in_the_system(step, id):
     """
@@ -54,7 +55,9 @@ def the_following_cart_details(step):
     assert_equals(world.resp['entries'], resp['entries'])
 
 
-# """ """
+""" end """
+
+""" Get Cart Detail rainy case """
 @step("I retrieve a cart detail with resource url \'(.*)\'")
 def step_impl(step, url):
     """
@@ -115,4 +118,4 @@ def step_impl(step):
     world.resp = json.loads(world.response.data)
     assert_equals(world.resp['message'], 'No entries found')
 
-# """ """
+""" end """
