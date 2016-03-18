@@ -3,9 +3,14 @@ from lettuce import step, world, before
 from nose.tools import assert_equals
 from webtest import TestApp
 from app import app
+from app.config import config
 
 @before.all
 def before_all():
+    # Use configs for testing environment
+    app.config.from_object(config['development'])
+
+    # Initialize test client for HTTP requests
     world.app = app.test_client()
 
 # SCENARIO 1
@@ -14,11 +19,6 @@ def given_product_id_1_is_a_valid_product(step):
     """
     :type step: lettuce.core.Step
     """
-    world.browser = TestApp(app)
-    world.response = world.browser.get('/#/dashboard/products/add')
-    world.response.charset = 'utf8'
-    assert_equals(world.response.status_code, 200)
-    assert_equals(json.loads(world.response.text), {"status": "ok"})
     world.product = world.app.get('/api/v1/products/1/')
     world.resp = json.loads(world.product.data)
     assert_equals(world.resp['status'], 'ok')

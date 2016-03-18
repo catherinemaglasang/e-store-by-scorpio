@@ -2,36 +2,24 @@ import os
 import json
 import app
 import unittest
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
 from app.config import config
-Session = sessionmaker()
+from app.catalogue.controller import db_con
 
 
 class ProductTestCase(unittest.TestCase):
     """ Test api """
 
     def setUp(self):
-        # Use configs for testing environment
-        app.app.config.from_object(config['development'])
-
-        # connect to the database using sqlalchemy engine
-        engine = create_engine("%s" % (app.app.config['DATABASE']), echo=False)
-        self.connection = engine.connect()
-        self.trans = self.connection.begin()
-        # self.cursor = self.connection.cursor()
-
-        # Reset and setup db
-        # self.cursor.execute("""DROP TABLE products;""")
-        # self.cursor.execute("""CREATE TABLE products;""")
-
-        self.session = Session(bind=self.connection)
+        app.app.config.from_object(config['testing'])
+        # Call the ff function to reinitialize and update db source
+        db_con.initialize()
         self.app = app.app.test_client()
 
     def tearDown(self):
-        self.trans.rollback()
-        self.connection.close()
-
+        # db_con.getcursor().close()
+        # db_con.dbcommit()
+        pass
+        # db_con.close_transaction()
     def check_content_type(self, headers):
         self.assertEqual(headers['Content-Type'], 'application/json')
 
@@ -72,7 +60,7 @@ class ProductTestCase(unittest.TestCase):
 
     def test_create_product(self):
         data = {
-            'product_id': '1',
+            'product_id': '100',
             'title': 'Product Name',
             'description': 'Product Description',
             'date_added': '1/1/1 1:1:1',
@@ -91,6 +79,8 @@ class ProductTestCase(unittest.TestCase):
                            data=json.dumps(data))
 
         self.check_content_type(rv.headers)
+        print json.loads(rv.data)
+        # self.assertEqual(json.loads(rv.data), 'ok')
         self.assertEqual(rv.status_code, 201)
 
     def test_create_existing_product(self):
@@ -139,6 +129,5 @@ class ProductTestCase(unittest.TestCase):
         rv = self.app.put("/api/v1/products/1/", headers=headers, data=json.dumps(new_product))
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(json.loads(rv.data)['status'], 'ok')
-
 
 # Sources: http://mkelsey.com/2013/05/15/test-driven-development-of-a-flask-api/
