@@ -3,10 +3,13 @@ from lettuce import step, world, before
 from nose.tools import assert_equals
 from webtest import TestApp
 from app import app
+from app.config import config
+
 
 @before.all
 def before_all():
     world.app = app.test_client()
+    app.config.from_object(config['testing'])
 
 # SCENARIO 1
 @step("product id 1 is an existing product")

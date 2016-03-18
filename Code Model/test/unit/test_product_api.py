@@ -13,7 +13,7 @@ class ProductTestCase(unittest.TestCase):
 
     def setUp(self):
         # Use configs for testing environment
-        app.app.config.from_object(config['development'])
+        app.app.config.from_object(config['testing'])
 
         # connect to the database using sqlalchemy engine
         engine = create_engine("%s" % (app.app.config['DATABASE']), echo=False)

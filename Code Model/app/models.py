@@ -15,4 +15,6 @@ class DBconn:
     def dbcommit(self):
         self.trans.commit()
 
+    def rollback_transaction(self):
+        self.trans.rollback()
 
