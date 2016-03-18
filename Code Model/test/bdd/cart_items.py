@@ -20,11 +20,9 @@ def given_cart_item1_is_in_the_system(step, id):
     :type step: lettuce.core.Step
     """
     world.browser = TestApp(app)
-    world.response = world.browser.get('/#/dashboard/cart_items/add')
-    world.response.charset = 'utf8'
     assert_equals(world.response.status_code, 200)
     assert_equals(json.loads(world.response.text), {"status": "ok"})
-    world.cart_item = world.app.get('/api/v1/cart_details/{}/'.format(id))
+    world.cart_item = world.app.get('/api/v1/cart_items/{}/'.format(id))
     world.resp = json.loads(world.cart_item.data)
     assert_equals(world.resp['status'], 'ok')
 
@@ -34,16 +32,16 @@ def when_I_retrieve_the_cart_item1(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/cart_details/{}/'.format(id))
+    world.response = world.app.get('/api/v1/cart_items/{}/'.format(id))
 
 
-@step("I should get a \'(.*)\' response")
-def then_i_should_get_a_200_response(step, expected_status_code):
+@step("I should get \'(.*)\' response")
+def then_i_should_get_200_response(step, expected_status_code):
     """
+    :param expected_status_code:
     :type step: lettuce.core.Step
     """
     assert_equals(world.response.status_code, int(expected_status_code))
-
 
 
 @step("the following cart item details are returned:")
