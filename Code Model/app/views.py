@@ -223,6 +223,7 @@ def update_product(product_id):
         re_order_level,
         is_active), True)
     return jsonify({"status": "ok"})
+    
 
 @app.route('/api/v1/product_categories/', methods=['POST'])
 def new_product_category():
@@ -242,7 +243,7 @@ def new_product_category():
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
-@app.route('/api/v1/product_categories/', methods=['GET'])
+@app.route('/api/v1/product_categories', methods=['GET'])
 def get_all_product_categories():
     res = spcall('get_product_category', ())
 
@@ -267,7 +268,7 @@ def get_all_product_categories():
         return jsonify({'status': 'no entries in database'})
 
 
-@app.route('/api/v1/product_categories/<product_category_id>/', methods=['GET'])
+@app.route('/api/v1/product_categories/<product_category_id>', methods=['GET'])
 def get_product_category(product_category_id):
     res = spcall('get_product_category_id', (product_category_id))
 
@@ -280,7 +281,27 @@ def get_product_category(product_category_id):
          "parent_category_id": str(r[3]), "is_active": str(r[4])})
 
 
-@app.route('/api/v1/product_category/<int:id>/', methods=['DELETE'])
+@app.route('/api/v1/product_categories/<product_category_id>/', methods=['PUT'])
+def update_product_category(product_category_id):
+    jsn = json.loads(request.data)
+    id = jsn.get('id', '')
+    name = jsn.get('name', ''),
+    description = jsn.get('description', ''),
+    main_image = jsn.get('main_image', ''),
+    parent_category_id = jsn.get('parent_category_id', '')''
+    is_active = True
+
+    response = spcall('update_product_id', (
+        id,
+        name,
+        description,
+        main_image,
+        parent_category_id,
+        is_active), True)
+    return jsonify({"status": "ok"})
+
+
+@app.route('/api/v1/product_categories/<int:id>/', methods=['DELETE'])
 def delete_product_category(id):
     res = spcall("delete_product_category", (id,), True)
     if 'Error' in res[0][0]:
@@ -515,27 +536,73 @@ def get_wishlist_details():
 
 
 @app.route('/api/v1/wishlist/', methods=['POST'])
-def new_wishlist():
-    json = request.json
-    id = json['id']
+def new_supplier():
+
+    print "STARTING ADD"
+    id = request.form['inputID']
+
+
     res = spcall('new_wishlist', (id), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
+
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
+    jsn = json.loads(request.data)
+    id = jsn['id']
 
-@app.route('/api/v1/wishlist/', methods=['GET'])
-def get_wishlist():
+    response = spcall('new_wishlist', (
+        id), True)
+
+    if 'Error' in response[0][0]:
+        return jsonify({'status': 'error', 'message': response[0][0]})
+
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+
+
+@app.route('/api/v1/wishlist', methods=['GET'])
+def get_all_wishlists():
     res = spcall('get_wishlist', ())
 
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     recs = []
+
     for r in res:
-        recs.append({"id": r[0]})
+        recs.append({"id": str(r[0])})
+
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+    if len(res) > 0:
+        for r in res:
+            recs.append({"id": str(r[0])})
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+    else:
+        return jsonify({'status': 'no entries in database'})
+
+@app.route('/api/v1/wishlist/<wishlist_id>/', methods=['GET'])
+def get_wishlist(wishlist_id):
+    res = spcall('get_wishlist', wishlist_id)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    r = res[0]
+    return jsonify({"id": str(cart_id)})
+
+
+@app.route('/api/v1/wishlist/<int:id>/', methods=['DELETE'])
+def delete_wishlist(id):
+    res = spcall("delete_wishlist", (id,), True)
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+
 
 
 @app.route('/api/v1/orders', methods=['GET'])
