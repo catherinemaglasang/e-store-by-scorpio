@@ -825,6 +825,130 @@ def delete_wishlist(id):
 
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
+"""  CUSTOMER   """
+
+
+@app.route('/api/v1/customers/', methods=['POST'])
+def new_customer():
+    print "STARTING ADD"
+    id = request.form['inputID']
+    first_name = request.form['inputFirstName']
+    last_name = request.form['inputLastName']
+    address = request.form['inputAddress']
+    city = request.form['inputCity']
+    state = request.form['inputState']
+    postal_code = request.form['inputPostalCode']
+    country = request.form['inputCountry']
+    phone = request.form['inputPhone']
+    email = request.form['inputEmail']
+    user_id = request.form['inputUserId']
+    billing_address = request.form['inputBillingAddress']
+    shipping_address = request.form['inputShippingAddress']
+    date_created = request.form['inputDateCreated']
+
+    res = spcall('new_customer', (
+    id, first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address,
+    shipping_address, date_created), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+    jsn = json.loads(request.data)
+    id = jsn['id']
+    first_name = jsn['first_name']
+    last_name = jsn['last_name']
+    address = jsn['address']
+    city = jsn['city']
+    state = jsn['state']
+    postal_code = jsn['postal_code']
+    country = jsn['country']
+    phone = jsn['phone']
+    email = jsn['email']
+    user_id = jsn['user_id']
+    billing_address = jsn['billing_address']
+    shipping_address = jsn['shipping_address']
+    date_created = jsn['date_created']
+
+    response = spcall('new_customer', (
+        id,
+        first_name,
+        last_name,
+        address,
+        city,
+        state,
+        postal_code,
+        country,
+        phone,
+        email,
+        user_id,
+        billing_address,
+        shipping_address,
+        date_created
+    ), True)
+
+    if 'Error' in response[0][0]:
+        return jsonify({'status': 'error', 'message': response[0][0]})
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+
+
+@app.route('/api/v1/customers/', methods=['GET'])
+def get_all_customers():
+    res = spcall('get_all_customers', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({
+            "id": r[0],
+            "first_name": r[1],
+            "last_name": r[2],
+            "address": r[3],
+            "city": r[4],
+            "state": r[5],
+            "postal_code": r[6],
+            "country": r[7],
+            "phone": r[8],
+            "email": r[9],
+            "user_id": r[10],
+            "billing_address": r[11],
+            "shipping_address": r[12],
+            "date_created": r[13]
+        })
+        return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+
+@app.route('/api/v1/customers/<customer_id>/', methods=['GET'])
+def get_customer(customer_id):
+    res = spcall('get_single_customer', (customer_id))
+
+    if len(res) == 0:
+        return jsonify({'status': 'ok', 'message': 'No entries found', 'entries': [], 'count': '0'})
+    else:
+        recs = []
+        for r in res:
+            recs.append({
+                "id": customer_id,
+                "first_name": r[0],
+                "last_name": r[1],
+                "address": r[2],
+                "city": r[3],
+                "state": r[4],
+                "postal_code": r[5],
+                "country": r[6],
+                "phone": r[7],
+                "email": r[8],
+                "user_id": r[9],
+                "billing_address": r[10],
+                "shipping_address": r[11],
+                "date_created": r[12]
+            })
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+"""  END CUSTOMER   """
+
 
 @app.after_request
 def add_cors(resp):
