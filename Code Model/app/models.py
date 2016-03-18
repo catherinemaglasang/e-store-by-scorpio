@@ -18,3 +18,28 @@ class DBconn:
     def rollback_transaction(self):
         self.trans.rollback()
 
+
+def spcall(qry, param, commit=False):
+    """
+    Stored procedure util function
+    :param qry:
+    :param param:
+    :param commit:
+    :return: rows or response returned by database
+    """
+    try:
+        dbo = DBconn()
+        cursor = dbo.getcursor()
+        cursor.callproc(qry, param)
+        res = cursor.fetchall()
+        if commit:
+            dbo.dbcommit()
+
+        # Rollback transaction if in testing environment
+        if app.config['TESTING']:
+            dbo.rollback_transaction()
+
+        return res
+    except:
+        res = [("Error: " + str(sys.exc_info()[0]) + " " + str(sys.exc_info()[1]),)]
+    return res

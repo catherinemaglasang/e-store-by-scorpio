@@ -1,13 +1,12 @@
 import os
+import datetime
 from os import sys
 import json, flask
 from flask import render_template, request
 from flask import jsonify
 from app import app
-from .models import DBconn
-import datetime
+from .models import spcall
 
-PRODUCTS = {}
 SUPPLIERS = {}
 USERS = {}
 CATEGORIES = {}
@@ -16,31 +15,6 @@ ORDER = {}
 CART_DETAILS = {}
 CARTS = {}
 ORDER_DETAILS = {}
-
-def spcall(qry, param, commit=False):
-    """
-    Stored procedure util function
-    :param qry:
-    :param param:
-    :param commit:
-    :return: rows or response returned by database
-    """
-    try:
-        dbo = DBconn()
-        cursor = dbo.getcursor()
-        cursor.callproc(qry, param)
-        res = cursor.fetchall()
-        if commit:
-            dbo.dbcommit()
-
-        # Rollback transaction if in testing environment
-        if app.config['TESTING']:
-            dbo.rollback_transaction()
-
-        return res
-    except:
-        res = [("Error: " + str(sys.exc_info()[0]) + " " + str(sys.exc_info()[1]),)]
-    return res
 
 
 @app.route('/')
