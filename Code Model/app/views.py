@@ -315,6 +315,7 @@ def delete_product_category(id):
 
     """ Todo: This route should be protected """
 
+"""  USER  """
 
 @app.route('/api/v1/users/', methods=['GET'])
 def get_all_users():
@@ -325,35 +326,65 @@ def get_all_users():
 
     recs = []
     for r in res:
-        recs.append({"id": str(r[0]), "username": str(r[1]), "password": str(r[2]), "is_admin": str(r[3])})
-    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+        recs.append({"id": r[0],
+                     "username": r[1],
+                     "password": r[2],
+                     "is_admin": r[3]})
+
+        return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
 
 @app.route('/api/v1/users/<user_id>/', methods=['GET'])
 def get_user(user_id):
     res = spcall('get_user', (user_id))
 
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
+    if len(res) == 0:
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+    else:
+        recs = []
+        for r in res:
+            recs.append({"id": user_id,
+                         "username": r[0],
+                         "password": r[1],
+                         "is_admin": r[2]})
 
-    rec = res[0]
-    return jsonify({"id": str(user_id), "username": str(rec[0]), "password": str(rec[1]), "is_admin": str(rec[2])})
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
 @app.route('/api/v1/users/', methods=['POST'])
 def new_user():
-    json = request.json
-    user_id = json['id']
-    username = json['username']
-    password = json['password']
-    is_admin = json['is_admin']
-    res = spcall('new_user', (user_id, username, password, is_admin), True)
+    print "STARTING ADD"
+    id = request.form['inputID']
+    username = request.form['inputUsername']
+    password = request.form['inputPassword']
+    is_admin = request.form['inputIsAdmin']
+
+    res = spcall('new_user', (id, username, password, is_admin), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
+
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
+    jsn = json.loads(request.data)
+    id = jsn['id']
+    username = jsn['username']
+    password = jsn['password']
+    is_admin = jsn['is_admin']
 
+    response = spcall('new_user', (
+        id,
+        username,
+        password,
+        is_admin), True)
+
+    if 'Error' in response[0][0]:
+        return jsonify({'status': 'error', 'message': response[0][0]})
+
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+
+"""  End USER  """
 """ SUPPLIER """
 
 
