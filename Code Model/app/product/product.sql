@@ -1,3 +1,6 @@
+-- Stored procedures for inventory
+
+-- Create table for products
 create table products (
    product_id int primary key,
    title text,
@@ -13,7 +16,8 @@ create table products (
    is_active boolean
 );
 
--- Functions
+-- Function: Create new product
+-- Sample: select * from get_products();
 create or replace function new_product(in par_product_id int, in par_title text, in par_description text, in par_date_added TIMESTAMP, in par_ordering int, in par_supplier_id int, in par_category_id int, in par_site_id int, in par_product_type_id int, in par_on_hand int, in par_re_order_level int, in par_is_active boolean) returns text as
 $$
   declare
@@ -32,25 +36,25 @@ $$
 $$
  language 'plpgsql';
 
+-- Create Sample Product
 select new_product(100, 'title', 'description', '1999-01-08 04:05:06', 0, 1, 1, 1, 1, 100, 10, true);
 
-create or replace function get_product(out int, out text, out text, out timestamp, out int, out int, out int, out int, out int, out int, out int, out boolean) returns setof record as
+-- Function: Get all product
+create or replace function get_products(out int, out text, out text, out timestamp, out int, out int, out int, out int, out int, out int, out int, out boolean) returns setof record as
 $$
-   select product_id, title, description, date_added, ordering, supplier_id, category_id, site_id, product_type_id, on_hand, re_order_level, is_active from products;
-
+  select * from products;
 $$
  language 'sql';
 
---select * from get_products();
-
+-- Function: Get single product. Input: ID
+-- Sample: select * from get_product_id(2);
 create or replace function get_product_id(in par_product_id int, out int, out text, out text, out timestamp, out int, out int, out int, out int, out int, out int, out int, out boolean) returns setof record as
 $$
    select product_id, title, description, date_added, ordering, supplier_id, category_id, site_id, product_type_id, on_hand, re_order_level, is_active from products where product_id = par_product_id;
 $$
  language 'sql';
 
---select * from get_product_id(2);
-
+-- Function: Update single product. Input: ID
 create or replace function update_product_id(in par_product_id int, in par_title text, in par_description text, in par_date_added TIMESTAMP, in par_ordering int, in par_supplier_id int, in par_category_id int, in par_site_id int, in par_product_type_id int, in par_on_hand int, in par_re_order_level int, in par_is_active boolean) returns text as
 $$
   declare
@@ -76,3 +80,17 @@ $$
   end;
 $$
  language 'plpgsql';
+
+
+-- Modified Function
+CREATE OR REPLACE FUNCTION add_product(par_product_id int, par_title text, par_description text, par_date_added TIMESTAMP, par_ordering int, par_supplier_id int, par_category_id int, par_site_id int, par_product_type_id int, par_on_hand int, par_re_order_level int, par_is_active boolean) returns void as $$
+  BEGIN
+    insert into products values(par_product_id, par_title, par_description, par_date_added, par_ordering, par_supplier_id, par_category_id, par_site_id, par_product_type_id, par_on_hand, par_re_order_level, par_is_active);
+  END;
+$$ LANGUAGE 'plpgsql';
+
+create or replace function get_products() returns SETOF RECORD as $$
+  BEGIN
+    select * from products;
+  END;
+$$ language 'plpgsql';

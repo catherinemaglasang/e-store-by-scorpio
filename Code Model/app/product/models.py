@@ -50,7 +50,28 @@ class Product(Base):
         return response
 
     def get(id=None):
-        response =
+        response = spcall('get_product', ())
+        entries = []
+
+        if len(response) == 0:
+            return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+        elif 'Error' in str(response[0][0]):
+            return jsonify({'status': 'error', 'message': response[0][0]})
+        else:
+            for row in response:
+                entries.append({"product_id": row[0],
+                                "title": row[1],
+                                "description": row[2],
+                                "date_added": row[3],
+                                "ordering": row[4],
+                                "supplier_id": row[5],
+                                "category_id": row[6],
+                                "site_id": row[7],
+                                "product_type_id": row[8],
+                                "on_hand": row[9],
+                                "re_order_level": row[10],
+                                "is_active": row[11]})
+            return jsonify({'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)})
 
     def from_json(self, _json):
         """ This function converts the json sent by the client to dictionary so that the server
