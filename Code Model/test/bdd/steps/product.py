@@ -1,19 +1,7 @@
 import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
-<<<<<<< HEAD
-from webtest import TestApp
-from app import app
-from app.config import config
 
-@before.all
-def before_all():
-    # Use configs for testing environment
-    app.config.from_object(config['development'])
-
-    # Initialize test client for HTTP requests
-    world.app = app.test_client()
-=======
 from flask import current_app as app
 from app.config import config
 from app import create_app
@@ -22,7 +10,6 @@ from app import create_app
 def before_all():
     world.app = create_app('testing')
     world.client = world.app.test_client()
->>>>>>> 4fb58496f0aa3a3a00896c46a5d454ee96951a13
 
 # SCENARIO 1
 @step("product id 1 is an existing product")
@@ -30,11 +17,8 @@ def given_product_id_1_is_a_valid_product(step):
     """
     :type step: lettuce.core.Step
     """
-<<<<<<< HEAD
-    world.product = world.app.get('/api/v1/products/1/')
-=======
+
     world.product = world.client.get('/api/v1/products/1/')
->>>>>>> 4fb58496f0aa3a3a00896c46a5d454ee96951a13
     world.resp = json.loads(world.product.data)
     assert_equals(world.resp['status'], 'ok')
 

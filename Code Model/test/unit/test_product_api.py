@@ -1,34 +1,16 @@
 import json
 import unittest
-<<<<<<< HEAD
-from app.config import config
-from app.catalogue.controller import db_con
-=======
 from app import create_app
->>>>>>> 4fb58496f0aa3a3a00896c46a5d454ee96951a13
 
 
 class ProductTestCase(unittest.TestCase):
     """ Test api """
 
     def setUp(self):
-<<<<<<< HEAD
-        app.app.config.from_object(config['testing'])
-        # Call the ff function to reinitialize and update db source
-        db_con.initialize()
-        self.app = app.app.test_client()
-
-    def tearDown(self):
-        # db_con.getcursor().close()
-        # db_con.dbcommit()
-        pass
-        # db_con.close_transaction()
-=======
         # Use configs for testing environment
         self.app = create_app('testing')
         self.client = self.app.test_client()
 
->>>>>>> 4fb58496f0aa3a3a00896c46a5d454ee96951a13
     def check_content_type(self, headers):
         self.assertEqual(headers['Content-Type'], 'application/json')
 
