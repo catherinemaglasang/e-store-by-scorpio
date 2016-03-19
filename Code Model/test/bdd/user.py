@@ -3,12 +3,15 @@ import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
 
-from app import app
+from flask import current_app as app
 from app.views import USERS
+
+from app import create_app
 
 @before.all
 def before_all():
-    world.app = app.test_client()
+    world.app = create_app('testing')
+    world.client = world.app.test_client()
 
 @step("user id \'(.*)\' is in the system")
 def Given_some_users_are_in_the_system(step, id):

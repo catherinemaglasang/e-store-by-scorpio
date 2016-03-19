@@ -1,15 +1,18 @@
-import os
 import json
-import app
 import unittest
+<<<<<<< HEAD
 from app.config import config
 from app.catalogue.controller import db_con
+=======
+from app import create_app
+>>>>>>> 4fb58496f0aa3a3a00896c46a5d454ee96951a13
 
 
 class ProductTestCase(unittest.TestCase):
     """ Test api """
 
     def setUp(self):
+<<<<<<< HEAD
         app.app.config.from_object(config['testing'])
         # Call the ff function to reinitialize and update db source
         db_con.initialize()
@@ -20,18 +23,25 @@ class ProductTestCase(unittest.TestCase):
         # db_con.dbcommit()
         pass
         # db_con.close_transaction()
+=======
+        # Use configs for testing environment
+        self.app = create_app('testing')
+        self.client = self.app.test_client()
+
+>>>>>>> 4fb58496f0aa3a3a00896c46a5d454ee96951a13
     def check_content_type(self, headers):
         self.assertEqual(headers['Content-Type'], 'application/json')
 
     def test_home(self):
-        rv = self.app.get('/')
+        rv = self.client.get('/')
+        print rv
         resp = json.loads(rv.data)
         self.assertEqual(resp['status'], 'ok')
 
     def test_empty_db(self):
 
         # Get all products in db
-        rv = self.app.get('/api/v1/products/')
+        rv = self.client.get('/api/v1/products/')
         resp = json.loads(rv.data)
 
         self.check_content_type(rv.headers)
@@ -55,7 +65,7 @@ class ProductTestCase(unittest.TestCase):
             self.assertEqual(len(resp['entries']), 0)
 
     def test_invalid_product_id(self):
-        rv = self.app.get('/api/v1/products/abcxyz')
+        rv = self.client.get('/api/v1/products/abcxyz')
         self.assertRaises(AttributeError)
 
     def test_create_product(self):
@@ -74,7 +84,7 @@ class ProductTestCase(unittest.TestCase):
             'is_active': 'True'
         }
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-        rv = self.app.post("/api/v1/products/",
+        rv = self.client.post("/api/v1/products/",
                            headers=headers,
                            data=json.dumps(data))
 
@@ -99,7 +109,7 @@ class ProductTestCase(unittest.TestCase):
             'is_active': 'True'
         }
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-        rv = self.app.post("/api/v1/products/",
+        rv = self.client.post("/api/v1/products/",
                            headers=headers,
                            data=json.dumps(data))
 
@@ -126,7 +136,7 @@ class ProductTestCase(unittest.TestCase):
             'is_active': 'True'
         }
         headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
-        rv = self.app.put("/api/v1/products/1/", headers=headers, data=json.dumps(new_product))
+        rv = self.client.put("/api/v1/products/1/", headers=headers, data=json.dumps(new_product))
         self.assertEqual(rv.status_code, 200)
         self.assertEqual(json.loads(rv.data)['status'], 'ok')
 
