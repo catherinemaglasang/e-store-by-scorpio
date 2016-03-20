@@ -22,7 +22,7 @@ ORDER_DETAILS = {}
 
 @api.route('/', methods=['GET'])
 def index():
-    return jsonify({"status": "ok"})
+    return jsonify({"status": "ok", "message": "ok"})
 
 
 @api.route('/api/v1/product_categories/', methods=['POST'])
