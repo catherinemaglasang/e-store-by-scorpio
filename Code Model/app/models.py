@@ -1,9 +1,8 @@
+import os
+import psycopg2
+import sys
 from sqlalchemy import create_engine
 from flask import current_app as app
-
-# Define the attributes for each table. TODO: Refactor! Create class for each model, then instantiate.
-tables = {'product': ['product_id', 'title', 'description', 'date_added', 'ordering', 'supplier_id', 'category_id',
-                      'site_id', 'product_type_id', 'on_hand', 're_order_level', 'is_active']}
 
 
 class DBconn:
@@ -18,7 +17,8 @@ class DBconn:
         self.trans = self.conn.begin()
 
     def getcursor(self):
-        cursor = self.conn.connection.cursor()
+        # http://stackoverflow.com/questions/21158033/query-from-postgresql-using-python-as-dictionary
+        cursor = self.conn.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
         return cursor
 
     def dbcommit(self):
@@ -35,7 +35,6 @@ def spcall(qry, param, commit=False):
         cursor = dbo.getcursor()
         cursor.callproc(qry, param)
         res = cursor.fetchall()
-
         if commit:
             dbo.dbcommit()
 
