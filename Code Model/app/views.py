@@ -448,8 +448,7 @@ def get_supplier(supplier_id):
                         "address": row[2],
                         "phone": row[3],
                         "fax": row[4],
-                        "email": row[5],
-                        "is_active": row[6]})
+                        "email": row[5]})
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
 
@@ -476,18 +475,18 @@ def update_supplier(supplier_id):
     return jsonify({"status": "ok"})
 
 
-# @app.route('/api/v1/suppliers/', methods=['GET'])
-# def get_all_suppliers():
-#     res = spcall('get_suppliers', ())
-#
-#     if 'Error' in str(res[0][0]):
-#         return jsonify({'status': 'error', 'message': res[0][0]})
-#
-#     recs = []
-#     for r in res:
-#         recs.append({"id": str(r[0]), "name": str(r[1]), "address": str(r[2]), "phone": str(r[3]), "fax": str(r[4]),
-#                      "email": str(r[5]), "is_active": str(r[6])})
-#     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+@app.route('/api/v1/suppliers/', methods=['GET'])
+def get_all_suppliers():
+    res = spcall('get_suppliers', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": str(r[0]), "name": str(r[1]), "address": str(r[2]), "phone": str(r[3]), "fax": str(r[4]),
+                     "email": str(r[5]), "is_active": str(r[6])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
 """ END OF SUPPLIER """
