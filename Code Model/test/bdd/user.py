@@ -1,12 +1,21 @@
 import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
+<<<<<<< HEAD
 from webtest import TestApp
 from app import app
+=======
+
+from flask import current_app as app
+from app.views import USERS
+>>>>>>> f884bb9ebcebd3e1a5813a8b8da4c6a8f70eefe1
+
+from app import create_app
 
 @before.all
 def before_all():
-    world.app = app.test_client()
+    world.app = create_app('testing')
+    world.client = world.app.test_client()
 
 """
 Get User Sunny Case

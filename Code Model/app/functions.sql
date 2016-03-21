@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 create or replace function new_product(in par_id int, in par_sku text, in par_supplier_id int, in par_title  text, in par_description text,in par_category_id int, in par_unit_price float8, in par_on_hand int, in par_re_order_level int, in par_is_active boolean) returns text as
 $$
   declare
@@ -38,6 +39,9 @@ $$
 --select * from get_product_id(2);
 
 create or replace function new_user(in par_id int8, in par_username text, in par_password text, in par_email text, in par_is_admin boolean) returns text as
+=======
+create or replace function new_user(in par_id int8, in par_username text, in par_password text, in par_is_admin boolean) returns text as
+>>>>>>> f884bb9ebcebd3e1a5813a8b8da4c6a8f70eefe1
 $$
 declare
   loc_id text;

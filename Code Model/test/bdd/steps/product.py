@@ -1,12 +1,15 @@
 import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
-from webtest import TestApp
-from app import app
+
+from flask import current_app as app
+from app.config import config
+from app import create_app
 
 @before.all
 def before_all():
-    world.app = app.test_client()
+    world.app = create_app('testing')
+    world.client = world.app.test_client()
 
 # SCENARIO 1
 @step("product id 1 is an existing product")
@@ -14,12 +17,8 @@ def given_product_id_1_is_a_valid_product(step):
     """
     :type step: lettuce.core.Step
     """
-    world.browser = TestApp(app)
-    world.response = world.browser.get('/#/dashboard/products/add')
-    world.response.charset = 'utf8'
-    assert_equals(world.response.status_code, 200)
-    assert_equals(json.loads(world.response.text), {"status": "ok"})
-    world.product = world.app.get('/api/v1/products/1/')
+
+    world.product = world.client.get('/api/v1/products/1/')
     world.resp = json.loads(world.product.data)
     assert_equals(world.resp['status'], 'ok')
 
@@ -29,7 +28,7 @@ def when_i_try_to_get_the_details_for_product_id_1(step):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/products/1/')
+    world.response = world.client.get('/api/v1/products/1/')
 
 @step("i get a 200 response")
 def then_i_get_a_200_response(step):
@@ -61,7 +60,7 @@ def when_i_retrieve_the_json_results(step):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get(world.product_uri)
+    world.response = world.client.get(world.product_uri)
 
 
 @step("the status code should be 200")
@@ -135,7 +134,7 @@ def when_i_post_to_the_product_resource_url(step):
     :type step: lettuce.core.Step
     """
     world.product_post_uri = '/api/v1/products/'
-    world.product_post_response = world.app.post(world.product_post_uri, data=json.dumps(world.product1))
+    world.product_post_response = world.client.post(world.product_post_uri, data=json.dumps(world.product1))
 
 @step("I should get a 201 response")
 def then_i_should_get_a_201_response(step):
@@ -175,7 +174,7 @@ def when_i_access_the_resource_url_for_product_99(step):
     """
     :type step: lettuce.core.Step
     """
-    world.product3_response = world.app.get('/api/v1/products/99/')
+    world.product3_response = world.client.get('/api/v1/products/99/')
     world.product3_json = json.loads(world.product3_response.data)
 
 
@@ -238,7 +237,7 @@ def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
-    world.put_response = world.app.put('/api/v1/products/99/', data=json.dumps(world.product4_new))
+    world.put_response = world.client.put('/api/v1/products/99/', data=json.dumps(world.product4_new))
     world.put_response_json = json.loads(world.put_response.data)
 
 @step("I should get a 200 response in the update request")

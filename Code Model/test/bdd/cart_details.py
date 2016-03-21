@@ -1,8 +1,10 @@
 import json
+
 from lettuce import step, world, before
 from nose.tools import assert_equals
+
 from flask import current_app as app
-from app.views import WISHLISTS
+from app.views import CART_DETAILS
 
 from app import create_app
 
@@ -11,34 +13,34 @@ def before_all():
     world.app = create_app('testing')
     world.client = world.app.test_client()
 
-@step("some wishlists are in a system")
-def given_some_wishlists_are_in_the_system(step):
+@step("some cart details are in a system")
+def given_some_cart_details_are_in_a_system(step):
     """
     :type step: lettuce.core.Step
     """
-    WISHLISTS.update({'id': '1'})
+CART_DETAILS.update({'cart_id': '1', 'product_id': '1', 'quantity': '1', 'time_stamp': '2016-03-15 11:49:17'})
 
 
-@step("I retrieve the wishlist \'(.*)\'")
-def when_i_retrieve_the_wishlist1(step, id):
+@step("I retrieve the cart detail \'(.*)\'")
+def when_I_retrieve_the_cart_detail1(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/wishlist/'.format(id))
+    world.response = world.app.get('/api/v1/cart_details/{}/'.format(id))
 
 
-@step(u"I should get a \'(.*)\' response")
+@step("I should get a \'(.*)\' response")
 def then_i_should_get_a_200_response(step, expected_status_code):
     """
-    :param expected_status_code:
     :type step: lettuce.core.Step
     """
     assert_equals(world.response.status_code, int(expected_status_code))
 
 
-@step("the following wishlist details are returned:")
-def the_following_wishlist_details(step):
+
+@step("the following cart details are returned:")
+def the_following_cart_details(step):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(int(step.hashes[0]['id']), [json.loads(world.response.data)][0]['entries'][0]['id'])
+    assert_equals(step.hashes, [json.loads(world.response.data)])
