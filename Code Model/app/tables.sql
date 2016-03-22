@@ -52,6 +52,7 @@ create table wishlist (
    id int8 primary key
 );
 
+
 create table orders(
    id int8 primary key,
    customer_id int8,
@@ -62,7 +63,6 @@ create table orders(
    transaction_status text,
    total float8
 )
-
 create table order_items(
   id int8 primary key,
   order_id int8,
