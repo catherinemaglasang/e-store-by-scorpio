@@ -40,7 +40,6 @@ def spcall(qry, param, commit=False):
 
             # Rollback transaction if in testing environment
             if app.config['TESTING']:
-                print app.config['TESTING']
                 dbo.rollback_transaction()
 
         return res
