@@ -10,7 +10,7 @@ def before_all():
     world.app = app.test_client()
 
 
-""" CREATE SUPPLIER """
+""" CREATE SUPPLIER sunny case"""
 
 
 @step("I have the following supplier details")
@@ -55,7 +55,50 @@ def and_i_should_get_a_message_containing_ok(step):
     """
     assert_equals(world.supplier_post_response_json['message'], 'OK')
 
-""" END """
+""" CREATE SUPPLIER rainy case """
+
+
+@step("I have already added the supplier details:")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.supplier1 = step.hashes[0]
+
+
+@step("I Post the supplier to resource_url '/api/v1/suppliers/'")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.supplier_post_uri = '/api/v1/suppliers/'
+    world.supplier_post_response = world.app.post(world.supplier_post_uri, data=json.dumps(world.supplier1))
+
+
+@step("I should get a response : \'(.*)\'")
+def step_impl(step, expected_status_code):
+    """
+    :param expected_status_code:
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.supplier_post_response.status_code, int(expected_status_code))
+
+
+@step('I should get a "status" :"OK"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.supplier_post_response_json['status'], 'ok')
+
+
+@step('I should get a "message" : "SUPPLIER EXISTS"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.supplier_post_response_json['message'], 'SUPPLIER EXISTS')
+
 
 
 """GET SUPPLIER ID Sunny Case"""
@@ -206,3 +249,12 @@ def step_impl(step):
     :type step: lettuce.core.Step
     """
     assert_equals(world.put_response_json['status'], 'ok')
+
+
+@step('I should get a "message" containing "OK"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.put_response_json['status'], 'ok')
+

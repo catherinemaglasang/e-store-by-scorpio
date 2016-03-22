@@ -88,7 +88,7 @@ $$
        loc_res = 'OK';
 
      else
-       loc_res = 'ID EXISTED';
+       loc_res = 'SUPPLIER EXISTS';
      end if;
      return loc_res;
   end;

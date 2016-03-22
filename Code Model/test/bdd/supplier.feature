@@ -9,16 +9,16 @@ Feature: Create, Get and Update supplier details
       Then I should get a response '200'
       And I should get a "status" containing "ok"
       And I should get a "message" containing "OK"
-#
+
 #   Create Rainy Case
-#   Scenario: Create duplicate supplier
-#     Given I have already added the supplier details:
-#       | id | name        | address  | phone   | fax         | email                | is_active |
-#       | 1  | supplier1   | address1 | 221-2277| 063-221-2277| supplier1@estore.com | True      |
-#     When I Post the supplier to resource_url '/api/v1/suppliers/'
-#     Then I should get a response : '201'
-#     And I should get a "status" :"ok"
-#     And I should get a "message" : "ok"
+   Scenario: Create duplicate supplier
+     Given I have already added the supplier details:
+       | id | name        | address  | phone   | fax         | email                | is_active |
+       | 1  | supplier1   | address1 | 221-2277| 063-221-2277| supplier1@estore.com | True      |
+     When I Post the supplier to resource_url '/api/v1/suppliers/'
+     Then I should get a response : '200'
+     And I should get a "status" :"OK"
+     And I should get a "message" : "SUPPLIER EXISTS"
 
 #  Get Sunny Case
   Scenario: Get a supplier
