@@ -585,7 +585,7 @@ def get_cart(cart_id):
 
 
 @app.route('/api/v1/orders/', methods=['POST'])
-def new_orders():
+def new_order():
     data = json.loads(request.data)
 
     response = spcall('new_order', (
@@ -684,24 +684,22 @@ def get_order_item(order_item_id):
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@app.route('/api/v1/order_details/', methods=['POST'])
-def new_order_details():
-    """
-    Create New Order_Details
-    """
-    json = request.json
-    id = json['id']
-    order_id = json['order_id']
-    product_id = json['product_id']
-    unit_price = json['unit_price']
-    discount = json['discount']
-    quantity = json['quantity']
-    res = spcall('new_order', (id, order_id, product_id, unit_price, discount, quantity), True)
+@app.route('/api/v1/order_items/', methods=['POST'])
+def new_order_item():
+    data = json.loads(request.data)
 
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
-    return jsonify({'status': 'ok', 'message': res[0][0]})
+    response = spcall('new_order_item', (
+        data['id'],
+        data['order_id'],
+        data['product_id'],
+        data['unit_price'],
+        data['discount'],
+        data['quantity'],), True)
 
+    if 'Error' in response[0][0]:
+        return jsonify({'status': 'error', 'message': response[0][0]})
+
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 200
 
 """ END OF ORDER"""
 

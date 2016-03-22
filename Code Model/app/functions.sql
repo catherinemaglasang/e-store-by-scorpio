@@ -295,20 +295,20 @@ $$
  language 'sql';
 
 
-create or replace function new_order_details(in par_id int8, in par_order_id int8, in par_product_id int8, in par_unit_price float8, in par_discount float8, in par_quantity int8) returns text as
+create or replace function new_order_item(in par_id int8, in par_order_id int8, in par_product_id int8, in par_unit_price float8, in par_discount float8, in par_quantity int8) returns text as
 $$
   declare
     loc_id text;
     loc_res text;
   begin
-    select into loc_id id from order_details where id=par_id;
+    select into loc_id id from order_items where id=par_id;
     if loc_id isnull then
 
-       insert into orders(id, order_id, product_id, unit_price, discount, quantity) values (par_id, par_order_id, par_product_id, par_unit_price, par_discount, par_quantity);
+       insert into order_items(id, order_id, product_id, unit_price, discount, quantity) values (par_id, par_order_id, par_product_id, par_unit_price, par_discount, par_quantity);
        loc_res = 'OK';
 
      else
-       loc_res = 'ID EXISTED';
+       loc_res = 'ID EXISTS';
      end if;
      return loc_res;
   end;

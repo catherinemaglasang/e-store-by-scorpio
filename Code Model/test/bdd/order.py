@@ -46,9 +46,8 @@ def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
-    world.resp = json.loads(world.order_post_response.data)
-    assert_equals(world.resp['status'], 'ok')
-
+    world.order_post_response_json = json.loads(world.order_post_response.data)
+    assert_equals(world.order_post_response_json['status'], 'ok')
 
 
 @step('I should get a "message" "ok"')
