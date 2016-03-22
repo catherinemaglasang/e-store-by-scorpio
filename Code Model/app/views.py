@@ -226,7 +226,7 @@ def update_product(product_id):
         re_order_level,
         is_active), True)
     return jsonify({"status": "ok"})
-    
+
 
 @app.route('/api/v1/product_categories/', methods=['POST'])
 def new_product_category():
@@ -317,6 +317,7 @@ def delete_product_category(id):
 
 """  USER  """
 
+
 @app.route('/api/v1/users/', methods=['GET'])
 def get_all_users():
     res = spcall('get_users', ())
@@ -333,7 +334,6 @@ def get_all_users():
                      "is_admin": r[4]})
 
         return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
-
 
 
 @app.route('/api/v1/users/<user_id>/', methods=['GET'])
@@ -389,6 +389,7 @@ def new_user():
 
     return jsonify({'status': 'ok', 'message': response[0][0]}), 201
 
+
 """  End USER  """
 """ SUPPLIER """
 
@@ -398,13 +399,13 @@ def new_supplier():
     data = json.loads(request.data)
 
     response = spcall('new_supplier', (
-            data['id'],
-            data['name'],
-            data['address'],
-            data['phone'],
-            data['fax'],
-            data['email'],
-            data['is_active'],), True)
+        data['id'],
+        data['name'],
+        data['address'],
+        data['phone'],
+        data['fax'],
+        data['email'],
+        data['is_active'],), True)
 
     if 'Error' in response[0][0]:
         return jsonify({'status': 'error', 'message': response[0][0]})
@@ -427,7 +428,6 @@ def get_supplier(supplier_id):
                         "fax": row[4],
                         "email": row[5]})
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
-
 
 
 @app.route('/api/v1/suppliers/<supplier_id>/', methods=['PUT'])
@@ -578,32 +578,48 @@ def get_cart(cart_id):
 
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
+
 """ END OF CART """
 
 """ ORDER """
 
+
+@app.route('/api/v1/orders/', methods=['POST'])
+def new_orders():
+    data = json.loads(request.data)
+
+    response = spcall('new_order', (
+        data['id'],
+        data['customer_id'],
+        data['payment_id'],
+        data['transaction_date'],
+        data['shipping_date'],
+        data['time_stamp'],
+        data['transaction_status'],
+        data['total'],), True)
+
+    if 'Error' in response[0][0]:
+        return jsonify({'status': 'error', 'message': response[0][0]})
+
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 200
+
+
 @app.route('/api/v1/orders/<order_id>/', methods=['GET'])
 def get_order(order_id):
-    """
-    Retrieve Single Order
-    """
-    res = spcall('get_order_id', order_id)
-
-    if len(res) == 0:
+    response = spcall('get_order_id', (order_id,))
+    entries = []
+    if len(response) == 0:
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
     else:
-        recs = []
-        for r in res:
-            recs.append({"customer_id": r[0],
-                         "payment_id": r[1],
-                         "transaction_date": r[2],
-                         "shipping_date": r[3],
-                         "time_stamp": r[4],
-                         "transaction_status": r[5],
-                         "total": r[6]})
-
-            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
-
+        r = response[0]
+        entries.append({"customer_id": r[0],
+                        "payment_id": r[1],
+                        "transaction_date": str(r[2]),
+                        "shipping_date": str(r[3]),
+                        "time_stamp": str(r[4]),
+                        "transaction_status": str(r[5]),
+                        "total": r[6]})
+        return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
 
 # @app.route('/api/v1/orders/', methods=['GET'])
@@ -625,30 +641,10 @@ def get_order(order_id):
 #     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 #
 
-@app.route('/api/v1/orders/', methods=['POST'])
-def new_orders():
-    """
-    Create New Orders
-    """
-    json = request.json
-    id = json['id']
-    customer_id = json['customer_id']
-    payment_id = json['payment_id']
-    transaction_date = json['transaction_date']
-    shipping_date = json['shipping_date']
-    time_stamp = json['time_stamp']
-    transaction_status = json['transaction_status']
-    total = json['total']
-    res = spcall('new_order',
-                 (id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total),
-                 True)
-
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
-    return jsonify({'status': 'ok', 'message': res[0][0]})
-
 
 """ ORDER ITEM """
+
+
 # @app.route('/api/v1/order_details', methods=['GET'])
 # def get_all_order_details():
 #     """
@@ -687,6 +683,7 @@ def get_order_item(order_item_id):
 
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
+
 @app.route('/api/v1/order_details/', methods=['POST'])
 def new_order_details():
     """
@@ -704,6 +701,7 @@ def new_order_details():
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
     return jsonify({'status': 'ok', 'message': res[0][0]})
+
 
 """ END OF ORDER"""
 
@@ -737,10 +735,8 @@ def get_wishlist_details():
 
 @app.route('/api/v1/wishlist/', methods=['POST'])
 def new_wishlist():
-
     print "STARTING ADD"
     id = request.form['inputID']
-
 
     res = spcall('new_wishlist', (id), True)
 
@@ -782,6 +778,7 @@ def get_all_wishlists():
     else:
         return jsonify({'status': 'no entries in database'})
 
+
 @app.route('/api/v1/wishlist/<wishlist_id>/', methods=['GET'])
 def get_wishlist(wishlist_id):
     res = spcall('get_wishlist', wishlist_id)
@@ -800,6 +797,7 @@ def delete_wishlist(id):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     return jsonify({'status': 'ok', 'message': res[0][0]})
+
 
 """  CUSTOMER   """
 
@@ -823,8 +821,8 @@ def new_customer():
     date_created = request.form['inputDateCreated']
 
     res = spcall('new_customer', (
-    id, first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address,
-    shipping_address, date_created), True)
+        id, first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address,
+        shipping_address, date_created), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
@@ -922,6 +920,7 @@ def get_customer(customer_id):
                 "date_created": r[12]
             })
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
 """  END CUSTOMER   """
 

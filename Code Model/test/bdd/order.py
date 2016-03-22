@@ -10,7 +10,58 @@ from webtest import TestApp
 def before_all():
     world.app = app.test_client()
 
+
+""" Create new order sunny case """
+
+@step("I have the following order details")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.order1 = step.hashes[0]
+
+
+
+@step("I Post the order to resource_url  '/api/v1/orders/'")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.order_post_uri = '/api/v1/orders/'
+    world.order_post_response = world.app.post(world.order_post_uri, data=json.dumps(world.order1))
+
+
+
+@step("I should get a status of \'(.*)\'")
+def step_impl(step, expected_status_code):
+    """
+    :param expected_status_code:
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.order_post_response.status_code, int(expected_status_code))
+
+
+@step('I should get a "status" "ok"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.resp = json.loads(world.order_post_response.data)
+    assert_equals(world.resp['status'], 'ok')
+
+
+
+@step('I should get a "message" "ok"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.resp = json.loads(world.order_post_response.data)
+    assert_equals(world.resp['message'], 'OK')
+
+
 """Get Order ID sunny case """
+
 @step("Order id \'(.*)\' is in the system")
 def given_some_orders_are_in_the_system(step, id):
     """
@@ -86,7 +137,7 @@ def step_impl(step):
     assert_equals(world.resp['status'], 'ok')
 
 
-@step('It should  have a field "message" "No entries found"')
+@step('It should  have a "message" "No entries found"')
 def step_impl(step):
     """
     :type step: lettuce.core.Step

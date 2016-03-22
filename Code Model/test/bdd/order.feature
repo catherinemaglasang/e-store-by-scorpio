@@ -1,14 +1,14 @@
 Feature: Create and Get Order
 
 #  Create Sunny Case
-#  Scenario: Create order
-#    Given I have the following order details
-#    |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
-#    |1 | 1           | 1          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
-#    When I Post the order to resource_url  '/api/v1/orders/'
-#    Then I should get a response '201'
-#    And I should get a "status" containing "ok"
-#    And I should get a "message" containing "ok"
+  Scenario: Create order
+    Given I have the following order details
+    |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
+    |3 | 3           | 3          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
+    When I Post the order to resource_url  '/api/v1/orders/'
+    Then I should get a status of '200'
+    And I should get a "status" "ok"
+    And I should get a "message" "ok"
 #
 #  Create Rainy Case
 #  Scenario: Create a duplicate order
@@ -33,11 +33,11 @@ Feature: Create and Get Order
 
 #  Get Order Rainy Case
   Scenario: Get an order that doesn't exist
-    Given I retrieve an order with resource url '/api/v1/orders/2/'
+    Given I retrieve an order with resource url '/api/v1/orders/4/'
     When I retrieve a  JSON result
     Then I should get a '200' status code
     And It should  have a field "status" "ok"
-    And It should  have a field "message" "No entries found"
+    And It should  have a "message" "No entries found"
     And It should  have a field "count" 0
     And It should  have an empty field " entries "
 

@@ -18,7 +18,7 @@ Feature: Create, Get and Update supplier details
      When I Post the supplier to resource_url '/api/v1/suppliers/'
      Then I should get a response : '200'
      And I should get a "status" :"OK"
-     And I should get a "message" : "SUPPLIER EXISTS"
+     And I should get a "message" : "SUPPLIER EXISTS""
 
 #  Get Sunny Case
   Scenario: Get a supplier
