@@ -53,7 +53,7 @@ def and_i_should_get_a_message_containing_ok(step):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(world.supplier_post_response_json['message'], 'ok')
+    assert_equals(world.supplier_post_response_json['message'], 'OK')
 
 """ END """
 
@@ -117,8 +117,8 @@ def given_I_retrieve_a_supplier2(step, url):
     world.supplier_uri = url
 
 
-@step("I retrieve the JSON result")
-def when_I_retrieve_the_JSON_result(step):
+@step("I get the JSON result")
+def when_I_get_the_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """

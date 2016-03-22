@@ -395,44 +395,21 @@ def new_user():
 
 @app.route('/api/v1/suppliers/', methods=['POST'])
 def new_supplier():
-    print "STARTING ADD"
-    id = request.form['inputID']
-    name = request.form['inputName']
-    address = request.form['inputAddress']
-    phone = request.form['inputPhone']
-    fax = request.form['inputFax']
-    email = request.form['inputEmail']
-    is_active = False
-
-    res = spcall('new_supplier', (id, name, address, phone, fax, email, is_active), True)
-
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
-
-    return jsonify({'status': 'ok', 'message': res[0][0]})
-
-    jsn = json.loads(request.data)
-    id = jsn['id']
-    name = jsn['name']
-    address = jsn['address']
-    phone = jsn['phone']
-    fax = jsn['fax']
-    email = jsn['email']
-    is_active = jsn['is_active']
+    data = json.loads(request.data)
 
     response = spcall('new_supplier', (
-        id,
-        name,
-        address,
-        phone,
-        fax,
-        email,
-        is_active), True)
+            data['id'],
+            data['name'],
+            data['address'],
+            data['phone'],
+            data['fax'],
+            data['email'],
+            data['is_active'],), True)
 
     if 'Error' in response[0][0]:
         return jsonify({'status': 'error', 'message': response[0][0]})
 
-    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 200
 
 
 @app.route('/api/v1/suppliers/<supplier_id>/', methods=['GET'])
