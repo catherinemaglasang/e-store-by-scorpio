@@ -121,3 +121,6 @@ Feature: Get, Create & Update Products
       Then I get a "200" response
       And I get a field "status" containing "ok"
       And I get a field "message" containing "ok"
+
+
+    """ Test the behaviour during forms submission in client """

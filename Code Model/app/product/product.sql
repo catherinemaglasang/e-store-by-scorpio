@@ -15,9 +15,11 @@ create table products (
    date_added timestamp without time zone NOT NULL DEFAULT now(),
    ordering int DEFAULT 0,
    supplier_id int,
+
    category_id int,
    site_id int,
    product_type_id int,
+
    on_hand int,
    re_order_level int,
    is_active boolean DEFAULT TRUE

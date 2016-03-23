@@ -2,7 +2,8 @@ import json
 from lettuce import *
 from nose.tools import assert_equals
 from app import create_app
-
+from lettuce_webdriver.util import assert_false
+from lettuce_webdriver.util import AssertContextManager
 
 @before.all
 def before_all():
