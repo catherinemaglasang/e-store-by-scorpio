@@ -35,6 +35,10 @@ Feature: Get, Create & Update Products
     | /api/v1/producttypes/1909/            | 200         | ok     | No entries found     |
     | /api/v1/categories/1909/              | 200         | ok     | No entries found     |
 
+    | /api/v1/products/1/categories/999/      | 200         | ok     | No entries found                   |
+    | /api/v1/products/1/attributes/999/      | 200         | ok     | No entries found                   |
+    | /api/v1/products/1/images/999/          | 200         | ok     | No entries found                   |
+
     # """ Test the behavior when we make a POST request"""
 
     Scenario: Add Product

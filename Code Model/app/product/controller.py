@@ -9,13 +9,15 @@ from .utils import build_json
 
 
 # -----------------
-# Routes for POST
+# Routes for POST & UPDATE
 # -----------------
 @api.route('/api/v1/products/', methods=['POST'])
-def add_product():
+@api.route('/api/v1/products/<product_id>/', methods=['PUT'])
+def product_upsert(product_id=None):
     data = json.loads(request.data)
 
-    response = spcall('add_product', (
+    response = spcall('products_upsert', (
+        product_id,
         data['title'],
         data['description'],
         data['supplier_id'],
@@ -25,57 +27,74 @@ def add_product():
         data['on_hand'],
         data['re_order_level'],), True)
 
-    if 'Error' in response[0][0]:
-        return jsonify({'status': 'error', 'message': response[0][0]})
+    json_dict = build_json(response)
 
-    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+    status_code = 200
+    if not product_id:
+        status_code = 201
+
+    return jsonify(json_dict), status_code
 
 
 @api.route('/api/v1/producttypes/', methods=['POST'])
-def add_product_type():
+@api.route('/api/v1/producttypes/<product_type_id>/', methods=['PUT'])
+def product_type_upsert(product_type_id=None):
     data = json.loads(request.data)
 
-    response = spcall('add_product_type', (
+    response = spcall('product_types_upsert', (
+        product_type_id,
         data['name'],
         data['description']), True)
 
-    if 'Error' in response[0][0]:
-        return jsonify({'status': 'error', 'message': response[0][0]})
+    json_dict = build_json(response)
 
-    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+    status_code = 200
+    if not product_type_id:
+        status_code = 201
+
+    return jsonify(json_dict), status_code
 
 
 @api.route('/api/v1/categories/', methods=['POST'])
-def add_category():
+@api.route('/api/v1/categories/<category_id>/', methods=['PUT'])
+def category_upsert(category_id=None):
     data = json.loads(request.data)
 
-    response = spcall('add_category', (
+    response = spcall('categories_upsert', (
+        category_id,
         data['name'],
         data['description'],
         data['image']), True)
 
-    if 'Error' in response[0][0]:
-        return jsonify({'status': 'error', 'message': response[0][0]})
+    json_dict = build_json(response)
 
-    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+    status_code = 200
+    if not category_id:
+        status_code = 201
+
+    return jsonify(json_dict), status_code
 
 
 @api.route('/api/v1/producttypes/<product_type_id>/attributes/', methods=['POST'])
-def add_product_type_attribute(product_type_id):
+@api.route('/api/v1/producttypes/<product_type_id>/attributes/<product_attribute_id>/', methods=['PUT'])
+def product_attribute_upsert(product_type_id,product_attribute_id=None):
     data = json.loads(request.data)
 
-    response = spcall('product_attributes_create', (
+    response = spcall('product_attributes_upsert', (
         product_type_id,
+        product_attribute_id,
         data['name'],
         data['code'],
         data['type'],
         data['is_required']), True)
 
-    print response
-    if 'Error' in response[0][0]:
-        return jsonify({'status': 'error', 'message': response[0][0]})
+    json_dict = build_json(response)
 
-    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+    status_code = 200
+    if not product_attribute_id:
+        status_code = 201
+
+    return jsonify(json_dict), status_code
 
 
 # -----------------
@@ -84,11 +103,8 @@ def add_product_type_attribute(product_type_id):
 
 @api.route('/api/v1/products/', methods=['GET'])
 @api.route('/api/v1/products/<product_id>/', methods=['GET'])
-def get_products(product_id=None):
-    if not product_id:
-        response = spcall('get_products', (), )
-    else:
-        response = spcall('get_product', (product_id,), )
+def products_get(product_id=None):
+    response = spcall('products_get', (product_id,), )
 
     json_dict = build_json(response)
 
@@ -97,11 +113,8 @@ def get_products(product_id=None):
 
 @api.route('/api/v1/producttypes/', methods=['GET'])
 @api.route('/api/v1/producttypes/<product_type_id>/', methods=['GET'])
-def get_product_types(product_type_id=None):
-    if not product_type_id:
-        response = spcall('get_product_types', (), )
-    else:
-        response = spcall('get_product_type', (product_type_id,))
+def product_types_get(product_type_id=None):
+    response = spcall('product_types_get', (product_type_id,))
 
     json_dict = build_json(response)
 
@@ -110,11 +123,8 @@ def get_product_types(product_type_id=None):
 
 @api.route('/api/v1/categories/', methods=['GET'])
 @api.route('/api/v1/categories/<category_id>/', methods=['GET'])
-def get_categories(category_id=None):
-    if not category_id:
-        response = spcall('get_categories', (), )
-    else:
-        response = spcall('get_category', (category_id,))
+def categories_get(category_id=None):
+    response = spcall('categories_get', (category_id,))
 
     json_dict = build_json(response)
 
@@ -124,10 +134,7 @@ def get_categories(category_id=None):
 @api.route('/api/v1/producttypes/<int:product_type_id>/attributes/', methods=['GET'])
 @api.route('/api/v1/producttypes/<int:product_type_id>/attributes/<int:product_attribute_id>/', methods=['GET'])
 def product_attributes_get(product_type_id, product_attribute_id=None):
-    if not product_attribute_id:
-        response = spcall('product_attributes_get_all', (int(product_type_id),))
-    else:
-        response = spcall('product_attributes_get', (product_type_id, product_attribute_id,))
+    response = spcall('product_attributes_get', (product_type_id, product_attribute_id,))
 
     json_dict = build_json(response)
 
@@ -172,88 +179,3 @@ def product_images_get(product_id, product_image_id=None):
     # Return api response
     return jsonify(json_dict)
 
-# -----------------
-# Routes for UPDATE
-# -----------------
-
-@api.route('/api/v1/products/<product_id>/', methods=['PUT'])
-def update_product(product_id):
-    # Process data from the client request
-    data = json.loads(request.data)
-
-    # Call stored proc for update
-    response = spcall('update_product', (
-        data['product_id'],
-        data['title'],
-        data['description'],
-        data['supplier_id'],
-        data['category_id'],
-        data['site_id'],
-        data['product_type_id'],
-        data['on_hand'],
-        data['re_order_level']), True)
-
-    # Process stored proc response
-    if 'Error' in str(response[0][0]):
-        return jsonify({'status': 'error', 'message': response[0][0]})
-
-    return jsonify({'status': 'ok', 'message': 'ok'})
-
-
-@api.route('/api/v1/producttypes/<product_type_id>/attributes/<product_attribute_id>/', methods=['PUT'])
-def update_product_attributes(product_type_id, product_attribute_id):
-    # Process data from the client request
-    data = json.loads(request.data)
-
-    # Call stored proc for update
-    response = spcall('product_attributes_update', (
-        product_attribute_id,
-        product_type_id,
-        data['name'],
-        data['code'],
-        data['type'],
-        data['is_required'],), True)
-
-    print "update"
-    print response
-    # Process stored proc response
-    if 'Error' in str(response[0][0]):
-        return jsonify({'status': 'error', 'message': response[0][0]})
-    return jsonify({'status': 'ok', 'message': 'ok'})
-
-
-@api.route('/api/v1/producttypes/<product_type_id>/', methods=['PUT'])
-def update_product_type(product_type_id):
-    # Process data from the client request
-    data = json.loads(request.data)
-
-    # Call stored proc for update
-    response = spcall('update_product_type', (
-        data['product_type_id'],
-        data['name'],
-        data['description'],), True)
-
-    # Process stored proc response
-    if 'Error' in str(response[0][0]):
-        return jsonify({'status': 'error', 'message': response[0][0]})
-
-    return jsonify({'status': 'ok', 'message': 'ok'})
-
-
-@api.route('/api/v1/categories/<category_id>/', methods=['PUT'])
-def update_category(category_id):
-    # Process data from the client request
-    data = json.loads(request.data)
-
-    # Call stored proc for update
-    response = spcall('update_category', (
-        data['category_id'],
-        data['name'],
-        data['description'],
-        data['image'],), True)
-
-    # Process stored proc response
-    if 'Error' in str(response[0][0]):
-        return jsonify({'status': 'error', 'message': response[0][0]})
-
-    return jsonify({'status': 'ok', 'message': 'ok'})
