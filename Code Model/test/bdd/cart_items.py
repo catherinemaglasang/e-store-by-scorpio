@@ -12,7 +12,7 @@ def before_all():
     world.app = app.test_client()
 
 
-""" Get Cart sunny case """
+""" Get Cart Item sunny case """
 @step("cart item \'(.*)\' is in the system")
 def given_cart_item1_is_in_the_system(step, id):
     """
@@ -115,3 +115,66 @@ def step_impl(step):
     assert_equals(world.resp['message'], 'No entries found')
 
 """ end """
+
+""" Create cart item sunny case """
+
+
+@step("I have the following cart item details")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.cartItem1 = step.hashes[0]
+
+
+@step("I Post the cart to resource_url  '/api/v1/cart_items/'")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.cartItem_post_uri = '/api/v1/cart_items/'
+    world.cartItem_post_response = world.app.post(world.cartItem_post_uri, data=json.dumps(world.cartItem1))
+
+
+@step('I should get "status" "ok"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.cartItem_post_response_json = json.loads(world.cartItem_post_response.data)
+    assert_equals(world.cartItem_post_response_json['status'], 'ok')
+
+@step("I should get response \'(.*)\'")
+def step_impl(step, expected_status_code):
+    """
+    :param expected_status_code:
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.cartItem_post_response.status_code, int(expected_status_code))
+
+
+@step('I should get "message" "ok"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.cartItem_post_response_json['message'], 'OK')
+
+
+""" Create cart item rainy case """
+
+
+@step("I have already added the following cart item details")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.cartItem1 = step.hashes[0]
+
+
+@step('I should get "message" "id exists"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.cartItem_post_response_json['message'], 'ID EXISTS')

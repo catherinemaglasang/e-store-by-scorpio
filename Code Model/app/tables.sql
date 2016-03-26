@@ -24,6 +24,7 @@ create table carts (
    customer_id int8,
    is_active boolean
 );
+
 create table categories (
    id int8 primary key,
    name text,
@@ -33,7 +34,7 @@ create table categories (
    is_active boolean
 );
 
-create table cart_details (
+create table cart_items (
    id int8 primary key,
    cart_id int8,
    product_id int8,

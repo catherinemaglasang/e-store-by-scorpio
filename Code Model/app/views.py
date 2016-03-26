@@ -473,43 +473,24 @@ def get_all_suppliers():
 
 @app.route('/api/v1/cart_items/', methods=['POST'])
 def new_cart_item():
-    print "STARTING ADD"
-    id = request.form['inputID']
-    cart_id = request.form['inputCartID']
-    product_id = request.form['inputProductID']
-    quantity = request.form['inputQuantity']
-    time_stamp = request.form['inputTimeStamp']
+    data = json.loads(request.data)
 
-    res = spcall('new_cart_detail', (id, cart_id, product_id, quantity, time_stamp), True)
-
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
-
-    return jsonify({'status': 'ok', 'message': res[0][0]})
-
-    jsn = json.loads(request.data)
-    id = jsn['id']
-    cart_id = jsn['name']
-    product_id = jsn['address']
-    quantity = jsn['phone']
-    time_stamp = jsn['fax']
-
-    response = spcall('new_cart_detail', (
-        id,
-        cart_id,
-        product_id,
-        quantity,
-        time_stamp), True)
+    response = spcall('new_cart_item', (
+        data['id'],
+        data['cart_id'],
+        data['product_id'],
+        data['quantity'],
+        data['time_stamp'],), True)
 
     if 'Error' in response[0][0]:
         return jsonify({'status': 'error', 'message': response[0][0]})
 
-    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 200
 
 
 @app.route('/api/v1/cart_items/', methods=['GET'])
 def get_cart_items():
-    res = spcall('get_cart_details', ())
+    res = spcall('get_cart_items', ())
 
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
@@ -527,7 +508,7 @@ def get_cart_items():
 
 @app.route('/api/v1/cart_items/<cart_item_id>/', methods=['GET'])
 def get_cart_item(cart_item_id):
-    res = spcall('get_cart_detail', (cart_item_id,))
+    res = spcall('get_cart_item', (cart_item_id,))
 
     if len(res) == 0:
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
