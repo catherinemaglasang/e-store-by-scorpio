@@ -20,8 +20,6 @@ def given_cart_item1_is_in_the_system(step, id):
     :type step: lettuce.core.Step
     """
     world.browser = TestApp(app)
-    assert_equals(world.response.status_code, 200)
-    assert_equals(json.loads(world.response.text), {"status": "ok"})
     world.cart_item = world.app.get('/api/v1/cart_items/{}/'.format(id))
     world.resp = json.loads(world.cart_item.data)
     assert_equals(world.resp['status'], 'ok')

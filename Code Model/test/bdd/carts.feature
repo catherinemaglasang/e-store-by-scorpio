@@ -1,25 +1,25 @@
 Feature: Create, Get, Delete and Update Cart
 
 #  Create sunny case
-#  Scenario: Create cart
-#    Given I have the following cart details
-#    |id | session_id | date_created| customer_id| is_active |
-#    |1  | 1          | 2016-03-15  | 1          | True      |
-#    When I Post the cart to resource_url  '/api/v1/carts/'
-#    Then I should get a response '201'
-#    And I should get a "status" containing "ok"
-#    And I should get a "message" containing "ok"
-#
+  Scenario: Create cart
+    Given I have the following cart details
+    |id | session_id | date_created| customer_id| is_active |
+    |1  | 1          | 2016-03-15  | 1          | True      |
+    When I Post the cart to resource_url  '/api/v1/carts/'
+    Then I should have a status code response '200'
+    And I should get a status ok
+    And I should get a message ok
+
 #  Create rainy case
-#  Scenario: Create a duplicate cart
-#    Given I have already added the cart details:
-#    |id | session_id | date_created| customer_id| is_active |
-#    |1  | 1          | 2016-03-15  | 1          | True      |
-#    When I Post the supplier to resource_url  '/api/v1/carts/'
-#    Then I should get a response '201'
-#    And I should get a "status" containing "ok"
-#    And I should get a field "message" containing "id exists"
-#
+  Scenario: Create a duplicate cart
+    Given I have already added the cart details:
+    |id | session_id | date_created| customer_id| is_active |
+    |1  | 1          | 2016-03-15  | 1          | True      |
+    When I Post the cart to resource_url  '/api/v1/carts/'
+    Then I should have a status code response '200'
+    And I should get a status ok
+    And I should get a message id exists
+
 
 #  Get sunny case
   Scenario: Get cart

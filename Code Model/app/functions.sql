@@ -121,7 +121,7 @@ $$
        loc_res = 'OK';
 
      else
-       loc_res = 'ID EXISTED';
+       loc_res = 'ID EXISTS';
      end if;
      return loc_res;
   end;
@@ -272,7 +272,7 @@ $$
        loc_res = 'OK';
 
      else
-       loc_res = 'ID EXISTED';
+       loc_res = 'ID EXISTS';
      end if;
      return loc_res;
   end;

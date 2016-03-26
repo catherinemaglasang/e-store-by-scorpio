@@ -18,9 +18,9 @@ Feature: Create Get and Delete Cart Item
 #     When I Post the supplier to resource_url  '/api/v1/cart_items/'
 #     Then I should get a response '201'
 #     And I should get a "status" containing "ok"
-#     And I should get a field "message" containing "id exists"
 
-  """ Sunny Case """
+#     And I should get a field "message" containing "id exists"
+""" Sunny Case """
   Scenario: Get cart item
     Given cart item '1' is in the system
     When I retrieve the cart item '1'

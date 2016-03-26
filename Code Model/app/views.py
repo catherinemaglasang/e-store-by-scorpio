@@ -547,19 +547,21 @@ def get_cart_item(cart_item_id):
 """ CART """
 
 
-# @app.route('/api/v1/carts/', methods=['POST'])
-# def new_cart():
-#     json = request.json
-#     id = json['id']
-#     session_id = json['session_id']
-#     date_created = json['customer_id']
-#     customer_id = json['product_id']
-#     is_active = json['is_active']
-#     res = spcall('new_cart', (id, session_id, date_created, customer_id, is_active), True)
-#
-#     if 'Error' in res[0][0]:
-#         return jsonify({'status': 'error', 'message': res[0][0]})
-#     return jsonify({'status': 'ok', 'message': res[0][0]})
+@app.route('/api/v1/carts/', methods=['POST'])
+def new_cart():
+    data = json.loads(request.data)
+
+    response = spcall('new_cart', (
+        data['id'],
+        data['session_id'],
+        data['date_created'],
+        data['customer_id'],
+        data['is_active'],), True)
+
+    if 'Error' in response[0][0]:
+        return jsonify({'status': 'error', 'message': response[0][0]})
+
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 200
 
 
 @app.route('/api/v1/carts/<cart_id>/', methods=['GET'])
@@ -572,7 +574,7 @@ def get_cart(cart_id):
         recs = []
         for r in res:
             recs.append({"session_id": r[0],
-                         "date_created": r[1],
+                         "date_created": str(r[1]),
                          "customer_id": r[2],
                          "is_active": r[3]})
 

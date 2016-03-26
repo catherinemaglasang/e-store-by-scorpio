@@ -1,7 +1,7 @@
 Feature: Create and get order item
 
 
-  Create Sunny Case
+#  Create Sunny Case
   Scenario: Create order item
     Given I have the following order item details
     | id | order_id | product_id | unit_price | discount | quantity |
@@ -11,15 +11,15 @@ Feature: Create and get order item
     And I should have a "status" containing "ok"
     And I should have a "message" containing "ok"
 
-#  Get Rainy Case
-#  Scenario: Create a duplicate order item
-#    Given I have already added the following order item details:
-#     | id | order_id | product_id | unit_price | discount | quantity |
-#     | 1  | 1        | 1          | 100.0      | 0.1      | 20       |
-#    When I Post the order item to resource_url  '/api/v1/order_items/'
-#    Then I should get a response '201'
-#    And I should get a "status" containing "ok"
-#    And I should get a field "message" containing "id exists"
+#  Create Rainy Case
+  Scenario: Create a duplicate order item
+    Given I have already added the following order item details:
+     | id | order_id | product_id | unit_price | discount | quantity |
+     | 1  | 1        | 1          | 100.0      | 0.1      | 20       |
+    When I Post the order item to resource_url  '/api/v1/order_items/'
+    Then I should get a status code response '200'
+    And I should get a status containing ok
+    And I should get a field message containing "id exists"
 
 
 #  Get Sunny Case

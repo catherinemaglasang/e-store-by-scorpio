@@ -156,3 +156,36 @@ def step_impl(step):
     world.resp = json.loads(world.response.data)
     assert_equals(world.resp['message'], 'No entries found')
 
+
+@step("I have already added the following order item details:")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.order1 = step.hashes[0]
+
+
+@step("I should get a status code response \'(.*)\'")
+def step_impl(step, expected_status_code):
+    """
+    :param expected_status_code:
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.order_post_response.status_code, int(expected_status_code))
+
+
+@step("I should get a status containing ok")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.order_post_response_json = json.loads(world.order_post_response.data)
+    assert_equals(world.order_post_response_json['status'], 'ok')
+
+
+@step('I should get a field message containing "id exists"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.order_post_response_json['message'], 'ID EXISTS')

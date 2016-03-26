@@ -20,10 +20,6 @@ def step_impl(step, id):
     :type step: lettuce.core.Step
     """
     world.browser = TestApp(app)
-    world.response = world.browser.get('/#/dashboard/carts/add')
-    world.response.charset = 'utf8'
-    assert_equals(world.response.status_code, 200)
-    assert_equals(json.loads(world.response.text), {"status": "ok"})
     world.cart = world.app.get('/api/v1/carts/{}/'.format(id))
     world.resp = json.loads(world.cart.data)
     assert_equals(world.resp['status'], 'ok')
@@ -114,3 +110,68 @@ def step_impl(step):
     """
     world.resp = json.loads(world.response.data)
     assert_equals(world.resp['message'], 'No entries found')
+
+
+""" Create Cart sunny case  """
+
+
+@step("I have the following cart details")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.cart1 = step.hashes[0]
+
+
+@step("I Post the cart to resource_url  '/api/v1/carts/'")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.cart_post_uri = '/api/v1/carts/'
+    world.cart_post_response = world.app.post(world.cart_post_uri, data=json.dumps(world.cart1))
+
+
+@step("I should have a status code response \'(.*)\'")
+def step_impl(step, expected_status_code):
+    """
+    :param expected_status_code:
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.cart_post_response.status_code, int(expected_status_code))
+
+
+@step("I should get a status ok")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.cart_post_response_json = json.loads(world.cart_post_response.data)
+    assert_equals(world.cart_post_response_json['status'], 'ok')
+
+
+@step("I should get a message ok")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.cart_post_response_json['message'], 'OK')
+
+
+""" Create Cart rainy case """
+
+
+@step("I have already added the cart details:")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.cart1 = step.hashes[0]
+
+
+@step("I should get a message id exists")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.cart_post_response_json['message'], 'ID EXISTS')

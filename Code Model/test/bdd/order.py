@@ -59,6 +59,50 @@ def step_impl(step):
     assert_equals(world.resp['message'], 'OK')
 
 
+""" Create order rainy case """
+
+@step("I have already added the following order details:")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.order1 = step.hashes[0]
+
+
+@step("I Post the order to resource url  '/api/v1/orders/'")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.order_post_uri = '/api/v1/orders/'
+    world.order_post_response = world.app.post(world.order_post_uri, data=json.dumps(world.order1))
+
+
+@step("I should get a response \'(.*)\'")
+def step_impl(step, expected_status_code):
+    """
+    :param expected_status_code:
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.order_post_response.status_code, int(expected_status_code))
+
+
+@step('I should get a status containing "ok"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.order_post_response_json['status'], 'ok')
+
+
+@step('I should get a message containing "id exists"')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.order_post_response_json['message'], 'ID EXISTS')
+
+
 """Get Order ID sunny case """
 
 @step("Order id \'(.*)\' is in the system")
@@ -82,12 +126,12 @@ def step_impl(step, id):
     world.response = world.app.get('/api/v1/orders/{}/'.format(id))
 
 
-@step(u"I should get a \'(.*)\' response")
-def then_i_should_get_a_200_response(step, expected_status_code):
-    """
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.response.status_code, int(expected_status_code))
+# @step(u"I should get a \'(.*)\' response")
+# def then_i_should_get_a_200_response(step, expected_status_code):
+#     """
+#     :type step: lettuce.core.Step
+#     """
+#     assert_equals(world.response.status_code, int(expected_status_code))
 
 
 @step("the following orders information are returned:")
