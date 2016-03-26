@@ -12,21 +12,21 @@ Feature: Create and Get Order
 
 #  Create Rainy Case
   Scenario: Create a duplicate order
-   Given I have already added the following order details:
+    Given I have already added the following order details:
      |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
      |1 | 1           | 1          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
-   When I Post the order to resource url  '/api/v1/orders/'
-   Then I should get a status of '200'
-   And I should get a status containing "ok"
-   And I should get a message containing "id exists"
+    When I Post the order to resource_url  '/api/v1/orders/'
+    Then I should get a status of '200'
+    And I should get a "status" "ok"
+    And I should get a message containing "id exists"
 
 
 #  Get Sunny Case
   Scenario: Get Order
     Given Order id '1' is in the system
     When I retrieve the order '1'
-    Then I should get '200' response
-    And the following orders information are returned:
+    Then I should get a status of '200'
+    And the following orders are returned:
     | customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
     | 1           | 1          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
 
@@ -35,8 +35,8 @@ Feature: Create and Get Order
   Scenario: Get an order that doesn't exist
     Given I retrieve an order with resource url '/api/v1/orders/5/'
     When I retrieve a  JSON result
-    Then I should get a '200' status code
-    And It should  have a field "status" "ok"
+    Then I should get a status of '200'
+    And I should get a "status" "ok"
     And It should  have a "message" "No entries found"
     And It should  have a field "count" 0
     And It should  have an empty field " entries "

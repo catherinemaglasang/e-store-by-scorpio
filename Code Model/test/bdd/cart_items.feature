@@ -5,7 +5,7 @@ Feature: Create Get and Delete Cart Item
       Given I have the following cart item details
       | id | cart_id | product_id | quantity   | time_stamp         |
       | 1  | 1       | 1          | 1          | 2016-03-15 11:49:17|
-      When I Post the cart to resource_url  '/api/v1/cart_items/'
+      When I Post the cart item to resource_url  '/api/v1/cart_items/'
       Then I should get response '200'
       And I should get "status" "ok"
       And I should get "message" "ok"
@@ -15,7 +15,7 @@ Feature: Create Get and Delete Cart Item
      Given I have already added the following cart item details
      | id | cart_id | product_id | quantity   | time_stamp         |
      | 1  | 1       | 1          | 1          | 2016-03-15 11:49:17|
-     When I Post the cart to resource_url  '/api/v1/cart_items/'
+     When I Post the cart item to resource_url  '/api/v1/cart_items/'
      Then I should get response '200'
      And I should get "status" "ok"
      And I should get "message" "id exists"
@@ -24,7 +24,7 @@ Feature: Create Get and Delete Cart Item
   Scenario: Get cart item
     Given cart item '1' is in the system
     When I retrieve the cart item '1'
-    Then I should get a '200' response
+    Then I should get response '200'
     And the following cart item details are returned:
       | cart_id | product_id | quantity   | time_stamp         |
       | 1       | 1          | 1          | 2016-03-15 11:49:17|
@@ -34,8 +34,8 @@ Feature: Create Get and Delete Cart Item
   Scenario: Get a cart item that doesn't exist
     Given I retrieve a cart item with resource url '/api/v1/cart_items/2/'
     When i retrieve JSON result
-    Then i should get a status code '200'
-    And it should have a field "status" "ok"
+    Then I should get response '200'
+    And I should get "status" "ok"
     And it should have a field "message" "No entries found"
     And it should have a field "count" 0
     And it should have an empty field " entries "

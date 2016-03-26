@@ -66,32 +66,6 @@ def step_impl(step):
     world.supplier1 = step.hashes[0]
 
 
-@step("I Post the supplier to resource_url '/api/v1/suppliers/'")
-def step_impl(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.supplier_post_uri = '/api/v1/suppliers/'
-    world.supplier_post_response = world.app.post(world.supplier_post_uri, data=json.dumps(world.supplier1))
-
-
-@step("I should get a response : \'(.*)\'")
-def step_impl(step, expected_status_code):
-    """
-    :param expected_status_code:
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.supplier_post_response.status_code, int(expected_status_code))
-
-
-@step('I should get a "status" :"OK"')
-def step_impl(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.supplier_post_response_json['status'], 'ok')
-
-
 @step('I should get a "message" : "SUPPLIER EXISTS"')
 def step_impl(step):
     """
@@ -110,10 +84,6 @@ def given_supplier1_is_in_the_system(step, id):
     :type step: lettuce.core.Step
     """
     world.browser = TestApp(app)
-    world.response = world.browser.get('/#/dashboard/suppliers/add')
-    world.response.charset = 'utf8'
-    assert_equals(world.response.status_code, 200)
-    assert_equals(json.loads(world.response.text), {"status": "ok"})
     world.supplier = world.app.get('/api/v1/suppliers/{}/'.format(id))
     world.resp = json.loads(world.supplier.data)
     assert_equals(world.resp['status'], 'ok')
@@ -126,15 +96,6 @@ def when_I_retrieve_the_supplier1(step, id):
     :type step: lettuce.core.Step
     """
     world.response = world.app.get('/api/v1/suppliers/{}/'.format(id))
-
-
-@step("I should get a \'(.*)\' response")
-def then_i_should_get_a_200_response(step, expected_status_code):
-    """
-    :param expected_status_code:
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.response.status_code, int(expected_status_code))
 
 
 @step("the following supplier details are returned:")
@@ -168,24 +129,6 @@ def when_I_get_the_JSON_result(step):
     world.response = world.app.get(world.supplier_uri)
 
 
-@step("I should get a status code \'(.*)\'")
-def then_I_should_get_a_status_code(step, expected_status_code):
-    """
-    :param expected_status_code:
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.response.status_code, int(expected_status_code))
-
-
-@step('It should have a field "status" "ok"')
-def and_it_should_have_a_field_status_ok(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.resp = json.loads(world.response.data)
-    assert_equals(world.resp['status'], 'ok')
-
-
 @step('It should have a field "message" "No entries found"')
 def and_it_should_have_a_field_message_ok(step):
     """
@@ -210,51 +153,36 @@ def and_it_should_have_an_empty_field_entries(step):
     """
     assert_equals(len(world.resp['entries']), 0)
 
-
-@step("the supplier id 1 is in the database with the following details")
-def step_impl(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.supplier_old = step.hashes[0]
-
-
-@step("the new supplier details for supplier id 1")
-def step_impl(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.supplier_new = step.hashes[0]
-
-
-@step("I send a PUT request to the supplier resource url \'(.*)\'")
-def step_impl(step, url):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.put_response = world.app.put(url, data=json.dumps(world.supplier_new))
-    world.put_response_json = json.loads(world.put_response.data)
-
-@step("i should get a 200 response in the update request")
-def step_impl(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.put_response.status_code, 200)
-
-
-@step('i should get a field for "status" containing "ok" for update request')
-def step_impl(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.put_response_json['status'], 'ok')
-
-
-@step('I should get a "message" containing "OK"')
-def step_impl(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.put_response_json['status'], 'ok')
-
+#
+# @step("the supplier id 1 is in the database with the following details")
+# def step_impl(step):
+#     """
+#     :type step: lettuce.core.Step
+#     """
+#     world.supplier_old = step.hashes[0]
+#
+#
+# @step("the new supplier details for supplier id 1")
+# def step_impl(step):
+#     """
+#     :type step: lettuce.core.Step
+#     """
+#     world.supplier_new = step.hashes[0]
+#
+#
+# @step("I send a PUT request to the supplier resource url \'(.*)\'")
+# def step_impl(step, url):
+#     """
+#     :type step: lettuce.core.Step
+#     """
+#     world.put_response = world.app.put(url, data=json.dumps(world.supplier_new))
+#     world.put_response_json = json.loads(world.put_response.data)
+#
+#
+# @step('I should get a "message" containing "OK"')
+# def and_I_should_get_a_message_containing_ok(step):
+#     """
+#     :type step: lettuce.core.Step
+#     """
+#     assert_equals(world.put_response_json['status'], 'ok')
+#
