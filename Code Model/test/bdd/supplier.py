@@ -8,7 +8,7 @@ from app import create_app
 
 @before.all
 def before_all():
-    app = create_app('testing')
+    app = create_app()
     world.app = app.test_client()
 
 

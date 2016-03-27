@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-import os
+from os import sys
 from flask import current_app as app
 
 
@@ -13,7 +13,7 @@ class DBconn:
         cursor = self.conn.connection.cursor()
         return cursor
 
-    def dbcogmmit(self):
+    def dbcommit(self):
         self.trans.commit()
 
     def rollback_transaction(self):
