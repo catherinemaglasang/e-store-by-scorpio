@@ -1,51 +1,122 @@
 import json
-
 from lettuce import step, world, before
 from nose.tools import assert_equals
-
-from flask import current_app as app
-from app.views import USERS
-
-from app import create_app
+from webtest import TestApp
+from app import app
 
 @before.all
 def before_all():
-    world.app = create_app('testing')
-    world.client = world.app.test_client()
+    world.app = app.test_client()
+
+"""
+Get User Sunny Case
+"""
+
 
 @step("user id \'(.*)\' is in the system")
-def Given_some_users_are_in_the_system(step, id):
+def given_user_id_1_is_in_the_system(step, id):
     """
     :type step: lettuce.core.Step
     """
-    USERS.update({'username': 'king', 'password': 'test', 'is_admin': 'True'})
-
+    world.browser = TestApp(app)
+    world.response = world.browser.get('/#/user/add')
+    world.response.charset = 'utf8'
+    assert_equals(world.response.status_code, 200)
+    assert_equals(json.loads(world.response.text), {"status": "ok"})
+    world.user = world.app.get('/api/v1/users/{}/'.format(id))
+    world.resp = json.loads(world.user.data)
+    assert_equals(world.resp['status'], 'ok')
 
 @step("I retrieve the user \'(.*)\'")
-def When_I_retrieve_the_user1(step, id):
+def step_impl(step, id):
     """
     :type step: lettuce.core.Step
     """
     world.response = world.app.get('/api/v1/users/{}/'.format(id))
 
-@step(u"I should get a \'(.*)\' response")
-def then_i_should_get_a_200_response(step, expected_status_code):
+
+@step("I get the \'(.*)\' response")
+def then_i_get_a_200_response(step, exp_status_code):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(world.response.status_code, int(expected_status_code))
+    assert_equals(world.response.status_code, int(exp_status_code))
 
-@step("the following user details are returned:")
+@step("the following user details are shown:")
 def and_the_following_user_details_are_returned(step):
     """
-    :type step: lettuce.core.Step
+    :param step:
     """
-    assert_equals(step.hashes, [json.loads(world.response.data)])
+    resp = json.loads(world.response.data)
+    assert_equals(world.resp, resp)
+
+"""
+Get User Rainy Case
+"""
 
 
-@step("user id \'(.*)' is not in the system")
-def step_impl(step, id):
+@step("I access the user url \'(.*)\'")
+def step_impl(step, url):
     """
     :type step: lettuce.core.Step
     """
-    USERS.update()
+    world.user_uri = url
+
+
+@step("I retrieve the user JSON result")
+def when_i_retrieve_the_json_results(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.response = world.app.get(world.user_uri)
+
+
+@step("it should have a user field \'(.*)\' containing \'(.*)\'")
+def step_impl(step, status, txt):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.resp = json.loads(world.response.data)
+    assert_equals(world.resp[status], txt)
+
+
+@step("it should have an empty field \'(.*)\'")
+def step_impl(step, entries):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(len(world.resp[entries]), 0)
+
+""" CREATE USER """
+
+@step("I have the following user details:")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.user1 = step.hashes[0]
+
+
+@step("I POST to the user url \'(.*)\'")
+def step_impl(step, url):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.user_post_uri = url
+    world.user_post_response = world.app.post(world.user_post_uri, data=json.dumps(world.user1))
+
+@step("I get the create \'(.*)\' response")
+def step_impl(step, exp_status_code):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.user_post_response.status_code, int(exp_status_code))
+
+@step("I should get a user field \'(.*)\' containing \'(.*)\'")
+def step_impl(step, status, txt):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.user_post_response_json = json.loads(world.user_post_response_json.data)
+    assert_equals(world.user_post_response_json[status], txt)
+

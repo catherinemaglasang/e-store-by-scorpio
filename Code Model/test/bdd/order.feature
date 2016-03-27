@@ -1,15 +1,54 @@
-Feature: Handle Creating and Retrieving Order information
+Feature: Create and Get Order
 
-  Scenario: Get Order Information
+#  Create Sunny Case
+  Scenario: Create order
+    Given I have the following order details
+    |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
+    |4 | 3           | 3          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
+    When I Post the order to resource_url  '/api/v1/orders/'
+    Then I should get a status of '200'
+    And I should get a "status" "ok"
+    And I should get a "message" "ok"
+
+#  Create Rainy Case
+  Scenario: Create a duplicate order
+    Given I have already added the following order details:
+     |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
+     |1 | 1           | 1          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
+    When I Post the order to resource_url  '/api/v1/orders/'
+    Then I should get a status of '200'
+    And I should get a "status" "ok"
+    And I should get a message containing "id exists"
+
+
+#  Get Sunny Case
+  Scenario: Get Order
     Given Order id '1' is in the system
     When I retrieve the order '1'
-    Then I should get a '200' response
-    And the following orders information are returned:
-    | id | customer_id | payment_id | transaction_date | shipping_date | time_stamp | transaction_status | total |
-    | 1 | 1 | 1 | 2016-03-11 | 2016-03-11 | 2016-03-11 11:49:17 | Pending | 100.0 |
+    Then I should get a status of '200'
+    And the following orders are returned:
+    | customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
+    | 1           | 1          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
 
-  Scenario: Retrieving an Order Information not in the database
-    Given Order id '2' is not in the system
-    When I retrieve the order '2'
-    Then I should get a '500' response
-    | 3 | 8123 | 1239 | 2016-07-20 00:00:00 | 2016-08-15 00:00:00 | 2016-12-25 00:00:00 | blank | 121.99 |
+
+#  Get Order Rainy Case
+  Scenario: Get an order that doesn't exist
+    Given I retrieve an order with resource url '/api/v1/orders/5/'
+    When I retrieve a  JSON result
+    Then I should get a status of '200'
+    And I should get a "status" "ok"
+    And It should  have a "message" "No entries found"
+    And It should  have a field "count" 0
+    And It should  have an empty field " entries "
+
+
+#  Scenario: Update order
+#   Given the order id 1 is in the database with the following details:
+#     |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
+#     |1 | 1           | 1          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
+#    And the new order details for order id 1:
+#     |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
+#     |1 | 1           | 1          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
+#    When I send a PUT request to the order resource url 'api/v1/orders/1/'
+#    Then I should get a 200 response in the update request
+#    And I should get a field for "status" containing "ok" for update request

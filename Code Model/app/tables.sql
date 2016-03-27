@@ -3,6 +3,7 @@ create table users (
    id int8 primary key,
    username text,
    password text,
+   email text unique,
    is_admin boolean
 );
 
@@ -23,6 +24,7 @@ create table carts (
    customer_id int8,
    is_active boolean
 );
+
 create table categories (
    id int8 primary key,
    name text,
@@ -32,7 +34,7 @@ create table categories (
    is_active boolean
 );
 
-create table cart_details (
+create table cart_items (
    id int8 primary key,
    cart_id int8,
    product_id int8,
@@ -51,6 +53,7 @@ create table wishlist (
    id int8 primary key
 );
 
+
 create table orders(
    id int8 primary key,
    customer_id int8,
@@ -61,12 +64,28 @@ create table orders(
    transaction_status text,
    total float8
 )
-
-create table order_details(
+create table order_items(
   id int8 primary key,
   order_id int8,
   product_id int8,
   unit_price float8,
   discount float8,
-  quantity int8s
+  quantity int8
+)
+
+create table customer(
+  id int8 primary key,
+  first_name text,
+  last_name text,
+  address text,
+  city text,
+  state text,
+  postal_code text,
+  country text,
+  phone text,
+  email text unique,
+  user_id int8,
+  billing_address text,
+  shipping_address text,
+  date_created timestamp
 )
