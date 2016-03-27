@@ -3,14 +3,13 @@ import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
 
-from app import app
-from webtest import TestApp
+from app import create_app
 
 
 @before.all
 def before_all():
+    app = create_app('testing')
     world.app = app.test_client()
-
 
 
 """ Create cart item sunny case """
@@ -87,7 +86,6 @@ def given_cart_item1_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.browser = TestApp(app)
     world.cart_item = world.app.get('/api/v1/cart_items/{}/'.format(id))
     world.resp = json.loads(world.cart_item.data)
     assert_equals(world.resp['status'], 'ok')
@@ -153,4 +151,3 @@ def and_it_should_have_a_field_message_No_entries_found(step):
     """
     world.resp = json.loads(world.response.data)
     assert_equals(world.resp['message'], 'No entries found')
-

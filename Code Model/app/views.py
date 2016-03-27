@@ -2,7 +2,7 @@ from os import sys
 import json, flask
 from flask import request
 from flask import jsonify
-from app import app
+from flask import current_app as app
 from .models import spcall
 from app import api
 

@@ -3,14 +3,15 @@ import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
 
-from app import app
 from webtest import TestApp
+
+from app import create_app
 
 
 @before.all
 def before_all():
+    app = create_app('testing')
     world.app = app.test_client()
-
 
 
 """ Create Cart sunny case  """
@@ -154,5 +155,3 @@ def and_it_should_have_an_empty_field_entries(step):
     :type step: lettuce.core.Step
     """
     assert_equals(len(world.resp['entries']), 0)
-
-

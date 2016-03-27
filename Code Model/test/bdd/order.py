@@ -3,15 +3,19 @@ import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
 
-from app import app
 from webtest import TestApp
+
+from app import create_app
+
 
 @before.all
 def before_all():
+    app = create_app('testing')
     world.app = app.test_client()
 
 
 """ Create new order sunny case """
+
 
 @step("I have the following order details")
 def given_I_have_the_following_order_details(step):
@@ -21,7 +25,6 @@ def given_I_have_the_following_order_details(step):
     world.order1 = step.hashes[0]
 
 
-
 @step("I Post the order to resource_url  '/api/v1/orders/'")
 def when_I_Post_the_order_to_resource_url(step):
     """
@@ -29,7 +32,6 @@ def when_I_Post_the_order_to_resource_url(step):
     """
     world.order_post_uri = '/api/v1/orders/'
     world.order_post_response = world.app.post(world.order_post_uri, data=json.dumps(world.order1))
-
 
 
 @step("I should get a status of \'(.*)\'")
@@ -61,6 +63,7 @@ def and_I_should_get_a_message_ok(step):
 
 """ Create order rainy case """
 
+
 @step("I have already added the following order details:")
 def given_I_have_already_added_the_following_order_details(step):
     """
@@ -78,6 +81,7 @@ def and_I_should_get_a_message_containing_id_exists(step):
 
 
 """Get Order ID sunny case """
+
 
 @step("Order id \'(.*)\' is in the system")
 def given_order_id1_is_in_the_system(step, id):
@@ -152,4 +156,3 @@ def and_It_should_have_an_empty_field_entries(step):
     :type step: lettuce.core.Step
     """
     assert_equals(len(world.resp['entries']), 0)
-

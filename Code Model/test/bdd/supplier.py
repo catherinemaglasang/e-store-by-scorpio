@@ -1,12 +1,14 @@
 import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
-from app import app
 from webtest import TestApp
+
+from app import create_app
 
 
 @before.all
 def before_all():
+    app = create_app('testing')
     world.app = app.test_client()
 
 
@@ -55,6 +57,7 @@ def and_i_should_get_a_message_containing_ok(step):
     """
     assert_equals(world.supplier_post_response_json['message'], 'OK')
 
+
 """ CREATE SUPPLIER rainy case """
 
 
@@ -72,7 +75,6 @@ def step_impl(step):
     :type step: lettuce.core.Step
     """
     assert_equals(world.supplier_post_response_json['message'], 'SUPPLIER EXISTS')
-
 
 
 """GET SUPPLIER ID Sunny Case"""
@@ -109,8 +111,8 @@ def and_the_following_supplier_details(step):
 
 """ END """
 
-
 """ GET SUPPLIER ID Rainy case """
+
 
 @step("I retrieve a supplier with resource url \'(.*)\'")
 def given_I_retrieve_a_supplier2(step, url):

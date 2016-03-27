@@ -3,12 +3,14 @@ import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
 
-from app import app
 from app.views import CATEGORIES
+
+from app import create_app
 
 
 @before.all
 def before_all():
+    app = create_app('testing')
     world.app = app.test_client()
 
 
@@ -17,7 +19,9 @@ def given_some_categories_are_in_the_system(step):
     """
     :type step: lettuce.core.Step
     """
-    CATEGORIES.update({'id': '3', 'name': 'pro gear', 'description': 'signature team gear', 'main_image': 'team gear.jpg', 'parent_category_id': '1', 'is_actice': 'True'})
+    CATEGORIES.update(
+        {'id': '3', 'name': 'pro gear', 'description': 'signature team gear', 'main_image': 'team gear.jpg',
+         'parent_category_id': '1', 'is_actice': 'True'})
 
 
 @step("I retrieve the category \'(.*)\'")

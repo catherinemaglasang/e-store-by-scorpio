@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 import os
-from app import app
+from flask import current_app as app
 
 
 class DBconn:
