@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 import os
 from app import app
 
+
 class DBconn:
     def __init__(self):
         engine = create_engine("%s" % (app.config['DATABASE']), echo=False)
@@ -12,7 +13,7 @@ class DBconn:
         cursor = self.conn.connection.cursor()
         return cursor
 
-    def dbcommit(self):
+    def dbcogmmit(self):
         self.trans.commit()
 
     def rollback_transaction(self):
@@ -20,7 +21,13 @@ class DBconn:
 
 
 def spcall(qry, param, commit=False):
-    """ Stored procedure util function """
+    """
+    Stored procedure util function
+    :param qry:
+    :param param:
+    :param commit:
+    :return: rows or response returned by database
+    """
     try:
         dbo = DBconn()
         cursor = dbo.getcursor()
@@ -28,8 +35,13 @@ def spcall(qry, param, commit=False):
         res = cursor.fetchall()
         if commit:
             dbo.dbcommit()
-
             # Rollback transaction if in testing environment
             if app.config['TESTING']:
                 dbo.rollback_transaction()
+        return res
+    except:
+        res = [("Error: " + str(sys.exc_info()[0]) + " " + str(sys.exc_info()[1]),)]
+    return res
+
+
 
