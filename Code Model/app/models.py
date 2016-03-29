@@ -1,3 +1,6 @@
+import psycopg2
+#note that we have to import the Psycopg2 extras library!
+import psycopg2.extras
 from sqlalchemy import create_engine
 from os import sys
 from flask import current_app as app
@@ -10,7 +13,7 @@ class DBconn:
         self.trans = self.conn.begin()
 
     def getcursor(self):
-        cursor = self.conn.connection.cursor()
+        cursor = self.conn.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
         return cursor
 
     def dbcommit(self):
