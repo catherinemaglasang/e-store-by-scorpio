@@ -47,6 +47,7 @@ def and_i_should_get_a_status_containing_ok(step):
     :type step: lettuce.core.Step
     """
     world.supplier_post_response_json = json.loads(world.supplier_post_response.data)
+    print world.supplier_post_response_json
     assert_equals(world.supplier_post_response_json['status'], 'ok')
 
 
@@ -85,7 +86,6 @@ def given_supplier1_is_in_the_system(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.browser = TestApp(app)
     world.supplier = world.app.get('/api/v1/suppliers/{}/'.format(id))
     world.resp = json.loads(world.supplier.data)
     assert_equals(world.resp['status'], 'ok')

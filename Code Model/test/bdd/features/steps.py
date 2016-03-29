@@ -5,15 +5,15 @@ from app import create_app
 
 @before.all
 def before_all():
-    world.app = create_app('testing')
-    world.browser = world.app.test_client()
+    app = create_app('testing')
+    world.app = app.test_client()
 
 
 # ----------------------------------------------------------------
 # Common steps for retrieving data in any of the tables. We want to check its status, and fields.
 @step('I access the url "(?P<url>.+)"')
 def given_i_access_the_url_url(step, url):
-    world.response = world.browser.get(url)
+    world.response = world.app.get(url)
     world.response_data = json.loads(world.response.data)
 
 
@@ -41,7 +41,7 @@ def give_i_have_the_following_data(step):
 
 @step('I POST to the url "(.*)"')
 def i_post_to_the_url_url(step, url):
-    world.response = world.browser.post(url, data=json.dumps(world.data))
+    world.response = world.app.post(url, data=json.dumps(world.data))
     world.response_data = json.loads(world.response.data)
 
 
@@ -70,7 +70,7 @@ def i_have_the_resource_url(step, resource_url):
 
 @step("I send a PUT request from client")
 def i_send_a_put_request_from_client(step):
-    world.response = world.browser.put(world.resource, data = json.dumps(world.new_resource_data))
+    world.response = world.app.put(world.resource, data = json.dumps(world.new_resource_data))
     print world.response
     world.response_data = json.loads(world.response.data)
 

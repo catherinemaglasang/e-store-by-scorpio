@@ -22,11 +22,6 @@ def given_user_id_1_is_in_the_system(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.browser = TestApp(app)
-    world.response = world.browser.get('/#/user/add')
-    world.response.charset = 'utf8'
-    assert_equals(world.response.status_code, 200)
-    assert_equals(json.loads(world.response.text), {"status": "ok"})
     world.user = world.app.get('/api/v1/users/{}/'.format(id))
     world.resp = json.loads(world.user.data)
     assert_equals(world.resp['status'], 'ok')

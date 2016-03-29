@@ -11,6 +11,7 @@ from app import create_app
 @before.all
 def before_all():
     app = create_app()
+    print app.config
     world.app = app.test_client()
 
 
