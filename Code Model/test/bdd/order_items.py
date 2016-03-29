@@ -89,7 +89,6 @@ def given_order_item_id1_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.browser = TestApp(app)
     world.order = world.app.get('/api/v1/order_items/{}/'.format(id))
     world.resp = json.loads(world.order.data)
     assert_equals(world.resp['status'], 'ok')
