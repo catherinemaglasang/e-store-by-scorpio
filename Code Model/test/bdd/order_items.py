@@ -15,7 +15,7 @@ def before_all():
     world.app = app.test_client()
 
 
-""" Create order item sunny case """
+""" Create order item sunny and rainy case """
 
 
 @step("I have the following order item details")
@@ -44,40 +44,21 @@ def then_I_should_have_a_status(step, expected_status_code):
     assert_equals(world.order_post_response.status_code, int(expected_status_code))
 
 
-@step('I should have a "status" containing "ok"')
-def and_I_should_have_a_status_containing_ok(step):
+@step('I should have a "status" containing \'(.*)\'')
+def and_I_should_have_a_status_containing_ok(step, status):
     """
     :type step: lettuce.core.Step
     """
     world.order_post_response_json = json.loads(world.order_post_response.data)
-    assert_equals(world.order_post_response_json['status'], 'ok')
+    assert_equals(world.order_post_response_json['status'], status)
 
 
-@step('I should have a "message" containing "ok"')
-def and_I_should_have_a_message_containing_ok(step):
+@step('I should have a "message" containing \'(.*)\'')
+def and_I_should_have_a_message_containing_ok(step, message):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(world.order_post_response_json['message'], 'OK')
-
-
-""" Create order item rainy case """
-
-
-@step("I have already added the following order item details:")
-def given_I_have_already_added_the_following_order_item_details(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.order1 = step.hashes[0]
-
-
-@step('I should get a field message containing "id exists"')
-def and_I_should_get_a_field_message_containing_id_exists(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.order_post_response_json['message'], 'ID EXISTS')
+    assert_equals(world.order_post_response_json['message'], message)
 
 
 """ Get order item sunny case """
@@ -89,7 +70,6 @@ def given_order_item_id1_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.browser = TestApp(app)
     world.order = world.app.get('/api/v1/order_items/{}/'.format(id))
     world.resp = json.loads(world.order.data)
     assert_equals(world.resp['status'], 'ok')
@@ -147,10 +127,10 @@ def and_It_should_have_an_empty_field_entries(step):
     assert_equals(len(world.resp['entries']), 0)
 
 
-@step('It should have a field "message " "No entries found"')
-def and_It_should_have_a_field_message_No_entries_found(step):
+@step('It should have a field "message " \'(.*)\'')
+def and_It_should_have_a_field_message_No_entries_found(step, message):
     """
     :type step: lettuce.core.Step
     """
     world.resp = json.loads(world.response.data)
-    assert_equals(world.resp['message'], 'No entries found')
+    assert_equals(world.resp['message'], message)

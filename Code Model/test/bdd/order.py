@@ -14,7 +14,7 @@ def before_all():
     world.app = app.test_client()
 
 
-""" Create new order sunny case """
+""" Create new order sunny case and rainy case"""
 
 
 @step("I have the following order details")
@@ -43,41 +43,22 @@ def then_I_should_get_a_status_of(step, expected_status_code):
     assert_equals(world.order_post_response.status_code, int(expected_status_code))
 
 
-@step('I should get a "status" "ok"')
-def and_I_should_get_a_status_ok(step):
+@step('I should get a "status" \'(.*)\'')
+def and_I_should_get_a_status(step, status):
     """
     :type step: lettuce.core.Step
     """
     world.order_post_response_json = json.loads(world.order_post_response.data)
-    assert_equals(world.order_post_response_json['status'], 'ok')
+    assert_equals(world.order_post_response_json['status'], status)
 
 
-@step('I should get a "message" "ok"')
-def and_I_should_get_a_message_ok(step):
+@step('I should get a "message" \'(.*)\'')
+def and_I_should_get_a_message(step, message):
     """
     :type step: lettuce.core.Step
     """
     world.resp = json.loads(world.order_post_response.data)
-    assert_equals(world.resp['message'], 'OK')
-
-
-""" Create order rainy case """
-
-
-@step("I have already added the following order details:")
-def given_I_have_already_added_the_following_order_details(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.order1 = step.hashes[0]
-
-
-@step('I should get a message containing "id exists"')
-def and_I_should_get_a_message_containing_id_exists(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.order_post_response_json['message'], 'ID EXISTS')
+    assert_equals(world.resp['message'], message)
 
 
 """Get Order ID sunny case """

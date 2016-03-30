@@ -12,7 +12,7 @@ def before_all():
     world.app = app.test_client()
 
 
-""" Create cart item sunny case """
+""" Create cart item sunny case and rainy case """
 
 
 @step("I have the following cart item details")
@@ -41,40 +41,21 @@ def then_I_should_get_response(step, expected_status_code):
     assert_equals(world.cartItem_post_response.status_code, int(expected_status_code))
 
 
-@step('I should get "status" "ok"')
-def and_I_should_get_status_ok(step):
+@step('I should get "status" \'(.*)\'')
+def and_I_should_get_status(step, status):
     """
     :type step: lettuce.core.Step
     """
     world.cartItem_post_response_json = json.loads(world.cartItem_post_response.data)
-    assert_equals(world.cartItem_post_response_json['status'], 'ok')
+    assert_equals(world.cartItem_post_response_json['status'], status)
 
 
-@step('I should get "message" "ok"')
-def and_I_should_get_message_ok(step):
+@step('I should get "message" \'(.*)\'')
+def and_I_should_get_message(step, message):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(world.cartItem_post_response_json['message'], 'OK')
-
-
-""" Create cart item rainy case """
-
-
-@step("I have already added the following cart item details")
-def given_I_have_already_added_the_following_cart_item_details(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.cartItem1 = step.hashes[0]
-
-
-@step('I should get "message" "id exists"')
-def and_I_should_get_a_message_id_exists(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    assert_equals(world.cartItem_post_response_json['message'], 'ID EXISTS')
+    assert_equals(world.cartItem_post_response_json['message'], message)
 
 
 """ Get Cart Item sunny case """
@@ -144,10 +125,10 @@ def and_it_should_have_an_empty_field_entries(step):
     assert_equals(len(world.resp['entries']), 0)
 
 
-@step('it should have a field "message" "No entries found"')
-def and_it_should_have_a_field_message_No_entries_found(step):
+@step('I should get a message containing \'(.*)\'')
+def and_it_should_get_a_message_No_entries_found(step, message):
     """
     :type step: lettuce.core.Step
     """
     world.resp = json.loads(world.response.data)
-    assert_equals(world.resp['message'], 'No entries found')
+    assert_equals(world.resp['message'], message)
