@@ -294,7 +294,7 @@ $$
 $$
  language 'sql';
 
-create or replace function new_customer(in par_id int8, in par_first_name text, in par_last_name text, in par_address text, in par_city text, in par_state text, in par_postal_code text, in par_country text, in par_phone text, in par_email text, in par_user_id int8, in billing_address text, in shipping_address text, in date_created timestamp) returns text as
+create or replace function new_customer(in par_id int8, in par_first_name text, in par_last_name text, in par_address text, in par_city text, in par_state text, in par_postal_code text, in par_country text, in par_phone text, in par_email text, in par_user_id int8, in par_billing_address text, in par_shipping_address text, in par_date_created timestamp) returns text as
 $$
   declare
     loc_id text;
@@ -306,8 +306,9 @@ $$
       insert into customer(id, first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address, shipping_address, date_created) values (par_id, par_first_name, par_last_name, par_address, par_city, par_state, par_postal_code, par_country, par_phone, par_email, par_user_id, par_billing_address, par_shipping_address, par_date_created);
       loc_res = 'ok';
     else
-      loc_res = 'ID EXISTED';
+      loc_res = 'CUSTOMER EXISTS';
     end if;
+    return loc_res;
   end;
 $$
 
