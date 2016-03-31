@@ -222,6 +222,21 @@ $$
 language 'plpgsql';
 
 
+create or replace function get_wishlists(out int8) returns setof int8 as
+$$
+  select id from wishlist;
+$$
+language 'sql';
+
+
+create or replace function get_wishlist(in par_id int8) returns setof int8 as
+$$
+  select id from wishlist where id = par_id;
+$$
+  language 'sql';
+
+
+
 
 create or replace function new_order(in par_id int8, in par_customer_id int8, in par_payment_id int8, in par_transaction_date date, in par_shipping_date date, in par_time_stamp timestamp, in par_transaction_status text, par_total float8) returns text as
 $$

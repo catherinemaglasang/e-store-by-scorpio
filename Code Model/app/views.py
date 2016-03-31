@@ -514,9 +514,9 @@ def new_wishlist():
     return jsonify({'status': 'ok', 'message': response[0][0]}), 201
 
 
-@api.route('/api/v1/wishlist', methods=['GET'])
+@app.route('/api/v1/wishlist/', methods=['GET'])
 def get_all_wishlists():
-    res = spcall('get_wishlist', ())
+    res = spcall('get_wishlists', ())
 
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
@@ -538,14 +538,17 @@ def get_all_wishlists():
 
 @api.route('/api/v1/wishlist/<wishlist_id>/', methods=['GET'])
 def get_wishlist(wishlist_id):
-    res = spcall('get_wishlist', wishlist_id)
+    res = spcall('get_wishlist', (wishlist_id,))
 
-    if 'Error' in str(res[0][0]):
-        return jsonify({'status': 'error', 'message': res[0][0]})
 
-    r = res[0]
-    return jsonify({"id": str(wishlist_id)})
+    if len(res) == 0:
+        return jsonify({'status': 'ok', 'message': 'No entries found', 'entries': [], 'count':'0'})
+    else:
+        recs = []
+        for r in res:
+            recs.append({"id": r[0]})
 
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})  
 
 @api.route('/api/v1/wishlist/<int:id>/', methods=['DELETE'])
 def delete_wishlist(id):
