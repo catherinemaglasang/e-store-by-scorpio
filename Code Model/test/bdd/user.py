@@ -57,12 +57,12 @@ Get User Rainy Case
 """
 
 
-@step("I access the user url \'(.*)\'")
-def step_impl(step, url):
+@step("I access the user id \'(.*)\'")
+def step_impl(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.user_uri = url
+    world.user_uri = '/api/v1/users/2/'
 
 
 @step("I retrieve the user JSON result")
@@ -123,5 +123,5 @@ def step_impl(step, status, txt):
     """
     :type step: lettuce.core.Step
     """
-    world.user_post_response_json = json.loads(world.user_post_response_json.data)
+    world.user_post_response_json = json.loads(world.user_post_response.data)
     assert_equals(world.user_post_response_json[status], txt)
