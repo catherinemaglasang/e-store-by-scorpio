@@ -60,7 +60,7 @@ def and_the_following_details_are_returned(step):
 """ Get Wishlist - rainy case """
 
 
-@step("I retrieve a wishlist with resource url \'(.*)\'")
+@step("I retrieve a wishlist with id \'(.*)\'")
 def given_I_retrieve_a_wishlist_with_resource_url(step, url):
     """
     :param url:
@@ -69,11 +69,12 @@ def given_I_retrieve_a_wishlist_with_resource_url(step, url):
     world.wishlist_uri = url
 
 
-@step("i retrieve a JSON result")
-def when_i_retrieve_a_JSON_result(step):
+@step("I retrieve the JSON result")
+def when_I_retrieve_the_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """
+    #raise Exception(world.wishlist_uri)
     world.response = world.app.get(world.wishlist_uri)
 
 
@@ -85,7 +86,7 @@ def step_impl(step, expected_status_code):
     assert_equals(world.response.status_code, int(expected_status_code))
 
 
-@step("I should get a status 'ok'")
+@step("I should get the status 'ok'")
 def step_impl(step):
     """
     :type step: lettuce.core.Step
@@ -97,15 +98,15 @@ def step_impl(step):
 
 
 @step("it should  have a field count '0'")
-def and_it_should_have_a_field_count0(step):
+def and_it_should_have_a_field_count_0(step):
     """
     :type step: lettuce.core.Step
     """
     assert_equals(world.resp['count'], '0')
 
 
-@step("it should  have a field message 'No entries found'")
-def and_it_should_have_a_field_message_no_entries(step):
+@step("it should  have a field message saying 'No entries found'")
+def and_it_should_have_a_field_message_saying_no_entries_found(step):
     """
     :type step: lettuce.core.Step
     """
