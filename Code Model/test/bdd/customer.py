@@ -2,10 +2,12 @@ import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
 from webtest import TestApp
-from app import app
+from app import create_app
+
 
 @before.all
 def before_all():
+    app = create_app()
     world.app = app.test_client()
 
 
@@ -18,12 +20,14 @@ def step_impl(step, id):
     world.resp = json.loads(world.customer.data)
     assert_equals(world.resp['status'], 'ok')
 
+
 @step("I retrieve the customer id \'(.*)\'")
 def step_impl(step, id):
     """
     :type step: lettuce.core.Step
     """
     world.response = world.app.get('/api/v1/customers/{}/'.format(id))
+
 
 @step("I get the customer \'(.*)\' response")
 def then_i_get_a_200_response(step, exp_status_code):

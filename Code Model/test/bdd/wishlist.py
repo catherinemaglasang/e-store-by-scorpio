@@ -3,12 +3,12 @@ import json
 from lettuce import step, world, before
 from nose.tools import assert_equals
 
-from app import app
-from webtest import TestApp
+from app import create_app
 
 
 @before.all
 def before_all():
+    app = create_app()
     world.app = app.test_client()
 
 

@@ -7,18 +7,18 @@ Feature: Create, Get, Delete and Update Cart
     |1  | 1          | 2016-03-15  | 1          | True      |
     When I Post the cart to resource_url  '/api/v1/carts/'
     Then I should have a status code response '200'
-    And I should get a status ok
-    And I should get a message ok
+    And I should get a status 'ok'
+    And I should get a message 'OK'
 
 #  Create rainy case
   Scenario: Create a duplicate cart
-    Given I have already added the cart details:
+    Given I have the following cart details
     |id | session_id | date_created| customer_id| is_active |
     |1  | 1          | 2016-03-15  | 1          | True      |
     When I Post the cart to resource_url  '/api/v1/carts/'
     Then I should have a status code response '200'
-    And I should get a status ok
-    And I should get a message id exists
+    And I should get a status 'ok'
+    And I should get a message 'ID EXISTS'
 
 
 #  Get sunny case
@@ -36,8 +36,8 @@ Feature: Create, Get, Delete and Update Cart
     Given I retrieve a cart with resource url '/api/v1/carts/2/'
     When i retrieve a JSON result
     Then I should have a status code response '200'
-    And I should get a status ok
-    And it should  have a field "message" "No entries found"
+    And I should get a status 'ok'
+    And it should  have a field "message" 'No entries found'
     And it should  have a field "count" 0
     And it should  have an empty field " entries "
 

@@ -1,4 +1,3 @@
--- Source: http://codehandbook.org/creating-restful-api-using-python-flask-mysql/
 create table users (
    id int8 primary key,
    username text,
@@ -63,7 +62,8 @@ create table orders(
    time_stamp timestamp,
    transaction_status text,
    total float8
-)
+);
+
 create table order_items(
   id int8 primary key,
   order_id int8,
@@ -71,7 +71,7 @@ create table order_items(
   unit_price float8,
   discount float8,
   quantity int8
-)
+);
 
 create table customer(
   id int8 primary key,
@@ -88,4 +88,4 @@ create table customer(
   billing_address text,
   shipping_address text,
   date_created timestamp
-)
+);

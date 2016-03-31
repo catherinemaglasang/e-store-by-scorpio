@@ -1,70 +1,126 @@
-Feature: Get, Create & Update Product details
+Feature: Get, Create & Update Products
   In order to track inventory and stocks,
   I want to create, update and get any product
 
-  Scenario: Admin retrieves a product successfully
-    Given product id 1 is an existing product
-    When I try to get the details for product id 1
-    Then i get a 200 response
-    And the following product details are returned:
-      | category_id | date_added | description | is_active | on_hand | ordering | product_id | product_type_id | re_order_level | site_id | supplier_id | title |
-      | 1           | Tue, 15 Mar 2016 18:40:08 GMT | NEW  Product Description | true | 100 | 0 | 1         | 1               | 10             | 1       | 1           | NEWNEW Product Name |
+  """ Test the behavior of all endpoints when we make a GET request """
+  Scenario Outline: Retrieve resource
+    Given I access the url "<url>"
+    Then I get a "<status_code>" response
+    And I get an "<status>" status
+    And I get an "<message>" message
 
-  Scenario: Get a product that doesn't exist
-    Given I access the resource url '/api/v1/products/2/'
-    When I retrieve the JSON results
-    Then the status code should be 200
-    And it should have a field "status" containing "ok"
-    And it should have a field "message" containing "No entries found"
-    And it should have a field "count" containing 0
-    And it should have an empty field "entries"
+  Examples:
+    | url                                   | status_code | status | message              |
+    | /                                     | 200         | ok     | ok                   |
+    | /api/v1/producttypes/                 | 200         | ok     | ok                   |
+    | /api/v1/producttypes/1/               | 200         | ok     | ok                   |
+    | /api/v1/producttypes/1/attributes/    | 200         | ok     | ok                   |
+    | /api/v1/producttypes/1/attributes/1/  | 200         | ok     | ok                   |
 
-  Scenario: Create a new product
-    Given I have the following product details:
-      | category_id | date_added | description | is_active | on_hand | ordering | product_id | product_type_id | re_order_level | site_id | supplier_id | title |
-      | 1           | Tue, 15 Mar 2016 18:40:08 GMT | NEW  Product Description | true | 100 | 0 | 99        | 1               | 10             | 1       | 1           | NEWNEW Product Name |
-    When I POST to the product resource url '/api/v1/products/'
-    Then I should get a 201 response
-    And I should get a field "status" containing "ok"
-    And I should get a field "message" containing "ok"
+    | /api/v1/categories/                   | 200         | ok     | ok                   |
+    | /api/v1/categories/1/                 | 200         | ok     | ok                   |
 
-  Scenario: Create a duplicate product
-    Given I have already added the product details:
-      | category_id | date_added | description | is_active | on_hand | ordering | product_id | product_type_id | re_order_level | site_id | supplier_id | title |
-      | 1           | Tue, 15 Mar 2016 18:40:08 GMT | NEW  Product Description | true | 100 | 0 | 99        | 1               | 10             | 1       | 1           | NEWNEW Product Name |
-    When I POST to the product resource url '/api/v1/products/'
-    Then I should get a 201 response
-    And I should get a field "status" containing "ok"
-    And I should get a field "message" containing "id exists"
+    | /api/v1/products/                     | 200         | ok     | ok                   |
+    | /api/v1/products/1/                   | 200         | ok     | ok                   |
+    | /api/v1/products/1/categories/        | 200         | ok     | ok                   |
+    | /api/v1/products/1/categories/1/      | 200         | ok     | ok                   |
+    | /api/v1/products/1/attributes/        | 200         | ok     | ok                   |
+    | /api/v1/products/1/attributes/1/      | 200         | ok     | ok                   |
+    | /api/v1/products/1/images/            | 200         | ok     | ok                   |
+    | /api/v1/products/1/images/1/          | 200         | ok     | ok                   |
+#    | /api/v1/products/1/stocks/            | 200         | ok     | ok                   |
+#    | /api/v1/products/1/stocks/1/          | 200         | ok     | ok                   |
 
-  Scenario: Get newly created product
-    Given the new product id 99 details that i recently added:
-      | category_id | date_added | description | is_active | on_hand | ordering | product_id | product_type_id | re_order_level | site_id | supplier_id | title |
-      | 1           | Tue, 15 Mar 2016 18:40:08 GMT | NEW  Product Description | true | 100 | 0 | 99        | 1               | 10             | 1       | 1           | NEWNEW Product Name |
-    When I access to the product resource url '/api/v1/products/99/' to get the new product id 99
-    Then I should get a 200 response in product id 99 resource
-    And I should receive a field "status" containing "ok" in product id 99 json response
-    And I should receive a field "message" containing "ok" in product id 99 json response
-    And I should get a length of 1 in entries of product id 99 json response
-    And I should get an entry with a product id 99
+    | /api/v1/products/1909/                | 200         | ok     | No entries found     |
+    | /api/v1/producttypes/1909/            | 200         | ok     | No entries found     |
+    | /api/v1/categories/1909/              | 200         | ok     | No entries found     |
 
-  Scenario: Update a product
-    Given the new product id 99 in database with the following details:
-      | category_id | date_added | description | is_active | on_hand | ordering | product_id | product_type_id | re_order_level | site_id | supplier_id | title |
-      | 1           | Tue, 15 Mar 2016 18:40:08 GMT | NEW  Product Description | true | 100 | 0 | 99        | 1               | 10             | 1       | 1           | NEWNEW Product Name |
-    And the new product details for product id 99:
-      | category_id | date_added | description | is_active | on_hand | ordering | product_id | product_type_id | re_order_level | site_id | supplier_id | title |
-      | 1           | Tue, 15 Mar 2016 18:40:08 GMT | New formal product description | true | 100 | 0 | 99        | 1               | 10             | 1       | 1           | Formal new product name |
-    When I send a PUT request to the product resource url 'api/v1/products/99/'
-    Then I should get a 200 response in the update request
-    And I should get a field for "status" containing "ok" for update request
+    | /api/v1/products/1/categories/999/      | 200         | ok     | No entries found                   |
+    | /api/v1/products/1/attributes/999/      | 200         | ok     | No entries found                   |
+    | /api/v1/products/1/images/999/          | 200         | ok     | No entries found                   |
 
-#  Scenario: Get updated product
-#    Given the updated product id 99 in database with the following new details:
-#      | category_id | date_added | description | is_active | on_hand | ordering | product_id | product_type_id | re_order_level | site_id | supplier_id | title |
-#      | 1           | Tue, 15 Mar 2016 18:40:08 GMT | New formal product description | true | 100 | 0 | 99        | 1               | 10             | 1       | 1           | Formal new product name |
-#    And the updated product's old details are the following:
-#      | category_id | date_added | description | is_active | on_hand | ordering | product_id | product_type_id | re_order_level | site_id | supplier_id | title |
-#      | 1           | Tue, 15 Mar 2016 18:40:08 GMT | NEW  Product Description | true | 100 | 0 | 99        | 1               | 10             | 1       | 1           | NEWNEW Product Name |
-#    When I request the product id's resource url '/api/v1/products/99/'
-#    Then i should get an entries field with the new product details.
+    # """ Test the behavior when we make a POST request"""
+
+    Scenario: Add Product
+      Given I have the following data
+      | title | description | supplier_id | category_id | site_id | product_type_id | on_hand | re_order_level |
+      | 1     | 1           | 1           | 1           | 1       | 1               | 1       | 1              |
+      When I POST to the url "/api/v1/products/"
+      Then I get a "201" response
+      And I get a field "status" containing "ok"
+      And I get a field "message" containing "ok"
+
+    Scenario: Add Product Type
+      Given I have the following data
+      | name      | description |
+      | Book      | Book Desc   |
+      When I POST to the url "/api/v1/producttypes/"
+      Then I get a "201" response
+      And I get a field "status" containing "ok"
+      And I get a field "message" containing "ok"
+
+    Scenario: Add Category
+      Given I have the following data
+      | name  | description | image         |
+      | 1     | 1           | 1             |
+      When I POST to the url "/api/v1/categories/"
+      Then I get a "201" response
+      And I get a field "status" containing "ok"
+      And I get a field "message" containing "ok"
+
+      Scenario: Add Attributes for Product Type
+      Given I have the following data
+        | product_type_id | name | code | type    | is_required |
+        | 1               | Book | P1   | string  | true      |
+      When I POST to the url "/api/v1/producttypes/1/attributes/"
+      Then I get a "201" response
+      And I get a field "status" containing "ok"
+      And I get a field "message" containing "ok"
+
+  """ Test the behavior when we make a PUT request"""
+    Scenario: Update Product Type
+      Given I have a resource with the id "1"
+      And I want to update its data to the following data
+      | product_type_id | name     | description |
+      | 1               | New      | New          |
+      And I have the resource url "/api/v1/producttypes/1/"
+      When I send a PUT request from client
+      Then I get a "200" response
+      And I get a field "status" containing "ok"
+      And I get a field "message" containing "ok"
+
+    Scenario: Update Product
+      Given I have a resource with the id "1"
+      And I want to update its data to the following data
+      | product_id | title | description | supplier_id | category_id | site_id | product_type_id | on_hand | re_order_level |
+      | 1          | 1     | 1           | 1           | 1           | 1       | 1               | 1       | 1              |
+      And I have the resource url "/api/v1/products/1/"
+      When I send a PUT request from client
+      Then I get a "200" response
+      And I get a field "status" containing "ok"
+      And I get a field "message" containing "ok"
+
+    Scenario: Update Category
+      Given I have a resource with the id "1"
+      And I want to update its data to the following data
+      | category_id |  name | description | image       |
+      | 1           | 1     | 1           | 1           |
+      And I have the resource url "/api/v1/categories/1/"
+      When I send a PUT request from client
+      Then I get a "200" response
+      And I get a field "status" containing "ok"
+      And I get a field "message" containing "ok"
+
+    Scenario: Update Product Attribute
+      Given I have a resource with the id "1"
+      And I want to update its data to the following data
+      | product_attribute_id  |  name        | code         | type          | is_required |
+      | 1                     | New name     | New Code     | new type      | true         |
+      And I have the resource url "/api/v1/producttypes/1/attributes/1/"
+      When I send a PUT request from client
+      Then I get a "200" response
+      And I get a field "status" containing "ok"
+      And I get a field "message" containing "ok"
+
+
+    """ Test the behaviour during forms submission in client """
