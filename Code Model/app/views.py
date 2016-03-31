@@ -534,7 +534,7 @@ def new_wishlist():
     return jsonify({'status': 'ok', 'message': response[0][0]}), 201
 
 
-@app.route('/api/v1/wishlist/', methods=['GET'])
+@api.route('/api/v1/wishlist/', methods=['GET'])
 def get_all_wishlists():
     res = spcall('get_wishlists', ())
 
