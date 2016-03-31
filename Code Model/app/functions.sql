@@ -44,9 +44,12 @@ $$
   begin
      select into loc_id id from suppliers where id = par_id;
      if loc_id isnull then
-
-       insert into suppliers(id, name, address, phone, fax, email, is_active) values (par_id, par_name, par_address, par_phone, par_fax, par_email, par_is_active);
-       loc_res = 'OK';
+       if par_name='' or par_address='' or par_phone='' or par_fax='' or par_email='' then
+         loc_res='error';
+       else
+         insert into suppliers(id, name, address, phone, fax, email, is_active) values (par_id, par_name, par_address, par_phone, par_fax, par_email, par_is_active);
+         loc_res = 'OK';
+       end if;
 
      else
        loc_res = 'SUPPLIER EXISTS';

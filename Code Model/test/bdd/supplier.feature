@@ -4,21 +4,31 @@ Feature: Create, Get and Update supplier details
    Scenario: Create Supplier
       Given I have the following supplier details
       | id | name        | address  | phone   | fax         | email                | is_active |
-      | 6  | supplier1   | address1 | 221-2277| 063-221-2277| supplier1@estore.com | True      |
+      | 1  | supplier1   | address1 | 221-2277| 063-221-2277| supplier1@estore.com | True      |
       When I Post the supplier to resource_url  '/api/v1/suppliers/'
       Then I should get a response '200'
       And I should get a "status" containing 'ok'
       And I should get a "message" containing 'OK'
 
-#   Create Rainy Case
+#   Create Rainy Case 1
    Scenario: Create duplicate supplier
      Given I have the following supplier details
        | id | name        | address  | phone   | fax         | email                | is_active |
-       | 3  | supplier1   | address1 | 221-2277| 063-221-2277| supplier1@estore.com | True      |
+       | 1  | supplier1   | address1 | 221-2277| 063-221-2277| supplier1@estore.com | True      |
      When I Post the supplier to resource_url  '/api/v1/suppliers/'
      Then I should get a response '200'
      And I should get a "status" containing 'ok'
      And I should get a "message" containing 'SUPPLIER EXISTS'
+
+#   Create Rainy Case 2
+   Scenario: Create supplier with incomplete details
+     Given I have the following supplier details
+       | id | name | address  | phone   | fax         | email                | is_active |
+       |  2 | | | | | supplier1@estore.com | True      |
+     When I Post the supplier to resource_url  '/api/v1/suppliers/'
+     Then I should get a response '200'
+     And I should get a "status" containing 'ok'
+     And I should get a "message" containing 'error'
 
 #  Get Sunny Case
   Scenario: Get a supplier
