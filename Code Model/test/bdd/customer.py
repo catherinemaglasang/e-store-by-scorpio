@@ -77,3 +77,40 @@ def step_impl(step, entries):
     :type step: lettuce.core.Step
     """
     assert_equals(len(world.resp[entries]), 0)
+
+
+@step("I have the following customer details:")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.customer1 = step.hashes[0]
+
+
+@step("I POST to the customer url \'(.*)\'")
+def step_impl(step, url):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.customer_post_uri = url
+    world.customer_post_response = world.app.post(world.customer_post_uri, data=json.dumps(world.customer1))
+
+
+
+@step("I get the create customer \'(.*)\' response")
+def step_impl(step, exp_status_code):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.customer_post_response.status_code, int(exp_status_code))
+
+
+
+@step("I should get a customer field \'(.*)\' containing \'(.*)\'")
+def step_impl(step, status, txt):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.customer_post_response_json = json.loads(world.customer_post_response.data)
+    assert_equals(world.customer_post_response_json[status], txt)
+
