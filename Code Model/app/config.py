@@ -15,7 +15,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    DATABASE = 'postgresql://bookshop:bookshop@127.0.0.1:5432/test_bookshopdb'
+    DATABASE = 'postgresql://bookshop:bookshop@127.0.0.1:5432/bookshopdb'
 
 config = {
     'development': DevelopmentConfig,
