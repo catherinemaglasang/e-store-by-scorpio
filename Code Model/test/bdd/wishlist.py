@@ -1,7 +1,7 @@
 import json
+
 from lettuce import step, world, before
 from nose.tools import assert_equals
-from app.views import WISHLISTS
 
 from app import create_app
 
@@ -12,24 +12,33 @@ def before_all():
     world.app = app.test_client()
 
 
-@step("some wishlists are in a system")
-def given_some_wishlists_are_in_the_system(step):
+""" Get Wishlist - sunny case """
+
+
+@step("wishlist \'(.*)\' is in the system")
+def given_wishlist_is_in_the_system(step, id):
     """
+    :param id:
     :type step: lettuce.core.Step
     """
-    WISHLISTS.update({'id': '1'})
+
+    world.resp = world.app.get('/api/v1/wishlist/'.format(id))
+    data = json.loads(world.resp.data)
+    #raise Exception(json.loads(world.resp.data))
+    assert_equals(data['status'], 'ok')
 
 
 @step("I retrieve the wishlist \'(.*)\'")
-def when_i_retrieve_the_wishlist1(step, id):
+def when_I_retrieve_the_wishlist(step, id):
     """
+    :param id:
     :type step: lettuce.core.Step
     """
     world.response = world.app.get('/api/v1/wishlist/'.format(id))
 
 
-@step(u"I should get a \'(.*)\' response")
-def then_i_should_get_a_200_response(step, expected_status_code):
+@step("I should have a status code response \'(.*)\'")
+def then_i_should_have_a_status_code_response_200(step, expected_status_code):
     """
     :param expected_status_code:
     :type step: lettuce.core.Step
@@ -37,9 +46,77 @@ def then_i_should_get_a_200_response(step, expected_status_code):
     assert_equals(world.response.status_code, int(expected_status_code))
 
 
-@step("the following wishlist details are returned:")
-def the_following_wishlist_details(step):
+
+@step("the following details are returned :")
+def and_the_following_details_are_returned(step):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(int(step.hashes[0]['id']), [json.loads(world.response.data)][0]['entries'][0]['id'])
+    resp = world.response.data
+    #raise Exception(json.loads(world.response.data))
+    assert_equals(world.resp.data, resp)
+
+
+""" Get Wishlist - rainy case """
+
+
+@step("I retrieve a wishlist with id \'(.*)\'")
+def given_I_retrieve_a_wishlist_with_resource_url(step, url):
+    """
+    :param url:
+    :type step: lettuce.core.Step
+    """
+    world.wishlist_uri = url
+
+
+@step("I retrieve the JSON result")
+def when_I_retrieve_the_JSON_result(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    #raise Exception(world.wishlist_uri)
+    world.response = world.app.get(world.wishlist_uri)
+
+
+@step("I should have a status code response \'(.*)\'")
+def step_impl(step, expected_status_code):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.response.status_code, int(expected_status_code))
+
+
+@step("I should get the status 'ok'")
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    # world.categories = world.app.get('/api/v1/categories/<category_id>/'.format(id))
+    world.resp = world.response.data
+    #raise Exception(json.loads(world.response.data))
+    assert_equals(world.resp['status'], 'ok')
+
+
+@step("it should  have a field count '0'")
+def and_it_should_have_a_field_count_0(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.resp['count'], '0')
+
+
+@step("it should  have a field message saying 'No entries found'")
+def and_it_should_have_a_field_message_saying_no_entries_found(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.resp = json.loads(world.response.data)
+    assert_equals(world.resp['message'], 'No entries found')
+
+
+@step("it should  have an empty field 'entries'")
+def and_it_should_have_an_empty_field_entries(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(len(world.resp['entries']), 0)

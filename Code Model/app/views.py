@@ -152,33 +152,13 @@ def get_user(user_id):
 
 @api.route('/api/v1/users/', methods=['POST'])
 def new_user():
-    print "STARTING ADD"
-    id = request.form['inputID']
-    username = request.form['inputUsername']
-    password = request.form['inputPassword']
-    email = request.form['inputEmail']
-    is_admin = request.form['inputIsAdmin']
-
-    res = spcall('new_user', (id, username, password, email, is_admin), True)
-
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
-
-    return jsonify({'status': 'ok', 'message': res[0][0]})
-
-    jsn = json.loads(request.data)
-    id = jsn['id']
-    username = jsn['username']
-    password = jsn['password']
-    email = jsn['email']
-    is_admin = jsn['is_admin']
-
+    data = json.loads(request.data)
     response = spcall('new_user', (
-        id,
-        username,
-        password,
-        email,
-        is_admin), True)
+        data['id'],
+        data['username'],
+        data['password'],
+        data['email'],
+        data['is_admin'],), True)
 
     if 'Error' in response[0][0]:
         return jsonify({'status': 'error', 'message': response[0][0]})
@@ -534,9 +514,9 @@ def new_wishlist():
     return jsonify({'status': 'ok', 'message': response[0][0]}), 201
 
 
-@api.route('/api/v1/wishlist', methods=['GET'])
+@api.route('/api/v1/wishlist/', methods=['GET'])
 def get_all_wishlists():
-    res = spcall('get_wishlist', ())
+    res = spcall('get_wishlists', ())
 
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
@@ -558,14 +538,17 @@ def get_all_wishlists():
 
 @api.route('/api/v1/wishlist/<wishlist_id>/', methods=['GET'])
 def get_wishlist(wishlist_id):
-    res = spcall('get_wishlist', wishlist_id)
+    res = spcall('get_wishlist', (wishlist_id,))
 
-    if 'Error' in str(res[0][0]):
-        return jsonify({'status': 'error', 'message': res[0][0]})
 
-    r = res[0]
-    return jsonify({"id": str(wishlist_id)})
+    if len(res) == 0:
+        return jsonify({'status': 'ok', 'message': 'No entries found', 'entries': [], 'count':'0'})
+    else:
+        recs = []
+        for r in res:
+            recs.append({"id": r[0]})
 
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})  
 
 @api.route('/api/v1/wishlist/<int:id>/', methods=['DELETE'])
 def delete_wishlist(id):
@@ -581,62 +564,23 @@ def delete_wishlist(id):
 
 @api.route('/api/v1/customers/', methods=['POST'])
 def new_customer():
-    print "STARTING ADD"
-    id = request.form['inputID']
-    first_name = request.form['inputFirstName']
-    last_name = request.form['inputLastName']
-    address = request.form['inputAddress']
-    city = request.form['inputCity']
-    state = request.form['inputState']
-    postal_code = request.form['inputPostalCode']
-    country = request.form['inputCountry']
-    phone = request.form['inputPhone']
-    email = request.form['inputEmail']
-    user_id = request.form['inputUserId']
-    billing_address = request.form['inputBillingAddress']
-    shipping_address = request.form['inputShippingAddress']
-    date_created = request.form['inputDateCreated']
-
-    res = spcall('new_customer', (
-        id, first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address,
-        shipping_address, date_created), True)
-
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
-    return jsonify({'status': 'ok', 'message': res[0][0]})
-
-    jsn = json.loads(request.data)
-    id = jsn['id']
-    first_name = jsn['first_name']
-    last_name = jsn['last_name']
-    address = jsn['address']
-    city = jsn['city']
-    state = jsn['state']
-    postal_code = jsn['postal_code']
-    country = jsn['country']
-    phone = jsn['phone']
-    email = jsn['email']
-    user_id = jsn['user_id']
-    billing_address = jsn['billing_address']
-    shipping_address = jsn['shipping_address']
-    date_created = jsn['date_created']
+    data = json.loads(request.data)
 
     response = spcall('new_customer', (
-        id,
-        first_name,
-        last_name,
-        address,
-        city,
-        state,
-        postal_code,
-        country,
-        phone,
-        email,
-        user_id,
-        billing_address,
-        shipping_address,
-        date_created
-    ), True)
+        data['id'],
+        data['first_name'],
+        data['last_name'],
+        data['address'],
+        data['city'],
+        data['state'],
+        data['postal_code'],
+        data['country'],
+        data['phone'],
+        data['email'],
+        data['user_id'],
+        data['billing_address'],
+        data['shipping_address'],
+        data['date_created'],), True)
 
     if 'Error' in response[0][0]:
         return jsonify({'status': 'error', 'message': response[0][0]})

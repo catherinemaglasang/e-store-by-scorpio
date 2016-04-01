@@ -9,7 +9,7 @@ Feature: Handle storing and retrieving customer details
 
 
   Scenario: Get User not in the Database
-    Given I access the user url '/api/v1/users/2/'
+    Given I access the user id '2'
     When I retrieve the user JSON result
     Then I get the '200' response
     And it should have a user field 'status' containing 'ok'
@@ -18,11 +18,21 @@ Feature: Handle storing and retrieving customer details
     And it should have an empty field 'entries'
 
 
-#  Scenario: Create User
-#    Given I have the following user details:
-#    | id | username | password | email | is_admin |
-#    | 9 | user9 | pass9 | user9@estore.com  | False |
-#    When I POST to the user url '/api/v1/users/'
-#    Then I get the create '201' response
-#    And I should get a user field 'status' containing 'ok'
-#    And I should get a user field 'message' containing 'ok'
+  Scenario: Create User
+    Given I have the following user details:
+    | id | username | password | email | is_admin |
+    | 9 | user9 | pass9 | user9@estore.com  | False |
+    When I POST to the user url '/api/v1/users/'
+    Then I get the create '201' response
+    And I should get a user field 'status' containing 'ok'
+    And I should get a user field 'message' containing 'OK'
+
+
+  Scenario: Create Duplicate User
+    Given I have the following user details:
+    | id | username | password | email | is_admin |
+    | 9 | user9 | pass9 | user9@estore.com  | False |
+    When I POST to the user url '/api/v1/users/'
+    Then I get the create '201' response
+    And I should get a user field 'status' containing 'ok'
+    And I should get a user field 'message' containing 'USER EXISTS'
