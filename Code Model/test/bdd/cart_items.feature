@@ -32,7 +32,7 @@ Feature: Create Get and Delete Cart Item
 
 #  """ Rainy Case """
   Scenario: Get a cart item that doesn't exist
-    Given I retrieve a cart item with resource url '/api/v1/cart_items/2/'
+    Given I retrieve the cart item '2'
     When i retrieve JSON result
     Then I should get response '200'
     And I should get "status" 'ok'

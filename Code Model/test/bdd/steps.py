@@ -92,21 +92,12 @@ def then_the_following_cart_item_details_are_returned(step):
 """ Get Cart Item rainy case """
 
 
-@step("I retrieve a cart item with resource url \'(.*)\'")
-def given_I_retrieve_a_cart_item_with_resource_url(step, url):
-    """
-    :param url:
-    :type step: lettuce.core.Step
-    """
-    world.cart_item_uri = url
-
-
 @step("i retrieve JSON result")
 def when_i_retrieve_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get(world.cart_item_uri)
+    world.response = world.response
 
 
 @step('it should have a field "count" 0')
@@ -215,21 +206,12 @@ def and_the_following_details_are_returned(step):
 """ Get Cart rainy case """
 
 
-@step("I retrieve a cart with resource url \'(.*)\'")
-def given_I_retrieve_a_cart_with_resource_url(step, url):
-    """
-    :param url:
-    :type step: lettuce.core.Step
-    """
-    world.cart_uri = url
-
-
 @step("i retrieve a JSON result")
 def when_i_retrieve_a_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get(world.cart_uri)
+    world.response = world.response
 
 
 @step('it should  have a field "count" 0')
@@ -255,7 +237,6 @@ def and_it_should_have_an_empty_field_entries(step):
     :type step: lettuce.core.Step
     """
     assert_equals(len(world.resp['entries']), 0)
-
 
 
 """ Create new order sunny case and rainy case"""
@@ -340,21 +321,12 @@ def and_the_following_orders_are_returned(step):
 """ Get order ID rainy case """
 
 
-@step("I retrieve an order with resource url \'(.*)\'")
-def given_I_retrieve_an_order_with_resource_url(step, url):
-    """
-    :param url:
-    :type step: lettuce.core.Step
-    """
-    world.order_uri = url
-
-
 @step("I retrieve a  JSON result")
 def when_I_retrieve_a_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get(world.order_uri)
+    world.response = world.response
 
 
 @step('It should  have a "message" "No entries found"')
@@ -382,7 +354,6 @@ def and_It_should_have_an_empty_field_entries(step):
     assert_equals(len(world.resp['entries']), 0)
 
 
-
 """ Create order item sunny and rainy case """
 
 
@@ -391,7 +362,7 @@ def given_I_have_the_following_order_item_details(step):
     """
     :type step: lettuce.core.Step
     """
-    world.order1 = step.hashes[0]
+    world.orderItem1 = step.hashes[0]
 
 
 @step("I Post the order item to resource_url  '/api/v1/order_items/'")
@@ -399,8 +370,8 @@ def when_I_Post_the_order_item_to_resource_url(step):
     """
     :type step: lettuce.core.Step
     """
-    world.order_post_uri = '/api/v1/order_items/'
-    world.order_post_response = world.app.post(world.order_post_uri, data=json.dumps(world.order1))
+    world.orderItem_post_uri = '/api/v1/order_items/'
+    world.orderItem_post_response = world.app.post(world.orderItem_post_uri, data=json.dumps(world.orderItem1))
 
 
 @step("I should have a response \'(.*)\'")
@@ -409,7 +380,7 @@ def then_I_should_have_a_status(step, expected_status_code):
     :param expected_status_code:
     :type step: lettuce.core.Step
     """
-    assert_equals(world.order_post_response.status_code, int(expected_status_code))
+    assert_equals(world.orderItem_post_response.status_code, int(expected_status_code))
 
 
 @step('I should have a "status" containing \'(.*)\'')
@@ -417,8 +388,8 @@ def and_I_should_have_a_status_containing_ok(step, status):
     """
     :type step: lettuce.core.Step
     """
-    world.order_post_response_json = json.loads(world.order_post_response.data)
-    assert_equals(world.order_post_response_json['status'], status)
+    world.orderItem_post_response_json = json.loads(world.orderItem_post_response.data)
+    assert_equals(world.orderItem_post_response_json['status'], status)
 
 
 @step('I should have a "message" containing \'(.*)\'')
@@ -426,7 +397,7 @@ def and_I_should_have_a_message_containing_ok(step, message):
     """
     :type step: lettuce.core.Step
     """
-    assert_equals(world.order_post_response_json['message'], message)
+    assert_equals(world.orderItem_post_response_json['message'], message)
 
 
 """ Get order item sunny case """
@@ -438,8 +409,8 @@ def given_order_item_id1_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.order = world.app.get('/api/v1/order_items/{}/'.format(id))
-    world.resp = json.loads(world.order.data)
+    world.orderItem = world.app.get('/api/v1/order_items/{}/'.format(id))
+    world.resp = json.loads(world.orderItem.data)
     assert_equals(world.resp['status'], 'ok')
 
 
@@ -463,20 +434,12 @@ def and_the_following_order_item_details_are_returned(step):
 """ Get order item rainy case """
 
 
-@step("I retrieve an order item with resource url '/api/v1/orders/2/'")
-def given_I_retrieve_an_order_item_with_resource_url(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.order_item_uri = '/api/v1/orders/2/'
-
-
 @step("I retrieve the JSON result")
 def when_I_retrieve_the_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get(world.order_item_uri)
+    world.response = world.response
 
 
 @step('It should have a field "count " 0')
@@ -502,7 +465,6 @@ def and_It_should_have_a_field_message_No_entries_found(step, message):
     """
     world.resp = json.loads(world.response.data)
     assert_equals(world.resp['message'], message)
-
 
 """ CREATE SUPPLIER sunny case"""
 
@@ -634,21 +596,12 @@ def and_the_following_supplier_details(step):
 """ GET SUPPLIER ID Rainy case """
 
 
-@step("I retrieve a supplier with resource url \'(.*)\'")
-def given_I_retrieve_a_supplier2(step, url):
-    """
-    :param url:
-    :type step: lettuce.core.Step
-    """
-    world.supplier_uri = url
-
-
 @step("I get the JSON result")
 def when_I_get_the_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get(world.supplier_uri)
+    world.response = world.response
 
 
 @step('It should have a field "message" \'(.*)\'')

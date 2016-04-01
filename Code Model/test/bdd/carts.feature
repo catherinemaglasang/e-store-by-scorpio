@@ -33,7 +33,7 @@ Feature: Create, Get, Delete and Update Cart
 
 #  Get rainy case
   Scenario: Get a cart that doesn't exist
-    Given I retrieve a cart with resource url '/api/v1/carts/2/'
+    Given I retrieve the cart '2'
     When i retrieve a JSON result
     Then I should have a status code response '200'
     And I should get a status 'ok'

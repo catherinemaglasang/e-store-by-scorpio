@@ -33,7 +33,7 @@ Feature: Create and Get Order
 
 #  Get Order Rainy Case
   Scenario: Get an order that doesn't exist
-    Given I retrieve an order with resource url '/api/v1/orders/5/'
+    Given I retrieve the order '2'
     When I retrieve a  JSON result
     Then I should get a status of '200'
     And I should get a "status" 'ok'

@@ -448,7 +448,7 @@ def get_order_item(order_item_id):
     """
     Retrieve Single Order_Detail
     """
-    res = spcall('get_order_item_id', order_item_id)
+    res = spcall('get_order_item_id', (order_item_id,))
     if len(res) == 0:
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
     else:

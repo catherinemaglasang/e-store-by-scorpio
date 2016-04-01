@@ -41,7 +41,7 @@ Feature: Create, Get and Update supplier details
 
 #  Get Rainy Case
   Scenario: Get a supplier that doesn't exist
-    Given I retrieve a supplier with resource url '/api/v1/suppliers/4/'
+    Given I retrieve the supplier '2'
     When I get the JSON result
     Then I should get a response '200'
     And I should get a "status" containing 'ok'
