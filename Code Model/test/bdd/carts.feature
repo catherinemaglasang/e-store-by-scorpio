@@ -6,7 +6,7 @@ Feature: Create, Get, Delete and Update Cart
     |id | session_id | date_created| customer_id| is_active |
     |1  | 1          | 2016-03-15  | 1          | True      |
     When I Post the cart to resource_url  '/api/v1/carts/'
-    Then I should have a status code response '200'
+    Then I should have a status code '200'
     And I should get a status 'ok'
     And I should get a message 'OK'
 
@@ -16,7 +16,7 @@ Feature: Create, Get, Delete and Update Cart
     |id | session_id | date_created| customer_id| is_active |
     |1  | 1          | 2016-03-15  | 1          | True      |
     When I Post the cart to resource_url  '/api/v1/carts/'
-    Then I should have a status code response '200'
+    Then I should have a status code '200'
     And I should get a status 'ok'
     And I should get a message 'ID EXISTS'
 
@@ -25,8 +25,8 @@ Feature: Create, Get, Delete and Update Cart
   Scenario: Get cart
     Given cart '1' is in the system
     When I retrieve the cart '1'
-    Then I should have a status code response '200'
-    And the following details are returned :
+    Then I should have a status code '200'
+    And the following cart details are returned :
       | session_id | date_created| customer_id| is_active |
       | 1          | 2016-03-15  | 1          | True      |
 
@@ -35,7 +35,7 @@ Feature: Create, Get, Delete and Update Cart
   Scenario: Get a cart that doesn't exist
     Given I retrieve the cart '2'
     When i retrieve a JSON result
-    Then I should have a status code response '200'
+    Then I should have a status code '200'
     And I should get a status 'ok'
     And it should  have a field "message" 'No entries found'
     And it should  have a field "count" 0

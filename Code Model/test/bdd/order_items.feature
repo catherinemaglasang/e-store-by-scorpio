@@ -35,7 +35,7 @@ Feature: Create and get order item
 #   Get Rainy Case
   Scenario: Get an order item that doesn't exist
     Given I retrieve the order item '2'
-    When I retrieve the JSON result
+    When I retrieve JSON result
     Then I should have a response '200'
     And I should have a "status" containing 'ok'
     And It should have a field "message " 'No entries found'

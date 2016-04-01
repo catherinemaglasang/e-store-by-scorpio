@@ -144,8 +144,8 @@ def when_I_Post_the_cart_to_resource_url(step):
     world.cart_post_response = world.app.post(world.cart_post_uri, data=json.dumps(world.cart1))
 
 
-@step("I should have a status code response \'(.*)\'")
-def then_I_should_have_a_status_code_response(step, expected_status_code):
+@step("I should have a status code \'(.*)\'")
+def then_I_should_have_a_status_code(step, expected_status_code):
     """
     :param expected_status_code:
     :type step: lettuce.core.Step
@@ -194,7 +194,7 @@ def when_I_retrieve_the_cart(step, id):
     world.response = world.app.get('/api/v1/carts/{}/'.format(id))
 
 
-@step("the following details are returned :")
+@step("the following cart details are returned :")
 def and_the_following_details_are_returned(step):
     """
     :type step: lettuce.core.Step
@@ -434,8 +434,8 @@ def and_the_following_order_item_details_are_returned(step):
 """ Get order item rainy case """
 
 
-@step("I retrieve the JSON result")
-def when_I_retrieve_the_JSON_result(step):
+@step("I retrieve JSON result")
+def when_I_retrieve_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """
