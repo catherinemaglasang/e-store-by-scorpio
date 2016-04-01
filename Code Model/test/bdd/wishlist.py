@@ -61,12 +61,12 @@ def and_the_following_details_are_returned(step):
 
 
 @step("I retrieve a wishlist with id \'(.*)\'")
-def given_I_retrieve_a_wishlist_with_resource_url(step, url):
+def given_I_retrieve_a_wishlist_with_resource_url(step, id):
     """
     :param url:
     :type step: lettuce.core.Step
     """
-    world.wishlist_uri = url
+    world.wishlist_uri = '/api/v1/wishlist/%s/' % (id)
 
 
 @step("I retrieve the JSON result")
@@ -83,17 +83,18 @@ def step_impl(step, expected_status_code):
     """
     :type step: lettuce.core.Step
     """
+    #raise Exception(world.response.status_code)
     assert_equals(world.response.status_code, int(expected_status_code))
 
 
-@step("I should get the status 'ok'")
+@step("I should get the status says 'ok'")
 def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
     # world.categories = world.app.get('/api/v1/categories/<category_id>/'.format(id))
-    world.resp = world.response.data
-    #raise Exception(json.loads(world.response.data))
+    world.resp = json.loads(world.response.data)
+    #raise Exception(world.resp)
     assert_equals(world.resp['status'], 'ok')
 
 
