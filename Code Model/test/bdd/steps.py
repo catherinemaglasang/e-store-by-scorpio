@@ -250,13 +250,13 @@ def given_I_have_the_following_order_details(step):
     world.order1 = step.hashes[0]
 
 
-@step("I Post the order to resource_url  '/api/v1/orders/'")
-def when_I_Post_the_order_to_resource_url(step):
+@step("I Post the order to resource_url  \'(.*)\'")
+def when_I_Post_the_order_to_resource_url(step, url):
     """
     :type step: lettuce.core.Step
     """
-    world.order_post_uri = '/api/v1/orders/'
-    world.order_post_response = world.app.post(world.order_post_uri, data=json.dumps(world.order1))
+    world.order_post_uri = url
+    world.order_response = world.app.post(world.order_post_uri, data=json.dumps(world.order1))
 
 
 @step("I should get a status of \'(.*)\'")
@@ -265,7 +265,7 @@ def then_I_should_get_a_status_of(step, expected_status_code):
     :param expected_status_code:
     :type step: lettuce.core.Step
     """
-    assert_equals(world.order_post_response.status_code, int(expected_status_code))
+    assert_equals(world.order_response.status_code, int(expected_status_code))
 
 
 @step('I should get a "status" \'(.*)\'')
@@ -273,8 +273,8 @@ def and_I_should_get_a_status(step, status):
     """
     :type step: lettuce.core.Step
     """
-    world.order_post_response_json = json.loads(world.order_post_response.data)
-    assert_equals(world.order_post_response_json['status'], status)
+    world.order_response_json = json.loads(world.order_response.data)
+    assert_equals(world.order_response_json['status'], status)
 
 
 @step('I should get a "message" \'(.*)\'')
@@ -282,7 +282,7 @@ def and_I_should_get_a_message(step, message):
     """
     :type step: lettuce.core.Step
     """
-    world.resp = json.loads(world.order_post_response.data)
+    world.resp = json.loads(world.order_response.data)
     assert_equals(world.resp['message'], message)
 
 
@@ -465,6 +465,7 @@ def and_It_should_have_a_field_message_No_entries_found(step, message):
     """
     world.resp = json.loads(world.response.data)
     assert_equals(world.resp['message'], message)
+
 
 """ CREATE SUPPLIER sunny case"""
 

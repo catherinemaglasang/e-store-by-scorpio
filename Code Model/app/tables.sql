@@ -67,7 +67,7 @@ create table orders(
 create table order_items(
   id int8 primary key,
   order_id int8,
-  product_id int8,
+  product_id text,
   unit_price float8,
   discount float8,
   quantity int8

@@ -236,8 +236,6 @@ $$
   language 'sql';
 
 
-
-
 create or replace function new_order(in par_id int8, in par_customer_id int8, in par_payment_id int8, in par_transaction_date date, in par_shipping_date date, in par_time_stamp timestamp, in par_transaction_status text, par_total float8) returns text as
 $$
   declare
@@ -246,10 +244,12 @@ $$
   begin
     select into loc_id id from orders where id=par_id;
     if loc_id isnull then
-
-       insert into orders(id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_id, par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
-       loc_res = 'OK';
-
+      if par_transaction_status='' or par_id isnull or par_customer_id isnull or par_payment isnull or par_total isnull then
+          loc_res='error';
+      else
+          insert into orders(id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_id, par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
+          loc_res = 'OK';
+      end if;
      else
        loc_res = 'ID EXISTS';
      end if;
@@ -274,7 +274,7 @@ $$
  language 'sql';
 
 
-create or replace function new_order_item(in par_id int8, in par_order_id int8, in par_product_id int8, in par_unit_price float8, in par_discount float8, in par_quantity int8) returns text as
+create or replace function new_order_item(in par_id int8, in par_order_id int8, in par_product_id text, in par_unit_price float8, in par_discount float8, in par_quantity int8) returns text as
 $$
   declare
     loc_id text;
@@ -282,10 +282,12 @@ $$
   begin
     select into loc_id id from order_items where id=par_id;
     if loc_id isnull then
-
-       insert into order_items(id, order_id, product_id, unit_price, discount, quantity) values (par_id, par_order_id, par_product_id, par_unit_price, par_discount, par_quantity);
-       loc_res = 'OK';
-
+       if par_product_id='' or par_id isnull or par_order_id isnull or par_unit_price isnull or par_discount isnull or par_quantity isnull then
+         loc_res='error';
+       else
+         insert into order_items(id, order_id, product_id, unit_price, discount, quantity) values (par_id, par_order_id, par_product_id, par_unit_price, par_discount, par_quantity);
+         loc_res = 'OK';
+       end if;
      else
        loc_res = 'ID EXISTS';
      end if;
@@ -295,6 +297,7 @@ $$
 
 language 'plpgsql';
 
+
 create or replace function get_order_details(out int8, out int8, out int8, out float8, out float8, out int8) returns setof record as
 $$
   select id, order_id, product_id, unit_price, discount, quantity from order_items
@@ -302,7 +305,7 @@ $$
 
 language 'sql';
 
-create or replace function get_order_item_id(in par_id int8, out int8, out int8, out float8, out float8, out int8) returns setof record as
+create or replace function get_order_item_id(in par_id int8, out int8, out text, out float8, out float8, out int8) returns setof record as
 $$
    select order_id, product_id, unit_price, discount, quantity from order_items where id = par_id;
 

@@ -7,16 +7,9 @@ from .models import spcall
 from app import api
 
 PRODUCTS = {}
-SUPPLIERS = {}
 USERS = {}
 CATEGORIES = {}
 WISHLISTS = {}
-ORDER = {}
-CART_DETAILS = {}
-CARTS = {}
-ORDER_DETAILS = {}
-
-
 
 
 @api.route('/', methods=['GET'])
@@ -357,7 +350,7 @@ def new_order():
         data['transaction_status'],
         data['total'],), True)
 
-    if 'Error' in response[0][0]:
+    if 'Error' in str(response[0][0]):
         return jsonify({'status': 'error', 'message': response[0][0]})
 
     return jsonify({'status': 'ok', 'message': response[0][0]}), 200
@@ -381,24 +374,23 @@ def get_order(order_id):
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
 
-# @api.route('/api/v1/orders/', methods=['GET'])
-# def get_all_orders():
-#     """
-#     Retrieve All Orders
-#     """
-#
-#     res = spcall('get_orders', ())
-#
-#     if 'Error' in str(res[0][0]):
-#         return jsonify({'status': 'error', 'message': res[0][0]})
-#
-#     recs = []
-#     for r in res:
-#         recs.append({"id": str(r[0]), "customer_id": str(r[1]), "payment_id": str(r[2]), "transaction_date": str(r[3]),
-#                      "shipping_date": str(r[4]),
-#                      "time_stamp": str(r[5]), "transaction_status": str(r[6]), "total": str(r[7])})
-#     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
-#
+@api.route('/api/v1/orders/', methods=['GET'])
+def get_all_orders():
+    """
+    Retrieve All Orders
+    """
+
+    res = spcall('get_orders', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": str(r[0]), "customer_id": str(r[1]), "payment_id": str(r[2]), "transaction_date": str(r[3]),
+                     "shipping_date": str(r[4]),
+                     "time_stamp": str(r[5]), "transaction_status": str(r[6]), "total": str(r[7])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
 """ ORDER ITEM """
