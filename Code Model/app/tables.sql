@@ -24,14 +24,14 @@ create table carts (
    is_active boolean
 );
 
-create table categories (
-   id int8 primary key,
-   name text,
-   description text,
-   main_image bytea,
-   parent_category_id int8,
-   is_active boolean
-);
+-- create table categories (
+--    id int8 primary key,
+--    name text,
+--    description text,
+--    main_image bytea,
+--    parent_category_id int8,
+--    is_active boolean
+-- );
 
 create table cart_items (
    id int8 primary key,

@@ -3,19 +3,23 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
 	$stateProvider
 		.state('dashboard', {
 			url: '/dashboard',
-			templateUrl: 'static/pages/dashboard/base.html'
+			templateUrl: 'static/pages/dashboard/base.html',
+			controller: 'DashboardController'
 		})
 		.state('dashboard.home', {
 			url: '/',
-			templateUrl: 'static/pages/dashboard/home.html'
+			templateUrl: 'static/pages/dashboard/home.html',
+			controller: 'DashboardController'
 		})
-		.state('dashboard.products', {
-			url: '/products',
-			templateUrl: 'static/pages/dashboard/products/products.html'
+		.state('dashboard.items', {
+			url: '/items',
+			templateUrl: 'static/pages/dashboard/products/products.html',
+			controller: 'DashboardController'
 		})
 		.state('dashboard.add_product', {
-			url: '/products/add',
-			templateUrl: 'static/pages/dashboard/products/add_product.html'
+			url: '/items/add',
+			templateUrl: 'static/pages/dashboard/products/add_product.html',
+			controller: 'DashboardController'
 		})
 
 		.state('shop', {

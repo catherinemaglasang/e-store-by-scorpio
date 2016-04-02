@@ -47,7 +47,6 @@ def i_post_to_the_url_url(step, url):
 
 @step('I get a field "(.*)" containing "(.*)"')
 def i_get_a_field_field_containing_value(step, field, field_value):
-    print world.response_data
     assert_equals(world.response_data[field], field_value)
 # ----------------------------------------------------------------
 # Common steps for updating data in any of the tables.
@@ -71,7 +70,6 @@ def i_have_the_resource_url(step, resource_url):
 @step("I send a PUT request from client")
 def i_send_a_put_request_from_client(step):
     world.response = world.app.put(world.resource, data = json.dumps(world.new_resource_data))
-    print world.response
     world.response_data = json.loads(world.response.data)
 
 # The rest of the field checking steps are already implemented

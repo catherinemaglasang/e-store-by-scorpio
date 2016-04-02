@@ -1,5 +1,6 @@
 mainApp.controller("ShopController", ['$scope','$http', function($scope,$http) {
 	// Dummy Data
+
 	$scope.products = [{'id': '1', 'title': 'Product 1', 'description' : 'Product 1 Description', 'primary_image': 'static/img/500x500.png', 'link_url': '#/shop/product/1', 'features' : ['Free Shipping'], 'old_price': '1000', 'current_price': '800'}, {'title': 'Product 1', 'description' : 'Product 1 Description', 'primary_image': 'static/img/500x500.png', 'link_url': '#/shop/product/1', 'features' : ['Free Shipping'], 'old_price': '1000', 'current_price': '800'}, {'title': 'Product 1', 'description' : 'Product 1 Description', 'primary_image': 'static/img/500x500.png', 'link_url': '#/shop/product/1', 'features' : ['Free Shipping'], 'old_price': '1000', 'current_price': '800'}]
 
 	$scope.product = {'id': '1', 'title': 'Product 1', 'description' : 'Product 1 Description', 'primary_image': 'static/img/500x500.png', 'link_url': '#/shop/product/1', 'features' : ['Free Shipping'], 'old_price': '1000', 'current_price': '800'};
@@ -17,3 +18,6 @@ mainApp.controller("ShopController", ['$scope','$http', function($scope,$http) {
 
 	$scope.brands = [{'title': 'Apple', 'item_count': 50}, {'title': 'Orange', 'item_count': 50}, ]
 }]);
+
+
+
