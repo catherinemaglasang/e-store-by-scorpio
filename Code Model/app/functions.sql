@@ -298,12 +298,12 @@ $$
 language 'plpgsql';
 
 
-create or replace function get_order_details(out int8, out int8, out int8, out float8, out float8, out int8) returns setof record as
-$$
-  select id, order_id, product_id, unit_price, discount, quantity from order_items
-$$
+  create or replace function get_order_items(out int8, out int8, out int8, out float8, out float8, out int8) returns setof record as
+  $$
+    select id, order_id, product_id, unit_price, discount, quantity from order_items
+  $$
 
-language 'sql';
+  language 'sql';
 
 create or replace function get_order_item_id(in par_id int8, out int8, out text, out float8, out float8, out int8) returns setof record as
 $$

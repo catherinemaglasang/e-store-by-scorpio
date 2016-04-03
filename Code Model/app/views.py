@@ -331,6 +331,23 @@ def get_cart(cart_id):
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
+@api.route('/api/v1/carts/', methods=['GET'])
+def get_carts():
+    """
+    Retrieve All Orders
+    """
+
+    res = spcall('get_carts', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": str(r[0]), "session_id": r[1], "date_created": str(r[2]), "customer_id": r[3], "is_active": r[4]})
+
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 """ END OF CART """
 
 """ ORDER """
@@ -375,7 +392,7 @@ def get_order(order_id):
 
 
 @api.route('/api/v1/orders/', methods=['GET'])
-def get_all_orders():
+def get_orders():
     """
     Retrieve All Orders
     """
@@ -396,23 +413,23 @@ def get_all_orders():
 """ ORDER ITEM """
 
 
-# @api.route('/api/v1/order_details', methods=['GET'])
-# def get_all_order_details():
-#     """
-#     Retrieve All Order_Details
-#     """
-#
-#     res = spcall('get_order_details', ())
-#
-#     if 'Error' in str(res[0][0]):
-#         return jsonify({'status': 'error', 'message': res[0][0]})
-#
-#     recs = []
-#     for r in res:
-#         recs.append({"id": str(r[0]), "order_id": str(r[1]), "product_id": str(r[2]), "unit_price": str(r[3]),
-#                      "discount": str(r[4]),
-#                      "quantity": str(r[5])})
-#     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+@api.route('/api/v1/order_items/', methods=['GET'])
+def get_order_items():
+    """
+    Retrieve All Order_Details
+    """
+
+    res = spcall('get_order_items', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"id": str(r[0]), "order_id": str(r[1]), "product_id": str(r[2]), "unit_price": str(r[3]),
+                     "discount": str(r[4]),
+                     "quantity": str(r[5])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
 @api.route('/api/v1/order_items/<order_item_id>/', methods=['GET'])
