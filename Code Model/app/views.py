@@ -226,28 +226,6 @@ def get_supplier(supplier_id):
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
 
-@api.route('/api/v1/suppliers/<supplier_id>/', methods=['PUT'])
-def update_supplier(supplier_id):
-    jsn = json.loads(request.data)
-    id = jsn.get('id', '')
-    name = jsn.get('name', ''),
-    address = jsn.get('address', ''),
-    phone = jsn.get('phone', ''),
-    fax = jsn.get('fax', ''),
-    email = jsn.get('email', ''),
-    is_active = True
-    response = spcall('update_supplier_id', (
-        id,
-        name,
-        address,
-        phone,
-        fax,
-        email,
-        is_active), True)
-
-    return jsonify({"status": "ok"})
-
-
 @api.route('/api/v1/suppliers/', methods=['GET'])
 def get_all_suppliers():
     res = spcall('get_suppliers', ())

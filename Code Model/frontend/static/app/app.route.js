@@ -21,6 +21,16 @@ mainApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
 			templateUrl: 'static/pages/dashboard/products/add_product.html',
 			controller: 'DashboardController'
 		})
+		.state('dashboard.add_supplier', {
+			url: '/suppliers/add',
+			templateUrl:'static/pages/dashboard/suppliers/add_supplier.html',
+			controller: 'DashboardController'
+		})
+		.state('dashboard.suppliers', {
+			url: '/suppliers',
+			templateUrl:'static/pages/dashboard/suppliers/suppliers.html',
+			controller: 'DashboardController'
+		})
 
 		.state('shop', {
 			url: '/shop',

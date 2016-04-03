@@ -1,1 +1,12 @@
 /*YOUR CUSTOM STYLES*/
+
+/*ADD NEW SUPPLIER*/
+div.container-supplier{
+    background-color: white;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1000px;
+}
+/* END OF ADD NEW SUPPLIER */
