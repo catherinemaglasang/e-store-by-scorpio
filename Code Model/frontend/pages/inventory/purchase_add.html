@@ -1,0 +1,139 @@
+<section class="content-header">
+    <h1>
+        Add Purchase Order
+        <small>Status: Open</small>
+    </h1>
+</section>
+
+<section class="content">
+    <form action="" class="form">
+        <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Basic Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">PO ID <small>(Auto-generated if blank)</small></label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Date Issued</label>
+                            <input type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Date Expected</label>
+                            <input type="date" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Shipment Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Supplier</label>
+                            <select name="" id="" class="form-control">
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Shipping Method</label>
+                            <select name="" id="" class="form-control">
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Payment Terms</label>
+                            <select name="" id="" class="form-control">
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Tracking No</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Purchase Order Items</h3>
+            </div>
+            <div class="box-body">
+                <table class="table table-striped table-hover table-condensed table-responsive">
+                    <thead>
+                    <tr>
+                        <th width="50px"></th>
+                        <th>Item Description</th>
+                        <th>Supplier Part No</th>
+                        <th>Qty</th>
+                        <th>Available Stock</th>
+                        <th>Unit Cost</th>
+                        <th>Tax Percentage</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><img src="http://placehold.it/50x50" alt=""></td>
+                        <td>BMW Watts 2</td>
+                        <td>SP1263</td>
+                        <td>100</td>
+                        <td>1</td>
+                        <td>10</td>
+                        <td>12%</td>
+                        <td>1000</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+        <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Purchase Order Notes</h3>
+            </div>
+            <div class="box-body">
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <!--<label for="">Notes</label>-->
+                            <textarea class="form-control" id="" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Save">
+            <a href="#/inventory" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+
+</section>

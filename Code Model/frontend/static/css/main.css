@@ -4,6 +4,10 @@ body, html {
     overflow-x: hidden;
 }
 
+.content-wrapper, .right-side {
+
+}
+
 .wrapper {
     min-height:100%;
 }
@@ -11,4 +15,83 @@ body, html {
 #content {
     min-height:100%;
     background: #fff;
+}
+
+table {
+    background-color: white;
+}
+
+.top {
+    background: white;
+}
+
+.top p {
+    margin-bottom: 0;
+}
+
+.nav.nav-tabs li:hover {
+    cursor: pointer;
+}
+
+.content {
+    margin-bottom:50px;
+}
+
+.content-header {
+    margin-top: 50px;
+}
+
+.box .box-body {
+    overflow-x: scroll;
+}
+
+.nav-tabs-custom.nav-table {
+    box-shadow: 0 2px 0px rgba(0,0,0,0.1)
+}
+.nav-table {
+    background: transparent;
+}
+
+.nav-table .table {
+    margin-bottom: 0;
+}
+
+.nav-table .tab-content{
+    /*padding: 0;*/
+    background: white;
+    border-radius: 5px;
+}
+
+.nav-table .nav-tabs {
+    background: transparent;
+    border: transparent;
+    margin-bottom:10px;
+}
+
+.nav-table .nav-tabs a {
+    /*font-size: 12px;*/
+    color: #ecf0f5;
+}
+
+.nav-table .nav-tabs a, .nav-table .nav-tabs li, .nav-table .nav-tabs li.active a{
+    border: 0;
+}
+
+.nav-table .nav-tabs li.active{
+    background: transparent;
+}
+
+.nav-table .nav-tabs li.active a, .nav-table .nav-tabs li.active:hover a{
+    background: transparent;
+    font-weight:bolder;
+    color: #333;
+}
+
+.nav-table .tab-content table thead th{
+    /*padding-top: 30px;*/
+    /*background: #ecf0f5;*/
+}
+
+.nav-table .tab-content table td{
+    vertical-align: middle;
 }

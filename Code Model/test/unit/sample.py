@@ -30,7 +30,7 @@ UserRole = [
 Role = {
   'role_id': '1',
   'name': 'admin',
-  'description': 'Primary role needed to view dashboard. Each company owner will have admin access. Admin will be the paying user'
+  'description': 'Primary role needed to view dashboard. Each company owner will have admin access. Admin will be the paying user'.
 }
 
 Site = {
@@ -132,9 +132,9 @@ ProductPrice = {
 
 ProductImage = {
   'image_id': '1',
-  'media_url': 'media/12/41',
-  'product_id': '1',
-  'date_added':'1/1/1'
+  'media_url': 'media/12/41'
+               'product_id': '1',
+                             'date_added': '1/1/1',
 }
 
 Order = {

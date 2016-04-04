@@ -1,0 +1,104 @@
+<section class="content-header">
+    <h1>
+        Stock Transfer
+
+        <div class="pull-right form-group">
+            <div class="row">
+                <div class="col-md-2"><label for="">
+                    <small>Date:</small>
+                </label>
+                </div>
+                <div class="col-md-10">
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+        </div>
+    </h1>
+</section>
+
+<section class="content">
+    <form action="" class="form">
+
+        <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Details</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Source</label>
+                            <select class="form-control">
+                                <option value="1">Main Warehouse</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Destination</label>
+                            <select class="form-control">
+                                <option value="1">Main Warehouse</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Items</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-condensed table-striped table-hover table-responsive">
+                            <thead>
+                            <tr>
+                                <th width="1%">#</th>
+                                <th>Item ID</th>
+                                <th>Qty</th>
+                                <th width="10%"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>100</td>
+                                <td><a href="">Edit</a> <a href="">Delete</a></td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6"><a href="" ng-click=""><i class="fa fa-plus-circle"></i> Add Item</a>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box box-solid">
+            <div class="box-header">
+                <h3 class="box-title">Notes</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Notes</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary">
+            <a href="#/transfer" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+
+</section>

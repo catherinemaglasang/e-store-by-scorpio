@@ -1,3 +1,2 @@
-// Primary Module
-var mainApp = mainApp || angular.module('MainApp', ['ui.router', 'ngResource']);
+var mainApp = mainApp || angular.module('MainApp', ['ngRoute', 'ngResource']);
 

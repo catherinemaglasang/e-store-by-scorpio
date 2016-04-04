@@ -1,0 +1,99 @@
+<section class="content-header">
+    <h1>
+        Inventory
+    </h1>
+</section>
+<section class="content">
+    <div class="nav-tabs-custom nav-table">
+        <ul class="nav nav-tabs">
+            <li class="active"><a style="padding-left: 0;" data-target="#tab_1" data-toggle="tab" aria-expanded="true">Items</a>
+            </li>
+            <li><a data-target="#tab_3" data-toggle="tab" aria-expanded="false">Types</a></li>
+            <li><a data-target="#tab_4" data-toggle="tab" aria-expanded="false">Locations</a></li>
+
+            <li class="pull-right"><a style="padding-right: 0;" href=""><i class="fa fa-upload"></i> Import/Export</a>
+            </li>
+            <li class="pull-right"><a href="#/inventory/items/add"><i class="fa fa-plus-circle"></i> Add New Item</a></li>
+
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+
+                <table class="table table-striped table-hover table-condensed table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>S/N</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Active</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in itemList">
+                        <td>{{ item.item_id}}</td>
+                        <td>{{ item.serial_no }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.type_id }}</td>
+                        <td>{{ item.is_active }}</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_3">
+                <table class="table table-striped table-hover table-condensed table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Type ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Attributes</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="type in typeList">
+                        <td>{{ type.type_id }}</td>
+                        <td>{{ type.type_name }}</td>
+                        <td>{{ type.type_description}}</td>
+                        <td> <span ng-repeat="attr in type.attributes">{{ attr.attribute_name }}{{$last ? '' : ', '}}</span></td>
+                        <td><a href="#/inventory/types/{{type.type_id}}">Edit</a></td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th><a class="btn btn-default" href="#/inventory/types/add">Add New Type</a></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="tab-pane" id="tab_4">
+                <table class="table table-striped table-hover table-condensed table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Location ID</th>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="location in locationList">
+                        <td>{{ location.location_id }}</td>
+                        <td>{{ location.location_name }}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th><a class="btn btn-default" href="#/inventory/locations/add">Add New Location</a></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <!-- /.tab-content -->
+    </div>
+
+</section>

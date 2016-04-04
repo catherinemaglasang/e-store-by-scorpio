@@ -10,8 +10,7 @@ def create_app(_config='development'):
     CORS(app)
     app.config.from_object(config[_config])
 
-    from app import views
-    from app.product import controller
+    from app.inventory import controller
 
     app.register_blueprint(api)
 

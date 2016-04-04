@@ -1,98 +1,132 @@
-mainApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.otherwise('/shop/');
-	$stateProvider
-		.state('dashboard', {
-			url: '/dashboard',
-			templateUrl: 'static/pages/dashboard/base.html',
-			controller: 'DashboardController'
-		})
-		.state('dashboard.home', {
-			url: '/',
-			templateUrl: 'static/pages/dashboard/home.html',
-			controller: 'DashboardController'
-		})
-		.state('dashboard.items', {
-			url: '/items',
-			templateUrl: 'static/pages/dashboard/products/products.html',
-			controller: 'DashboardController'
-		})
-		.state('dashboard.add_product', {
-			url: '/items/add',
-			templateUrl: 'static/pages/dashboard/products/add_product.html',
-			controller: 'DashboardController'
-		})
+mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
 
-		.state('shop', {
-			url: '/shop',
-			templateUrl: 'static/pages/shop/base.html',
-			controller: 'ShopController'
-		})
-		.state('shop.home', {
-			url: '/',
-			templateUrl: 'static/pages/shop/home.html'
-		})
-		.state('shop.page', {
-			url: '/page',
-			templateUrl: 'static/pages/shop/simple/page.html'
-		})
-		.state('shop.blog', {
-			url: '/blog',
-			templateUrl: 'static/pages/shop/blog/blog.html'
-		})
-		.state('shop.contact', {
-			templateUrl: 'static/pages/shop/simple/contact.html'
-		})
-		.state('shop.cart', {
-			url: '/cart',
-			templateUrl: 'static/pages/shop/checkout/cart.html'
-		})
-		.state('shop.checkout', {
-			url: '/checkout',
-			templateUrl: 'static/pages/shop/checkout/checkout.html'
-		})
-		.state('shop.catalogue', {
-			url: '/catalogue',
-			templateUrl: 'static/pages/shop/product/category.html'
-		})
-		.state('shop.categoryDetail', {
-			url: '/category/:id',
-			templateUrl: 'static/pages/shop/product/category.html'
-		})
-		.state('shop.productDetail', {
-			url: '/product/:id',
-			templateUrl: 'static/pages/shop/product.html'
-		})
-		.state('shop.login', {
-			url: '/login',
-			templateUrl: 'static/pages/login.html'
-		})
-		.state('shop.register', {
-			url: '/register',
-			templateUrl: 'static/pages/register.html'
-		})
-		.state('shop.password_reset', {
-			url: '/password/reset',
-			templateUrl: 'static/pages/password_reset.html'
-		})
-		.state('shop.account', {
-			url: '/account',
-			templateUrl: 'static/pages/account/base.html'
-		})
-		.state('shop.account.home', {
-			url: '/',
-			templateUrl: 'static/pages/account/profile.html'
-		})
-		.state('shop.account.orders', {
-			url: '/orders',
-			templateUrl: 'static/pages/account/orders.html'
-		}).state('shop.account.address', {
-			url: '/address',
-			templateUrl: 'static/pages/account/address_book.html'
-		}).state('shop.account.notifications', {
-			url: '/notifications',
-			templateUrl: 'static/pages/account/notifications.html'
-		}).state('shop.account.wishlist', {
-			url: '/wishlist',
-			templateUrl: 'static/pages/account/wishlist.html'
-		});
-}]);
+    $routeProvider
+        .when('/login', {
+            templateUrl: 'pages/login.html',
+            controller: 'MainController'
+        })
+
+        .when('/reports', {
+            templateUrl: 'pages/reports.html',
+            controller: 'MainController'
+        })
+
+        // Inventory Module
+
+        .when('/inventory/items/all', {
+            templateUrl: 'pages/inventory/item_list.html',
+            controller: 'MainController'
+        })
+
+
+        .when('/inventory/types/all', {
+            templateUrl: 'pages/inventory/type_list.html',
+            controller: 'MainController'
+        })
+
+
+        .when('/inventory/locations/all', {
+            templateUrl: 'pages/inventory/location_list.html',
+            controller: 'MainController'
+        })
+
+        .when('/inventory/items/add', {
+            templateUrl: 'pages/inventory/item_form.html',
+            controller: 'MainController'
+        })
+
+        .when('/inventory/types/add', {
+            templateUrl: 'pages/inventory/type_form.html',
+            controller: 'MainController'
+        })
+
+        .when('/inventory/locations/add', {
+            templateUrl: 'pages/inventory/location_form.html',
+            controller: 'MainController'
+        })
+
+        .when('/inventory', {
+            templateUrl: 'pages/inventory/inventory.html',
+            controller: 'MainController'
+        })
+
+        .when('/inventory/items/:id', {
+            templateUrl: 'pages/inventory/item_detail.html',
+            controller: 'MainController'
+        })
+
+        .when('/inventory/types/:id', {
+            templateUrl: 'pages/inventory/type_detail.html',
+            controller: 'TypeDetailController'
+        })
+
+        .when('/inventory/locations/:id', {
+            templateUrl: 'pages/inventory/location_detail.html',
+            controller: 'MainController'
+        })
+
+
+
+        // Supply & Purchasing Module
+
+        .when('/purchase', {
+            templateUrl: 'pages/purchase.html',
+            controller: 'MainController'
+        })
+
+        .when('/purchase/add', {
+            templateUrl: 'pages/purchase_add.html',
+            controller: 'MainController'
+        })
+
+        .when('/vendors/add', {
+            templateUrl: 'pages/purchase_add.html',
+            controller: 'MainController'
+        })
+
+        // Point of Sales Module
+
+        .when('/sales', {
+            templateUrl: 'pages/sales.html',
+            controller: 'MainController'
+        })
+
+        .when('/sales/add', {
+            templateUrl: 'pages/sales_add.html',
+            controller: 'MainController'
+        })
+
+        // Stock movement and transfer Module
+
+        .when('/adjustment', {
+            templateUrl: 'pages/adjustment.html',
+            controller: 'MainController'
+        })
+
+        .when('/adjustment/add', {
+            templateUrl: 'pages/adjustment_add.html',
+            controller: 'MainController'
+        })
+
+        .when('/transfer', {
+            templateUrl: 'pages/transfer.html',
+            controller: 'MainController'
+        })
+
+        .when('/transfer/add', {
+            templateUrl: 'pages/transfer_add.html',
+            controller: 'MainController'
+        })
+
+        // 404 Pages
+
+        .when('/404', {
+            templateUrl: 'pages/404.html'
+        })
+
+        .otherwise({
+            redirectTo: '/inventory/items/all'
+        });
+
+    $resourceProvider.defaults.stripTrailingSlashes = false;
+});

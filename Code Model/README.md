@@ -1,30 +1,14 @@
-## Project e-store
+## Welcome to the Inventory Tracking & Control Module
 
-#### Running the app locally (Type the ff in terminal)
+## Run the app locally
 ````
-pip install virtualenv
-pip install virtualenvwrapper
+# In root of the repository
+python run.py 
+cd frontend
 
-sudo nano ~/.bashrc 
-# Add the ff line at the end of the file: source '/usr/local/bin/virtualenvwrapper.sh'
-source ~/.bashrc
+# Run server for frontend
+python -m SimpleHTTPServer
 
-mkvirtualenv estore
-workon e-store		# activate virtualenv
-
-pip install -r requirements.txt
-python run.py
+# Run tests (optional) 
+lettuce test/bdd/features
 ````
-
-#### README!!
-
-Folder named 'frontend' contains our html files
-
-Folder named 'app' hosts our api
-
-This app will be described as a Single Page Application. Flask will only serve one html - index.html and our javascript and jquery will do the magic in the front end. Implementing an SPA is easier with the use of Javascript Based Frameworks, but we're going to transition gradually. 
-
-Run the app by typing 'python run.py' 
-
-**DATABASE**
-We will be using stored procedure calls to interact with our database, hence, it will be a challenge to keep our dbs synced. BUT, a script has been created, to be run using 'python db.py' to setup our db tables and functions. 

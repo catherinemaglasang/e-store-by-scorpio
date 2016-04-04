@@ -1,0 +1,251 @@
+// Table sample data POST & PUT
+
+{
+  "areas": {
+    "area_id": "1",
+    "area_description": "test"
+  },
+  "attributes": {
+    "attribute_id": 1,
+    "type_id": 1,
+    "attribute_name": "isbn",
+    "validation": "text"
+  },
+  "customers": {
+    "customer_id": 1,
+    "name": "Roselle Ebarle",
+    "billing_address": "Iligan City",
+    "shipping_address": "Iligan City"
+  },
+  "images": {
+    "image_id": 1,
+    "item_id": 1,
+    "image_url": "http://localhost:5000",
+    "caption": "test caption"
+  },
+  "item_attributes": {
+    "item_attribute_id": 1,
+    "attribute_id": 1,
+    "item_id": 1,
+    "attribute_value": "value"
+  },
+  "item_variation_options": {
+    "item_variation_option_id": 1,
+    "option_id": 1,
+    "item_variation_id": 1
+  },
+  "item_variations": {
+    "item_variation_id": 1,
+    "item_id": 1,
+    "stock_on_hand": 100,
+    "unit_cost": 10,
+    "re_order_level": 10,
+    "re_order_quantity": 100,
+    "is_active": true
+  },
+  "items": {
+    "item_id": 1,
+    "site_id": 1,
+    "serial_no": 100,
+    "tax_class_id": 1,
+    "type_id": 1,
+    "name": "name",
+    "description": "description",
+    "date_added": "now()",
+    "date_updated": "now()",
+    "is_taxable": true,
+    "is_active": true,
+    "has_variations": true
+  },
+  "location_items": {
+    "location_item_id": 1,
+    "location_id": 1,
+    "item_id": 1,
+    "area_id": 1,
+    "notes": "none"
+  },
+  "locations": {
+    "location_id": 1,
+    "location_name": 1,
+  },
+  "option_groups": {
+    "option_group_id": 1,
+    "option_group_name": "Size",
+    "option_group_description": "The size of the item"
+  },
+  "options": {
+    "option_id": 1,
+    "option_group_id": 1,
+    "option_value": "Small"
+  },
+  "purchase_order_items": {
+    "purchase_order_item_id": 1,
+    "purchase_order_id": 1,
+    "supplier_part_no": "PT123",
+    "quantity": 100,
+    "unit_cost": 10,
+    "total_ordered": 100,
+    "total_received": 0,
+    "discount": 0,
+    "discount_percentage": 0,
+    "tax_percentage": 0
+  },
+  "purchase_orders": {
+    "purchase_order_id": 1,
+    "vendor_id": 1,
+    "date_issued": "now()",
+    "date_expected": "tomorrow()",
+    "status": "open",
+    "reference_no": "RF134",
+    "notes": "none",
+    "shipping_fee": 0,
+    "tracking_no": "TR155"
+  },
+  "sales_order_items": {
+    "sales_order_item_id": 1,
+    "item_id": 1,
+    "sales_order_id": 1,
+    "quantity": 100,
+    "actual_unit_cost": 11,
+    "discount": 10,
+    "discount_percentage": 0,
+    "total_cost": 1100
+  },
+  "sales_orders": {
+    "sales_order_id": 1,
+    "created_by": 1,
+    "customer_id": 1,
+    "created_at": "now()",
+    "or_number": "1235",
+    "reference_no": "RN0242"
+  },
+  "sites": {
+    "site_id": 1,
+    "owner_id": 1,
+    "name": "Shop 1",
+    "business_code": "BN155",
+    "domain": "http://localhost.com"
+  },
+  "stock_adjustments": {
+    "stock_adjustment_id": 1,
+    "item_id": 1,
+    "new_quantity": 150
+  },
+  "tax_classes": {
+    "tax_class_id": 1,
+    "name": "VAT",
+    "tax_percentage": 10,
+    "description": "North"
+  },
+  "transfer_items": {
+    "transfer_item_id": 1,
+    "item_id": 1,
+    "transfer_id": 1,
+    "quantity": 100,
+  },
+  "transfers": {
+    "transfer_id": 1,
+    "source_location": 1,
+    "destination_location": 1,
+    "date_transferred": "now()",
+  },
+  "types": {
+    "type_id": 1,
+    "type_name": "type name",
+    "type_description": "type desc"
+  },
+  "users": {
+    "user_id": 1,
+    "username": "rosing",
+    "email": "email",
+    "date_created": "now()",
+  },
+  "vendors": {
+    "vendor_id": 1,
+    "name": "name",
+    "billing_address": "Addr",
+    "shipping_address": "SDF"
+  },
+  // REST API OUTPUT
+  // List all items
+  "/api/v1/items/": {
+    "links": {
+      "next": {
+        "href": "http://localhost:5000/api/v1/items?start=21&count=1"
+      },
+      "self": {
+        "href": "http://localhost:5000/api/v1/items?start=21&count=1"
+      },
+      "first": {
+        "href": "http://localhost:5000/api/v1/items?start=21&count=1"
+      },
+      "prev": {
+        "href": "http://localhost:5000/api/v1/items?start=21&count=1"
+      }
+    },
+    "items": [{
+      "item_id": 1,
+      "site_id": 1,
+      "tax_class_id": 1,
+      "type_id": 1,
+      "serial_no": 100,
+      "name": "name",
+      "description": "description",
+      "date_added": "now()",
+      "date_updated": "now()",
+      "is_taxable": true,
+      "is_active": true,
+      "has_variations": true,
+      "variations": [],
+
+      "links": {
+        "type": {
+          "href": "http://localhost:5000/api/v1/types/1"
+        },
+        "attributes": {
+          "href": "http://localhost:5000/api/v1/attributes/1"
+        },
+        "tax_class": {
+          "href": ""
+        },
+        "site": {
+          "href": ""
+        }
+      }
+    }]
+  },
+  "/api/v1/types/": {
+    "types": [
+      {
+        "type_id": 1,
+        "type_name": "type name",
+        "type_description": "type desc",
+        "attributes": [
+          {
+            "attribute_id": 1,
+            "type_id": 1,
+            "attribute_name": "isbn",
+            "validation": "text"
+          }
+        ]
+      }
+    ]
+  },
+  "/api/v1/locations/": {
+    "locations": [
+      {
+        "location_id": 1,
+        "location_name": 1,
+        "items": [
+          {
+            "location_item_id": 1,
+            "location_id": 1,
+            "item_id": 1,
+            "area_id": 1,
+            "notes": "none"
+          }
+        ]
+      }
+    ]
+  }
+}
