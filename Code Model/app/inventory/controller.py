@@ -5,13 +5,6 @@ from app.db import spcall
 from app import api
 from app.utils import build_json
 
-from sqlalchemy import Table, Column, Integer, String
-from sqlalchemy import create_engine, MetaData
-
-engine = create_engine('postgresql://postgres:postgres@127.0.0.1:5432/Invento', convert_unicode=True)
-metadata = MetaData(bind=engine)
-
-locations = Table('locations', metadata, autoload=True)
 
 
 @api.route('/', methods=['GET'])
@@ -163,8 +156,6 @@ def attributes_get(type_id, attribute_id=None):
 @api.route('/api/v1/locations/', methods=['GET'])
 @api.route('/api/v1/locations/<location_id>/', methods=['GET'])
 def locations_get(location_id=None):
-    # return jsonify(dict(locations.select(locations.c.location_id == location_id).execute().first()))
-
     response = spcall('locations_get', (location_id,))
 
     json_dict = build_json(response)
