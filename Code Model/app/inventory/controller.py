@@ -6,7 +6,6 @@ from app import api
 from app.utils import build_json
 
 
-
 @api.route('/', methods=['GET'])
 def index():
     return jsonify({"status": "ok", "message": "ok"})
@@ -61,6 +60,7 @@ def types_upsert(type_id=None):
         status_code = 201
 
     return jsonify(json_dict), status_code
+
 
 @api.route('/api/v1/types/<type_id>/attributes/', methods=['POST'])
 @api.route('/api/v1/types/<type_id>/attributes/<attribute_id>', methods=['PUT'])
@@ -131,7 +131,7 @@ def types_get(type_id=None):
     for row in response:
         r = dict(row)
 
-        attributes = spcall('attributes_get', (None, r['type_id'], ))
+        attributes = spcall('attributes_get', (None, r['type_id'],))
         attribute_list = []
         for row in attributes:
             attribute_list.append(dict(row))
@@ -140,8 +140,8 @@ def types_get(type_id=None):
 
     ret = {'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)}
 
-
     return jsonify(ret)
+
 
 @api.route('/api/v1/types/<type_id>/attributes/', methods=['GET'])
 @api.route('/api/v1/types/<type_id>/attributes/<attribute_id>/', methods=['GET'])
