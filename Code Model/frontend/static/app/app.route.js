@@ -65,8 +65,6 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
             controller: 'MainController'
         })
 
-
-
         // Supply & Purchasing Module
 
         .when('/purchase', {
@@ -115,6 +113,18 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
 
         .when('/transfer/add', {
             templateUrl: 'pages/transfer_add.html',
+            controller: 'MainController'
+        })
+
+        // Dashboard Pages
+
+        .when('/dashboard/suppliers/add', {
+            templateUrl: 'pages/dashboard/suppliers/add_supplier.html',
+            controller: 'MainController'
+        })
+
+        .when('/dashboard/suppliers/all', {
+            templateUrl: 'pages/dashboard/suppliers/suppliers.html',
             controller: 'MainController'
         })
 
