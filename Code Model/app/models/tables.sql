@@ -1,13 +1,44 @@
-CREATE TABLE areas (
-  area_id          SERIAL UNIQUE NOT NULL PRIMARY KEY,
-  area_description TEXT
+-- -------------------------------------
+-- Authentication & Registration Module
+-- -------------------------------------
+CREATE TABLE customers (
+  id               INT8 PRIMARY KEY,
+  first_name       TEXT,
+  last_name        TEXT,
+  address          TEXT,
+  city             TEXT,
+  state            TEXT,
+  postal_code      TEXT,
+  country          TEXT,
+  phone            TEXT,
+  email            TEXT UNIQUE,
+  user_id          INT8,
+  billing_address  TEXT,
+  shipping_address TEXT,
+  date_created     TIMESTAMP
 );
 
-CREATE TABLE customers (
-  customer_id      SERIAL NOT NULL PRIMARY KEY,
-  name             TEXT,
-  billing_address  TEXT,
-  shipping_address VARCHAR(100)
+CREATE TABLE users (
+  user_id      SERIAL       NOT NULL PRIMARY KEY,
+  username     VARCHAR(100) NOT NULL UNIQUE,
+  email        VARCHAR(100) NOT NULL,
+  password     VARCHAR(100) NOT NULL,
+  date_created TIMESTAMP DEFAULT now(),
+  is_admin     BOOLEAN
+);
+
+-- -------------------------------------
+-- Inventory Module
+-- -------------------------------------
+
+CREATE TABLE suppliers (
+  id        SERIAL UNIQUE NOT NULL PRIMARY KEY,
+  name      TEXT,
+  address   TEXT,
+  phone     TEXT,
+  fax       TEXT,
+  email     TEXT,
+  is_active BOOLEAN
 );
 
 CREATE TABLE locations (
@@ -47,16 +78,6 @@ CREATE TABLE types (
   type_description TEXT
 );
 
-CREATE TABLE users (
-  user_id      SERIAL       NOT NULL PRIMARY KEY,
-  username     VARCHAR(100) NOT NULL UNIQUE,
-  email        VARCHAR(100) NOT NULL,
-  password     VARCHAR(100) NOT NULL,
-  date_created TIMESTAMP DEFAULT now(),
-  is_admin     BOOLEAN
-);
-
-
 CREATE TABLE attributes (
   attribute_id   SERIAL NOT NULL PRIMARY KEY,
   attribute_name TEXT,
@@ -85,18 +106,10 @@ CREATE TABLE sales_orders (
   reference_no   TEXT
 );
 
-CREATE TABLE sites (
-  site_id       SERIAL NOT NULL PRIMARY KEY,
-  name          TEXT,
-  business_code TEXT,
-  owner_id      INTEGER REFERENCES users,
-  domain        TEXT
-);
 
 CREATE TABLE items (
   item_id        SERIAL NOT NULL PRIMARY KEY,
   serial_no      TEXT,
-  site_id        INTEGER REFERENCES sites,
   name           TEXT,
   description    TEXT,
   date_added     TIMESTAMP DEFAULT now(),
@@ -112,8 +125,7 @@ CREATE TABLE location_items (
   location_item_id SERIAL NOT NULL PRIMARY KEY,
   notes            TEXT,
   location_id      INTEGER REFERENCES locations,
-  item_id          INTEGER REFERENCES items,
-  area_id          INTEGER REFERENCES areas
+  item_id          INTEGER REFERENCES items
 );
 
 CREATE TABLE purchase_order_items (
@@ -183,15 +195,29 @@ CREATE TABLE item_variation_options (
   item_variation_id        INTEGER REFERENCES item_variations
 );
 
-CREATE TABLE suppliers (
-  id        INT8 PRIMARY KEY,
-  name      TEXT,
-  address   TEXT,
-  phone     TEXT,
-  fax       TEXT,
-  email     TEXT,
-  is_active BOOLEAN
+CREATE TABLE orders (
+  id                 INT8 PRIMARY KEY,
+  customer_id        INT8,
+  payment_id         INT8,
+  transaction_date   DATE,
+  shipping_date      DATE,
+  time_stamp         TIMESTAMP,
+  transaction_status TEXT,
+  total              FLOAT8
 );
+
+CREATE TABLE order_items (
+  id         INT8 PRIMARY KEY,
+  order_id   INT8,
+  product_id TEXT,
+  unit_price FLOAT8,
+  discount   FLOAT8,
+  quantity   INT8
+);
+
+-- -------------------------------------
+-- Cart Module
+-- -------------------------------------
 
 CREATE TABLE carts (
   id           INT8 PRIMARY KEY,
@@ -218,42 +244,4 @@ CREATE TABLE wishlist_items (
 
 CREATE TABLE wishlist (
   id INT8 PRIMARY KEY
-);
-
-
-CREATE TABLE orders (
-  id                 INT8 PRIMARY KEY,
-  customer_id        INT8,
-  payment_id         INT8,
-  transaction_date   DATE,
-  shipping_date      DATE,
-  time_stamp         TIMESTAMP,
-  transaction_status TEXT,
-  total              FLOAT8
-);
-
-CREATE TABLE order_items (
-  id         INT8 PRIMARY KEY,
-  order_id   INT8,
-  product_id TEXT,
-  unit_price FLOAT8,
-  discount   FLOAT8,
-  quantity   INT8
-);
-
-CREATE TABLE customer (
-  id               INT8 PRIMARY KEY,
-  first_name       TEXT,
-  last_name        TEXT,
-  address          TEXT,
-  city             TEXT,
-  state            TEXT,
-  postal_code      TEXT,
-  country          TEXT,
-  phone            TEXT,
-  email            TEXT UNIQUE,
-  user_id          INT8,
-  billing_address  TEXT,
-  shipping_address TEXT,
-  date_created     TIMESTAMP
 );

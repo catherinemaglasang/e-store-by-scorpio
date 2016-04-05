@@ -7,11 +7,6 @@ from .db import spcall
 from app import api
 
 
-@api.route('/', methods=['GET'])
-def index():
-    return jsonify({"status": "ok", "message": "ok"})
-
-
 @api.route('/api/v1/product_categories/', methods=['POST'])
 def new_product_category():
     id = request.form['inputID']
