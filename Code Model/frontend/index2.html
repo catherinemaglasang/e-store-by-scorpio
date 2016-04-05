@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="MainApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Invento Software Labs</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="static/lib/AdminLTE/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="static/lib/AdminLTE/plugins/datatables/dataTables.bootstrap.css">
+
+    <link rel="stylesheet" href="static/lib/AdminLTE/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="static/lib/AdminLTE/dist/css/skins/skin-blue.min.css">
+
+    <link rel="stylesheet" href="static/css/main.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="static/js/html5shiv.min.js"></script>
+    <script src="static/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="hold-transition skin-blue layout-top-nav">
+<div class="wrapper">
+    <header class="main-header">
+        <nav class="navbar navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="#/" class="navbar-brand"><b>Inventory</b> TC</a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar-collapse">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </div>
+
+                <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+                    <ul class="nav navbar-nav" ng-controller="MenuController">
+                        <li ng-class="{ active: isActive('/inventory')}"><a href="#/inventory">Inventory</a></li>
+                        <li ng-class="{ active: isActive('/purchase')}"><a href="#/purchase">Purchase Orders</a></li>
+                        <li ng-class="{ active: isActive('/sales')}"><a href="#/sales">Sales Orders</a></li>
+                        <li ng-class="{ active: isActive('/adjustment')}"><a href="#/adjustment">Stock Adjustment</a></li>
+                        <li ng-class="{ active: isActive('/transfer')}"><a href="#/transfer">Stock Transfer</a></li>
+
+                    </ul>
+                </div>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-plus-circle"></i>&nbsp;&nbsp;Quick
+                                Actions <span
+                                        class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#/inventory/items/add">Add Inventory Item</a></li>
+                                <li><a href="#/purchase/add">Add Purchase Order</a></li>
+                                <li><a href="#/purchase">Receive Order</a></li>
+                                <li><a href="#/sales/add">Add Sales Order</a></li>
+                                <li><a href="#/adjustment/add">Stock Adjustment</a></li>
+                                <li><a href="#/transfer/add">Stock Transfer</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#/login">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="content-wrapper">
+        <div class="container">
+            <div ng-view></div>
+        </div>
+    </div>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 0.1
+            </div>
+            <strong>Copyright &copy; 2016 <a href="http://invento.ph">Invento Software Labs</a>.</strong> All
+            rights reserved.
+        </div>
+    </footer>
+</div>
+
+<!--********** Footer Scripts **********-->
+<script src="static/lib/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="static/lib/AdminLTE/bootstrap/js/bootstrap.min.js"></script>
+<script src="static/lib/AdminLTE/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="static/lib/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!--***********************************-->
+<script src="static/lib/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="static/lib/AdminLTE/plugins/fastclick/fastclick.min.js"></script>
+<script src="static/lib/AdminLTE/dist/js/app.min.js"></script>
+<script src="static/lib/AdminLTE/dist/js/demo.js"></script>
+<!--***********************************-->
+<script src="static/js/main.js"></script>
+<!--***********************************-->
+<script src="static/js/angular.min.js"></script>
+<script src="static/js/angular-route.min.js"></script>
+<script src="static/lib/angular-resource/angular-resource.min.js"></script>
+<!--***********************************-->
+<script src="static/app/app.module.js"></script>
+<script src="static/app/app.route.js"></script>
+<script src="static/app/services/api.service.js"></script>
+<script src="static/app/controllers/main.controller.js"></script>
+<script src="static/app/controllers/menu.controller.js"></script>
+</body>
+</html>
