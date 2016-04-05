@@ -35,3 +35,13 @@ Feature: Create, Update, Delete, Get Customer
     Then I get the create customer '201' response
     And I should get a customer field 'status' containing 'ok'
     And I should get a customer field 'message' containing 'CUSTOMER EXISTS'
+
+
+  Scenario: Create Customer with Missing Details
+    Given I have the following customer details:
+    | id | first_name | last_name | address | city | state | postal_code | country | phone | email | user_id | billing_address | shipping_address | date_created |
+    | 10 |  | | address9 | city9 | state9 | | country9 | phone9 |  | 9 |  |  | 2016-03-11 11:49:17 |
+    When I POST to the customer url '/api/v1/customers/'
+    Then I get the create customer '201' response
+    And I should get a customer field 'status' containing 'ok'
+    And I should get a customer field 'message' containing 'error'
