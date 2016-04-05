@@ -1,7 +1,8 @@
-mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
+mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location','Supplier', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Supplier, Attribute, $routeParams) {
     $scope.item = new Item();
 
     $scope.location = new Location();
+    $scope.location = new Supplier();
 
     $scope.type = new Type();
     $scope.attributes = [];
@@ -12,6 +13,7 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
     $scope.typeList = [];
     $scope.attributeList = [];
     $scope.locationList = [];
+    $scope.supplierList = [];
 
     $scope.typeDetail = [];
 
@@ -26,6 +28,10 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
 
         Location.get(function (data) {
             $scope.locationList = data.entries;
+        });
+
+        Supplier.get(function (data) {
+            $scope.supplierList = data.entries;
         });
     };
 
@@ -95,6 +101,21 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
         $scope.location.$save(function () {
             $scope.location = new Location();
             $location.path('/inventory/locations/all');
+            $scope.initialize();
+        });
+    };
+
+    $scope.addSupplier = function () {
+        $scope.supplier.supplier_id = null;
+        $scope.supplier.name = null;
+        $scope.supplier.address= null;
+        $scope.supplier.phone = null;
+        $scope.supplier.fax= null;
+        $scope.supplier.email= null;
+        $scope.supplier.is_active= null;
+        $scope.location.$save(function () {
+            $scope.supplier = new Location();
+            supplier.path('/dashboard/suppliers/all');
             $scope.initialize();
         });
     };

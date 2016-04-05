@@ -17,3 +17,8 @@ mainApp.factory("Attribute", ['$resource',
     function ($resource) {
         return $resource("http://localhost:5000/api/v1/types/:typeid/attributes/:attributeid", {typeid: '@typeid', attributeid: '@attributeid'}, {});
     }]);
+
+mainApp.factory("Supplier", ['$resource',
+    function ($resource) {
+        return $resource("http://localhost:5000/api/v1/suppliers/:id", {id: '@id'}, {});
+    }]);

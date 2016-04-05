@@ -5,14 +5,6 @@ from app.db import spcall
 from app import api
 from app.utils import build_json
 
-from sqlalchemy import Table, Column, Integer, String
-from sqlalchemy import create_engine, MetaData
-
-engine = create_engine('postgresql://postgres:postgres@127.0.0.1:5432/Invento', convert_unicode=True)
-metadata = MetaData(bind=engine)
-
-locations = Table('locations', metadata, autoload=True)
-
 
 @api.route('/', methods=['GET'])
 def index():

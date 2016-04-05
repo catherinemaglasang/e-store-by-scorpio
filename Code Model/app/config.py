@@ -7,7 +7,7 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     DEBUG = False
     TESTING = False
-    DATABASE = 'postgresql://postgres:postgres@127.0.0.1:5432/Invento'
+    DATABASE = 'postgresql://bookshop:bookshop@127.0.0.1:5432/bookshopdb'
 
 
 class DevelopmentConfig(Config):
@@ -16,7 +16,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    DATABASE = 'postgresql://postgres:postgres@127.0.0.1:5432/Invento'
+    DATABASE = 'postgresql://bookshop:bookshop@127.0.0.1:5432/bookshopdb'
 
 
 class ProductionConfig(Config):
