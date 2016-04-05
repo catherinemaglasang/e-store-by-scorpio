@@ -56,7 +56,7 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
 
         .when('/dashboard/items/:id', {
             templateUrl: 'pages/dashboard/items/item_detail.html',
-            controller: 'MainController'
+            controller: 'ItemDetailController'
         })
 
         .when('/dashboard/types/:id', {
@@ -66,7 +66,7 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
 
         .when('/dashboard/locations/:id', {
             templateUrl: 'pages/dashboard/items/location_detail.html',
-            controller: 'MainController'
+            controller: 'LocationDetailController'
         })
 
         .when('/dashboard/purchase/all', {

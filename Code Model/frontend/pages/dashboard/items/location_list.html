@@ -14,12 +14,14 @@
                     <tr>
                         <th>Location ID</th>
                         <th>Name</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="location in locationList">
                         <td>{{ location.location_id }}</td>
                         <td>{{ location.location_name }}</td>
+                        <td><a href="#/dashboard/locations/{{ location.location_id }}">Edit</a></td>
                     </tr>
                     </tbody>
                 </table>

@@ -123,10 +123,10 @@ def types_get(type_id=None):
     out = {}
 
     if len(response) == 0:
-        ret = {"status": "ok", "message": "No entries found", "entries": [], "count": 0}
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": 0})
 
     if 'Error' in str(response[0][0]):
-        ret = {'status': 'error', 'message': response[0][0]}
+        return jsonify({'status': 'error', 'message': response[0][0]})
 
     for row in response:
         r = dict(row)
@@ -138,9 +138,7 @@ def types_get(type_id=None):
         r['attributes'] = attribute_list
         entries.append(r)
 
-    ret = {'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)}
-
-    return jsonify(ret)
+    return jsonify({'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)})
 
 
 @api.route('/api/v1/types/<type_id>/attributes/', methods=['GET'])

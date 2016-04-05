@@ -1,5 +1,3 @@
--- set schema 'invento';
-
 CREATE OR REPLACE FUNCTION areas_upsert(IN par_area_id INT, IN par_area_description TEXT)
   RETURNS TEXT AS $$
 DECLARE
@@ -64,7 +62,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 --------------------------------------------------------------------------------------------------------
-SELECT attributes_upsert(null,1,'isbnyeah', 'textyeah');
+SELECT attributes_upsert(NULL, 1, 'isbnyeah', 'textyeah');
 --------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION attributes_get(IN par_attribute_id INT, IN par_type_id INT)
   RETURNS SETOF attributes AS $$
@@ -298,7 +296,7 @@ $$ LANGUAGE 'plpgsql';
 CREATE OR REPLACE FUNCTION items_upsert(IN par_item_id      INT, IN par_site_id INT, IN par_serial_no TEXT,
                                         IN par_tax_class_id INT, IN par_type_id INT, IN par_name TEXT,
                                         IN par_description  TEXT, IN par_date_added DATE, IN par_date_updated DATE,
-                                        IN par_is_taxable   BOOLEAN, IN par_unit_cost NUMERIC,
+                                        IN par_is_taxable   BOOLEAN,
                                         IN par_is_active    BOOLEAN, IN par_has_variations BOOLEAN)
   RETURNS TEXT AS $$
 DECLARE
@@ -307,14 +305,16 @@ BEGIN
 
   IF par_item_id ISNULL
   THEN
-    INSERT INTO items (site_id, serial_no, tax_class_id, type_id, name, description, date_added, date_updated, is_taxable, unit_cost, is_active, has_variations)
+    INSERT INTO items (site_id, serial_no, tax_class_id, type_id, name, description, date_added, date_updated, is_taxable, is_active, has_variations)
     VALUES (par_site_id, par_serial_no, par_tax_class_id, par_type_id, par_name, par_description, par_date_added,
-                         par_date_updated, par_is_taxable, par_unit_cost, par_is_active, par_has_variations) RETURNING item_id INTO loc_response;
+                         par_date_updated, par_is_taxable, par_is_active, par_has_variations)
+    RETURNING item_id
+      INTO loc_response;
   ELSE
     UPDATE items
     SET site_id    = par_site_id, serial_no = par_serial_no, tax_class_id = par_tax_class_id, type_id = par_type_id,
       name         = par_name, description = par_description, date_added = par_date_added,
-      date_updated = par_date_updated, is_taxable = par_is_taxable, unit_cost = par_unit_cost,
+      date_updated = par_date_updated, is_taxable = par_is_taxable,
       is_active    = par_is_active, has_variations = par_has_variations
     WHERE item_id = par_item_id;
     loc_response = par_item_id;
@@ -325,11 +325,7 @@ END;
 $$ LANGUAGE 'plpgsql';
 --------------------------------------------------------------------------------------------------------
 SELECT *
-FROM items_upsert(NULL, NULL, 'SN153', NULL, NULL, 'Apple', 'test desc', NULL, NULL, TRUE, 10.01, TRUE, TRUE);
-SELECT items_upsert(NULL, NULL, 'SN153', NULL, NULL, 'Orange', 'test desc', NULL, NULL, TRUE, 10.01, TRUE, TRUE);
-SELECT items_upsert(NULL, NULL, 'SN153', NULL, NULL, 'Grapes', 'test desc', NULL, NULL, TRUE, 10.01, TRUE, TRUE);
-SELECT items_upsert(NULL, NULL, 'SN153', NULL, NULL, 'Fruits', 'test desc', NULL, NULL, TRUE, 10.01, TRUE, TRUE);
-SELECT items_upsert(NULL, NULL, 'SN153', NULL, NULL, 'Fruits', 'test desc', NULL, NULL, TRUE, 10.01, TRUE, TRUE);
+FROM items_upsert(NULL, NULL, 'SN153', NULL, NULL, 'Apple', 'test desc', NULL, NULL, TRUE, TRUE, TRUE);
 --------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION items_get(IN par_item_id INT)
   RETURNS SETOF items AS $$

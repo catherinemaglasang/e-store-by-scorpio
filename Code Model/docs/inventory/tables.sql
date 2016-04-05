@@ -1,5 +1,3 @@
--- CREATE SCHEMA invento;
-
 CREATE TABLE areas (
   area_id          SERIAL UNIQUE NOT NULL PRIMARY KEY,
   area_description TEXT

@@ -1,9 +1,8 @@
 mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
     $scope.item = new Item();
-
     $scope.location = new Location();
-
     $scope.type = new Type();
+
     $scope.attributes = [];
     $scope.attribute_name = '';
     $scope.validation = '';
@@ -50,7 +49,7 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
             var id = data.entries[0].items_upsert;
             console.log(id);
             $scope.item = new Item();
-            $location.path('/inventory/items/all');
+            $location.path('/dashboard/items/all');
             $scope.initialize();
         });
     };
@@ -75,7 +74,7 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
 
             $scope.attributes = [];
             $scope.type = new Type();
-            $location.path('/inventory/types/all');
+            $location.path('/dashboard/types/all');
             $scope.initialize();
         });
     };
@@ -94,7 +93,7 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
         $scope.location.location_id = null;
         $scope.location.$save(function () {
             $scope.location = new Location();
-            $location.path('/inventory/locations/all');
+            $location.path('/dashboard/locations/all');
             $scope.initialize();
         });
     };
@@ -114,23 +113,66 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
     $scope.initialize();
 }]);
 
+mainApp.controller('ItemDetailController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
+    var itemId = $routeParams.id;
+
+    $scope.item = '';
+
+    $scope.getItemDetail = function () {
+        Item.get({id: itemId}, function (data) {
+            $scope.item = data.entries[0];
+        });
+    };
+
+    $scope.updateItemDetail = function () {
+        Item.update({ id: itemId }, $scope.type, function(){
+            $location.path('/dashboard/items/all');
+        });
+    };
+
+    $scope.getItemDetail();
+}]);
+
 mainApp.controller('TypeDetailController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
     var typeId = $routeParams.id;
 
     $scope.type = '';
-    $scope.typeDetail = new Type();
-    console.log($scope.typeDetail);
 
     $scope.getTypeDetail = function () {
         Type.get({id: typeId}, function (data) {
-            $scope.type = data.entries;
+            $scope.type = data.entries[0];
             console.log($scope.type);
         });
     };
 
     $scope.updateTypeDetail = function () {
-
+        Type.update({ id: typeId }, $scope.type, function(){
+            $location.path('/dashboard/types/all');
+        });
     };
 
     $scope.getTypeDetail();
 }]);
+
+mainApp.controller('LocationDetailController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
+    var locationId = $routeParams.id;
+
+    $scope.location = '';
+
+    $scope.getLocationDetail = function () {
+        Location.get({id: locationId}, function (data) {
+            $scope.location = data.entries[0];
+        });
+    };
+
+    $scope.updateLocationDetail = function () {
+        Location.update({ id: locationId }, $scope.location, function(){
+            $location.path('/dashboard/locations/all');
+        });
+    };
+
+    $scope.getLocationDetail();
+}]);
+
+
+
