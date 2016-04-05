@@ -38,7 +38,7 @@ CREATE TABLE transfers (
   transfer_id          SERIAL NOT NULL PRIMARY KEY,
   source_location      INTEGER REFERENCES locations,
   destination_location INTEGER REFERENCES locations,
-  date_transferred     DATE DEFAULT ('now' :: TEXT) :: DATE
+  date_transferred     TIMESTAMP DEFAULT now()
 );
 
 CREATE TABLE types (
@@ -71,8 +71,8 @@ CREATE TABLE attributes (
 
 CREATE TABLE purchase_orders (
   purchase_order_id SERIAL NOT NULL PRIMARY KEY,
-  date_issued       DATE DEFAULT ('now' :: TEXT) :: DATE,
-  date_expected     DATE,
+  date_issued       TIMESTAMP DEFAULT now(),
+  date_expected     TIMESTAMP,
   status            TEXT,
   reference_no      TEXT,
   notes             TEXT,
@@ -104,8 +104,8 @@ CREATE TABLE items (
   site_id        INTEGER REFERENCES sites,
   name           TEXT,
   description    TEXT,
-  date_added     DATE DEFAULT ('now' :: TEXT) :: DATE,
-  date_updated   DATE DEFAULT ('now' :: TEXT) :: DATE,
+  date_added     TIMESTAMP DEFAULT now(),
+  date_updated   TIMESTAMP DEFAULT now(),
   is_taxable     BOOL DEFAULT TRUE,
   is_active      BOOL DEFAULT TRUE,
   has_variations BOOL DEFAULT FALSE,

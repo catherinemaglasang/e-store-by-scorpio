@@ -1,10 +1,11 @@
 import json
-from flask import request
-from flask import jsonify
-from app.db import spcall
-from app import api
-from app.utils import build_json
 
+from flask import jsonify
+from flask import request
+
+from app import api
+from app.db import spcall
+from app.utils import build_json
 
 @api.route('/', methods=['GET'])
 def index():
@@ -21,16 +22,15 @@ def items_upsert(item_id=None):
 
     response = spcall('items_upsert', (
         item_id,
-        data['site_id'],
+        int(data['site_id']),
         data['serial_no'],
-        data['tax_class_id'],
-        data['type_id'],
+        int(data['tax_class_id']),
+        int(data['type_id']),
         data['name'],
         data['description'],
-        data['date_added'],
-        data['date_updated'],
+        str(data['date_added']),
+        str(data['date_updated']),
         data['is_taxable'],
-        data['unit_cost'],
         data['is_active'],
         data['has_variations'],), True)
 
