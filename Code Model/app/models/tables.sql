@@ -52,15 +52,10 @@ CREATE TABLE users (
   username     VARCHAR(100) NOT NULL UNIQUE,
   email        VARCHAR(100) NOT NULL,
   password     VARCHAR(100) NOT NULL,
-  date_created TIMESTAMP DEFAULT now()
+  date_created TIMESTAMP DEFAULT now(),
+  is_admin     BOOLEAN
 );
 
-CREATE TABLE vendors (
-  vendor_id        SERIAL NOT NULL PRIMARY KEY,
-  name             TEXT,
-  billing_address  TEXT,
-  shipping_address VARCHAR(100)
-);
 
 CREATE TABLE attributes (
   attribute_id   SERIAL NOT NULL PRIMARY KEY,
@@ -78,7 +73,7 @@ CREATE TABLE purchase_orders (
   notes             TEXT,
   shipping_fee      NUMERIC,
   tracking_no       TEXT,
-  vendor_id         INTEGER REFERENCES vendors
+  supplier_id       INTEGER REFERENCES suppliers
 );
 
 CREATE TABLE sales_orders (
@@ -106,9 +101,9 @@ CREATE TABLE items (
   description    TEXT,
   date_added     TIMESTAMP DEFAULT now(),
   date_updated   TIMESTAMP DEFAULT now(),
-  is_taxable     BOOL DEFAULT TRUE,
-  is_active      BOOL DEFAULT TRUE,
-  has_variations BOOL DEFAULT FALSE,
+  is_taxable     BOOL      DEFAULT TRUE,
+  is_active      BOOL      DEFAULT TRUE,
+  has_variations BOOL      DEFAULT FALSE,
   tax_class_id   INTEGER REFERENCES tax_classes,
   type_id        INTEGER REFERENCES types
 );
@@ -188,3 +183,77 @@ CREATE TABLE item_variation_options (
   item_variation_id        INTEGER REFERENCES item_variations
 );
 
+CREATE TABLE suppliers (
+  id        INT8 PRIMARY KEY,
+  name      TEXT,
+  address   TEXT,
+  phone     TEXT,
+  fax       TEXT,
+  email     TEXT,
+  is_active BOOLEAN
+);
+
+CREATE TABLE carts (
+  id           INT8 PRIMARY KEY,
+  session_id   INT8,
+  date_created DATE,
+  customer_id  INT8,
+  is_active    BOOLEAN
+);
+
+CREATE TABLE cart_items (
+  id         INT8 PRIMARY KEY,
+  cart_id    INT8,
+  product_id INT8,
+  quantity   INT8,
+  time_stamp TIMESTAMP
+);
+
+CREATE TABLE wishlist_items (
+  id          INT8 PRIMARY KEY,
+  wishlist_id INT8,
+  product_id  INT8,
+  time_stamp  TIMESTAMP
+);
+
+CREATE TABLE wishlist (
+  id INT8 PRIMARY KEY
+);
+
+
+CREATE TABLE orders (
+  id                 INT8 PRIMARY KEY,
+  customer_id        INT8,
+  payment_id         INT8,
+  transaction_date   DATE,
+  shipping_date      DATE,
+  time_stamp         TIMESTAMP,
+  transaction_status TEXT,
+  total              FLOAT8
+);
+
+CREATE TABLE order_items (
+  id         INT8 PRIMARY KEY,
+  order_id   INT8,
+  product_id TEXT,
+  unit_price FLOAT8,
+  discount   FLOAT8,
+  quantity   INT8
+);
+
+CREATE TABLE customer (
+  id               INT8 PRIMARY KEY,
+  first_name       TEXT,
+  last_name        TEXT,
+  address          TEXT,
+  city             TEXT,
+  state            TEXT,
+  postal_code      TEXT,
+  country          TEXT,
+  phone            TEXT,
+  email            TEXT UNIQUE,
+  user_id          INT8,
+  billing_address  TEXT,
+  shipping_address TEXT,
+  date_created     TIMESTAMP
+);
