@@ -8,14 +8,23 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
             controller: 'MainController'
         })
 
+        .when('/dashboard/settings', {
+            templateUrl: 'pages/dashboard/settings.html',
+            controller: 'MainController'
+        })
+
         // Reports & Analytics Module
 
-        .when('/reports', {
-            templateUrl: 'pages/reports/reports.html',
+        .when('/dashboard/reports', {
+            templateUrl: 'pages/dashboard/reports/reports.html',
             controller: 'MainController'
         })
 
         // Inventory Module
+        .when('/dashboard', {
+            templateUrl: 'pages/dashboard/home.html',
+            controller: 'MainController'
+        })
 
         .when('/dashboard/items/all', {
             templateUrl: 'pages/dashboard/items/item_list.html',
@@ -46,11 +55,6 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
 
         .when('/dashboard/locations/add', {
             templateUrl: 'pages/dashboard/items/location_form.html',
-            controller: 'MainController'
-        })
-
-        .when('/dashboard', {
-            templateUrl: 'pages/dashboard/items/home.html',
             controller: 'MainController'
         })
 
@@ -113,12 +117,12 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
 
         // Point of Sales & Cart Module
 
-        .when('/sales', {
+        .when('/dashboard/sales/all', {
             templateUrl: 'pages/dashboard/items/sales.html',
             controller: 'MainController'
         })
 
-        .when('/sales/add', {
+        .when('/dashboard/sales/add', {
             templateUrl: 'pages/dashboard/items/sales_add.html',
             controller: 'MainController'
         })
@@ -130,7 +134,7 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
         })
 
         .otherwise({
-            redirectTo: '/dashboard/items/all'
+            redirectTo: '/dashboard'
         });
 
     $resourceProvider.defaults.stripTrailingSlashes = false;
