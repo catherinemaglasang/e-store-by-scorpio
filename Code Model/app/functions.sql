@@ -2,15 +2,17 @@ create or replace function new_user(in par_id int8, in par_username text, in par
 $$
 declare
   loc_id text;
-  loc_username text;
-  loc_password text;
-  loc_is_admin boolean;
   loc_res text;
 begin
   select into loc_id id from users where id = par_id;
   if loc_id isnull then
-    insert into users(id, username, password, email, is_admin) values (par_id, par_username, par_password, par_email, par_is_admin);
-    loc_res = 'OK';
+    if par_username='' or par_password='' or par_email='' then
+      loc_res='error';
+    else
+      insert into users(id, username, password, email, is_admin) values (par_id, par_username, par_password, par_email, par_is_admin);
+      loc_res = 'OK';
+    end if;
+
   else
     loc_res = 'USER EXISTS';
   end if;
@@ -19,17 +21,17 @@ begin
 $$
 language 'plpgsql';
 
-create or replace function get_users(out int8, out text, out text, out text, out boolean) returns setof record as
+create or replace function get_users(out int8, out text, out text, out boolean) returns setof record as
 $$
-   select id, username, password, email, is_admin from users;
+   select id, username, email, is_admin from users;
 $$
  language 'sql';
 
 --select * from get_users();
 
-create or replace function get_user(in par_id int8, out text, out text, out text, out boolean) returns setof record as
+create or replace function get_user(in par_id int8, out text, out text, out boolean) returns setof record as
 $$
-  select username, password, email, is_admin from users where id = par_id
+  select username, email, is_admin from users where id = par_id
 $$
   language 'sql';
 
@@ -320,9 +322,12 @@ $$
   begin
     select into loc_id id from customer where id=par_id;
     if loc_id isnull then
-
-      insert into customer(id, first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address, shipping_address, date_created) values (par_id, par_first_name, par_last_name, par_address, par_city, par_state, par_postal_code, par_country, par_phone, par_email, par_user_id, par_billing_address, par_shipping_address, par_date_created);
-      loc_res = 'ok';
+      if par_first_name='' or par_last_name='' or par_address='' or par_city='' or par_state='' or par_postal_code='' or par_country='' or par_phone='' or par_email='' or par_billing_address='' or par_shipping_address='' then
+        loc_res='error';
+      else
+        insert into customer(id, first_name, last_name, address, city, state, postal_code, country, phone, email, user_id, billing_address, shipping_address, date_created) values (par_id, par_first_name, par_last_name, par_address, par_city, par_state, par_postal_code, par_country, par_phone, par_email, par_user_id, par_billing_address, par_shipping_address, par_date_created);
+        loc_res = 'ok';
+      end if;
     else
       loc_res = 'CUSTOMER EXISTS';
     end if;

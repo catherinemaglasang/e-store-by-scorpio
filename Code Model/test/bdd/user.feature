@@ -36,3 +36,13 @@ Feature: Handle storing and retrieving customer details
     Then I get the create '201' response
     And I should get a user field 'status' containing 'ok'
     And I should get a user field 'message' containing 'USER EXISTS'
+
+    
+  Scenario: Create User with missing Details
+    Given I have the following user details:
+    | id | username | password | email | is_admin |
+    | 10 | | | | False |
+    When I POST to the user url '/api/v1/users/'
+    Then I get the create '201' response
+    And I should get a user field 'status' containing 'ok'
+    And I should get a user field 'message' containing 'error'
