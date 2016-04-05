@@ -62,7 +62,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 --------------------------------------------------------------------------------------------------------
-SELECT attributes_upsert(NULL, 1, 'isbnyeah', 'textyeah');
+-- SELECT attributes_upsert(NULL, 1, 'isbnyeah', 'textyeah');
 --------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION attributes_get(IN par_attribute_id INT, IN par_type_id INT)
   RETURNS SETOF attributes AS $$
@@ -324,8 +324,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 --------------------------------------------------------------------------------------------------------
-SELECT *
-FROM items_upsert(NULL, NULL, 'SN153', NULL, NULL, 'Apple', 'test desc', NULL, NULL, TRUE, TRUE, TRUE);
+-- SELECT * FROM items_upsert(NULL, NULL, 'SN153', NULL, NULL, 'Apple', 'test desc', NULL, NULL, TRUE, TRUE, TRUE);
 --------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION items_get(IN par_item_id INT)
   RETURNS SETOF items AS $$
@@ -342,8 +341,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
-SELECT *
-FROM items_get(NULL);
+-- SELECT * FROM items_get(NULL);
 -----------------------------------------------------------------
 CREATE OR REPLACE FUNCTION location_items_upsert(IN par_location_item_id INT, IN par_location_id INT,
                                                  IN par_item_id          INT, IN par_area_id INT, IN par_notes TEXT)
@@ -455,7 +453,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
-SELECT types_upsert(NULL, 'test', 'test description 2');
+-- SELECT types_upsert(NULL, 'test', 'test description 2');
 -----------------------------------------------------------------
 CREATE OR REPLACE FUNCTION types_get(IN par_type_id INT)
   RETURNS SETOF types AS $$
@@ -472,8 +470,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
-SELECT *
-FROM types_get(NULL);
+-- SELECT * FROM types_get(NULL);
 -----------------------------------------------------------------
 CREATE OR REPLACE FUNCTION locations_upsert(IN par_location_id INT, IN par_location_name TEXT)
   RETURNS TEXT AS $$
@@ -495,7 +492,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
-SELECT locations_upsert(NULL, 'test');
+-- SELECT locations_upsert(NULL, 'test');
 -----------------------------------------------------------------
 CREATE OR REPLACE FUNCTION locations_get(IN par_location_id INT)
   RETURNS SETOF locations AS $$
@@ -512,8 +509,7 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
-SELECT *
-FROM locations_get(NULL);
+-- SELECT * FROM locations_get(NULL);
 -----------------------------------------------------------------
 CREATE OR REPLACE FUNCTION option_groups_upsert(IN par_option_group_id          INT, IN par_option_group_name TEXT,
                                                 IN par_option_group_description TEXT)
