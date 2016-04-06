@@ -466,26 +466,15 @@ def get_wishlist_details():
 
 @api.route('/api/v1/wishlist/', methods=['POST'])
 def new_wishlist():
-    print "STARTING ADD"
-    id = request.form['inputID']
-
-    res = spcall('new_wishlist', (id), True)
-
-    if 'Error' in res[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
-
-    return jsonify({'status': 'ok', 'message': res[0][0]})
-
-    jsn = json.loads(request.data)
-    id = jsn['id']
+    data = json.loads(request.data)
 
     response = spcall('new_wishlist', (
-        id), True)
-
+        data['id'],), True)
+        
     if 'Error' in response[0][0]:
         return jsonify({'status': 'error', 'message': response[0][0]})
 
-    return jsonify({'status': 'ok', 'message': response[0][0]}), 201
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 200
 
 
 @api.route('/api/v1/wishlist/', methods=['GET'])
