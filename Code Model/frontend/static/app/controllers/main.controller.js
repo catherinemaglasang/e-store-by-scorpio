@@ -105,32 +105,27 @@ mainApp.controller('AttributeDetailController', ['$scope', '$http', '$location',
     $scope.getAttributeDetail();
 }]);
 
-mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item', 'Location', 'Attribute', 'ItemAttribute', '$routeParams', function ($scope, $http, $location, Item, Location, Attribute, ItemAttribute, $routeParams) {
+mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item', 'Location', 'Attribute', 'ItemAttribute', 'OptionGroup', 'Option', 'ItemVariation', '$routeParams', function ($scope, $http, $location, Item, Location, Attribute, ItemAttribute, OptionGroup, Option, ItemVariation, $routeParams) {
+    // Form dropdowns
     $scope.attributeList = [];
+    $scope.optionGroupList = [];
+    $scope.optionList = [];
 
+    // Item instance
     $scope.item = new Item();
-    $scope.options = [];
-    $scope.optionGroups = [];
-    $scope.itemVariationOptions = [];
-    $scope.itemAttributes = [];
+    $scope.attribute = new Attribute();
 
-    $scope.attribute_id = '';
-    $scope.attribute_value = '';
+    // To be saved after item
+    $scope.itemVariations = [];
+    $scope.itemAttributes = [];
+    $scope.images = [];
+
+    $scope.attribute_value = 'hi';
+    $scope.attribute_id = 'hi';
+    $scope.group_id = 0;
 
     $scope.addItem = function () {
         $scope.item.item_id = null;
-        $scope.item.site_id = null;
-        //$scope.item.serial_no = 'SN1';
-        $scope.item.tax_class_id = null;
-        //$scope.item.type_id = null;
-        $scope.item.name = 'name';
-        $scope.item.description = 'name';
-        $scope.item.date_added = null;
-        $scope.item.date_updated = null;
-        $scope.item.is_taxable = true;
-        $scope.item.unit_cost = null;
-        $scope.item.is_active = true;
-        $scope.item.has_variations = true;
 
         $scope.item.$save(function (data) {
             var id = data.entries[0].items_upsert;
@@ -143,18 +138,62 @@ mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item',
     };
 
     $scope.addItemAttribute = function () {
-        $scope.itemAttributes.push(new ItemAttribute({
-            'attribute_id': $scope.attribute_id,
-            'attribute_value': $scope.attribute_value
-        }));
-        $scope.attribute_id = '';
-        $scope.attribute_value = '';
-        console.log($scope.itemAttributes);
+        $scope.itemAttributes.push($scope.attribute);
+        $scope.attribute = new Attribute();
+    };
+
+    $scope.removeItemAttribute = function (attr) {
+        var index = $scope.itemAttributes.indexOf(attr);
+        $scope.itemAttributes.splice(index, 1);
+    };
+
+    $scope.updateItemAttribute = function (attr) {
+        var index = $scope.itemAttributes.indexOf(attr);
+        $scope.itemAttributes.splice(index, 1, $scope.attribute);
+    };
+
+    $scope.populateOptionGroup = function (gid) {
+        $scope.group_id = gid;
+        Option.get({optiongroupid: gid}, function (data) {
+            $scope.optionList = data.entries;
+            $scope.populateItemVariation();
+        });
+    };
+
+    $scope.populateItemVariation = function () {
+        $scope.itemVariations = [];
+        angular.forEach($scope.optionList, function (value, key) {
+            var variant = new ItemVariation();
+            variant.option_id = value.option_id;
+            variant.option_group_id = value.option_group_id;
+            variant.option_value = value.option_value;
+            variant.is_active = true;
+            variant.editable = true;
+            $scope.itemVariations.push(variant);
+            console.log($scope.itemVariations);
+        });
+    };
+
+    $scope.updateItemVariation = function (variant) {
+        variant.editable = false;
+        var index = $scope.itemVariations.indexOf(variant);
+        $scope.itemVariations.splice(index, 1, variant);
+        console.log($scope.itemVariations);
+    };
+
+    $scope.make_editable = function (variant) {
+        variant.editable = true;
+        var index = $scope.itemVariations.indexOf(variant);
+        $scope.itemVariations.splice(index, 1, variant);
     };
 
     $scope.initialize = function () {
         Attribute.get(function (data) {
             $scope.attributeList = data.entries;
+        });
+
+        OptionGroup.get(function (data) {
+            $scope.optionGroupList = data.entries;
         });
     };
 

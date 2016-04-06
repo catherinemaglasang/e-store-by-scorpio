@@ -416,7 +416,7 @@ $$ LANGUAGE 'plpgsql';
 -- SELECT locations_upsert(NULL, 'test');
 -----------------------------------------------------------------
 CREATE OR REPLACE FUNCTION option_groups_get(IN par_option_group_id INT)
-  RETURNS SETOF locations AS $$
+  RETURNS SETOF option_groups AS $$
 BEGIN
   IF par_option_group_id ISNULL
   THEN
@@ -443,7 +443,7 @@ BEGIN
     loc_response = 'ok';
   ELSE
     UPDATE options
-    SET option_group_id = par_option_group_id, option_value = par_option_id
+    SET option_value = par_option_value
     WHERE option_id = par_option_id;
     loc_response = 'ok';
   END IF;
@@ -454,17 +454,17 @@ $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
 -- SELECT locations_upsert(NULL, 'test');
 -----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION options_get(IN par_option_id INT)
+CREATE OR REPLACE FUNCTION options_get(IN par_option_id INT, in par_option_group_id int)
   RETURNS SETOF options AS $$
 BEGIN
   IF par_option_id ISNULL
   THEN
     RETURN QUERY SELECT *
-                 FROM options;
+                 FROM options where option_group_id = par_option_group_id;
   ELSE
     RETURN QUERY SELECT *
                  FROM options
-                 WHERE option_id = par_option_id;
+                 WHERE option_id = par_option_id and option_group_id = par_option_group_id;
   END IF;
 END;
 $$ LANGUAGE 'plpgsql';

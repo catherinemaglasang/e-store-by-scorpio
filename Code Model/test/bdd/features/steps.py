@@ -50,12 +50,10 @@ def give_i_have_the_following_data(step):
 def i_post_to_the_url_url(step):
     world.response = world.browser.post(world.resource, data=json.dumps(world.data))
     world.response_data = json.loads(world.response.data)
-    print world.response_data
 
 
 @step('I get a field "(.*)" containing "(.*)"')
 def i_get_a_field_field_containing_value(step, field, field_value):
-    print world.response.data
     assert_equals(world.response_data[field], field_value)
 # ----------------------------------------------------------------
 # Common steps for updating data in any of the tables.
