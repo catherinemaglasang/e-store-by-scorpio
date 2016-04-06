@@ -32,8 +32,8 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
         })
 
 
-        .when('/dashboard/types/all', {
-            templateUrl: 'pages/dashboard/items/type_list.html',
+        .when('/dashboard/attributes/all', {
+            templateUrl: 'pages/dashboard/items/attribute_list.html',
             controller: 'MainController'
         })
 
@@ -48,8 +48,8 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
             controller: 'ItemAddController'
         })
 
-        .when('/dashboard/types/add', {
-            templateUrl: 'pages/dashboard/items/type_form.html',
+        .when('/dashboard/attributes/add', {
+            templateUrl: 'pages/dashboard/items/attribute_form.html',
             controller: 'MainController'
         })
 
@@ -63,9 +63,9 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
             controller: 'ItemDetailController'
         })
 
-        .when('/dashboard/types/:id', {
-            templateUrl: 'pages/dashboard/items/type_detail.html',
-            controller: 'TypeDetailController'
+        .when('/dashboard/attributes/:id', {
+            templateUrl: 'pages/dashboard/items/attribute_detail.html',
+            controller: 'AttributeDetailController'
         })
 
         .when('/dashboard/locations/:id', {

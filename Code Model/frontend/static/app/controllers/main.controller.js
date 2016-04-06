@@ -1,7 +1,7 @@
-mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Supplier', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Supplier, Attribute, $routeParams) {
+mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'Location', 'Supplier', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Location, Supplier, Attribute, $routeParams) {
 
+    $scope.attribute = new Attribute();
     $scope.location = new Location();
-    $scope.type = new Type();
     $scope.supplier = new Supplier();
 
     $scope.attributes = [];
@@ -9,90 +9,18 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
     $scope.validation = '';
 
     $scope.itemList = [];
-    $scope.typeList = [];
     $scope.attributeList = [];
     $scope.locationList = [];
     $scope.supplierList = [];
 
-    $scope.typeDetail = [];
-
-    $scope.getItemList = function () {
-        Item.get(function (data) {
-            $scope.itemList = data.entries;
-        });
-
-        Type.get(function (data) {
-            $scope.typeList = data.entries;
-        });
-
-        Location.get(function (data) {
-            $scope.locationList = data.entries;
-        });
-
-        Supplier.get(function (data) {
-            $scope.supplierList = data.entries;
-        });
-    };
-
-    //items_upsert(NULL, NULL, 'SN153', NULL, NULL, 'Apple', 'test desc', NULL, NULL, TRUE, 10.01, TRUE, TRUE);
-
-    $scope.addItem = function () {
-        $scope.item.item_id = null;
-        $scope.item.site_id = null;
-        //$scope.item.serial_no = 'SN1';
-        $scope.item.tax_class_id = null;
-        //$scope.item.type_id = null;
-        $scope.item.name = 'name';
-        $scope.item.description = 'name';
-        $scope.item.date_added = null;
-        $scope.item.date_updated = null;
-        $scope.item.is_taxable = true;
-        $scope.item.unit_cost = null;
-        $scope.item.is_active = true;
-        $scope.item.has_variations = true;
-
-        $scope.item.$save(function (data) {
-            var id = data.entries[0].items_upsert;
-            console.log(id);
-            $scope.item = new Item();
-            $location.path('/inventory/items/all');
-            $scope.initialize();
-        });
-    };
-
-    $scope.addType = function () {
-        $scope.type.type_id = null;
-
-        angular.forEach($scope.typeList, function (values, key) {
-            $scope.attributeList.push(values.type_id)
-        });
-
-        $scope.type.$save(function (data) {
-            var id = data.entries[0].types_upsert;
-            angular.forEach($scope.attributes, function (values, key) {
-                // Now we save each attributes for each type
-                values.type_id = id;
-                values.attribute_id = null;
-                values.$save({typeid: id}, function (data) {
-                    console.log("Added Attribute for type: " + id);
-                })
-            });
-
-            $scope.attributes = [];
-            $scope.type = new Type();
-            $location.path('/dashboard/types/all');
-            $scope.initialize();
-        });
-    };
-
     $scope.addAttribute = function () {
-        $scope.attributes.push(new Attribute({
-            'attribute_name': $scope.attribute_name,
-            'validation': $scope.validation
-        }));
-        $scope.attribute_name = '';
-        $scope.validation = '';
-        console.log($scope.attributes);
+        $scope.attribute.attribute_id = null;
+
+        $scope.attribute.$save(function (data) {
+            $scope.attribute = new Attribute();
+            $location.path('/dashboard/attributes/all');
+            $scope.initialize();
+        });
     };
 
     $scope.addLocation = function () {
@@ -113,76 +41,30 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
         });
     };
 
-    $scope.updateItem = function () {
-
-    };
-
-    $scope.deleteItem = function () {
-
-    };
 
     $scope.initialize = function () {
         Item.get(function (data) {
             $scope.itemList = data.entries;
         });
 
-        Type.get(function (data) {
-            $scope.typeList = data.entries;
+        Attribute.get(function (data) {
+            $scope.attributeList = data.entries;
         });
 
         Location.get(function (data) {
             $scope.locationList = data.entries;
         });
         Supplier.get(function (data) {
-            $scope.supplierList= data.entries;
+            $scope.supplierList = data.entries;
         });
     };
 
     $scope.initialize();
 }]);
 
-mainApp.controller('ItemDetailController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
-    var itemId = $routeParams.id;
 
-    $scope.item = '';
 
-    $scope.getItemDetail = function () {
-        Item.get({id: itemId}, function (data) {
-            $scope.item = data.entries[0];
-        });
-    };
-
-    $scope.updateItemDetail = function () {
-        Item.update({id: itemId}, $scope.type, function () {
-            $location.path('/dashboard/items/all');
-        });
-    };
-
-    $scope.getItemDetail();
-}]);
-
-mainApp.controller('TypeDetailController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
-    var typeId = $routeParams.id;
-
-    $scope.type = '';
-
-    $scope.getTypeDetail = function () {
-        Type.get({id: typeId}, function (data) {
-            $scope.type = data.entries[0];
-            console.log($scope.type);
-        });
-    };
-
-    $scope.updateTypeDetail = function () {
-        Type.update({id: typeId}, $scope.type, function () {
-            $location.path('/dashboard/types/all');
-        });
-    };
-
-    $scope.getTypeDetail();
-}]);
-
-mainApp.controller('LocationDetailController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
+mainApp.controller('LocationDetailController', ['$scope', '$http', '$location', 'Item', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Location, Attribute, $routeParams) {
     var locationId = $routeParams.id;
 
     $scope.location = '';
@@ -202,72 +84,25 @@ mainApp.controller('LocationDetailController', ['$scope', '$http', '$location', 
     $scope.getLocationDetail();
 }]);
 
-mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', 'ItemAttribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, ItemAttribute, $routeParams) {
-    $scope.typeList = [];
-    $scope.attributeList = [];
+mainApp.controller('AttributeDetailController', ['$scope', '$http', '$location', 'Attribute', '$routeParams', function ($scope, $http, $location, Attribute, $routeParams) {
+    var attributeId = $routeParams.id;
 
-    $scope.item = new Item();
-    $scope.options = [];
-    $scope.optionGroups = [];
-    $scope.itemVariationOptions = [];
-    $scope.itemAttributes = [];
+    $scope.attribute = {};
 
-    $scope.attribute_id = '';
-    $scope.attribute_value = '';
-
-    $scope.addItem = function () {
-        $scope.item.item_id = null;
-        $scope.item.site_id = null;
-        //$scope.item.serial_no = 'SN1';
-        $scope.item.tax_class_id = null;
-        //$scope.item.type_id = null;
-        $scope.item.name = 'name';
-        $scope.item.description = 'name';
-        $scope.item.date_added = null;
-        $scope.item.date_updated = null;
-        $scope.item.is_taxable = true;
-        $scope.item.unit_cost = null;
-        $scope.item.is_active = true;
-        $scope.item.has_variations = true;
-
-        $scope.item.$save(function (data) {
-            var id = data.entries[0].items_upsert;
-            console.log(id);
-
-            $scope.item = new Item();
-            $location.path('/dashboard/items/all');
-            $scope.initialize();
+    $scope.getAttributeDetail = function () {
+        Attribute.get({id: attributeId}, function (data) {
+            $scope.attribute = data.entries[0];
+            console.log($scope.attribute);
         });
     };
 
-    $scope.addItemAttribute = function () {
-        $scope.itemAttributes.push(new ItemAttribute({
-            'attribute_id': $scope.attribute_id,
-            'attribute_value': $scope.attribute_value
-        }));
-        $scope.attribute_id = '';
-        $scope.attribute_value = '';
-        console.log($scope.itemAttributes);
-    };
-
-    $scope.$watch("item.type_id", function (newValue, oldValue) {
-        // We need this to watch for any updates in type_id value so that we can query the right attributes
-        $scope.initialize();
-    });
-
-    $scope.initialize = function () {
-        Type.get(function (data) {
-            $scope.typeList = data.entries;
-        });
-
-        Attribute.get({typeid: $scope.item.type_id}, function (data) {
-            console.log(data.entries);
-            $scope.attributeList = data.entries;
+    $scope.updateAttributeDetail = function () {
+        Attribute.update({id: attributeId}, $scope.attribute, function (data) {
+            $location.path('/dashboard/attributes/all');
         });
     };
 
-    $scope.initialize();
-
+    $scope.getAttributeDetail();
 }]);
 
 

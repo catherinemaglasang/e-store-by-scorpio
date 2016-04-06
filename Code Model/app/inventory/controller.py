@@ -1,4 +1,5 @@
 import json
+import decimal
 
 from flask import jsonify
 from flask import request
@@ -23,16 +24,11 @@ def items_upsert(item_id=None):
 
     response = spcall('items_upsert', (
         item_id,
-        int(data['tax_class_id']),
-        int(data['type_id']),
-        data['serial_no'],
         data['name'],
         data['description'],
         str(data['date_added']),
         str(data['date_updated']),
-        data['is_taxable'],
-        data['is_active'],
-        data['has_variations'],), True)
+        data['is_active'],), True)
 
     json_dict = build_json(response)
 
@@ -49,8 +45,8 @@ def item_attributes_upsert(item_id, attribute_id=None):
     data = json.loads(request.data)
 
     response = spcall('item_attributes_upsert', (
-        attribute_id,
-        item_id,
+        data['attribute_id'],
+        data['item_id'],
         data['attribute_value'],), True)
 
     json_dict = build_json(response)
@@ -62,33 +58,36 @@ def item_attributes_upsert(item_id, attribute_id=None):
     return jsonify(json_dict), status_code
 
 
-@api.route('/api/v1/types/', methods=['POST'])
-@api.route('/api/v1/types/<type_id>/', methods=['PUT'])
-def types_upsert(type_id=None):
+@api.route('/api/v1/items/<item_id>/variations/', methods=['POST'])
+@api.route('/api/v1/items/<item_id>/variations/<option_id>/', methods=['PUT'])
+def item_variations_upsert(item_id, option_id=None):
     data = json.loads(request.data)
 
-    response = spcall('types_upsert', (
-        type_id,
-        data['type_name'],
-        data['type_description'],), True)
+    response = spcall('item_variations_upsert', (
+        data['item_id'],
+        data['option_id'],
+        data['stock_on_hand'],
+        data['unit_cost'],
+        data['re_order_level'],
+        data['re_order_quantity'],
+        data['is_active'],), True)
 
     json_dict = build_json(response)
 
     status_code = 200
-    if not type_id:
+    if not option_id:
         status_code = 201
 
     return jsonify(json_dict), status_code
 
 
-@api.route('/api/v1/types/<type_id>/attributes/', methods=['POST'])
-@api.route('/api/v1/types/<type_id>/attributes/<attribute_id>', methods=['PUT'])
-def attributes_upsert(type_id, attribute_id=None):
+@api.route('/api/v1/attributes/', methods=['POST'])
+@api.route('/api/v1/attributes/<attribute_id>/', methods=['PUT'])
+def attributes_upsert(attribute_id=None):
     data = json.loads(request.data)
 
     response = spcall('attributes_upsert', (
         attribute_id,
-        type_id,
         data['attribute_name'],
         data['validation'],), True)
 
@@ -119,6 +118,41 @@ def locations_upsert(location_id=None):
     return jsonify(json_dict), status_code
 
 
+@api.route('/api/v1/optiongroups/', methods=['POST'])
+@api.route('/api/v1/optiongroups/<option_group_id>/', methods=['PUT'])
+def option_groups_upsert(option_group_id=None):
+    data = json.loads(request.data)
+
+    response = spcall('option_groups_upsert', (
+        option_group_id,
+        data['option_group_name'],), True)
+
+    json_dict = build_json(response)
+
+    status_code = 200
+    if not option_group_id:
+        status_code = 201
+
+    return jsonify(json_dict), status_code
+
+
+@api.route('/api/v1/optiongroups/<option_group_id>/options/', methods=['POST'])
+@api.route('/api/v1/optiongroups/<option_group_id>/options/<option_id>/', methods=['PUT'])
+def options_upsert(option_group_id, option_id=None):
+    data = json.loads(request.data)
+    response = spcall('options_upsert', (
+        option_id,
+        option_group_id,
+        data['option_value'],), True)
+    json_dict = build_json(response)
+
+    status_code = 200
+    if not option_id:
+        status_code = 201
+
+    return jsonify(json_dict), status_code
+
+
 # -----------------
 # Routes for GET
 # -----------------
@@ -132,6 +166,7 @@ def items_get(item_id=None):
 
     return jsonify(json_dict)
 
+
 @api.route('/api/v1/items/<item_id>/attributes/', methods=['GET'])
 @api.route('/api/v1/items/<item_id>/attributes/<attribute_id>/', methods=['GET'])
 def item_attributes_get(item_id, attribute_id=None):
@@ -142,37 +177,20 @@ def item_attributes_get(item_id, attribute_id=None):
     return jsonify(json_dict)
 
 
-@api.route('/api/v1/types/', methods=['GET'])
-@api.route('/api/v1/types/<type_id>/', methods=['GET'])
-def types_get(type_id=None):
-    response = spcall('types_get', (type_id,))
+@api.route('/api/v1/items/<item_id>/variations/', methods=['GET'])
+@api.route('/api/v1/items/<item_id>/variations/<option_id>/', methods=['GET'])
+def item_variations_get(item_id, option_id=None):
+    response = spcall('item_variations_get', (item_id, option_id,), )
 
-    entries = []
-    out = {}
+    json_dict = build_json(response)
 
-    if len(response) == 0:
-        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": 0})
-
-    if 'Error' in str(response[0][0]):
-        return jsonify({'status': 'error', 'message': response[0][0]})
-
-    for row in response:
-        r = dict(row)
-
-        attributes = spcall('attributes_get', (None, r['type_id'],))
-        attribute_list = []
-        for row in attributes:
-            attribute_list.append(dict(row))
-        r['attributes'] = attribute_list
-        entries.append(r)
-
-    return jsonify({'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)})
+    return jsonify(json_dict)
 
 
-@api.route('/api/v1/types/<type_id>/attributes/', methods=['GET'])
-@api.route('/api/v1/types/<type_id>/attributes/<attribute_id>/', methods=['GET'])
-def attributes_get(type_id, attribute_id=None):
-    response = spcall('attributes_get', (attribute_id, type_id,))
+@api.route('/api/v1/attributes/', methods=['GET'])
+@api.route('/api/v1/attributes/<attribute_id>/', methods=['GET'])
+def attributes_get(attribute_id=None):
+    response = spcall('attributes_get', (attribute_id,))
 
     json_dict = build_json(response)
 
@@ -183,6 +201,26 @@ def attributes_get(type_id, attribute_id=None):
 @api.route('/api/v1/locations/<location_id>/', methods=['GET'])
 def locations_get(location_id=None):
     response = spcall('locations_get', (location_id,))
+
+    json_dict = build_json(response)
+
+    return jsonify(json_dict)
+
+
+@api.route('/api/v1/optiongroups/', methods=['GET'])
+@api.route('/api/v1/optiongroups/<option_group_id>/', methods=['GET'])
+def option_groups_get(option_group_id=None):
+    response = spcall('option_groups_get', (option_group_id,))
+
+    json_dict = build_json(response)
+
+    return jsonify(json_dict)
+
+
+@api.route('/api/v1/optiongroups/<option_group_id>/options/', methods=['GET'])
+@api.route('/api/v1/optiongroups/<option_group_id>/options/<option_id>/', methods=['GET'])
+def options_get(option_group_id, option_id=None):
+    response = spcall('options_get', (option_id, option_group_id,))
 
     json_dict = build_json(response)
 

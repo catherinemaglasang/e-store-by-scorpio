@@ -10,15 +10,15 @@ Feature: Get, Create & Update Items
     And I get an "<message>" message
 
     Examples:
-      | url              | status_code | status | message          |
-      | /                | 200         | ok     | ok               |
-      | /api/v1/items/   | 200         | ok     | No entries found |
-      | /api/v1/items/1/ | 200         | ok     | No entries found |
+      | url              | status_code | status | message |
+      | /                | 200         | ok     | ok      |
+      | /api/v1/items/   | 200         | ok     | ok      |
+      | /api/v1/items/1/ | 200         | ok     | ok      |
 
   Scenario: Add Item
     Given I have the following data
-      | tax_class_id | type_id | serial_no | name | description | date_added     | date_updated   | is_taxable | is_active | has_variations |
-      | 1            | 1       | SN123     | name | description | 2001-1-1 1:1:1 | 2001-1-1 1:1:1 | true       | true      | true           |
+      | name | description | date_added     | date_updated   | is_active |
+      | name | description | 2001-1-1 1:1:1 | 2001-1-1 1:1:1 | true      |
     When I save the data
     Then I get a "201" response
     And I get a field "status" containing "ok"
@@ -27,8 +27,8 @@ Feature: Get, Create & Update Items
   Scenario: Update Item
     Given I have a resource with the id "1"
     And I want to update its data to the following data
-      | tax_class_id | type_id | serial_no | name | description | date_added     | date_updated   | is_taxable | is_active | has_variations |
-      | 1            | 1       | SN123     | name | description | 2001-1-1 1:1:1 | 2001-1-1 1:1:1 | true       | true      | true           |
+      | name | description | date_added     | date_updated   | is_active |
+      | name | description | 2001-1-1 1:1:1 | 2001-1-1 1:1:1 | true      |
     When I update the data
     Then I get a "200" response
     And I get a field "status" containing "ok"

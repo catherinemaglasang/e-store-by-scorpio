@@ -1,7 +1,7 @@
-Feature: Get, Create & Update Types
+Feature: Get, Create & Update Option Groups
 
   Background:
-    Given a resource url called "/api/v1/types/"
+    Given a resource url called "/api/v1/optiongroups/"
 
   Scenario Outline: Retrieve resource
     Given I access the url "<url>"
@@ -12,23 +12,23 @@ Feature: Get, Create & Update Types
     Examples:
       | url                           | status_code | status | message |
       | /                             | 200         | ok     | ok      |
-      | /api/v1/types/1/              | 200         | ok     | ok      |
-      | /api/v1/types/2/attributes/1/ | 200         | ok     | No entries found      |
+      | /api/v1/optiongroups/              | 200         | ok     | ok      |
+      | /api/v1/optiongroups/1/              | 200         | ok     | ok      |
 
-  Scenario: Add Type
+  Scenario: Add Option Group
     Given I have the following data
-      | type_name | type_description |
-      | name      | description      |
+      | option_group_name |
+      | default      |
     When I save the data
     Then I get a "201" response
     And I get a field "status" containing "ok"
     And I get a field "message" containing "ok"
 
-  Scenario: Update Type
+  Scenario: Update Option Group
       Given I have a resource with the id "1"
       And I want to update its data to the following data
-      | type_name | type_description |
-      | name      | description      |
+      | option_group_name |
+      | default      |
       When I update the data
       Then I get a "200" response
       And I get a field "status" containing "ok"
