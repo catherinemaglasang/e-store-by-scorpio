@@ -3,42 +3,57 @@ mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item',
     // Primary Instance
     // -------------------------
     $scope.item = new Item();
-    // -------------------------
+    ////////////////////////////
 
-    // Form dropdowns
     $scope.attributeList = [];
     $scope.optionGroupList = [];
     $scope.optionList = [];
 
-    // Provider Instance
     $scope.attribute = new ItemAttribute();
-    $scope.variant = new ItemVariation();
     $scope.image = new Image();
 
-    // To be saved after item
     $scope.itemVariations = [];
     $scope.itemAttributes = [];
     $scope.images = [];
 
+    /**
+     * Add Item Function
+     * Workflow includes saving the item -> item_attributes -> item_variations -> images
+     */
     $scope.addItem = function () {
         $scope.item.item_id = null;
 
-        //http://www.angulartutorial.net/2014/04/date-filtering-and-formatting-in.html
+        // http://www.angulartutorial.net/2014/04/date-filtering-and-formatting-in.html
         $scope.item.date_added = $filter('date')(Date.now(), 'MMM-dd-yyyy HH:mm:ss');
         $scope.item.date_updated = $filter('date')(Date.now(), 'MMM-dd-yyyy HH:mm:ss');
 
         $scope.item.is_active = true;
         $scope.item.has_variations = true;
 
+        /////////////////
+
         $scope.item.$save(function (data) {
             var id = data.entries[0].items_upsert;
 
-            angular.forEach($scope.itemAttributes, function(value, key){
+            //////////////
+
+            angular.forEach($scope.itemAttributes, function (value, key) {
                 value.item_id = id;
-                value.$save({itemid: id},function(data){
-                   console.log("Added itemattribute " + value);
+                value.$save({itemid: id}, function (data) {
+                    console.log("Added item_attribute " + value);
                 });
             });
+
+            //////////////
+
+            angular.forEach($scope.itemVariations, function (value, key) {
+                value.item_id = id;
+                value.$save({itemid: id}, function (data) {
+                    console.log("Added item_variation " + value);
+                });
+            });
+
+            //////////////
 
             $scope.item = new Item();
             $location.path('/dashboard/items/all');
@@ -46,6 +61,10 @@ mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item',
         });
     };
 
+    /*
+     * Add Item Attribute
+     * Triggered in the client. Pushes the new item_attribute instance in array.
+     */
     $scope.addItemAttribute = function () {
         $scope.itemAttributes.push($scope.attribute);
         $scope.attribute = new Attribute();
