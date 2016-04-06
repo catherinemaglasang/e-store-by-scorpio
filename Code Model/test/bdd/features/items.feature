@@ -17,8 +17,8 @@ Feature: Get, Create & Update Items
 
   Scenario: Add Item
     Given I have the following data
-      | name | description | date_added     | date_updated   | is_taxable | is_active | has_variations |
-      | name | description | 2001-1-1 1:1:1 | 2001-1-1 1:1:1 | true       | true      | true           |
+      | name | description | date_added     | date_updated   | is_active |
+      | name | description | 2001-1-1 1:1:1 | 2001-1-1 1:1:1 | true      |
     When I save the data
     Then I get a "201" response
     And I get a field "status" containing "ok"
@@ -27,8 +27,8 @@ Feature: Get, Create & Update Items
   Scenario: Update Item
     Given I have a resource with the id "1"
     And I want to update its data to the following data
-      | name | description | date_added     | date_updated   | is_taxable | is_active | has_variations |
-      | name | description | 2001-1-1 1:1:1 | 2001-1-1 1:1:1 | true       | true      | true           |
+      | name | description | date_added     | date_updated   | is_active |
+      | name | description | 2001-1-1 1:1:1 | 2001-1-1 1:1:1 | true      |
     When I update the data
     Then I get a "200" response
     And I get a field "status" containing "ok"

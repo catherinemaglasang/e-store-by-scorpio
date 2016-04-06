@@ -40,7 +40,7 @@ mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item',
             angular.forEach($scope.itemAttributes, function (value, key) {
                 value.item_id = id;
                 value.$save({itemid: id}, function (data) {
-                    console.log("Added item_attribute " + value);
+                    // Success
                 });
             });
 
@@ -49,7 +49,7 @@ mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item',
             angular.forEach($scope.itemVariations, function (value, key) {
                 value.item_id = id;
                 value.$save({itemid: id}, function (data) {
-                    console.log("Added item_variation " + value);
+                    // Success
                 });
             });
 
@@ -98,15 +98,19 @@ mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item',
             variant.is_active = true;
             variant.editable = true;
             $scope.itemVariations.push(variant);
-            console.log($scope.itemVariations);
         });
     };
 
     $scope.updateItemVariation = function (variant) {
         variant.editable = false;
+
         var index = $scope.itemVariations.indexOf(variant);
         $scope.itemVariations.splice(index, 1, variant);
-        console.log($scope.itemVariations);
+    };
+
+    $scope.removeItemVariation = function (variant) {
+        var index = $scope.itemVariations.indexOf(variant);
+        $scope.itemVariations.splice(index, 1);
     };
 
     $scope.make_editable = function (variant) {

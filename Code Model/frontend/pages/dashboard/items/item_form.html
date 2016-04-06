@@ -85,17 +85,9 @@
         <div class="box box-solid">
             <div class="box-header">
                 <h3 class="box-title">Stocks & Variants</h3>
-                <span><div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" ng-model="item.has_variations" name="has_variations"> This product has
-                            variants
-                        </label>
-                    </div>
-                </div></span>
             </div>
             <div class="box-body">
-                <div class="row" ng-if="item.has_variations">
+                <div class="row">
                     <div class="col-md-12">
                         <p>Please select the applicable option group for the variant</p>
                     </div>
@@ -125,36 +117,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-if="item.has_variations == false">
-                        <td>
-                            n/a
-                        </td>
-                        <td>
-                            n/a
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <input type="number" class="form-control">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <input type="number" class="form-control">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <input type="number" class="form-control">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <input type="number" class="form-control">
-                            </div>
-                        </td>
-                        <td><a class="btn btn-default" href="" ng-click="addItemVariation()">Save</a></td>
-                    </tr>
-                    <tr ng-repeat="variant in itemVariations" ng-if="item.has_variations && optionList.length > 0">
+                    <tr ng-repeat="variant in itemVariations" ng-if="optionList.length > 0">
                         <td>
                             {{ variant.option_group_id }}
                         </td>
@@ -188,6 +151,7 @@
                         <td>
                             <a ng-if="variant.editable" class="btn btn-default" href="" ng-click="updateItemVariation(variant)">Save</a>
                             <a ng-if="variant.editable == false" class="btn btn-default" href="" ng-click="make_editable(variant)">Edit</a>
+                            <a href="" class="btn btn-danger" ng-click="removeItemVariation(variant)">Remove</a>
 
                         </td>
                     </tr>

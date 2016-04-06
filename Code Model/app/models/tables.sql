@@ -99,8 +99,7 @@ CREATE TABLE items (
   description    TEXT,
   date_added     TIMESTAMP DEFAULT now(),
   date_updated   TIMESTAMP DEFAULT now(),
-  is_active      BOOL      DEFAULT TRUE,
-  has_variations BOOL      DEFAULT FALSE
+  is_active      BOOL      DEFAULT TRUE
 );
 
 CREATE TABLE location_items (
