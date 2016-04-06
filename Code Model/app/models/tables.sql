@@ -221,7 +221,7 @@ CREATE TABLE cart_items (
   time_stamp TIMESTAMP
 );
 
-CREATE TABLE wishlist_items (
+CREATE TABLE wishlist_details (
   id          INT8 PRIMARY KEY,
   wishlist_id INT8,
   product_id  INT8,
