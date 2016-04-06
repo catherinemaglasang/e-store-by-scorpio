@@ -1,9 +1,8 @@
 import json
-
-from lettuce import step, world, before
+from lettuce import *
 from nose.tools import assert_equals
-
 from app import create_app
+from flask import Flask
 
 
 @before.all
@@ -23,13 +22,14 @@ def given_I_have_th_following_cart_item_details(step):
     world.cartItem1 = step.hashes[0]
 
 
-@step("I Post the cart item to resource_url  '/api/v1/cart_items/'")
-def when_I_Post_the_cart_item_to_resource_url(step):
+@step("I Post the cart item to resource_url  \'(.*)\'")
+def when_I_Post_the_cart_item_to_resource_url(step, url):
     """
     :type step: lettuce.core.Step
     """
-    world.cartItem_post_uri = '/api/v1/cart_items/'
-    world.cartItem_post_response = world.app.post(world.cartItem_post_uri, data=json.dumps(world.cartItem1))
+    world.cartItem_post_uri = url
+    world.cartItem_post_response = world.browser.post(world.cartItem_post_uri, data=json.dumps(world.cartItem1))
+    # world.response_data = json.loads(world.cartItem_post_response)
 
 
 @step("I should get response \'(.*)\'")
@@ -67,7 +67,7 @@ def given_cart_item1_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.cart_item = world.app.get('/api/v1/cart_items/{}/'.format(id))
+    world.cart_item = world.browser.get('/api/v1/cart_items/{}/'.format(id))
     world.resp = json.loads(world.cart_item.data)
     assert_equals(world.resp['status'], 'ok')
 
@@ -77,7 +77,7 @@ def when_I_retrieve_the_cart_item1(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/cart_items/{}/'.format(id))
+    world.response = world.browser.get('/api/v1/cart_items/{}/'.format(id))
 
 
 @step("the following cart item details are returned:")
@@ -141,7 +141,7 @@ def when_I_Post_the_cart_to_resource_url(step):
     :type step: lettuce.core.Step
     """
     world.cart_post_uri = '/api/v1/carts/'
-    world.cart_post_response = world.app.post(world.cart_post_uri, data=json.dumps(world.cart1))
+    world.cart_post_response = world.browser.post(world.cart_post_uri, data=json.dumps(world.cart1))
 
 
 @step("I should have a status code \'(.*)\'")
@@ -180,7 +180,7 @@ def given_cart_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.cart = world.app.get('/api/v1/carts/{}/'.format(id))
+    world.cart = world.browser.get('/api/v1/carts/{}/'.format(id))
     world.resp = json.loads(world.cart.data)
     assert_equals(world.resp['status'], 'ok')
 
@@ -191,7 +191,7 @@ def when_I_retrieve_the_cart(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/carts/{}/'.format(id))
+    world.response = world.browser.get('/api/v1/carts/{}/'.format(id))
 
 
 @step("the following cart details are returned :")
@@ -256,7 +256,7 @@ def when_I_Post_the_order_to_resource_url(step, url):
     :type step: lettuce.core.Step
     """
     world.order_post_uri = url
-    world.order_response = world.app.post(world.order_post_uri, data=json.dumps(world.order1))
+    world.order_response = world.browser.post(world.order_post_uri, data=json.dumps(world.order1))
 
 
 @step("I should get a status of \'(.*)\'")
@@ -295,7 +295,7 @@ def given_order_id1_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.order = world.app.get('/api/v1/orders/{}/'.format(id))
+    world.order = world.browser.get('/api/v1/orders/{}/'.format(id))
     world.resp = json.loads(world.order.data)
     assert_equals(world.resp['status'], 'ok')
 
@@ -306,7 +306,7 @@ def when_I_retrieve_the_order(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/orders/{}/'.format(id))
+    world.response = world.browser.get('/api/v1/orders/{}/'.format(id))
 
 
 @step("the following orders are returned:")
@@ -371,7 +371,7 @@ def when_I_Post_the_order_item_to_resource_url(step):
     :type step: lettuce.core.Step
     """
     world.orderItem_post_uri = '/api/v1/order_items/'
-    world.orderItem_post_response = world.app.post(world.orderItem_post_uri, data=json.dumps(world.orderItem1))
+    world.orderItem_post_response = world.browser.post(world.orderItem_post_uri, data=json.dumps(world.orderItem1))
 
 
 @step("I should have a response \'(.*)\'")
@@ -409,7 +409,7 @@ def given_order_item_id1_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.orderItem = world.app.get('/api/v1/order_items/{}/'.format(id))
+    world.orderItem = world.browser.get('/api/v1/order_items/{}/'.format(id))
     world.resp = json.loads(world.orderItem.data)
     assert_equals(world.resp['status'], 'ok')
 
@@ -419,7 +419,7 @@ def when_I_retrieve_the_order_item(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/order_items/{}/'.format(id))
+    world.response = world.browser.get('/api/v1/order_items/{}/'.format(id))
 
 
 @step("the following order item details are returned:")
@@ -484,7 +484,7 @@ def when_I_post_the_supplier_to_resource_url(step):
     :type step: lettuce.core.Step
     """
     world.supplier_post_uri = '/api/v1/suppliers/'
-    world.supplier_post_response = world.app.post(world.supplier_post_uri, data=json.dumps(world.supplier1))
+    world.supplier_post_response = world.browser.post(world.supplier_post_uri, data=json.dumps(world.supplier1))
 
 
 @step("I should get a response \'(.*)\'")
@@ -531,7 +531,7 @@ def when_I_post_the_supplier_to_resource_url(step, url):
     :type step: lettuce.core.Step
     """
     world.supplier_post_uri = url
-    world.supplier_post_response = world.app.post(world.supplier_post_uri, data=json.dumps(world.supplier1))
+    world.supplier_post_response = world.browser.post(world.supplier_post_uri, data=json.dumps(world.supplier1))
 
 
 @step("I should get a response \'(.*)\'")
@@ -569,7 +569,7 @@ def given_supplier1_is_in_the_system(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.supplier = world.app.get('/api/v1/suppliers/{}/'.format(id))
+    world.supplier = world.browser.get('/api/v1/suppliers/{}/'.format(id))
     world.resp = json.loads(world.supplier.data)
     assert_equals(world.resp['status'], 'ok')
 
@@ -580,7 +580,7 @@ def when_I_retrieve_the_supplier1(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/suppliers/{}/'.format(id))
+    world.response = world.browser.get('/api/v1/suppliers/{}/'.format(id))
 
 
 @step("the following supplier details are returned:")

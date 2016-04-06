@@ -1,122 +1,109 @@
 mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
 
     $routeProvider
+    // Authentication Module
+
         .when('/login', {
-            templateUrl: 'pages/login.html',
+            templateUrl: 'pages/user/login.html',
             controller: 'MainController'
         })
 
-        .when('/reports', {
-            templateUrl: 'pages/reports.html',
+        .when('/dashboard/settings', {
+            templateUrl: 'pages/dashboard/settings.html',
+            controller: 'MainController'
+        })
+
+        // Reports & Analytics Module
+
+        .when('/dashboard/reports', {
+            templateUrl: 'pages/dashboard/reports/reports.html',
             controller: 'MainController'
         })
 
         // Inventory Module
+        .when('/dashboard', {
+            templateUrl: 'pages/dashboard/home.html',
+            controller: 'MainController'
+        })
 
-        .when('/inventory/items/all', {
-            templateUrl: 'pages/inventory/item_list.html',
+        .when('/dashboard/items/all', {
+            templateUrl: 'pages/dashboard/items/item_list.html',
             controller: 'MainController'
         })
 
 
-        .when('/inventory/types/all', {
-            templateUrl: 'pages/inventory/type_list.html',
+        .when('/dashboard/types/all', {
+            templateUrl: 'pages/dashboard/items/type_list.html',
             controller: 'MainController'
         })
 
 
-        .when('/inventory/locations/all', {
-            templateUrl: 'pages/inventory/location_list.html',
+        .when('/dashboard/locations/all', {
+            templateUrl: 'pages/dashboard/items/location_list.html',
             controller: 'MainController'
         })
 
-        .when('/inventory/items/add', {
-            templateUrl: 'pages/inventory/item_form.html',
+        .when('/dashboard/items/add', {
+            templateUrl: 'pages/dashboard/items/item_form.html',
+            controller: 'ItemAddController'
+        })
+
+        .when('/dashboard/types/add', {
+            templateUrl: 'pages/dashboard/items/type_form.html',
             controller: 'MainController'
         })
 
-        .when('/inventory/types/add', {
-            templateUrl: 'pages/inventory/type_form.html',
+        .when('/dashboard/locations/add', {
+            templateUrl: 'pages/dashboard/items/location_form.html',
             controller: 'MainController'
         })
 
-        .when('/inventory/locations/add', {
-            templateUrl: 'pages/inventory/location_form.html',
-            controller: 'MainController'
+        .when('/dashboard/items/:id', {
+            templateUrl: 'pages/dashboard/items/item_detail.html',
+            controller: 'ItemDetailController'
         })
 
-        .when('/inventory', {
-            templateUrl: 'pages/inventory/inventory.html',
-            controller: 'MainController'
-        })
-
-        .when('/inventory/items/:id', {
-            templateUrl: 'pages/inventory/item_detail.html',
-            controller: 'MainController'
-        })
-
-        .when('/inventory/types/:id', {
-            templateUrl: 'pages/inventory/type_detail.html',
+        .when('/dashboard/types/:id', {
+            templateUrl: 'pages/dashboard/items/type_detail.html',
             controller: 'TypeDetailController'
         })
 
-        .when('/inventory/locations/:id', {
-            templateUrl: 'pages/inventory/location_detail.html',
+        .when('/dashboard/locations/:id', {
+            templateUrl: 'pages/dashboard/items/location_detail.html',
+            controller: 'LocationDetailController'
+        })
+
+        .when('/dashboard/purchase/all', {
+            templateUrl: 'pages/dashboard/items/purchase.html',
             controller: 'MainController'
         })
 
-        // Supply & Purchasing Module
-
-        .when('/purchase', {
-            templateUrl: 'pages/purchase.html',
-            controller: 'MainController'
-        })
-
-        .when('/purchase/add', {
-            templateUrl: 'pages/purchase_add.html',
-            controller: 'MainController'
-        })
-
-        .when('/vendors/add', {
-            templateUrl: 'pages/purchase_add.html',
-            controller: 'MainController'
-        })
-
-        // Point of Sales Module
-
-        .when('/sales', {
-            templateUrl: 'pages/sales.html',
-            controller: 'MainController'
-        })
-
-        .when('/sales/add', {
-            templateUrl: 'pages/sales_add.html',
+        .when('/dashboard/purchase/add', {
+            templateUrl: 'pages/dashboard/items/purchase_add.html',
             controller: 'MainController'
         })
 
         // Stock movement and transfer Module
 
-        .when('/adjustment', {
-            templateUrl: 'pages/adjustment.html',
+        .when('/dashboard/adjustment/all', {
+            templateUrl: 'pages/dashboard/items/adjustment.html',
             controller: 'MainController'
         })
 
-        .when('/adjustment/add', {
-            templateUrl: 'pages/adjustment_add.html',
+        .when('/dashboard/adjustment/add', {
+            templateUrl: 'pages/dashboard/items/adjustment_add.html',
             controller: 'MainController'
         })
 
-        .when('/transfer', {
-            templateUrl: 'pages/transfer.html',
+        .when('/dashboard/transfer/all', {
+            templateUrl: 'pages/dashboard/items/transfer.html',
             controller: 'MainController'
         })
 
-        .when('/transfer/add', {
-            templateUrl: 'pages/transfer_add.html',
+        .when('/dashboard/transfer/add', {
+            templateUrl: 'pages/dashboard/items/transfer_add.html',
             controller: 'MainController'
         })
-
-        // Dashboard Pages
 
         .when('/dashboard/suppliers/add', {
             templateUrl: 'pages/dashboard/suppliers/add_supplier.html',
@@ -128,6 +115,18 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
             controller: 'MainController'
         })
 
+        // Point of Sales & Cart Module
+
+        .when('/dashboard/sales/all', {
+            templateUrl: 'pages/dashboard/items/sales.html',
+            controller: 'MainController'
+        })
+
+        .when('/dashboard/sales/add', {
+            templateUrl: 'pages/dashboard/items/sales_add.html',
+            controller: 'MainController'
+        })
+
         // 404 Pages
 
         .when('/404', {
@@ -135,7 +134,7 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
         })
 
         .otherwise({
-            redirectTo: '/inventory/items/all'
+            redirectTo: '/dashboard'
         });
 
     $resourceProvider.defaults.stripTrailingSlashes = false;

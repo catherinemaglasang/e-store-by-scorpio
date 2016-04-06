@@ -1,10 +1,9 @@
-mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location','Supplier', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Supplier, Attribute, $routeParams) {
-    $scope.item = new Item();
+mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Supplier', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Supplier, Attribute, $routeParams) {
 
     $scope.location = new Location();
-    $scope.location = new Supplier();
-
     $scope.type = new Type();
+    $scope.supplier = new Supplier();
+
     $scope.attributes = [];
     $scope.attribute_name = '';
     $scope.validation = '';
@@ -81,7 +80,7 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
 
             $scope.attributes = [];
             $scope.type = new Type();
-            $location.path('/inventory/types/all');
+            $location.path('/dashboard/types/all');
             $scope.initialize();
         });
     };
@@ -100,22 +99,16 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
         $scope.location.location_id = null;
         $scope.location.$save(function () {
             $scope.location = new Location();
-            $location.path('/inventory/locations/all');
+            $location.path('/dashboard/locations/all');
             $scope.initialize();
         });
     };
 
     $scope.addSupplier = function () {
         $scope.supplier.supplier_id = null;
-        $scope.supplier.name = null;
-        $scope.supplier.address= null;
-        $scope.supplier.phone = null;
-        $scope.supplier.fax= null;
-        $scope.supplier.email= null;
-        $scope.supplier.is_active= null;
-        $scope.location.$save(function () {
-            $scope.supplier = new Location();
-            supplier.path('/dashboard/suppliers/all');
+        $scope.supplier.$save(function () {
+            $scope.supplier = new Supplier();
+            $location.path('/dashboard/suppliers/all');
             $scope.initialize();
         });
     };
@@ -129,29 +122,154 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'T
     };
 
     $scope.initialize = function () {
-        $scope.getItemList();
+        Item.get(function (data) {
+            $scope.itemList = data.entries;
+        });
+
+        Type.get(function (data) {
+            $scope.typeList = data.entries;
+        });
+
+        Location.get(function (data) {
+            $scope.locationList = data.entries;
+        });
+        Supplier.get(function (data) {
+            $scope.supplierList= data.entries;
+        });
     };
 
     $scope.initialize();
+}]);
+
+mainApp.controller('ItemDetailController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
+    var itemId = $routeParams.id;
+
+    $scope.item = '';
+
+    $scope.getItemDetail = function () {
+        Item.get({id: itemId}, function (data) {
+            $scope.item = data.entries[0];
+        });
+    };
+
+    $scope.updateItemDetail = function () {
+        Item.update({id: itemId}, $scope.type, function () {
+            $location.path('/dashboard/items/all');
+        });
+    };
+
+    $scope.getItemDetail();
 }]);
 
 mainApp.controller('TypeDetailController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
     var typeId = $routeParams.id;
 
     $scope.type = '';
-    $scope.typeDetail = new Type();
-    console.log($scope.typeDetail);
 
     $scope.getTypeDetail = function () {
         Type.get({id: typeId}, function (data) {
-            $scope.type = data.entries;
+            $scope.type = data.entries[0];
             console.log($scope.type);
         });
     };
 
     $scope.updateTypeDetail = function () {
-
+        Type.update({id: typeId}, $scope.type, function () {
+            $location.path('/dashboard/types/all');
+        });
     };
 
     $scope.getTypeDetail();
 }]);
+
+mainApp.controller('LocationDetailController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, $routeParams) {
+    var locationId = $routeParams.id;
+
+    $scope.location = '';
+
+    $scope.getLocationDetail = function () {
+        Location.get({id: locationId}, function (data) {
+            $scope.location = data.entries[0];
+        });
+    };
+
+    $scope.updateLocationDetail = function () {
+        Location.update({id: locationId}, $scope.location, function () {
+            $location.path('/dashboard/locations/all');
+        });
+    };
+
+    $scope.getLocationDetail();
+}]);
+
+mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item', 'Type', 'Location', 'Attribute', 'ItemAttribute', '$routeParams', function ($scope, $http, $location, Item, Type, Location, Attribute, ItemAttribute, $routeParams) {
+    $scope.typeList = [];
+    $scope.attributeList = [];
+
+    $scope.item = new Item();
+    $scope.options = [];
+    $scope.optionGroups = [];
+    $scope.itemVariationOptions = [];
+    $scope.itemAttributes = [];
+
+    $scope.attribute_id = '';
+    $scope.attribute_value = '';
+
+    $scope.addItem = function () {
+        $scope.item.item_id = null;
+        $scope.item.site_id = null;
+        //$scope.item.serial_no = 'SN1';
+        $scope.item.tax_class_id = null;
+        //$scope.item.type_id = null;
+        $scope.item.name = 'name';
+        $scope.item.description = 'name';
+        $scope.item.date_added = null;
+        $scope.item.date_updated = null;
+        $scope.item.is_taxable = true;
+        $scope.item.unit_cost = null;
+        $scope.item.is_active = true;
+        $scope.item.has_variations = true;
+
+        $scope.item.$save(function (data) {
+            var id = data.entries[0].items_upsert;
+            console.log(id);
+
+            $scope.item = new Item();
+            $location.path('/dashboard/items/all');
+            $scope.initialize();
+        });
+    };
+
+    $scope.addItemAttribute = function () {
+        $scope.itemAttributes.push(new ItemAttribute({
+            'attribute_id': $scope.attribute_id,
+            'attribute_value': $scope.attribute_value
+        }));
+        $scope.attribute_id = '';
+        $scope.attribute_value = '';
+        console.log($scope.itemAttributes);
+    };
+
+    $scope.$watch("item.type_id", function (newValue, oldValue) {
+        // We need this to watch for any updates in type_id value so that we can query the right attributes
+        $scope.initialize();
+    });
+
+    $scope.initialize = function () {
+        Type.get(function (data) {
+            $scope.typeList = data.entries;
+        });
+
+        Attribute.get({typeid: $scope.item.type_id}, function (data) {
+            console.log(data.entries);
+            $scope.attributeList = data.entries;
+        });
+    };
+
+    $scope.initialize();
+
+}]);
+
+
+
+

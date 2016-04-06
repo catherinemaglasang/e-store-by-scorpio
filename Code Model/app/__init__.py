@@ -11,6 +11,7 @@ def create_app(_config='development'):
     app.config.from_object(config[_config])
 
     from app.inventory import controller
+    from app import views
 
     app.register_blueprint(api)
 

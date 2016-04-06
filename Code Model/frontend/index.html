@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Invento Software Labs</title>
+    <title>e-store</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <link rel="stylesheet" href="static/lib/AdminLTE/bootstrap/css/bootstrap.css">
@@ -130,16 +130,42 @@
         </form>
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
+            <li>
+                <a href="#/dashboard"><i class="fa fa-dashboard"></i> Dashboard </a>
+            </li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-dashboard"></i> <span>Inventory</span> <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#/inventory/items/all"><i class="fa fa-circle-o"></i> Items</a></li>
-                    <li><a href="#/inventory/types/all"><i class="fa fa-circle-o"></i> Types</a></li>
-                    <li><a href="#/inventory/locations/all"><i class="fa fa-circle-o"></i> Locations</a></li>
+                    <li><a href="#/dashboard/items/all"><i class="fa fa-circle-o"></i> Items</a></li>
+                    <li><a href="#/dashboard/types/all"><i class="fa fa-circle-o"></i> Types</a></li>
+                    <li><a href="#/dashboard/locations/all"><i class="fa fa-circle-o"></i> Locations</a></li>
                     <li><a href="#/dashboard/suppliers/all"><i class="fa fa-circle-o"></i> Suppliers</a></li>
+                    <li><a href="#/dashboard/purchases/all"><i class="fa fa-circle-o"></i> Purchase Orders</a></li>
+                    <li><a href="#/dashboard/adjustments/all"><i class="fa fa-circle-o"></i> Stock Adjustment</a></li>
+                    <li><a href="#/dashboard/transfers/all"><i class="fa fa-circle-o"></i> Stock Transfer</a></li>
                 </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Sales</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="#/dashboard/sales/all"><i class="fa fa-circle-o"></i> Sales</a></li>
+                    <li><a href="#/dashboard/customers/all"><i class="fa fa-circle-o"></i> Customers</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Reports</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="#/dashboard/reports"><i class="fa fa-circle-o"></i> Reports</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#/dashboard/settings"><i class="fa fa-dashboard"></i> Settings</a>
             </li>
 
         </ul>
@@ -158,7 +184,6 @@
         rights reserved.
     </div>
 </footer>
-</div>
 
 <!--********** Footer Scripts **********-->
 <script src="static/lib/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js"></script>

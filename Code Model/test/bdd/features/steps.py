@@ -9,6 +9,13 @@ def before_all():
     world.browser = world.app.test_client()
 
 
+@step('a resource url called "(.*)"')
+def given_a_resource_url(step, url):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.resource = url
+
 # ----------------------------------------------------------------
 # Common steps for retrieving data in any of the tables. We want to check its status, and fields.
 @step('I access the url "(?P<url>.+)"')
@@ -39,15 +46,15 @@ def give_i_have_the_following_data(step):
     world.data = step.hashes[0]
 
 
-@step('I POST to the url "(.*)"')
-def i_post_to_the_url_url(step, url):
-    world.response = world.browser.post(url, data=json.dumps(world.data))
+@step('I save the data')
+def i_post_to_the_url_url(step):
+    world.response = world.browser.post(world.resource, data=json.dumps(world.data))
     world.response_data = json.loads(world.response.data)
+    print world.response_data
 
 
 @step('I get a field "(.*)" containing "(.*)"')
 def i_get_a_field_field_containing_value(step, field, field_value):
-    print world.response_data
     assert_equals(world.response_data[field], field_value)
 # ----------------------------------------------------------------
 # Common steps for updating data in any of the tables.
@@ -60,18 +67,13 @@ def i_have_a_resource_with_id_id(step, id):
 
 @step("I want to update its data to the following data")
 def i_want_to_update_its_data(step):
-    world.new_resource_data = step.hashes[0]
+    world.new_data = step.hashes[0]
 
 
-@step('I have the resource url "(.*)"')
-def i_have_the_resource_url(step, resource_url):
-    world.resource = resource_url
-
-
-@step("I send a PUT request from client")
+@step("I update the data")
 def i_send_a_put_request_from_client(step):
-    world.response = world.browser.put(world.resource, data = json.dumps(world.new_resource_data))
-    print world.response
+    url = world.resource + world.resource_id + "/"
+    world.response = world.browser.put(url, data = json.dumps(world.new_data))
     world.response_data = json.loads(world.response.data)
 
 # The rest of the field checking steps are already implemented

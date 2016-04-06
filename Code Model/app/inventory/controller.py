@@ -1,8 +1,10 @@
 import json
-from flask import request
+
 from flask import jsonify
-from app.db import spcall
+from flask import request
+
 from app import api
+from app.db import spcall
 from app.utils import build_json
 
 
@@ -21,16 +23,14 @@ def items_upsert(item_id=None):
 
     response = spcall('items_upsert', (
         item_id,
-        data['site_id'],
+        int(data['tax_class_id']),
+        int(data['type_id']),
         data['serial_no'],
-        data['tax_class_id'],
-        data['type_id'],
         data['name'],
         data['description'],
-        data['date_added'],
-        data['date_updated'],
+        str(data['date_added']),
+        str(data['date_updated']),
         data['is_taxable'],
-        data['unit_cost'],
         data['is_active'],
         data['has_variations'],), True)
 
@@ -38,6 +38,25 @@ def items_upsert(item_id=None):
 
     status_code = 200
     if not item_id:
+        status_code = 201
+
+    return jsonify(json_dict), status_code
+
+
+@api.route('/api/v1/items/<item_id>/attributes/', methods=['POST'])
+@api.route('/api/v1/items/<item_id>/attributes/<attribute_id>/', methods=['PUT'])
+def item_attributes_upsert(item_id, attribute_id=None):
+    data = json.loads(request.data)
+
+    response = spcall('item_attributes_upsert', (
+        attribute_id,
+        item_id,
+        data['attribute_value'],), True)
+
+    json_dict = build_json(response)
+
+    status_code = 200
+    if not attribute_id:
         status_code = 201
 
     return jsonify(json_dict), status_code
@@ -60,6 +79,7 @@ def types_upsert(type_id=None):
         status_code = 201
 
     return jsonify(json_dict), status_code
+
 
 @api.route('/api/v1/types/<type_id>/attributes/', methods=['POST'])
 @api.route('/api/v1/types/<type_id>/attributes/<attribute_id>', methods=['PUT'])
@@ -112,6 +132,15 @@ def items_get(item_id=None):
 
     return jsonify(json_dict)
 
+@api.route('/api/v1/items/<item_id>/attributes/', methods=['GET'])
+@api.route('/api/v1/items/<item_id>/attributes/<attribute_id>/', methods=['GET'])
+def item_attributes_get(item_id, attribute_id=None):
+    response = spcall('item_attributes_get', (attribute_id, item_id,), )
+
+    json_dict = build_json(response)
+
+    return jsonify(json_dict)
+
 
 @api.route('/api/v1/types/', methods=['GET'])
 @api.route('/api/v1/types/<type_id>/', methods=['GET'])
@@ -122,25 +151,23 @@ def types_get(type_id=None):
     out = {}
 
     if len(response) == 0:
-        ret = {"status": "ok", "message": "No entries found", "entries": [], "count": 0}
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": 0})
 
     if 'Error' in str(response[0][0]):
-        ret = {'status': 'error', 'message': response[0][0]}
+        return jsonify({'status': 'error', 'message': response[0][0]})
 
     for row in response:
         r = dict(row)
 
-        attributes = spcall('attributes_get', (None, r['type_id'], ))
+        attributes = spcall('attributes_get', (None, r['type_id'],))
         attribute_list = []
         for row in attributes:
             attribute_list.append(dict(row))
         r['attributes'] = attribute_list
         entries.append(r)
 
-    ret = {'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)}
+    return jsonify({'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)})
 
-
-    return jsonify(ret)
 
 @api.route('/api/v1/types/<type_id>/attributes/', methods=['GET'])
 @api.route('/api/v1/types/<type_id>/attributes/<attribute_id>/', methods=['GET'])
@@ -155,8 +182,6 @@ def attributes_get(type_id, attribute_id=None):
 @api.route('/api/v1/locations/', methods=['GET'])
 @api.route('/api/v1/locations/<location_id>/', methods=['GET'])
 def locations_get(location_id=None):
-    # return jsonify(dict(locations.select(locations.c.location_id == location_id).execute().first()))
-
     response = spcall('locations_get', (location_id,))
 
     json_dict = build_json(response)
