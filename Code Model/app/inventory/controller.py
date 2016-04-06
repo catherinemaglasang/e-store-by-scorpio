@@ -24,7 +24,6 @@ def items_upsert(item_id=None):
 
     response = spcall('items_upsert', (
         item_id,
-        data['serial_no'],
         data['name'],
         data['description'],
         str(data['date_added']),

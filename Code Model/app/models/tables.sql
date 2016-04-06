@@ -95,7 +95,6 @@ CREATE TABLE sales_orders (
 
 CREATE TABLE items (
   item_id        SERIAL NOT NULL PRIMARY KEY,
-  serial_no      TEXT,
   name           TEXT,
   description    TEXT,
   date_added     TIMESTAMP DEFAULT now(),

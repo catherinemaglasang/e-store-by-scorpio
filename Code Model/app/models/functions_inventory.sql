@@ -220,7 +220,7 @@ $$ LANGUAGE 'plpgsql';
 -------------------------------------------------------------------------------
 -- select images_get(null);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION items_upsert(IN par_item_id     INT, IN par_serial_no TEXT, IN par_name TEXT,
+CREATE OR REPLACE FUNCTION items_upsert(IN par_item_id     INT, IN par_name TEXT,
                                         IN par_description TEXT, IN par_date_added DATE, IN par_date_updated DATE,
                                         IN par_is_active   BOOLEAN, IN par_has_variations BOOLEAN)
   RETURNS TEXT AS $$
@@ -230,15 +230,14 @@ BEGIN
 
   IF par_item_id ISNULL
   THEN
-    INSERT INTO items (serial_no, name, description, date_added, date_updated, is_active, has_variations)
-    VALUES (par_serial_no, par_name, par_description, par_date_added,
+    INSERT INTO items (name, description, date_added, date_updated, is_active, has_variations)
+    VALUES (par_name, par_description, par_date_added,
             par_date_updated, par_is_active, par_has_variations)
     RETURNING item_id
       INTO loc_response;
   ELSE
     UPDATE items
-    SET serial_no  = par_serial_no,
-      name         = par_name, description = par_description, date_added = par_date_added,
+    SET name         = par_name, description = par_description, date_added = par_date_added,
       date_updated = par_date_updated,
       is_active    = par_is_active, has_variations = par_has_variations
     WHERE item_id = par_item_id;
