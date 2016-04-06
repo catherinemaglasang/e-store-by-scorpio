@@ -45,7 +45,7 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
 
         .when('/dashboard/items/add', {
             templateUrl: 'pages/dashboard/items/item_form.html',
-            controller: 'MainController'
+            controller: 'ItemAddController'
         })
 
         .when('/dashboard/types/add', {

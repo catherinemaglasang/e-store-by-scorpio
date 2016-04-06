@@ -28,3 +28,13 @@ mainApp.factory("Attribute", ['$resource',
             'update': {method: 'PUT'}
         });
     }]);
+
+mainApp.factory("ItemAttribute", ['$resource',
+    function ($resource) {
+        return $resource("http://localhost:5000/api/v1/items/:itemid/attributes/:attributeid", {
+            itemid: '@itemid',
+            attributeid: '@attributeid'
+        }, {
+            'update': {method: 'PUT'}
+        });
+    }]);

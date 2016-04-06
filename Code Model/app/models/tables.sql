@@ -173,10 +173,10 @@ CREATE TABLE images (
 );
 
 CREATE TABLE item_attributes (
-  item_attribute_id SERIAL NOT NULL PRIMARY KEY,
   attribute_value   TEXT,
   attribute_id      INTEGER REFERENCES attributes,
-  item_id           INTEGER REFERENCES items
+  item_id           INTEGER REFERENCES items,
+  PRIMARY KEY (attribute_id, item_id)
 );
 
 CREATE TABLE item_variations (

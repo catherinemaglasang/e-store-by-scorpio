@@ -59,14 +59,14 @@ $$
 $$
  language 'plpgsql';
 
-create or replace function get_suppliers(out int8, out text, out text, out text, out text, out text, out boolean) returns setof record as
+create or replace function get_suppliers(out int, out text, out text, out text, out text, out text, out boolean) returns setof record as
 $$
    select id, name, address, phone, fax, email, is_active from suppliers;
 $$
  language 'sql';
 
 
-create or replace function get_supplier(in par_id int8, out text, out text, out text, out text, out text, out boolean) returns setof record as
+create or replace function get_supplier(in par_id int, out text, out text, out text, out text, out text, out boolean) returns setof record as
 $$
  select  name, address, phone, fax, email, is_active from suppliers where id = par_id
 $$
