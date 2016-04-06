@@ -24,13 +24,11 @@ def items_upsert(item_id=None):
 
     response = spcall('items_upsert', (
         item_id,
-        int(data['tax_class_id']),
         data['serial_no'],
         data['name'],
         data['description'],
         str(data['date_added']),
         str(data['date_updated']),
-        data['is_taxable'],
         data['is_active'],
         data['has_variations'],), True)
 

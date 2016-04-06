@@ -57,12 +57,6 @@ CREATE TABLE options (
   option_value    TEXT
 );
 
-CREATE TABLE tax_classes (
-  tax_class_id   SERIAL NOT NULL PRIMARY KEY,
-  name           TEXT,
-  tax_percentage NUMERIC,
-  description    TEXT
-);
 
 CREATE TABLE transfers (
   transfer_id          SERIAL NOT NULL PRIMARY KEY,
@@ -106,10 +100,8 @@ CREATE TABLE items (
   description    TEXT,
   date_added     TIMESTAMP DEFAULT now(),
   date_updated   TIMESTAMP DEFAULT now(),
-  is_taxable     BOOL      DEFAULT TRUE,
   is_active      BOOL      DEFAULT TRUE,
-  has_variations BOOL      DEFAULT FALSE,
-  tax_class_id   INTEGER REFERENCES tax_classes
+  has_variations BOOL      DEFAULT FALSE
 );
 
 CREATE TABLE location_items (
@@ -129,6 +121,7 @@ CREATE TABLE purchase_order_items (
   purchase_order_id      INTEGER REFERENCES purchase_orders,
   discount               NUMERIC,
   discount_percentage    NUMERIC,
+  tax NUMERIC,
   tax_percentage         NUMERIC
 );
 
@@ -138,6 +131,8 @@ CREATE TABLE sales_order_items (
   actual_unit_cost    NUMERIC,
   discount            NUMERIC,
   discount_percentage NUMERIC,
+  tax numeric,
+  tax_percentage numeric,
   total_cost          NUMERIC,
   item_id             INTEGER REFERENCES items,
   sales_order_id      INTEGER REFERENCES sales_orders
