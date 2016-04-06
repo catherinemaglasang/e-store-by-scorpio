@@ -1,12 +1,17 @@
-mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'Location', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Location, Attribute, $routeParams) {
+mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'Location', 'Supplier', 'Attribute', '$routeParams', function ($scope, $http, $location, Item, Location, Supplier, Attribute, $routeParams) {
 
     $scope.attribute = new Attribute();
     $scope.location = new Location();
+    $scope.supplier = new Supplier();
+
+    $scope.attributes = [];
+    $scope.attribute_name = '';
+    $scope.validation = '';
 
     $scope.itemList = [];
-    $scope.typeList = [];
     $scope.attributeList = [];
     $scope.locationList = [];
+    $scope.supplierList = [];
 
     $scope.addAttribute = function () {
         $scope.attribute.attribute_id = null;
@@ -27,6 +32,16 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'L
         });
     };
 
+    $scope.addSupplier = function () {
+        $scope.supplier.supplier_id = null;
+        $scope.supplier.$save(function () {
+            $scope.supplier = new Supplier();
+            $location.path('/dashboard/suppliers/all');
+            $scope.initialize();
+        });
+    };
+
+
     $scope.initialize = function () {
         Item.get(function (data) {
             $scope.itemList = data.entries;
@@ -38,6 +53,9 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'L
 
         Location.get(function (data) {
             $scope.locationList = data.entries;
+        });
+        Supplier.get(function (data) {
+            $scope.supplierList = data.entries;
         });
     };
 

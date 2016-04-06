@@ -36,7 +36,7 @@ $$
 
 --select * from get_user(1);
 
-create or replace function new_supplier(in par_id int8, in par_name text, in par_address text, in par_phone text, in par_fax text,in par_email text, in par_is_active boolean) returns text as
+create or replace function new_supplier(in par_id int, in par_name text, in par_address text, in par_phone text, in par_fax text,in par_email text, in par_is_active boolean) returns text as
 $$
   declare
     loc_id text;
@@ -47,7 +47,7 @@ $$
        if par_name='' or par_address='' or par_phone='' or par_fax='' or par_email='' then
          loc_res='error';
        else
-         insert into suppliers(id, name, address, phone, fax, email, is_active) values (par_id, par_name, par_address, par_phone, par_fax, par_email, par_is_active);
+         insert into suppliers(name, address, phone, fax, email, is_active) values (par_name, par_address, par_phone, par_fax, par_email, par_is_active);
          loc_res = 'OK';
        end if;
 
@@ -68,7 +68,7 @@ $$
 
 create or replace function get_supplier(in par_id int, out text, out text, out text, out text, out text, out boolean) returns setof record as
 $$
- select  name, address, phone, fax, email, is_active from suppliers where id = par_id
+ select  name, address, phone, fax, email, is_active from suppliers where id = par_id;
 $$
  language 'sql';
 

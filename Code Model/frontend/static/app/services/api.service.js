@@ -55,3 +55,8 @@ mainApp.factory("ItemVariation", ['$resource',
             'update': {method: 'PUT'}
         });
     }]);
+
+mainApp.factory("Supplier", ['$resource',
+    function ($resource) {
+        return $resource("http://localhost:5000/api/v1/suppliers/:id", {id: '@id'}, {});
+    }]);

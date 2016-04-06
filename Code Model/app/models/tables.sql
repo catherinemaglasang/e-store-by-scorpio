@@ -32,7 +32,7 @@ CREATE TABLE users (
 -- -------------------------------------
 
 CREATE TABLE suppliers (
-  id        SERIAL UNIQUE NOT NULL PRIMARY KEY,
+  supplier_id SERIAL UNIQUE NOT NULL PRIMARY KEY,
   name      TEXT,
   address   TEXT,
   phone     TEXT,

@@ -1,9 +1,8 @@
-from os import sys
 import json, flask
 from flask import request
 from flask import jsonify
 from flask import current_app as app
-from .db import spcall
+from app.db import spcall
 from app import api
 
 
@@ -151,14 +150,12 @@ def new_user():
 
 """  End USER  """
 """ SUPPLIER """
-
-
 @api.route('/api/v1/suppliers/', methods=['POST'])
-def new_supplier():
+def new_supplier(supplier_id=None):
     data = json.loads(request.data)
 
     response = spcall('new_supplier', (
-        data['id'],
+        supplier_id,
         data['name'],
         data['address'],
         data['phone'],
@@ -180,7 +177,7 @@ def get_supplier(supplier_id):
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
     else:
         row = response[0]
-        entries.append({"id": row[0],
+        entries.append({"supplier_id": row[0],
                         "name": row[1],
                         "address": row[2],
                         "phone": row[3],
@@ -198,7 +195,7 @@ def get_all_suppliers():
 
     recs = []
     for r in res:
-        recs.append({"id": str(r[0]), "name": str(r[1]), "address": str(r[2]), "phone": str(r[3]), "fax": str(r[4]),
+        recs.append({"supplier_id": str(r[0]), "name": str(r[1]), "address": str(r[2]), "phone": str(r[3]), "fax": str(r[4]),
                      "email": str(r[5]), "is_active": str(r[6])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
@@ -525,7 +522,7 @@ def get_wishlist(wishlist_id):
         for r in res:
             recs.append({"id": r[0]})
 
-            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})  
+            return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 @api.route('/api/v1/wishlist/<int:id>/', methods=['DELETE'])
 def delete_wishlist(id):

@@ -1,59 +1,48 @@
-<div class="content-wrapper">
-    <section class="content-header">
-        <ol class="breadcrumb">
-            <li><a href="#/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Suppliers</li>
-            <li class="active">Add new</li>
-        </ol>
-    </section>
-    <br>
-    <div class="container-supplier">
-    <header class="page-header">
-        <h3 class="pager-title"> Add new supplier </h3>
-    </header>
-    <div class="row row-col-gap">
-        <div class="col-md-3">
+<section class="content-header">
+    <h1>
+        Add Supplier
+    </h1>
+</section>
 
+<section class="content">
+    <form ng-submit="addSupplier()" class="form">
+        <div class="box box-solid">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input class="form-control" type="text" ng-model="supplier.name"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input class="form-control" type="text" ng-model="supplier.address"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone number</label>
+                            <input class="form-control" type="text" ng-model="supplier.phone"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Fax</label>
+                            <input class="form-control" type="text" ng-model="supplier.fax"/>
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="text" ng-model="supplier.email"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Is active?</label>
+                            <input class="form-control" type="text" ng-model="supplier.is_active"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            <form>
-                <div class="form-group">
-                    <label>Supplier ID</label>
-                    <input class="form-control" type="text"/>
-                </div>
-                <div class="form-group">
-                    <label>Name</label>
-                    <input class="form-control" type="text"/>
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <input class="form-control" type="text"/>
-                </div>
-                <div class="form-group">
-                    <label>Phone number</label>
-                    <input class="form-control" type="text"/>
-                </div>
-                <div class="form-group">
-                    <label>Fax</label>
-                    <input class="form-control" type="text"/>
-                </div>
-                <div class="form-group">
-                    <label>E-mail</label>
-                    <input class="form-control" type="text"/>
-                </div>
-                <div class="form-group">
-                    <label><input class="i-check" type="checkbox" id="create-createsupplier-checkbox" /> Is active?</label>
-                </div>
-                <div class="form-group">
-                    <button href="" class="btn btn-primary btn-block">ADD</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-3">
 
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Save">
+            <a href="#/dashboard/suppliers/all" class="btn btn-danger">Cancel</a>
         </div>
-    </div>
-</div>
-    <br>
+    </form>
 
-</div>
+</section>
