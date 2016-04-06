@@ -47,9 +47,8 @@ CREATE TABLE locations (
 );
 
 CREATE TABLE option_groups (
-  option_group_id          SERIAL NOT NULL PRIMARY KEY,
-  option_group_name        TEXT,
-  option_group_description TEXT
+  option_group_id   SERIAL NOT NULL PRIMARY KEY,
+  option_group_name TEXT
 );
 
 CREATE TABLE options (
@@ -110,7 +109,7 @@ CREATE TABLE items (
   is_taxable     BOOL      DEFAULT TRUE,
   is_active      BOOL      DEFAULT TRUE,
   has_variations BOOL      DEFAULT FALSE,
-  tax_class_id   INTEGER REFERENCES tax_classes,
+  tax_class_id   INTEGER REFERENCES tax_classes
 );
 
 CREATE TABLE location_items (
@@ -165,26 +164,21 @@ CREATE TABLE images (
 );
 
 CREATE TABLE item_attributes (
-  attribute_value   TEXT,
-  attribute_id      INTEGER REFERENCES attributes,
-  item_id           INTEGER REFERENCES items,
+  attribute_value TEXT,
+  attribute_id    INTEGER REFERENCES attributes,
+  item_id         INTEGER REFERENCES items,
   PRIMARY KEY (attribute_id, item_id)
 );
 
 CREATE TABLE item_variations (
-  item_variation_id SERIAL NOT NULL PRIMARY KEY,
   stock_on_hand     NUMERIC DEFAULT 0,
   unit_cost         NUMERIC,
   re_order_level    NUMERIC,
   re_order_quantity NUMERIC,
   is_active         BOOL,
-  item_id           INTEGER REFERENCES items
-);
-
-CREATE TABLE item_variation_options (
-  item_variation_option_id SERIAL  NOT NULL PRIMARY KEY,
-  option_id                INTEGER NOT NULL REFERENCES options,
-  item_variation_id        INTEGER REFERENCES item_variations
+  item_id           INTEGER REFERENCES items,
+  option_id         INTEGER REFERENCES items,
+  PRIMARY KEY (item_id, option_id)
 );
 
 CREATE TABLE orders (
