@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION attributes_upsert(IN par_attribute_id   INT, IN par_type_id INT,
+CREATE OR REPLACE FUNCTION attributes_upsert(IN par_attribute_id   INT,
                                              IN par_attribute_name TEXT, IN par_validation TEXT)
   RETURNS TEXT AS $$
 DECLARE
@@ -7,8 +7,8 @@ BEGIN
 
   IF par_attribute_id ISNULL
   THEN
-    INSERT INTO attributes (type_id, attribute_name, validation)
-    VALUES (par_type_id, par_attribute_name, par_validation);
+    INSERT INTO attributes (attribute_name, validation)
+    VALUES (par_attribute_name, par_validation);
     loc_response = 'ok';
   ELSE
     UPDATE attributes
@@ -23,18 +23,17 @@ $$ LANGUAGE 'plpgsql';
 --------------------------------------------------------------------------------------------------------
 -- SELECT attributes_upsert(NULL, 1, 'isbnyeah', 'textyeah');
 --------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION attributes_get(IN par_attribute_id INT, IN par_type_id INT)
+CREATE OR REPLACE FUNCTION attributes_get(IN par_attribute_id INT)
   RETURNS SETOF attributes AS $$
 BEGIN
   IF par_attribute_id ISNULL
   THEN
     RETURN QUERY SELECT *
-                 FROM attributes
-                 WHERE type_id = par_type_id;
+                 FROM attributes;
   ELSE
     RETURN QUERY SELECT *
                  FROM attributes
-                 WHERE attribute_id = par_attribute_id AND type_id = par_type_id;
+                 WHERE attribute_id = par_attribute_id;
   END IF;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -129,9 +128,10 @@ CREATE OR REPLACE FUNCTION item_attributes_upsert(IN par_attribute_id INT,
   RETURNS TEXT AS $$
 DECLARE
   loc_response TEXT;
+  loc_id int;
 BEGIN
-
-  IF par_item_id ISNULL
+  select into loc_id attribute_id from item_attributes where attribute_id = par_attribute_id and item_id = par_item_id;
+  IF loc_id ISNULL
   THEN
     INSERT INTO item_attributes (attribute_id, item_id, attribute_value)
     VALUES (par_attribute_id, par_item_id, par_attribute_value);
@@ -253,7 +253,7 @@ $$ LANGUAGE 'plpgsql';
 -------------------------------------------------------------------------------
 -- select images_get(null);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION items_upsert(IN par_item_id     INT, IN par_tax_class_id INT, IN par_type_id INT,
+CREATE OR REPLACE FUNCTION items_upsert(IN par_item_id     INT, IN par_tax_class_id INT,
                                         IN par_serial_no   TEXT, IN par_name TEXT,
                                         IN par_description TEXT, IN par_date_added DATE, IN par_date_updated DATE,
                                         IN par_is_taxable  BOOLEAN,
@@ -265,14 +265,14 @@ BEGIN
 
   IF par_item_id ISNULL
   THEN
-    INSERT INTO items (tax_class_id, type_id, serial_no, name, description, date_added, date_updated, is_taxable, is_active, has_variations)
-    VALUES (par_tax_class_id, par_type_id, par_serial_no, par_name, par_description, par_date_added,
+    INSERT INTO items (tax_class_id, serial_no, name, description, date_added, date_updated, is_taxable, is_active, has_variations)
+    VALUES (par_tax_class_id, par_serial_no, par_name, par_description, par_date_added,
             par_date_updated, par_is_taxable, par_is_active, par_has_variations)
     RETURNING item_id
       INTO loc_response;
   ELSE
     UPDATE items
-    SET serial_no  = par_serial_no, tax_class_id = par_tax_class_id, type_id = par_type_id,
+    SET serial_no  = par_serial_no, tax_class_id = par_tax_class_id,
       name         = par_name, description = par_description, date_added = par_date_added,
       date_updated = par_date_updated, is_taxable = par_is_taxable,
       is_active    = par_is_active, has_variations = par_has_variations
@@ -391,46 +391,6 @@ END;
 $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
 -- select * from product_images_get(1, null);
------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION types_upsert(IN par_type_id INT, IN par_name TEXT, IN par_description TEXT)
-  RETURNS TEXT AS $$
-DECLARE
-  loc_response INT;
-BEGIN
-  IF par_type_id ISNULL
-  THEN
-    INSERT INTO types (type_name, type_description) VALUES (par_name, par_description)
-    RETURNING type_id
-      INTO loc_response;
-  ELSE
-    UPDATE types
-    SET type_name = par_name, type_description = par_description
-    WHERE type_id = par_type_id;
-    loc_response = par_type_id;
-  END IF;
-
-  RETURN loc_response;
-END;
-$$ LANGUAGE 'plpgsql';
------------------------------------------------------------------
--- SELECT types_upsert(NULL, 'test', 'test description 2');
------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION types_get(IN par_type_id INT)
-  RETURNS SETOF types AS $$
-BEGIN
-  IF par_type_id ISNULL
-  THEN
-    RETURN QUERY SELECT *
-                 FROM types;
-  ELSE
-    RETURN QUERY SELECT *
-                 FROM types
-                 WHERE type_id = par_type_id;
-  END IF;
-END;
-$$ LANGUAGE 'plpgsql';
------------------------------------------------------------------
--- SELECT * FROM types_get(NULL);
 -----------------------------------------------------------------
 CREATE OR REPLACE FUNCTION locations_upsert(IN par_location_id INT, IN par_location_name TEXT)
   RETURNS TEXT AS $$

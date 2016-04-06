@@ -24,7 +24,6 @@ def items_upsert(item_id=None):
     response = spcall('items_upsert', (
         item_id,
         int(data['tax_class_id']),
-        int(data['type_id']),
         data['serial_no'],
         data['name'],
         data['description'],
@@ -49,8 +48,8 @@ def item_attributes_upsert(item_id, attribute_id=None):
     data = json.loads(request.data)
 
     response = spcall('item_attributes_upsert', (
-        attribute_id,
-        item_id,
+        data['attribute_id'],
+        data['item_id'],
         data['attribute_value'],), True)
 
     json_dict = build_json(response)
@@ -62,33 +61,13 @@ def item_attributes_upsert(item_id, attribute_id=None):
     return jsonify(json_dict), status_code
 
 
-@api.route('/api/v1/types/', methods=['POST'])
-@api.route('/api/v1/types/<type_id>/', methods=['PUT'])
-def types_upsert(type_id=None):
-    data = json.loads(request.data)
-
-    response = spcall('types_upsert', (
-        type_id,
-        data['type_name'],
-        data['type_description'],), True)
-
-    json_dict = build_json(response)
-
-    status_code = 200
-    if not type_id:
-        status_code = 201
-
-    return jsonify(json_dict), status_code
-
-
-@api.route('/api/v1/types/<type_id>/attributes/', methods=['POST'])
-@api.route('/api/v1/types/<type_id>/attributes/<attribute_id>', methods=['PUT'])
-def attributes_upsert(type_id, attribute_id=None):
+@api.route('/api/v1/attributes/', methods=['POST'])
+@api.route('/api/v1/attributes/<attribute_id>/', methods=['PUT'])
+def attributes_upsert(attribute_id=None):
     data = json.loads(request.data)
 
     response = spcall('attributes_upsert', (
         attribute_id,
-        type_id,
         data['attribute_name'],
         data['validation'],), True)
 
@@ -132,6 +111,7 @@ def items_get(item_id=None):
 
     return jsonify(json_dict)
 
+
 @api.route('/api/v1/items/<item_id>/attributes/', methods=['GET'])
 @api.route('/api/v1/items/<item_id>/attributes/<attribute_id>/', methods=['GET'])
 def item_attributes_get(item_id, attribute_id=None):
@@ -142,37 +122,10 @@ def item_attributes_get(item_id, attribute_id=None):
     return jsonify(json_dict)
 
 
-@api.route('/api/v1/types/', methods=['GET'])
-@api.route('/api/v1/types/<type_id>/', methods=['GET'])
-def types_get(type_id=None):
-    response = spcall('types_get', (type_id,))
-
-    entries = []
-    out = {}
-
-    if len(response) == 0:
-        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": 0})
-
-    if 'Error' in str(response[0][0]):
-        return jsonify({'status': 'error', 'message': response[0][0]})
-
-    for row in response:
-        r = dict(row)
-
-        attributes = spcall('attributes_get', (None, r['type_id'],))
-        attribute_list = []
-        for row in attributes:
-            attribute_list.append(dict(row))
-        r['attributes'] = attribute_list
-        entries.append(r)
-
-    return jsonify({'status': 'ok', 'message': 'ok', 'entries': entries, 'count': len(entries)})
-
-
-@api.route('/api/v1/types/<type_id>/attributes/', methods=['GET'])
-@api.route('/api/v1/types/<type_id>/attributes/<attribute_id>/', methods=['GET'])
-def attributes_get(type_id, attribute_id=None):
-    response = spcall('attributes_get', (attribute_id, type_id,))
+@api.route('/api/v1/attributes/', methods=['GET'])
+@api.route('/api/v1/attributes/<attribute_id>/', methods=['GET'])
+def attributes_get(attribute_id=None):
+    response = spcall('attributes_get', (attribute_id,))
 
     json_dict = build_json(response)
 

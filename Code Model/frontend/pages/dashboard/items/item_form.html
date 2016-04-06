@@ -14,21 +14,13 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="">Item Type</label>
-                            <select ng-model="item.type_id" name="" id="" class="form-control">
-                                <option ng-repeat="type in typeList" value="{{ type.type_id }}">{{ type.type_name }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
                             <label for="">Serial Number</label>
                             <input ng-model="item.serial_no" type="text" class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Name</label>
                             <input ng-model="item.name" type="text" class="form-control">
@@ -46,7 +38,7 @@
 
         <div class="box box-solid">
             <div class="box-header">
-                <h3 class="box-title">More Product Attributes</h3>
+                <h3 class="box-title">Attributes</h3>
             </div>
             <div class="box-body">
                 <div class="row" ng-if="attributeList.length > 0">

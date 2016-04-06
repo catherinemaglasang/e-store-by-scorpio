@@ -25,13 +25,13 @@ Feature: Get, Create & Update Items
     Then I get a "201" response
     And I get a field "status" containing "ok"
     And I get a field "message" containing "ok"
-#
-#  Scenario: Update Item
-#    Given I have a resource with the id "1"
-#    And I want to update its data to the following data
-#      | tax_class_id | type_id | serial_no | name | description | date_added     | date_updated   | is_taxable | is_active | has_variations |
-#      | 1            | 1       | SN123     | name | description | 2001-1-1 1:1:1 | 2001-1-1 1:1:1 | true       | true      | true           |
-#    When I update the data
-#    Then I get a "200" response
-#    And I get a field "status" containing "ok"
-#    And I get a field "message" containing "ok"
+
+  Scenario: Update Item
+    Given I have a resource with the id "1"
+    And I want to update its data to the following data
+      | attribute_id | item_id | attribute_value |
+    | 1            | 1       | New Default         |
+    When I update the data
+    Then I get a "200" response
+    And I get a field "status" containing "ok"
+    And I get a field "message" containing "ok"

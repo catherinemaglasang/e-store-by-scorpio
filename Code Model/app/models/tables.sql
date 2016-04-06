@@ -72,17 +72,10 @@ CREATE TABLE transfers (
   date_transferred     TIMESTAMP DEFAULT now()
 );
 
-CREATE TABLE types (
-  type_id          SERIAL NOT NULL PRIMARY KEY,
-  type_name        TEXT,
-  type_description TEXT
-);
-
 CREATE TABLE attributes (
   attribute_id   SERIAL NOT NULL PRIMARY KEY,
   attribute_name TEXT,
-  validation     TEXT,
-  type_id        INTEGER REFERENCES types
+  validation     TEXT
 );
 
 CREATE TABLE purchase_orders (
@@ -118,7 +111,6 @@ CREATE TABLE items (
   is_active      BOOL      DEFAULT TRUE,
   has_variations BOOL      DEFAULT FALSE,
   tax_class_id   INTEGER REFERENCES tax_classes,
-  type_id        INTEGER REFERENCES types
 );
 
 CREATE TABLE location_items (
