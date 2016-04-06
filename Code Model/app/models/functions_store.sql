@@ -172,10 +172,10 @@ $$
     loc_id text;
     loc_res text;
   begin
-    select into loc_id id from cart_detail where id=par_id;
+    select into loc_id id from wishlist_details where id=par_id;
     if loc_id isnull then
 
-       insert into cart_details(id, wishlist_id, product_id, time_stamp) values (par_id, par_wishlist_id, par_product_id, par_time_stamp);
+       insert into wishlist_details(id, wishlist_id, product_id, time_stamp) values (par_id, par_wishlist_id, par_product_id, par_time_stamp);
        loc_res = 'OK';
 
      else
@@ -208,10 +208,10 @@ $$
     loc_id text;
     loc_res text;
   begin
-    select into loc_id id from cart where id=par_id;
+    select into loc_id id from wishlist where id=par_id;
     if loc_id isnull then
 
-       insert into cart(id) values (par_id);
+       insert into wishlist(id) values (par_id);
        loc_res = 'OK';
 
      else
