@@ -248,7 +248,7 @@ $$
     if loc_id isnull then
       if par_transaction_status='' or par_id isnull or par_customer_id isnull or par_payment isnull or par_total isnull then
           loc_res='error';
-      else
+      els
           insert into orders(id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_id, par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
           loc_res = 'OK';
       end if;
