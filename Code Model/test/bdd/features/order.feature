@@ -21,14 +21,14 @@ Feature: Create and Get Order
     And I should get a "message" 'ID EXISTS'
 
 #  Create Rainy Case 2
-  Scenario: Create an order with incomplete details
-    Given I have the following order details
-     |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
-     | 2 | 2           | 2          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | | 100.0 |
-    When I Post the order to resource_url  '/api/v1/orders/'
-    Then I should get a status of '200'
-    And I should get a "status" 'ok'
-    And I should get a "message" 'error'
+#  Scenario: Create an order with incomplete details
+#    Given I have the following order details
+#     |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
+#     | 2 | 2           | 2          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | | 100.0 |
+#    When I Post the order to resource_url  '/api/v1/orders/'
+#    Then I should get a status of '200'
+#    And I should get a "status" 'ok'
+#    And I should get a "message" 'error'
 
 #  Get Sunny Case
   Scenario: Get Order

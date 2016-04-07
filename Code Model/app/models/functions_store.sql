@@ -44,7 +44,7 @@ $$
     loc_id text;
     loc_res text;
   begin
-     select into loc_id supplier_id from suppliers where supplier_id = par_id;
+     select into loc_id name from suppliers where name = par_name;
      if loc_id isnull then
        if par_name='' or par_address='' or par_phone='' or par_fax='' or par_email='' then
          loc_res='error';
@@ -216,18 +216,18 @@ $$
   language 'sql';
 
 
-create or replace function new_order(in par_id int, in par_customer_id int, in par_payment_id int, in par_transaction_date date, in par_shipping_date date, in par_time_stamp timestamp, in par_transaction_status text, par_total float8) returns text as
+create or replace function new_order(in par_id int, in par_customer_id int, in par_payment_id int, in par_transaction_date date, in par_shipping_date date, in par_time_stamp timestamp, in par_transaction_status text, par_total numeric) returns text as
 $$
   declare
     loc_id text;
     loc_res text;
   begin
-    select into loc_id id from orders where id=par_id;
+    select into loc_id order_id from orders where order_id=par_id;
     if loc_id isnull then
       if par_transaction_status='' or par_id isnull or par_customer_id isnull or par_payment_id isnull or par_total isnull then
           loc_res='error';
       else
-          insert into orders(id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_id, par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
+          insert into orders(customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
           loc_res = 'OK';
       end if;
      else

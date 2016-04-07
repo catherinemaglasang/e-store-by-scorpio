@@ -319,11 +319,11 @@ def get_carts():
 
 
 @api.route('/api/v1/orders/', methods=['POST'])
-def new_order():
+def new_order(order_id=None):
     data = json.loads(request.data)
 
     response = spcall('new_order', (
-        data['id'],
+        order_id,
         data['customer_id'],
         data['payment_id'],
         data['transaction_date'],
