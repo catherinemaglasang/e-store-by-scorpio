@@ -2,7 +2,7 @@
 -- Authentication & Registration Module
 -- -------------------------------------
 CREATE TABLE customers (
-  id               INT8 PRIMARY KEY,
+  id               serial PRIMARY KEY,
   first_name       TEXT,
   last_name        TEXT,
   address          TEXT,
@@ -12,7 +12,7 @@ CREATE TABLE customers (
   country          TEXT,
   phone            TEXT,
   email            TEXT UNIQUE,
-  user_id          INT8,
+  user_id          INT,
   billing_address  TEXT,
   shipping_address TEXT,
   date_created     TIMESTAMP
@@ -33,12 +33,12 @@ CREATE TABLE users (
 
 CREATE TABLE suppliers (
   supplier_id SERIAL UNIQUE NOT NULL PRIMARY KEY,
-  name      TEXT,
-  address   TEXT,
-  phone     TEXT,
-  fax       TEXT,
-  email     TEXT,
-  is_active BOOLEAN
+  name        TEXT,
+  address     TEXT,
+  phone       TEXT,
+  fax         TEXT,
+  email       TEXT,
+  is_active   BOOLEAN
 );
 
 CREATE TABLE locations (
@@ -94,15 +94,15 @@ CREATE TABLE sales_orders (
 
 
 CREATE TABLE items (
-  item_id        SERIAL NOT NULL PRIMARY KEY,
-  name           TEXT,
-  description    TEXT,
-  date_added     TIMESTAMP DEFAULT now(),
-  date_updated   TIMESTAMP DEFAULT now(),
-  is_active      BOOL      DEFAULT TRUE
+  item_id      SERIAL NOT NULL PRIMARY KEY,
+  name         TEXT,
+  description  TEXT,
+  date_added   TIMESTAMP DEFAULT now(),
+  date_updated TIMESTAMP DEFAULT now(),
+  is_active    BOOL      DEFAULT TRUE
 );
 
-CREATE TABLE location_items (
+CREATE TABLE item (
   location_item_id SERIAL NOT NULL PRIMARY KEY,
   notes            TEXT,
   location_id      INTEGER REFERENCES locations,
@@ -119,7 +119,7 @@ CREATE TABLE purchase_order_items (
   purchase_order_id      INTEGER REFERENCES purchase_orders,
   discount               NUMERIC,
   discount_percentage    NUMERIC,
-  tax NUMERIC,
+  tax                    NUMERIC,
   tax_percentage         NUMERIC
 );
 
@@ -129,8 +129,8 @@ CREATE TABLE sales_order_items (
   actual_unit_cost    NUMERIC,
   discount            NUMERIC,
   discount_percentage NUMERIC,
-  tax numeric,
-  tax_percentage numeric,
+  tax                 NUMERIC,
+  tax_percentage      NUMERIC,
   total_cost          NUMERIC,
   item_id             INTEGER REFERENCES items,
   sales_order_id      INTEGER REFERENCES sales_orders
@@ -169,29 +169,30 @@ CREATE TABLE item_variations (
   re_order_level    NUMERIC,
   re_order_quantity NUMERIC,
   is_active         BOOL,
-  item_id           INTEGER REFERENCES items,
+  item_id           INTEGER REFERENCES items, -- parent item
   option_id         INTEGER REFERENCES items,
   PRIMARY KEY (item_id, option_id)
 );
 
+
 CREATE TABLE orders (
-  id                 INT8 PRIMARY KEY,
-  customer_id        INT8,
-  payment_id         INT8,
+  id                 SERIAL PRIMARY KEY,
+  customer_id        INT REFERENCES customers,
+  payment_id         INT,
   transaction_date   DATE,
   shipping_date      DATE,
   time_stamp         TIMESTAMP,
   transaction_status TEXT,
-  total              FLOAT8
+  total              NUMERIC
 );
 
 CREATE TABLE order_items (
-  id         INT8 PRIMARY KEY,
-  order_id   INT8,
-  product_id TEXT,
-  unit_price FLOAT8,
-  discount   FLOAT8,
-  quantity   INT8
+  id         SERIAL PRIMARY KEY,
+  order_id   INT REFERENCES orders,
+  item_id    INT REFERENCES items,
+  unit_price NUMERIC,
+  discount   NUMERIC,
+  quantity   INT
 );
 
 -- -------------------------------------
@@ -199,28 +200,30 @@ CREATE TABLE order_items (
 -- -------------------------------------
 
 CREATE TABLE carts (
-  id           INT8 PRIMARY KEY,
-  session_id   INT8,
+  id           INT PRIMARY KEY,
+  session_id   INT,
   date_created DATE,
-  customer_id  INT8,
+  customer_id  INT,
   is_active    BOOLEAN
 );
 
 CREATE TABLE cart_items (
-  id         INT8 PRIMARY KEY,
-  cart_id    INT8,
-  product_id INT8,
-  quantity   INT8,
+  id         SERIAL PRIMARY KEY,
+  cart_id    INT,
+  item_id    INT,
+  quantity   INT,
   time_stamp TIMESTAMP
 );
 
-CREATE TABLE wishlist_items (
-  id          INT8 PRIMARY KEY,
-  wishlist_id INT8,
-  product_id  INT8,
-  time_stamp  TIMESTAMP
+CREATE TABLE wishlists (
+  wishlist_id   SERIAL NOT NULL PRIMARY KEY,
+  wishlist_name TEXT
 );
 
-CREATE TABLE wishlist (
-  id INT8 PRIMARY KEY
+CREATE TABLE wishlist_items (
+  wishlist_item_id SERIAL NOT NULL PRIMARY KEY,
+  wishlist_id      INT REFERENCES wishlists,
+  item_id          INT REFERENCES items,
+  time_stamp       TIMESTAMP
 );
+
