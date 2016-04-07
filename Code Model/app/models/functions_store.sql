@@ -215,7 +215,6 @@ $$
 $$
   language 'sql';
 
-
 create or replace function new_order(in par_id int, in par_customer_id int, in par_payment_id int, in par_transaction_date date, in par_shipping_date date, in par_time_stamp timestamp, in par_transaction_status text, par_total numeric) returns text as
 $$
   declare
@@ -227,7 +226,7 @@ $$
       if par_transaction_status='' or par_id isnull or par_customer_id isnull or par_payment_id isnull or par_total isnull then
           loc_res='error';
       else
-          insert into orders(customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
+          insert into orders(order_id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_id, par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
           loc_res = 'OK';
       end if;
      else
@@ -241,20 +240,21 @@ language 'plpgsql';
 
 create or replace function get_orders(out int, out int, out int, out date, out date, out timestamp, out text, out numeric) returns setof record as
 $$
-  select id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total from orders
+  select order_id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total from orders
 $$
 
 language 'sql';
 
 create or replace function get_order_id(in par_id int, out int, out int, out date, out date, out timestamp, out text, out numeric) returns setof record as
 $$
-   select customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total from orders where id = par_id;
+   select customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total from orders where order_id = par_id;
 
 $$
  language 'sql';
 
 
-create or replace function new_order_item(in par_id int, in par_order_id int, in par_item_id text, in par_unit_price float8, in par_discount float8, in par_quantity int) returns text as
+
+create or replace function new_order_item(in par_id int, in par_order_id int, in par_item_id int, in par_unit_price float8, in par_discount float8, in par_quantity int) returns text as
 $$
   declare
     loc_id text;
@@ -262,7 +262,7 @@ $$
   begin
     select into loc_id id from order_items where id=par_id;
     if loc_id isnull then
-       if par_item_id='' or par_id isnull or par_order_id isnull or par_unit_price isnull or par_discount isnull or par_quantity isnull then
+       if par_item_id isnull or par_id isnull or par_order_id isnull or par_unit_price isnull or par_discount isnull or par_quantity isnull then
          loc_res='error';
        else
          insert into order_items(id, order_id, item_id, unit_price, discount, quantity) values (par_id, par_order_id, par_item_id, par_unit_price, par_discount, par_quantity);

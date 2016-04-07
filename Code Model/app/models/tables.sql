@@ -192,6 +192,8 @@ CREATE TABLE orders (
   total              NUMERIC
 );
 
+
+
 CREATE TABLE order_items (
   id         SERIAL PRIMARY KEY,
   order_id   INT REFERENCES orders,

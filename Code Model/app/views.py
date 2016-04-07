@@ -319,11 +319,11 @@ def get_carts():
 
 
 @api.route('/api/v1/orders/', methods=['POST'])
-def new_order(order_id=None):
+def new_order():
     data = json.loads(request.data)
 
     response = spcall('new_order', (
-        order_id,
+        data['id'],
         data['customer_id'],
         data['payment_id'],
         data['transaction_date'],
@@ -357,7 +357,7 @@ def get_order(order_id):
 
 
 @api.route('/api/v1/orders/', methods=['GET'])
-def get_orders():
+def get_all_orders():
     """
     Retrieve All Orders
     """
@@ -391,7 +391,7 @@ def get_order_items():
 
     recs = []
     for r in res:
-        recs.append({"id": str(r[0]), "order_id": str(r[1]), "product_id": str(r[2]), "unit_price": str(r[3]),
+        recs.append({"id": str(r[0]), "order_id": str(r[1]), "item_id": str(r[2]), "unit_price": str(r[3]),
                      "discount": str(r[4]),
                      "quantity": str(r[5])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
@@ -409,7 +409,7 @@ def get_order_item(order_item_id):
         recs = []
         for r in res:
             recs.append({"order_id": r[0],
-                         "product_id": r[1],
+                         "item_id": r[1],
                          "unit_price": r[2],
                          "discount": r[3],
                          "quantity": r[4]})
@@ -424,7 +424,7 @@ def new_order_item():
     response = spcall('new_order_item', (
         data['id'],
         data['order_id'],
-        data['product_id'],
+        data['item_id'],
         data['unit_price'],
         data['discount'],
         data['quantity'],), True)
