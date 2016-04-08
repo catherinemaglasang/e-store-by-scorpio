@@ -420,6 +420,7 @@ def and_it_should_have_an_empty_field_entries(step):
     assert_equals(len(world.resp['entries']), 0)
 
 
+
 """ Create new order sunny case and rainy case"""
 
 
@@ -534,7 +535,6 @@ def and_It_should_have_an_empty_field_entries(step):
     :type step: lettuce.core.Step
     """
     assert_equals(len(world.resp['entries']), 0)
-
 
 """ Create order item sunny and rainy case """
 
