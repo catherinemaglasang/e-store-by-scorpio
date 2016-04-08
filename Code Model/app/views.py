@@ -378,8 +378,8 @@ def get_all_orders():
 """ ORDER ITEM """
 
 
-@api.route('/api/v1/order_items/', methods=['GET'])
-def get_order_items():
+@api.route('/api/v1/orders/<order_id>/items/', methods=['GET'])
+def get_order_items(order_id):
     """
     Retrieve All Order_Details
     """
@@ -391,14 +391,14 @@ def get_order_items():
 
     recs = []
     for r in res:
-        recs.append({"id": str(r[0]), "order_id": str(r[1]), "item_id": str(r[2]), "unit_price": str(r[3]),
+        recs.append({"id": str(r[0]), order_id: str(r[1]), "item_id": str(r[2]), "unit_price": str(r[3]),
                      "discount": str(r[4]),
                      "quantity": str(r[5])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@api.route('/api/v1/order_items/<order_item_id>/', methods=['GET'])
-def get_order_item(order_item_id):
+@api.route('/api/v1/orders/<order_id>/items/<order_item_id>/', methods=['GET'])
+def get_order_item(order_item_id, order_id):
     """
     Retrieve Single Order_Detail
     """
@@ -408,7 +408,7 @@ def get_order_item(order_item_id):
     else:
         recs = []
         for r in res:
-            recs.append({"order_id": r[0],
+            recs.append({order_id: r[0],
                          "item_id": r[1],
                          "unit_price": r[2],
                          "discount": r[3],
@@ -417,13 +417,13 @@ def get_order_item(order_item_id):
             return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@api.route('/api/v1/order_items/', methods=['POST'])
-def new_order_item():
+@api.route('/api/v1/orders/<order_id>/items/', methods=['POST'])
+def new_order_item(order_id):
     data = json.loads(request.data)
 
     response = spcall('new_order_item', (
         data['id'],
-        data['order_id'],
+        order_id,
         data['item_id'],
         data['unit_price'],
         data['discount'],

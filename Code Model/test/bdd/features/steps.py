@@ -547,12 +547,12 @@ def given_I_have_the_following_order_item_details(step):
     world.orderItem1 = step.hashes[0]
 
 
-@step("I Post the order item to resource_url  '/api/v1/order_items/'")
-def when_I_Post_the_order_item_to_resource_url(step):
+@step("I Post the order item to resource_url  \'(.*)\'")
+def when_I_Post_the_order_item_to_resource_url(step, url):
     """
     :type step: lettuce.core.Step
     """
-    world.orderItem_post_uri = '/api/v1/order_items/'
+    world.orderItem_post_uri = url
     world.orderItem_post_response = world.browser.post(world.orderItem_post_uri, data=json.dumps(world.orderItem1))
 
 
@@ -592,7 +592,7 @@ def given_order_item_id1_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.orderItem = world.browser.get('/api/v1/order_items/{}/'.format(id))
+    world.orderItem = world.browser.get('/api/v1/orders/1/items/{}/'.format(id))
     world.resp = json.loads(world.orderItem.data)
     assert_equals(world.resp['status'], 'ok')
 
@@ -602,7 +602,7 @@ def when_I_retrieve_the_order_item(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.browser.get('/api/v1/order_items/{}/'.format(id))
+    world.response = world.browser.get('/api/v1/orders/1/items/{}/'.format(id))
 
 
 @step("the following order item details are returned:")
