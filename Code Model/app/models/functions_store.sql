@@ -202,7 +202,7 @@ $$
   language 'sql';
 
 
-create or replace function new_wishlist(in par_id int8) returns text as
+create or replace function new_wishlist(in par_id int) returns text as
 $$
   declare
     loc_id text;
@@ -210,18 +210,40 @@ $$
   begin
     select into loc_id id from wishlist where id=par_id;
     if loc_id isnull then
-
-       insert into wishlist(id) values (par_id);
-       loc_res = 'OK';
-
-     else
-       loc_res = 'ID EXISTED';
-     end if;
-     return loc_res;
+      if par_id='' then
+        loc_res='error';
+      else
+        insert into wishlist(id) values (par_id);
+        loc_res = 'OK';
+      end if;
+    else
+      loc_res = 'ID EXISTED';
+    end if;
+    return loc_res;
   end;
-$$  
+$$
 
 language 'plpgsql';
+-- create or replace function new_wishlist(in par_id int8) returns text as
+-- $$
+--   declare
+--     loc_id text;
+--     loc_res text;
+--   begin
+--     select into loc_id id from wishlist where id=par_id;
+--     if loc_id isnull then
+
+--        insert into wishlist(id) values (par_id);
+--        loc_res = 'OK';
+
+--      else
+--        loc_res = 'ID EXISTED';
+--      end if;
+--      return loc_res;
+--   end;
+-- $$  
+
+-- language 'plpgsql';
 
 
 create or replace function get_wishlists(out int) returns setof int as
