@@ -70,7 +70,7 @@ def given_wishlist_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.resp = world.browser.get('/api/v1/wishlist/'.format(id))
+    world.resp = world.browser.get('/api/v1/wishlists/'.format(id))
     data = json.loads(world.resp.data)
     assert_equals(data['status'], 'ok')
 
@@ -81,7 +81,7 @@ def when_I_retrieve_the_wishlist(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.response = world.browser.get('/api/v1/wishlist/'.format(id))
+    world.response = world.browser.get('/api/v1/wishlists/'.format(id))
 
 
 @step("I should have a status code response \'(.*)\'")
@@ -112,7 +112,7 @@ def given_I_retrieve_a_wishlist_with_resource_url(step, id):
     :param url:
     :type step: lettuce.core.Step
     """
-    world.wishlist_uri = '/api/v1/wishlist/%s/' % (id)
+    world.wishlist_uri = '/api/v1/wishlists/%s/' % (id)
 
 
 @step("I retrieve the wishlist JSON result")

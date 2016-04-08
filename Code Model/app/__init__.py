@@ -23,7 +23,8 @@ def create_app(_config='development'):
     app.config.from_object(config[_config])
     app.json_encoder = MyJSONEncoder
 
-    from app.inventory import controller
+    from app.inventory import views
+    from app.cart import views
     from app import views
 
     app.register_blueprint(api)

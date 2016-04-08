@@ -40,45 +40,45 @@ $$ LANGUAGE 'plpgsql';
 --------------------------------------------------------------------------------------------------------
 -- SELECT attributes_get(NULL, 1);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- CREATE OR REPLACE FUNCTION customers_upsert(IN par_customer_id      INT, IN par_name TEXT, IN par_billing_address TEXT,
---                                             IN par_shipping_address TEXT)
---   RETURNS TEXT AS $$
--- DECLARE
---   loc_response TEXT;
--- BEGIN
---
---   IF par_customer_id ISNULL
---   THEN
---     INSERT INTO customers (name, billing_address, shipping_address)
---     VALUES (par_name, par_billing_address, par_shipping_address);
---     loc_response = 'ok';
---   ELSE
---     UPDATE customers
---     SET name = par_name, billing_address = par_billing_address, shipping_address = par_shipping_address
---     WHERE customer_id = par_customer_id;
---     loc_response = 'ok';
---   END IF;
---
---   RETURN loc_response;
--- END;
--- $$ LANGUAGE 'plpgsql';
--- --------------------------------------------------------------------------------------------------------
--- -- SELECT customers_upsert(null,'name','billing_address', 'shipping_address');
--- --------------------------------------------------------------------------------------------------------
--- CREATE OR REPLACE FUNCTION customers_get(IN par_customer_id INT)
---   RETURNS SETOF customers AS $$
--- BEGIN
---   IF par_customer_id ISNULL
---   THEN
---     RETURN QUERY SELECT *
---                  FROM customers;
---   ELSE
---     RETURN QUERY SELECT *
---                  FROM customers
---                  WHERE customer_id = par_customer_id;
---   END IF;
--- END;
--- $$ LANGUAGE 'plpgsql';
+CREATE OR REPLACE FUNCTION customers_upsert(IN par_customer_id      INT, IN par_name TEXT, IN par_billing_address TEXT,
+                                            IN par_shipping_address TEXT)
+  RETURNS TEXT AS $$
+DECLARE
+  loc_response TEXT;
+BEGIN
+
+  IF par_customer_id ISNULL
+  THEN
+    INSERT INTO customers (name, billing_address, shipping_address)
+    VALUES (par_name, par_billing_address, par_shipping_address);
+    loc_response = 'ok';
+  ELSE
+    UPDATE customers
+    SET name = par_name, billing_address = par_billing_address, shipping_address = par_shipping_address
+    WHERE customer_id = par_customer_id;
+    loc_response = 'ok';
+  END IF;
+
+  RETURN loc_response;
+END;
+$$ LANGUAGE 'plpgsql';
+--------------------------------------------------------------------------------------------------------
+-- SELECT customers_upsert(null,'name','billing_address', 'shipping_address');
+--------------------------------------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION customers_get(IN par_customer_id INT)
+  RETURNS SETOF customers AS $$
+BEGIN
+  IF par_customer_id ISNULL
+  THEN
+    RETURN QUERY SELECT *
+                 FROM customers;
+  ELSE
+    RETURN QUERY SELECT *
+                 FROM customers
+                 WHERE customer_id = par_customer_id;
+  END IF;
+END;
+$$ LANGUAGE 'plpgsql';
 --------------------------------------------------------------------------------------------------------
 -- select customers_get(null);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -237,7 +237,7 @@ BEGIN
       INTO loc_response;
   ELSE
     UPDATE items
-    SET name         = par_name, description = par_description, date_added = par_date_added,
+    SET name       = par_name, description = par_description, date_added = par_date_added,
       date_updated = par_date_updated,
       is_active    = par_is_active
     WHERE item_id = par_item_id;
@@ -545,8 +545,8 @@ BEGIN
   ELSE
     UPDATE purchase_orders
     SET supplier_id = par_supplier_id, date_issued = par_date_issued, date_expected = par_date_expected,
-      status      = par_status, reference_no = par_reference_no, notes = par_notes, shipping_fee = par_shipping_fee,
-      tracking_no = par_tracking_no
+      status        = par_status, reference_no = par_reference_no, notes = par_notes, shipping_fee = par_shipping_fee,
+      tracking_no   = par_tracking_no
     WHERE purchase_order_id = par_purchase_order_id;
     loc_response = 'ok';
   END IF;
@@ -614,8 +614,9 @@ $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
 -- select * from locations_get(NULL);
 -----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION suppliers_upsert(IN par_supplier_id  INT, IN par_name TEXT, IN par_address TEXT, IN par_phone TEXT,
-                                            IN par_fax TEXT, IN par_email TEXT, IN par_is_active BOOLEAN)
+CREATE OR REPLACE FUNCTION suppliers_upsert(IN par_supplier_id INT, IN par_name TEXT, IN par_address TEXT,
+                                            IN par_phone       TEXT,
+                                            IN par_fax         TEXT, IN par_email TEXT, IN par_is_active BOOLEAN)
   RETURNS TEXT AS $$
 DECLARE
   loc_response TEXT;
@@ -826,6 +827,103 @@ END;
 $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
 -- select * from locations_get(NULL);
+-----------------------------------------------------------------
+
+
+
+--////////////////////////////////////////////////////////////---
+
+-- To Sort
+
+-----------------------------------------------------------------
+-- select * from locations_get(NULL);
+-----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION wishlists_upsert(IN par_wishlist_id INT, IN par_wishlist_name TEXT)
+  RETURNS TEXT AS $$
+DECLARE
+  loc_response TEXT;
+BEGIN
+  IF par_wishlist_id ISNULL
+  THEN
+    INSERT INTO wishlists (wishlist_name)
+    VALUES (par_wishlist_name);
+    loc_response = 'ok';
+  ELSE
+    UPDATE wishlists
+    SET wishlist_name = par_wishlist_name
+    WHERE wishlist_id = par_wishlist_id;
+    loc_response = 'ok';
+  END IF;
+
+  RETURN loc_response;
+END;
+$$ LANGUAGE 'plpgsql';
+-----------------------------------------------------------------
+-- SELECT locations_upsert(NULL, 'test');
+-----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION wishlists_get(IN par_wishlist_id INT)
+  RETURNS SETOF wishlists AS $$
+BEGIN
+  IF par_wishlist_id ISNULL
+  THEN
+    RETURN QUERY SELECT *
+                 FROM wishlists;
+  ELSE
+    RETURN QUERY SELECT *
+                 FROM wishlists
+                 WHERE wishlist_id = par_wishlist_id;
+  END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+-----------------------------------------------------------------
+-- SELECT locations_upsert(NULL, 'test');
+-----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION wishlist_items_upsert(IN par_wishlist_id INT, IN par_item_id INT,
+                                                 IN par_time_stamp  TIMESTAMP)
+  RETURNS TEXT AS $$
+DECLARE
+  loc_response TEXT;
+  loc_id       INT;
+BEGIN
+  SELECT INTO loc_id wishlist_id
+  FROM wishlist_items
+  WHERE item_id = par_item_id AND wishlist_id = par_wishlist_id;
+
+  IF loc_id ISNULL
+  THEN
+    INSERT INTO wishlist_items (wishlist_id, item_id, time_stamp)
+    VALUES (par_wishlist_id, par_item_id, par_time_stamp);
+    loc_response = 'ok';
+  ELSE
+    UPDATE wishlist_items
+    SET time_stamp = par_time_stamp
+    WHERE wishlist_id = par_wishlist_id AND item_id = par_item_id;
+    loc_response = 'ok';
+  END IF;
+
+  RETURN loc_response;
+END;
+$$ LANGUAGE 'plpgsql';
+-----------------------------------------------------------------
+-- SELECT locations_upsert(NULL, 'test');
+-----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION wishlist_items_get(IN par_wishlist_id INT, IN par_item_id INT)
+  RETURNS SETOF wishlist_items AS $$
+BEGIN
+  IF par_item_id ISNULL
+  THEN
+    RETURN QUERY SELECT *
+                 FROM wishlist_items
+                 WHERE wishlist_id = par_wishlist_id;
+  ELSE
+    RETURN QUERY SELECT *
+                 FROM wishlists
+                 WHERE wishlist_id = par_wishlist_id AND item_id = par_item_id;
+  END IF;
+END;
+$$ LANGUAGE 'plpgsql';
+-----------------------------------------------------------------
+-- SELECT locations_upsert(NULL, 'test');
 -----------------------------------------------------------------
 
 
