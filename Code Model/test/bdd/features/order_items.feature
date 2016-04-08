@@ -6,7 +6,7 @@ Feature: Create and get order item
     Given I have the following order item details
     | id | order_id | item_id | unit_price | discount | quantity |
     | 1  | 1        | 1          | 100.0      | 0.1      | 20       |
-    When I Post the order item to resource_url  '/api/v1/order_items/'
+    When I Post the order item to resource_url  '/api/v1/orders/1/items/'
     Then I should have a response '200'
     And I should have a "status" containing 'ok'
     And I should have a "message" containing 'OK'
@@ -16,7 +16,7 @@ Feature: Create and get order item
     Given I have the following order item details
      | id | order_id | item_id | unit_price | discount | quantity |
      | 1  | 1        | 1          | 100.0      | 0.1      | 20       |
-    When I Post the order item to resource_url  '/api/v1/order_items/'
+    When I Post the order item to resource_url  '/api/v1/orders/1/items/'
     Then I should have a response '200'
     And I should have a "status" containing 'ok'
     And I should have a "message" containing 'ID EXISTS'
