@@ -304,14 +304,16 @@ def get_carts():
 
     res = spcall('get_carts', ())
 
-    if 'Error' in str(res[0][0]):
+    if len(res) == 0:
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+    elif 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
+    else:
+        recs = []
+        for r in res:
+            recs.append({"id": str(r[0]), "session_id": r[1], "date_created": str(r[2]), "customer_id": r[3], "is_active": r[4]})
 
-    recs = []
-    for r in res:
-        recs.append({"id": str(r[0]), "session_id": r[1], "date_created": str(r[2]), "customer_id": r[3], "is_active": r[4]})
-
-    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+        return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 """ END OF CART """
 
