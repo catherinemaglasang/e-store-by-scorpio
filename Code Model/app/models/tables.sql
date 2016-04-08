@@ -234,4 +234,3 @@ CREATE TABLE wishlist_items (
   item_id          INT REFERENCES items,
   time_stamp       TIMESTAMP
 );
-

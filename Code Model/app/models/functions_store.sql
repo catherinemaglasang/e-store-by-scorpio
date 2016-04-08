@@ -150,10 +150,10 @@ $$
     loc_id text;
     loc_res text;
   begin
-    select into loc_id id from cart_detail where id=par_id;
+    select into loc_id wishlist_item_id from wishlist_items where wishlist_item_id=par_id;
     if loc_id isnull then
 
-       insert into cart_details(id, wishlist_id, item_id, time_stamp) values (par_id, par_wishlist_id, par_item_id, par_time_stamp);
+       insert into wishlist_items(wishlist_item_id, wishlist_id, item_id, time_stamp) values (par_id, par_wishlist_id, par_item_id, par_time_stamp);
        loc_res = 'OK';
 
      else
@@ -197,9 +197,29 @@ $$
      end if;
      return loc_res;
   end;
-$$  
+$$
 
 language 'plpgsql';
+-- create or replace function new_wishlist(in par_id int8) returns text as
+-- $$
+--   declare
+--     loc_id text;
+--     loc_res text;
+--   begin
+--     select into loc_id id from wishlist where id=par_id;
+--     if loc_id isnull then
+
+--        insert into wishlist(id) values (par_id);
+--        loc_res = 'OK';
+
+--      else
+--        loc_res = 'ID EXISTED';
+--      end if;
+--      return loc_res;
+--   end;
+-- $$  
+
+-- language 'plpgsql';
 
 
 create or replace function get_wishlists(out int, out text) returns setof record as
