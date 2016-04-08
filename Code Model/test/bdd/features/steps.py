@@ -250,7 +250,7 @@ def given_cart_item1_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.cart_item = world.browser.get('/api/v1/cart_items/{}/'.format(id))
+    world.cart_item = world.browser.get('/api/v1/carts/1/items/{}/'.format(id))
     world.resp = json.loads(world.cart_item.data)
     assert_equals(world.resp['status'], 'ok')
 
@@ -260,7 +260,7 @@ def when_I_retrieve_the_cart_item1(step, id):
     """
     :type step: lettuce.core.Step
     """
-    world.response = world.browser.get('/api/v1/cart_items/{}/'.format(id))
+    world.response = world.browser.get('/api/v1/carts/1/items/{}/'.format(id))
 
 
 @step("the following cart item details are returned:")

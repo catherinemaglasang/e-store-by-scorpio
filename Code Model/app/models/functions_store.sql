@@ -130,16 +130,16 @@ $$
 language 'plpgsql';
 
 
-create or replace function get_cart_items(out int, out int, out int, out int, out timestamp) returns setof record as
+create or replace function get_cart_items(in par_cart_id int, out int, out int, out int, out int, out timestamp) returns setof record as
 $$
-   select id, cart_id, item_id, quantity, time_stamp from cart_items;
+   select id, cart_id, item_id, quantity, time_stamp from cart_items where cart_id = par_cart_id;
 $$
  language 'sql';
 
 
-create or replace function get_cart_item(in par_id int, out int, out int, out int, out timestamp) returns setof record as
+create or replace function get_cart_item(in par_id int, in par_cart_id int, out int, out int, out int, out timestamp) returns setof record as
 $$
-  select cart_id, item_id, quantity, time_stamp from cart_items where id = par_id;
+  select cart_id, item_id, quantity, time_stamp from cart_items where cart_id = par_cart_id and id = par_id;
 $$
   language 'sql';
 

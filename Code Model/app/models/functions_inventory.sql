@@ -40,45 +40,45 @@ $$ LANGUAGE 'plpgsql';
 --------------------------------------------------------------------------------------------------------
 -- SELECT attributes_get(NULL, 1);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION customers_upsert(IN par_customer_id      INT, IN par_name TEXT, IN par_billing_address TEXT,
-                                            IN par_shipping_address TEXT)
-  RETURNS TEXT AS $$
-DECLARE
-  loc_response TEXT;
-BEGIN
-
-  IF par_customer_id ISNULL
-  THEN
-    INSERT INTO customers (name, billing_address, shipping_address)
-    VALUES (par_name, par_billing_address, par_shipping_address);
-    loc_response = 'ok';
-  ELSE
-    UPDATE customers
-    SET name = par_name, billing_address = par_billing_address, shipping_address = par_shipping_address
-    WHERE customer_id = par_customer_id;
-    loc_response = 'ok';
-  END IF;
-
-  RETURN loc_response;
-END;
-$$ LANGUAGE 'plpgsql';
---------------------------------------------------------------------------------------------------------
--- SELECT customers_upsert(null,'name','billing_address', 'shipping_address');
---------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION customers_get(IN par_customer_id INT)
-  RETURNS SETOF customers AS $$
-BEGIN
-  IF par_customer_id ISNULL
-  THEN
-    RETURN QUERY SELECT *
-                 FROM customers;
-  ELSE
-    RETURN QUERY SELECT *
-                 FROM customers
-                 WHERE customer_id = par_customer_id;
-  END IF;
-END;
-$$ LANGUAGE 'plpgsql';
+-- CREATE OR REPLACE FUNCTION customers_upsert(IN par_customer_id      INT, IN par_name TEXT, IN par_billing_address TEXT,
+--                                             IN par_shipping_address TEXT)
+--   RETURNS TEXT AS $$
+-- DECLARE
+--   loc_response TEXT;
+-- BEGIN
+--
+--   IF par_customer_id ISNULL
+--   THEN
+--     INSERT INTO customers (name, billing_address, shipping_address)
+--     VALUES (par_name, par_billing_address, par_shipping_address);
+--     loc_response = 'ok';
+--   ELSE
+--     UPDATE customers
+--     SET name = par_name, billing_address = par_billing_address, shipping_address = par_shipping_address
+--     WHERE customer_id = par_customer_id;
+--     loc_response = 'ok';
+--   END IF;
+--
+--   RETURN loc_response;
+-- END;
+-- $$ LANGUAGE 'plpgsql';
+-- --------------------------------------------------------------------------------------------------------
+-- -- SELECT customers_upsert(null,'name','billing_address', 'shipping_address');
+-- --------------------------------------------------------------------------------------------------------
+-- CREATE OR REPLACE FUNCTION customers_get(IN par_customer_id INT)
+--   RETURNS SETOF customers AS $$
+-- BEGIN
+--   IF par_customer_id ISNULL
+--   THEN
+--     RETURN QUERY SELECT *
+--                  FROM customers;
+--   ELSE
+--     RETURN QUERY SELECT *
+--                  FROM customers
+--                  WHERE customer_id = par_customer_id;
+--   END IF;
+-- END;
+-- $$ LANGUAGE 'plpgsql';
 --------------------------------------------------------------------------------------------------------
 -- select customers_get(null);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -268,7 +268,7 @@ $$ LANGUAGE 'plpgsql';
 -- SELECT * FROM items_get(NULL);
 -----------------------------------------------------------------
 CREATE OR REPLACE FUNCTION location_items_upsert(IN par_location_item_id INT, IN par_location_id INT,
-                                                 IN par_item_id          INT, IN par_area_id INT, IN par_notes TEXT)
+                                                 IN par_item_id          INT, IN par_notes TEXT)
   RETURNS TEXT AS $$
 DECLARE
   loc_response TEXT;
@@ -276,12 +276,12 @@ BEGIN
 
   IF par_location_item_id ISNULL
   THEN
-    INSERT INTO location_items (location_id, item_id, area_id, notes)
-    VALUES (par_location_id, par_item_id, par_area_id, par_notes);
+    INSERT INTO location_items (location_id, item_id, notes)
+    VALUES (par_location_id, par_item_id, par_notes);
     loc_response = 'ok';
   ELSE
     UPDATE location_items
-    SET location_id = par_location_id, item_id = par_item_id, area_id = par_area_id, notes = par_notes
+    SET location_id = par_location_id, item_id = par_item_id, notes = par_notes
     WHERE location_item_id = par_location_item_id;
     loc_response = 'ok';
   END IF;
@@ -526,7 +526,7 @@ $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
 -- select * from locations_get(NULL);
 -----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION purchase_order_upsert(IN par_purchase_order_id INT, IN par_vendor_id INT,
+CREATE OR REPLACE FUNCTION purchase_order_upsert(IN par_purchase_order_id INT, IN par_supplier_id INT,
                                                  IN par_date_issued       DATE, IN par_date_expected DATE,
                                                  IN par_status            TEXT, IN par_reference_no TEXT,
                                                  IN par_notes             TEXT, IN par_shipping_fee NUMERIC,
@@ -537,14 +537,14 @@ DECLARE
 BEGIN
   IF par_purchase_order_id ISNULL
   THEN
-    INSERT INTO purchase_orders (vendor_id, date_issued, date_expected, status, reference_no, notes, shipping_fee, tracking_no)
+    INSERT INTO purchase_orders (supplier_id, date_issued, date_expected, status, reference_no, notes, shipping_fee, tracking_no)
     VALUES
-      (par_vendor_id, par_date_issued, par_date_expected, par_status, par_reference_no, par_notes, par_shipping_fee,
+      (par_supplier_id, par_date_issued, par_date_expected, par_status, par_reference_no, par_notes, par_shipping_fee,
        par_tracking_no);
     loc_response = 'ok';
   ELSE
     UPDATE purchase_orders
-    SET vendor_id = par_vendor_id, date_issued = par_date_issued, date_expected = par_date_expected,
+    SET supplier_id = par_supplier_id, date_issued = par_date_issued, date_expected = par_date_expected,
       status      = par_status, reference_no = par_reference_no, notes = par_notes, shipping_fee = par_shipping_fee,
       tracking_no = par_tracking_no
     WHERE purchase_order_id = par_purchase_order_id;
@@ -568,47 +568,6 @@ BEGIN
     RETURN QUERY SELECT *
                  FROM purchase_orders
                  WHERE purchase_order_id = par_purchase_order_id;
-  END IF;
-END;
-$$ LANGUAGE 'plpgsql';
------------------------------------------------------------------
--- select * from locations_get(NULL);
------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION sites_upsert(IN par_site_id       INT, IN par_owner_id INT, IN par_name TEXT,
-                                        IN par_business_code TEXT, IN par_domain TEXT)
-  RETURNS TEXT AS $$
-DECLARE
-  loc_response TEXT;
-BEGIN
-  IF par_site_id ISNULL
-  THEN
-    INSERT INTO sites (owner_id, name, business_code, domain)
-    VALUES (par_owner_id, par_name, par_business_code, par_domain);
-    loc_response = 'ok';
-  ELSE
-    UPDATE sites
-    SET owner_id = par_owner_id, name = par_name, business_code = par_business_code, domain = par_domain
-    WHERE site_id = par_site_id;
-    loc_response = 'ok';
-  END IF;
-
-  RETURN loc_response;
-END;
-$$ LANGUAGE 'plpgsql';
------------------------------------------------------------------
--- SELECT locations_upsert(NULL, 'test');
------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION sites_get(IN par_site_id INT)
-  RETURNS SETOF purchase_orders AS $$
-BEGIN
-  IF par_site_id ISNULL
-  THEN
-    RETURN QUERY SELECT *
-                 FROM sites;
-  ELSE
-    RETURN QUERY SELECT *
-                 FROM sites
-                 WHERE site_id = par_site_id;
   END IF;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -655,13 +614,13 @@ $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
 -- select * from locations_get(NULL);
 -----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION suppliers_upsert(IN par_id  INT, IN par_name TEXT, IN par_address TEXT, IN par_phone TEXT,
+CREATE OR REPLACE FUNCTION suppliers_upsert(IN par_supplier_id  INT, IN par_name TEXT, IN par_address TEXT, IN par_phone TEXT,
                                             IN par_fax TEXT, IN par_email TEXT, IN par_is_active BOOLEAN)
   RETURNS TEXT AS $$
 DECLARE
   loc_response TEXT;
 BEGIN
-  IF par_id ISNULL
+  IF par_supplier_id ISNULL
   THEN
     INSERT INTO suppliers (name, address, phone, fax, email, is_active)
     VALUES (par_name, par_address, par_phone, par_fax, par_email, par_is_active);
@@ -670,7 +629,7 @@ BEGIN
     UPDATE suppliers
     SET name    = par_name, address = par_address, phone = par_phone, fax = par_fax, email = par_email,
       is_active = par_is_active
-    WHERE id = par_id;
+    WHERE supplier_id = par_supplier_id;
     loc_response = 'ok';
   END IF;
 
@@ -690,7 +649,7 @@ BEGIN
   ELSE
     RETURN QUERY SELECT *
                  FROM suppliers
-                 WHERE id = par_supplier_id;
+                 WHERE supplier_id = par_supplier_id;
   END IF;
 END;
 $$ LANGUAGE 'plpgsql';

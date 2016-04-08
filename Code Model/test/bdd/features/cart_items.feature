@@ -5,7 +5,7 @@ Feature: Create Get and Delete Cart Item
       Given I have the following cart item details
       | id | cart_id | product_id | quantity   | time_stamp         |
       | 1  | 1       | 1          | 1          | 2016-03-15 11:49:17|
-      When I Post the cart item to resource_url  '/api/v1/cart_items/'
+      When I Post the cart item to resource_url  '/api/v1/carts/1/items/'
       Then I should get response '200'
       And I should get "status" 'ok'
       And I should get "message" 'OK'
@@ -15,7 +15,7 @@ Feature: Create Get and Delete Cart Item
      Given I have the following cart item details
      | id | cart_id | product_id | quantity   | time_stamp         |
      | 1  | 1       | 1          | 1          | 2016-03-15 11:49:17|
-     When I Post the cart item to resource_url  '/api/v1/cart_items/'
+     When I Post the cart item to resource_url  '/api/v1/carts/1/items/'
      Then I should get response '200'
      And I should get "status" 'ok'
      And I should get "message" 'ID EXISTS'

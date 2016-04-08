@@ -205,13 +205,13 @@ def get_all_suppliers():
 """ CART ITEM """
 
 
-@api.route('/api/v1/cart_items/', methods=['POST'])
-def new_cart_item():
+@api.route('/api/v1/carts/<cart_id>/items/', methods=['POST'])
+def new_cart_item(cart_id):
     data = json.loads(request.data)
 
     response = spcall('new_cart_item', (
         data['id'],
-        data['cart_id'],
+        cart_id,
         data['product_id'],
         data['quantity'],
         data['time_stamp'],), True)
@@ -222,9 +222,9 @@ def new_cart_item():
     return jsonify({'status': 'ok', 'message': response[0][0]}), 200
 
 
-@api.route('/api/v1/cart_items/', methods=['GET'])
-def get_cart_items():
-    res = spcall('get_cart_items', ())
+@api.route('/api/v1/carts/<cart_id>/items/', methods=['GET'])
+def get_cart_items(cart_id):
+    res = spcall('get_cart_items', (cart_id,))
 
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
@@ -240,9 +240,9 @@ def get_cart_items():
         return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@api.route('/api/v1/cart_items/<cart_item_id>/', methods=['GET'])
-def get_cart_item(cart_item_id):
-    res = spcall('get_cart_item', (cart_item_id,))
+@api.route('/api/v1/carts/<cart_id>/items/<cart_item_id>/', methods=['GET'])
+def get_cart_item(cart_id, cart_item_id):
+    res = spcall('get_cart_item', (cart_item_id, cart_id,))
 
     if len(res) == 0:
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
