@@ -472,9 +472,9 @@ def new_wishlist():
         data['id'],), True)
         
     if 'Error' in response[0][0]:
-        return jsonify({'status': 'error', 'message': res[0][0]})
+        return jsonify({'status': 'error', 'message': response[0][0]})
 
-    return jsonify({'status': 'ok', 'message': 'ok'}), 200
+    return jsonify({'status': 'ok', 'message': response[0][0]}), 200
 
 
 @api.route('/api/v1/wishlist/', methods=['GET'])

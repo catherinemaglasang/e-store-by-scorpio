@@ -1,6 +1,28 @@
 Feature: Get and Create Wishlist
 
 
+  Scenario: Create Wishlist - sunny case
+    Given I have the details of wishlist
+    |id |
+    | 1 |
+    When I POST to url '/api/v1/wishlist/' the wishlist
+    Then I should get '200' status code response
+    And I should get 'ok' status
+    And I should get 'OK' message
+
+
+  Scenario: Create a duplicate wishlist - rainy case
+    Given I have the details of wishlist
+    |id |
+    | 1 |
+    When I POST to url '/api/v1/wishlist/' the wishlist
+    Then I should get '200' status code response
+    And I should get 'ok' status
+    And I should get 'ID EXISTED' message
+
+
+
+
 
   Scenario: Get Wishlist - sunny case
     Given wishlist '1' is in the system
@@ -21,26 +43,6 @@ Feature: Get and Create Wishlist
     And it should  have an empty field 'entries'
 
 
-  Scenario: Create Wishlist - sunny case
-    Given I have the details of wishlist
-    |id |
-    | 1 |
-    When I POST to url '/api/v1/wishlist/' the wishlist
-    Then I should get '200' status code response
-    And I should get 'ok' status
-    And I should get 'ok' message
-
-
-  Scenario: Create a duplicate wishlist - rainy case
-    Given I have the details of wishlist
-    |id |
-    | 1 |
-    When I POST to url '/api/v1/wishlist/' the wishlist
-    Then I should get '200' status code response
-    And I should get 'ok' status
-    And I should get 'ID EXISTED' message
-
-
-
+  
   
 
