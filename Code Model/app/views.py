@@ -123,6 +123,7 @@ def get_user(user_id):
     else:
         recs = []
         for r in res:
+            print r
             recs.append({"id": user_id,
                          "username": r[0],
                          "password": r[1],
@@ -136,10 +137,10 @@ def get_user(user_id):
 def new_user():
     data = json.loads(request.data)
     response = spcall('new_user', (
-        data['id'],
         data['username'],
-        data['password'],
         data['email'],
+        data['password'],
+        data['date_created'],
         data['is_admin'],), True)
 
     if 'Error' in response[0][0]:
@@ -150,6 +151,8 @@ def new_user():
 
 """  End USER  """
 """ SUPPLIER """
+
+
 @api.route('/api/v1/suppliers/', methods=['POST'])
 def new_supplier(supplier_id=None):
     data = json.loads(request.data)
@@ -195,8 +198,9 @@ def get_all_suppliers():
 
     recs = []
     for r in res:
-        recs.append({"supplier_id": str(r[0]), "name": str(r[1]), "address": str(r[2]), "phone": str(r[3]), "fax": str(r[4]),
-                     "email": str(r[5]), "is_active": str(r[6])})
+        recs.append(
+            {"supplier_id": str(r[0]), "name": str(r[1]), "address": str(r[2]), "phone": str(r[3]), "fax": str(r[4]),
+             "email": str(r[5]), "is_active": str(r[6])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
@@ -311,9 +315,11 @@ def get_carts():
     else:
         recs = []
         for r in res:
-            recs.append({"id": str(r[0]), "session_id": r[1], "date_created": str(r[2]), "customer_id": r[3], "is_active": r[4]})
+            recs.append({"id": str(r[0]), "session_id": r[1], "date_created": str(r[2]), "customer_id": r[3],
+                         "is_active": r[4]})
 
         return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
 
 """ END OF CART """
 
@@ -436,6 +442,7 @@ def new_order_item():
 
     return jsonify({'status': 'ok', 'message': response[0][0]}), 200
 
+
 """ END OF ORDER"""
 
 
@@ -472,7 +479,7 @@ def new_wishlist():
 
     response = spcall('new_wishlist', (
         data['id'],), True)
-        
+
     if 'Error' in response[0][0]:
         return jsonify({'status': 'error', 'message': response[0][0]})
 
@@ -503,7 +510,6 @@ def get_wishlist(wishlist_id):
         row = response[0]
         entries.append({"id": row[0]})
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
-
 
 
 @api.route('/api/v1/wishlist/<int:id>/', methods=['DELETE'])
