@@ -51,6 +51,7 @@ def give_i_have_the_following_data(step):
 @step('I save the data')
 def i_post_to_the_url_url(step):
     world.response = world.browser.post(world.resource, data=json.dumps(world.data))
+    print world.response
     world.response_data = json.loads(world.response.data)
 
 
@@ -421,7 +422,6 @@ def and_it_should_have_an_empty_field_entries(step):
     assert_equals(len(world.resp['entries']), 0)
 
 
-
 """ Create new order sunny case and rainy case"""
 
 
@@ -537,6 +537,7 @@ def and_It_should_have_an_empty_field_entries(step):
     """
     assert_equals(len(world.resp['entries']), 0)
 
+
 """ Create order item sunny and rainy case """
 
 
@@ -650,6 +651,7 @@ def and_It_should_have_a_field_message_No_entries_found(step, message):
     world.resp = json.loads(world.response.data)
     assert_equals(world.resp['message'], message)
 
+
 # ------------------------------------------------------------------------
 # customer
 
@@ -738,14 +740,12 @@ def step_impl(step, url):
     world.customer_post_response = world.browser.post(world.customer_post_uri, data=json.dumps(world.customer1))
 
 
-
 @step("I get the create customer \'(.*)\' response")
 def step_impl(step, exp_status_code):
     """
     :type step: lettuce.core.Step
     """
     assert_equals(world.customer_post_response.status_code, int(exp_status_code))
-
 
 
 @step("I should get a customer field \'(.*)\' containing \'(.*)\'")
@@ -755,4 +755,3 @@ def step_impl(step, status, txt):
     """
     world.customer_post_response_json = json.loads(world.customer_post_response.data)
     assert_equals(world.customer_post_response_json[status], txt)
-

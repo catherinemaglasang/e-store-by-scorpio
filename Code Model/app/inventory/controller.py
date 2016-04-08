@@ -57,6 +57,25 @@ def item_attributes_upsert(item_id, attribute_id=None):
 
     return jsonify(json_dict), status_code
 
+@api.route('/api/v1/items/<item_id>/images/', methods=['POST'])
+@api.route('/api/v1/items/<item_id>/images/<image_id>/', methods=['PUT'])
+def images_upsert(item_id, image_id=None):
+    data = json.loads(request.data)
+
+    response = spcall('images_upsert', (
+        image_id,
+        data['item_id'],
+        data['image_url'],
+        data['caption'],), True)
+
+    json_dict = build_json(response)
+
+    status_code = 200
+    if not image_id:
+        status_code = 201
+
+    return jsonify(json_dict), status_code
+
 
 @api.route('/api/v1/items/<item_id>/variations/', methods=['POST'])
 @api.route('/api/v1/items/<item_id>/variations/<option_id>/', methods=['PUT'])
@@ -171,6 +190,15 @@ def items_get(item_id=None):
 @api.route('/api/v1/items/<item_id>/attributes/<attribute_id>/', methods=['GET'])
 def item_attributes_get(item_id, attribute_id=None):
     response = spcall('item_attributes_get', (attribute_id, item_id,), )
+
+    json_dict = build_json(response)
+
+    return jsonify(json_dict)
+
+@api.route('/api/v1/items/<item_id>/images/', methods=['GET'])
+@api.route('/api/v1/items/<item_id>/images/<image_id>/', methods=['GET'])
+def images_get(item_id, image_id=None):
+    response = spcall('images_get', (image_id, item_id,), )
 
     json_dict = build_json(response)
 
