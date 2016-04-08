@@ -229,5 +229,5 @@ CREATE TABLE wishlist_details (
 );
 
 CREATE TABLE wishlist (
-  id INT8 PRIMARY KEY
+  id SERIAL NOT NULL PRIMARY KEY
 );

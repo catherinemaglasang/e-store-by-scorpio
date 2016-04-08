@@ -12,6 +12,55 @@ def before_all():
     world.app = app.test_client()
 
 
+""" Create Wishlist """
+
+
+
+@step('I have the details of wishlist')
+def step_impl(step):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.wishlist1 = step.hashes[0]
+
+
+@step("I POST to url \'(.*)\' the wishlist")
+def step_impl(step, url):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.wishlist_post_uri = url
+    world.wishlist_post_response = world.browser.post(world.wishlist_post_uri, data=json.dumps(world.wishlist1))
+
+
+@step("I should get \'(.*)\' status code response")
+def step_impl(step, expected_status_code):
+    """
+    :param expected_status_code:
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.wishlist_post_response.status_code, int(expected_status_code))
+
+
+@step("I should get \'(.*)\' status")
+def step_impl(step, status):
+    """
+    :type step: lettuce.core.Step
+    """
+    world.wishlist_post_response_json = json.loads(world.wishlist_post_response.data)
+    assert_equals(world.wishlist_post_response_json['status'], status)
+
+
+@step("I should get \'(.*)\' message")
+def step_impl(step, message):
+    """
+    :type step: lettuce.core.Step
+    """
+    assert_equals(world.wishlist_post_response_json['message'], message)
+
+    
+
+
 """ Get Wishlist - sunny case """
 
 
@@ -21,10 +70,8 @@ def given_wishlist_is_in_the_system(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-
-    world.resp = world.app.get('/api/v1/wishlist/'.format(id))
+    world.resp = world.browser.get('/api/v1/wishlist/'.format(id))
     data = json.loads(world.resp.data)
-    #raise Exception(json.loads(world.resp.data))
     assert_equals(data['status'], 'ok')
 
 
@@ -34,7 +81,7 @@ def when_I_retrieve_the_wishlist(step, id):
     :param id:
     :type step: lettuce.core.Step
     """
-    world.response = world.app.get('/api/v1/wishlist/'.format(id))
+    world.response = world.browser.get('/api/v1/wishlist/'.format(id))
 
 
 @step("I should have a status code response \'(.*)\'")
@@ -53,7 +100,6 @@ def and_the_following_details_are_returned(step):
     :type step: lettuce.core.Step
     """
     resp = world.response.data
-    #raise Exception(json.loads(world.response.data))
     assert_equals(world.resp.data, resp)
 
 
@@ -69,13 +115,12 @@ def given_I_retrieve_a_wishlist_with_resource_url(step, id):
     world.wishlist_uri = '/api/v1/wishlist/%s/' % (id)
 
 
-@step("I retrieve the JSON result")
-def when_I_retrieve_the_JSON_result(step):
+@step("I retrieve the wishlist JSON result")
+def when_I_retrieve_the_wishlist_JSON_result(step):
     """
     :type step: lettuce.core.Step
     """
-    #raise Exception(world.wishlist_uri)
-    world.response = world.app.get(world.wishlist_uri)
+    world.response = world.browser.get(world.wishlist_uri)
 
 
 @step("I should have a status code response \'(.*)\'")
@@ -83,7 +128,6 @@ def step_impl(step, expected_status_code):
     """
     :type step: lettuce.core.Step
     """
-    #raise Exception(world.response.status_code)
     assert_equals(world.response.status_code, int(expected_status_code))
 
 
@@ -92,9 +136,7 @@ def step_impl(step):
     """
     :type step: lettuce.core.Step
     """
-    # world.categories = world.app.get('/api/v1/categories/<category_id>/'.format(id))
     world.resp = json.loads(world.response.data)
-    #raise Exception(world.resp)
     assert_equals(world.resp['status'], 'ok')
 
 
@@ -121,3 +163,6 @@ def and_it_should_have_an_empty_field_entries(step):
     :type step: lettuce.core.Step
     """
     assert_equals(len(world.resp['entries']), 0)
+
+
+
