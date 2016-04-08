@@ -12,8 +12,8 @@
             <table class="table table-striped table-hover table-condensed table-responsive">
                 <thead>
                 <tr>
-                    <th>Item ID</th>
-                    <th>S/N</th>
+                    <th>Thumbnail</th>
+                    <th>SKU</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Active</th>
@@ -22,8 +22,8 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="item in itemList">
-                    <td>{{ item.item_id}}</td>
-                    <td>{{ item.serial_no }}</td>
+                    <td><img src="media/uploads/1.jpg" width="50x50" alt=""></td>
+                    <td>{{ item.item_id }}</td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.description }}</td>
                     <td>{{ item.is_active }}</td>

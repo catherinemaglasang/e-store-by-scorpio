@@ -124,13 +124,15 @@ $$ LANGUAGE 'plpgsql';
 -- select images_get(null);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION item_attributes_upsert(IN par_attribute_id INT,
-                                                  IN par_item_id           INT, IN par_attribute_value TEXT)
+                                                  IN par_item_id      INT, IN par_attribute_value TEXT)
   RETURNS TEXT AS $$
 DECLARE
   loc_response TEXT;
-  loc_id int;
+  loc_id       INT;
 BEGIN
-  select into loc_id attribute_id from item_attributes where attribute_id = par_attribute_id and item_id = par_item_id;
+  SELECT INTO loc_id attribute_id
+  FROM item_attributes
+  WHERE attribute_id = par_attribute_id AND item_id = par_item_id;
   IF loc_id ISNULL
   THEN
     INSERT INTO item_attributes (attribute_id, item_id, attribute_value)
@@ -139,7 +141,7 @@ BEGIN
   ELSE
     UPDATE item_attributes
     SET attribute_value = par_attribute_value
-    WHERE item_id = par_item_id and attribute_id = par_attribute_id;
+    WHERE item_id = par_item_id AND attribute_id = par_attribute_id;
     loc_response = 'ok';
   END IF;
 
@@ -149,7 +151,7 @@ $$ LANGUAGE 'plpgsql';
 -------------------------------------------------------------------------------
 -- select images_get(null);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION item_attributes_get(in par_attribute_id int, IN par_item_id INT)
+CREATE OR REPLACE FUNCTION item_attributes_get(IN par_attribute_id INT, IN par_item_id INT)
   RETURNS SETOF item_attributes AS $$
 BEGIN
   IF par_attribute_id ISNULL
@@ -167,27 +169,30 @@ $$ LANGUAGE 'plpgsql';
 -------------------------------------------------------------------------------
 -- select images_get(null);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION item_variations_upsert(IN par_item_id INT, in par_option_id int,
-                                                  IN par_stock_on_hand     NUMERIC, IN par_unit_cost NUMERIC,
-                                                  IN par_re_order_level    NUMERIC, IN par_re_order_quantity NUMERIC,
-                                                  IN par_is_active         BOOLEAN)
+CREATE OR REPLACE FUNCTION item_variations_upsert(IN par_item_id        INT, IN par_option_id INT,
+                                                  IN par_stock_on_hand  NUMERIC, IN par_unit_cost NUMERIC,
+                                                  IN par_re_order_level NUMERIC, IN par_re_order_quantity NUMERIC,
+                                                  IN par_is_active      BOOLEAN)
   RETURNS TEXT AS $$
 DECLARE
   loc_response TEXT;
-  loc_id int;
+  loc_id       INT;
 BEGIN
 
-  select into loc_id item_id from item_variations where item_id = par_item_id and option_id = par_option_id;
+  SELECT INTO loc_id item_id
+  FROM item_variations
+  WHERE item_id = par_item_id AND option_id = par_option_id;
   IF loc_id ISNULL
   THEN
     INSERT INTO item_variations (item_id, option_id, stock_on_hand, unit_cost, re_order_level, re_order_quantity, is_active)
-    VALUES (par_item_id, par_option_id, par_stock_on_hand, par_unit_cost, par_re_order_level, par_re_order_quantity, par_is_active);
+    VALUES (par_item_id, par_option_id, par_stock_on_hand, par_unit_cost, par_re_order_level, par_re_order_quantity,
+            par_is_active);
     loc_response = 'ok';
   ELSE
     UPDATE item_variations
-    SET option_id      = par_option_id, stock_on_hand = par_stock_on_hand, unit_cost = par_unit_cost,
+    SET option_id    = par_option_id, stock_on_hand = par_stock_on_hand, unit_cost = par_unit_cost,
       re_order_level = par_re_order_level, re_order_quantity = par_re_order_quantity, is_active = par_is_active
-    WHERE item_id = par_item_id and option_id = par_option_id;
+    WHERE item_id = par_item_id AND option_id = par_option_id;
     loc_response = 'ok';
   END IF;
 
@@ -197,28 +202,27 @@ $$ LANGUAGE 'plpgsql';
 -------------------------------------------------------------------------------
 -- select images_get(null);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION item_variations_get(IN par_item_id INT, in par_option_id int)
+CREATE OR REPLACE FUNCTION item_variations_get(IN par_item_id INT, IN par_option_id INT)
   RETURNS SETOF item_variations AS $$
 BEGIN
   IF par_option_id ISNULL
   THEN
     RETURN QUERY SELECT *
-                 FROM item_variations where item_id = par_item_id;
+                 FROM item_variations
+                 WHERE item_id = par_item_id;
   ELSE
     RETURN QUERY SELECT *
                  FROM item_variations
-                 WHERE item_id = par_item_id and option_id = par_option_id;
+                 WHERE item_id = par_item_id AND option_id = par_option_id;
   END IF;
 END;
 $$ LANGUAGE 'plpgsql';
 -------------------------------------------------------------------------------
 -- select images_get(null);
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION items_upsert(IN par_item_id     INT, IN par_tax_class_id INT,
-                                        IN par_serial_no   TEXT, IN par_name TEXT,
+CREATE OR REPLACE FUNCTION items_upsert(IN par_item_id     INT, IN par_name TEXT,
                                         IN par_description TEXT, IN par_date_added DATE, IN par_date_updated DATE,
-                                        IN par_is_taxable  BOOLEAN,
-                                        IN par_is_active   BOOLEAN, IN par_has_variations BOOLEAN)
+                                        IN par_is_active   BOOLEAN)
   RETURNS TEXT AS $$
 DECLARE
   loc_response INT;
@@ -226,17 +230,16 @@ BEGIN
 
   IF par_item_id ISNULL
   THEN
-    INSERT INTO items (tax_class_id, serial_no, name, description, date_added, date_updated, is_taxable, is_active, has_variations)
-    VALUES (par_tax_class_id, par_serial_no, par_name, par_description, par_date_added,
-            par_date_updated, par_is_taxable, par_is_active, par_has_variations)
+    INSERT INTO items (name, description, date_added, date_updated, is_active)
+    VALUES (par_name, par_description, par_date_added,
+            par_date_updated, par_is_active)
     RETURNING item_id
       INTO loc_response;
   ELSE
     UPDATE items
-    SET serial_no  = par_serial_no, tax_class_id = par_tax_class_id,
-      name         = par_name, description = par_description, date_added = par_date_added,
-      date_updated = par_date_updated, is_taxable = par_is_taxable,
-      is_active    = par_is_active, has_variations = par_has_variations
+    SET name         = par_name, description = par_description, date_added = par_date_added,
+      date_updated = par_date_updated,
+      is_active    = par_is_active
     WHERE item_id = par_item_id;
     loc_response = par_item_id;
   END IF;
@@ -392,7 +395,7 @@ $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
 -- SELECT * FROM locations_get(NULL);
 -----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION option_groups_upsert(IN par_option_group_id          INT, IN par_option_group_name TEXT)
+CREATE OR REPLACE FUNCTION option_groups_upsert(IN par_option_group_id INT, IN par_option_group_name TEXT)
   RETURNS TEXT AS $$
 DECLARE
   loc_response TEXT;
@@ -454,17 +457,18 @@ $$ LANGUAGE 'plpgsql';
 -----------------------------------------------------------------
 -- SELECT locations_upsert(NULL, 'test');
 -----------------------------------------------------------------
-CREATE OR REPLACE FUNCTION options_get(IN par_option_id INT, in par_option_group_id int)
+CREATE OR REPLACE FUNCTION options_get(IN par_option_id INT, IN par_option_group_id INT)
   RETURNS SETOF options AS $$
 BEGIN
   IF par_option_id ISNULL
   THEN
     RETURN QUERY SELECT *
-                 FROM options where option_group_id = par_option_group_id;
+                 FROM options
+                 WHERE option_group_id = par_option_group_id;
   ELSE
     RETURN QUERY SELECT *
                  FROM options
-                 WHERE option_id = par_option_id and option_group_id = par_option_group_id;
+                 WHERE option_id = par_option_id AND option_group_id = par_option_group_id;
   END IF;
 END;
 $$ LANGUAGE 'plpgsql';
@@ -645,46 +649,6 @@ BEGIN
     RETURN QUERY SELECT *
                  FROM stock_adjustments
                  WHERE stock_adjustment_id = par_stock_adjustment_id;
-  END IF;
-END;
-$$ LANGUAGE 'plpgsql';
------------------------------------------------------------------
--- select * from locations_get(NULL);
------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION tax_classes_upsert(IN par_tax_class_id INT, IN par_name TEXT, IN par_tax_percentage NUMERIC,
-                                              IN par_description  TEXT)
-  RETURNS TEXT AS $$
-DECLARE
-  loc_response TEXT;
-BEGIN
-  IF par_tax_class_id ISNULL
-  THEN
-    INSERT INTO tax_classes (name, tax_percentage, description) VALUES (par_name, par_tax_percentage, par_description);
-    loc_response = 'ok';
-  ELSE
-    UPDATE tax_classes
-    SET name = par_name, tax_class_id = par_tax_percentage, description = par_description
-    WHERE tax_class_id = par_tax_class_id;
-    loc_response = 'ok';
-  END IF;
-
-  RETURN loc_response;
-END;
-$$ LANGUAGE 'plpgsql';
------------------------------------------------------------------
--- SELECT locations_upsert(NULL, 'test');
------------------------------------------------------------------
-CREATE OR REPLACE FUNCTION tax_classes_get(IN par_tax_class_id INT)
-  RETURNS SETOF tax_classes AS $$
-BEGIN
-  IF par_tax_class_id ISNULL
-  THEN
-    RETURN QUERY SELECT *
-                 FROM tax_classes;
-  ELSE
-    RETURN QUERY SELECT *
-                 FROM tax_classes
-                 WHERE tax_class_id = par_tax_class_id;
   END IF;
 END;
 $$ LANGUAGE 'plpgsql';

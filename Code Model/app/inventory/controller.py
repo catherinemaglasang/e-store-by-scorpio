@@ -24,15 +24,11 @@ def items_upsert(item_id=None):
 
     response = spcall('items_upsert', (
         item_id,
-        int(data['tax_class_id']),
-        data['serial_no'],
         data['name'],
         data['description'],
         str(data['date_added']),
         str(data['date_updated']),
-        data['is_taxable'],
-        data['is_active'],
-        data['has_variations'],), True)
+        data['is_active'],), True)
 
     json_dict = build_json(response)
 
@@ -121,6 +117,7 @@ def locations_upsert(location_id=None):
 
     return jsonify(json_dict), status_code
 
+
 @api.route('/api/v1/optiongroups/', methods=['POST'])
 @api.route('/api/v1/optiongroups/<option_group_id>/', methods=['PUT'])
 def option_groups_upsert(option_group_id=None):
@@ -179,6 +176,7 @@ def item_attributes_get(item_id, attribute_id=None):
 
     return jsonify(json_dict)
 
+
 @api.route('/api/v1/items/<item_id>/variations/', methods=['GET'])
 @api.route('/api/v1/items/<item_id>/variations/<option_id>/', methods=['GET'])
 def item_variations_get(item_id, option_id=None):
@@ -207,6 +205,7 @@ def locations_get(location_id=None):
     json_dict = build_json(response)
 
     return jsonify(json_dict)
+
 
 @api.route('/api/v1/optiongroups/', methods=['GET'])
 @api.route('/api/v1/optiongroups/<option_group_id>/', methods=['GET'])

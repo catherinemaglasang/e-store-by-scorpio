@@ -37,6 +37,11 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
             controller: 'MainController'
         })
 
+        .when('/dashboard/options/all', {
+            templateUrl: 'pages/dashboard/items/option_list.html',
+            controller: 'OptionCtrl'
+        })
+
 
         .when('/dashboard/locations/all', {
             templateUrl: 'pages/dashboard/items/location_list.html',
@@ -53,6 +58,11 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
             controller: 'MainController'
         })
 
+        .when('/dashboard/options/add', {
+            templateUrl: 'pages/dashboard/items/option_form.html',
+            controller: 'OptionCtrl'
+        })
+
         .when('/dashboard/locations/add', {
             templateUrl: 'pages/dashboard/items/location_form.html',
             controller: 'MainController'
@@ -66,6 +76,11 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
         .when('/dashboard/attributes/:id', {
             templateUrl: 'pages/dashboard/items/attribute_detail.html',
             controller: 'AttributeDetailController'
+        })
+
+        .when('/dashboard/options/:id', {
+            templateUrl: 'pages/dashboard/items/option_detail.html',
+            controller: 'OptionCtrl'
         })
 
         .when('/dashboard/locations/:id', {

@@ -4,7 +4,7 @@ Feature: Create and Get Order
   Scenario: Create order
     Given I have the following order details
     |id| customer_id | payment_id | transaction_date | shipping_date | time_stamp          | transaction_status | total |
-    |4 | 3           | 3          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
+    |1 | 1           | 1          | 2016-03-11       | 2016-03-11    | 2016-03-11 11:49:17 | Pending            | 100.0 |
     When I Post the order to resource_url  '/api/v1/orders/'
     Then I should get a status of '200'
     And I should get a "status" 'ok'
