@@ -2,7 +2,7 @@ Feature: Create Get and Delete Cart Item
 
 #  Create Sunny Case
    Scenario: Create Cart Item
-      Given I have the following cart item details
+      Given I have the following data
       | id | cart_id | product_id | quantity   | time_stamp         |
       | 1  | 1       | 1          | 1          | 2016-03-15 11:49:17|
       When I Post the cart item to resource_url  '/api/v1/carts/1/items/'
@@ -12,7 +12,7 @@ Feature: Create Get and Delete Cart Item
 
 #  Create Rainy Case
    Scenario: Create duplicate cart item
-     Given I have the following cart item details
+     Given I have the following data
      | id | cart_id | product_id | quantity   | time_stamp         |
      | 1  | 1       | 1          | 1          | 2016-03-15 11:49:17|
      When I Post the cart item to resource_url  '/api/v1/carts/1/items/'

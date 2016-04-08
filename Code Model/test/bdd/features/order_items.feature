@@ -3,7 +3,7 @@ Feature: Create and get order item
 
 #  Create Sunny Case
   Scenario: Create order item
-    Given I have the following order item details
+    Given I have the following data
     | id | order_id | item_id | unit_price | discount | quantity |
     | 1  | 1        | 1          | 100.0      | 0.1      | 20       |
     When I Post the order item to resource_url  '/api/v1/orders/1/items/'
@@ -13,7 +13,7 @@ Feature: Create and get order item
 
 #  Create Rainy Case 1
   Scenario: Create a duplicate order item
-    Given I have the following order item details
+    Given I have the following data
      | id | order_id | item_id | unit_price | discount | quantity |
      | 1  | 1        | 1          | 100.0      | 0.1      | 20       |
     When I Post the order item to resource_url  '/api/v1/orders/1/items/'
