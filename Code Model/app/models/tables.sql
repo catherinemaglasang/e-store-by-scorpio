@@ -163,6 +163,12 @@ CREATE TABLE item_attributes (
   PRIMARY KEY (attribute_id, item_id)
 );
 
+
+
+
+
+
+
 CREATE TABLE item_variations (
   stock_on_hand     NUMERIC DEFAULT 0,
   unit_cost         NUMERIC,
@@ -176,7 +182,7 @@ CREATE TABLE item_variations (
 
 
 CREATE TABLE orders (
-  id                 SERIAL PRIMARY KEY,
+  order_id           SERIAL UNIQUE NOT NULL PRIMARY KEY,
   customer_id        INT REFERENCES customers,
   payment_id         INT,
   transaction_date   DATE,
@@ -185,6 +191,8 @@ CREATE TABLE orders (
   transaction_status TEXT,
   total              NUMERIC
 );
+
+
 
 CREATE TABLE order_items (
   id         SERIAL PRIMARY KEY,
