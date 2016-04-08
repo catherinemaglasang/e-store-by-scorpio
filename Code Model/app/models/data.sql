@@ -13,3 +13,5 @@ select suppliers_upsert(null, 'default', null, null, null, null, true);
 select new_customer(1, 'default', 'default', 'default', 'default', 'default', '9200', 'PH', 'default', 'default', 1, 'default', 'default', '1/1/1 1:1:1');
 
 select new_order(1, 1, 1, '1/1/1', '1/1/1', '1/1/1 1:1:1', 'open', 100);
+
+select wishlists_upsert(1, 'default');
