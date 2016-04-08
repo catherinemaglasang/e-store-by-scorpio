@@ -56,6 +56,7 @@ def i_post_to_the_url_url(step):
 
 @step('I get a field "(.*)" containing "(.*)"')
 def i_get_a_field_field_containing_value(step, field, field_value):
+    print world.response_data
     assert_equals(world.response_data[field], field_value)
 
 

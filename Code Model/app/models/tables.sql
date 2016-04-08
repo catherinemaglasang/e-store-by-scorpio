@@ -102,7 +102,7 @@ CREATE TABLE items (
   is_active    BOOL      DEFAULT TRUE
 );
 
-CREATE TABLE item (
+CREATE TABLE location_items (
   location_item_id SERIAL NOT NULL PRIMARY KEY,
   notes            TEXT,
   location_id      INTEGER REFERENCES locations,
