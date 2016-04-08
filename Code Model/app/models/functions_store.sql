@@ -224,14 +224,14 @@ $$
 language 'plpgsql';
 
 
-create or replace function get_wishlists(out int8) returns setof int8 as
+create or replace function get_wishlists(out int) returns setof int as
 $$
   select id from wishlist;
 $$
 language 'sql';
 
 
-create or replace function get_wishlist(in par_id int8) returns setof int8 as
+create or replace function get_wishlist(in par_id int) returns setof int as
 $$
   select id from wishlist where id = par_id;
 $$
