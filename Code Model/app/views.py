@@ -498,7 +498,7 @@ def get_wishlist(wishlist_id):
     if len(res) == 0:
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
     else:
-        row = response[0]
+        row = res[0]
         entries.append({"id": row[0]})
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
