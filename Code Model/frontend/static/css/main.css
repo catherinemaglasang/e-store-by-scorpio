@@ -95,3 +95,7 @@ table {
 .nav-table .tab-content table td{
     vertical-align: middle;
 }
+
+table td {
+    vertical-align: middle !important;
+}

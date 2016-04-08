@@ -62,7 +62,7 @@ mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item',
     };
 
     /*
-     * Add Item Attribute
+     * Item Attribute
      * Triggered in the client. Pushes the new item_attribute instance in array.
      */
     $scope.addItemAttribute = function () {
@@ -80,6 +80,11 @@ mainApp.controller('ItemAddController', ['$scope', '$http', '$location', 'Item',
         $scope.itemAttributes.splice(index, 1, $scope.attribute);
     };
 
+    /*
+     * Item Variation Handler
+     * Populates and generates item variations based on option group and options in each group.
+     * Variations of an item is just a product of the count of options in each group.
+     */
     $scope.populateOptionGroup = function (gid) {
         $scope.group_id = gid;
         Option.get({optiongroupid: gid}, function (data) {

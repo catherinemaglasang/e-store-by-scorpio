@@ -84,7 +84,7 @@
 
         <div class="box box-solid">
             <div class="box-header">
-                <h3 class="box-title">Stocks & Variants</h3>
+                <h3 class="box-title">Variants</h3>
             </div>
             <div class="box-body">
                 <div class="row">
@@ -107,22 +107,21 @@
                 <table class="table table-bordered table-striped table-hover table-condensed table-responsive">
                     <thead>
                     <tr>
-                        <th>Option Group</th>
-                        <th>Option</th>
-                        <th>Unit Cost</th>
+                        <th>Option Group / Option / Variant</th>
+                        <th>Cost Price</th>
+                        <th>Selling Price</th>
                         <th>Stock On Hand</th>
                         <th>Re-order Level</th>
                         <th>Re-order Quantity</th>
+                        <th>Location 1</th>
+                        <th>Location 2</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="variant in itemVariations" ng-if="optionList.length > 0">
                         <td>
-                            {{ variant.option_group_id }}
-                        </td>
-                        <td>
-                            {{ variant.option_value }}
+                            {{ variant.option_group_id }} / {{ variant.option_value }}
                         </td>
                         <td>
                             <div class="form-group">
@@ -149,6 +148,19 @@
                             </div>
                         </td>
                         <td>
+                            <div class="form-group">
+                                <span ng-if="variant.editable == false">{{ variant.re_order_quantity }}</span>
+                                <input ng-if="variant.editable" type="number" ng-model="variant.re_order_quantity" class="form-control">
+                            </div>
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+
+                        <td>
                             <a ng-if="variant.editable" class="btn btn-default" href="" ng-click="updateItemVariation(variant)">Save</a>
                             <a ng-if="variant.editable == false" class="btn btn-default" href="" ng-click="make_editable(variant)">Edit</a>
                             <a href="" class="btn btn-danger" ng-click="removeItemVariation(variant)">Remove</a>
@@ -160,14 +172,16 @@
             </div>
         </div>
 
-        <!--<div class="box box-solid">
+        <div class="box box-solid">
             <div class="box-header">
                 <h3 class="box-title">Images</h3>
             </div>
             <div class="box-body">
                 <div class="form-group">
                     <label for="">Choose Files</label>
-                    <input type="file" id="photo">
+                    <input type="file" file-model="item.photo" id="photo">
+                    <button ng-click="uploadPhoto()">Upload</button>
+
                 </div>
                 <div class="row">
                     <div class="col-md-3" ng-repeat="image in images">
@@ -177,7 +191,7 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Save">

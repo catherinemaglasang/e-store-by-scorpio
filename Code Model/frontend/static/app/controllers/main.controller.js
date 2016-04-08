@@ -108,3 +108,4 @@ mainApp.controller('AttributeDetailController', ['$scope', '$http', '$location',
 
 
 
+
