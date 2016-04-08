@@ -44,7 +44,7 @@ def i_get_a_message(step, message):
 # ----------------------------------------------------------------
 # Common steps for adding data in any of the tables. We want to check its status, and fields.
 @step("I have the following data")
-def give_i_have_the_following_data(step):
+def given_i_have_the_following_data(step):
     world.data = step.hashes[0]
 
 
@@ -84,13 +84,6 @@ def i_send_a_put_request_from_client(step):
 # ----------------------------------------------------------------
 # Create Supplier - Sunny & Rainy
 
-@step("I have the following supplier details")
-def given_I_have_the_following_supplier_details(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.supplier1 = step.hashes[0]
-
 
 @step("I Post the supplier to resource_url  \'(.*)\'")
 def when_I_post_the_supplier_to_resource_url(step, url):
@@ -98,7 +91,7 @@ def when_I_post_the_supplier_to_resource_url(step, url):
     :type step: lettuce.core.Step
     """
     world.supplier_post_uri = url
-    world.supplier_post_response = world.browser.post(world.supplier_post_uri, data=json.dumps(world.supplier1))
+    world.supplier_post_response = world.browser.post(world.supplier_post_uri, data=json.dumps(world.data))
 
 
 @step("I should get a response \'(.*)\'")
@@ -196,21 +189,13 @@ def and_it_should_have_an_empty_field_entries(step):
     assert_equals(len(world.resp['entries']), 0)
 
 
-@step("I have the following cart item details")
-def given_I_have_th_following_cart_item_details(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.cartItem1 = step.hashes[0]
-
-
 @step("I Post the cart item to resource_url  \'(.*)\'")
 def when_I_Post_the_cart_item_to_resource_url(step, url):
     """
     :type step: lettuce.core.Step
     """
     world.cartItem_post_uri = url
-    world.cartItem_post_response = world.browser.post(world.cartItem_post_uri, data=json.dumps(world.cartItem1))
+    world.cartItem_post_response = world.browser.post(world.cartItem_post_uri, data=json.dumps(world.data))
     # world.response_data = json.loads(world.cartItem_post_response)
 
 
@@ -239,8 +224,8 @@ def and_I_should_get_message(step, message):
     """
     assert_equals(world.cartItem_post_response_json['message'], message)
 
-
-""" Get Cart Item sunny case """
+# ---------------------------------------------------------------------------
+# Get Cart Item sunny case
 
 
 @step("cart item \'(.*)\' is in the system")
@@ -270,8 +255,8 @@ def then_the_following_cart_item_details_are_returned(step):
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
 
-
-""" Get Cart Item rainy case """
+# ---------------------------------------------------------------------------------
+# Get Cart Item rainy case
 
 
 @step("i retrieve JSON result")
@@ -306,16 +291,8 @@ def and_it_should_get_a_message_No_entries_found(step, message):
     world.resp = json.loads(world.response.data)
     assert_equals(world.resp['message'], message)
 
-
-""" Create Cart sunny case and rainy case """
-
-
-@step("I have the following cart details")
-def given_I_have_the_following_cart_details(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.cart1 = step.hashes[0]
+# -----------------------------------------------------------------------------
+#  Create Cart sunny case and rainy case
 
 
 @step("I Post the cart to resource_url  '/api/v1/carts/'")
@@ -324,7 +301,7 @@ def when_I_Post_the_cart_to_resource_url(step):
     :type step: lettuce.core.Step
     """
     world.cart_post_uri = '/api/v1/carts/'
-    world.cart_post_response = world.browser.post(world.cart_post_uri, data=json.dumps(world.cart1))
+    world.cart_post_response = world.browser.post(world.cart_post_uri, data=json.dumps(world.data))
 
 
 @step("I should have a status code \'(.*)\'")
@@ -352,8 +329,8 @@ def and_I_should_get_a_message_ok(step, message):
     """
     assert_equals(world.cart_post_response_json['message'], message)
 
-
-""" Get Cart sunny case """
+# ---------------------------------------------------------------------------------
+#  Get Cart sunny case
 
 
 @step("cart \'(.*)\' is in the system")
@@ -384,8 +361,8 @@ def and_the_following_details_are_returned(step):
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
 
-
-""" Get Cart rainy case """
+# ------------------------------------------------------------------------------------
+# Get Cart rainy case
 
 
 @step("i retrieve a JSON result")
@@ -420,17 +397,8 @@ def and_it_should_have_an_empty_field_entries(step):
     """
     assert_equals(len(world.resp['entries']), 0)
 
-
-
-""" Create new order sunny case and rainy case"""
-
-
-@step("I have the following order details")
-def given_I_have_the_following_order_details(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.order1 = step.hashes[0]
+# --------------------------------------------------------------------------------------------
+# Create new order sunny case and rainy case
 
 
 @step("I Post the order to resource_url  \'(.*)\'")
@@ -439,7 +407,7 @@ def when_I_Post_the_order_to_resource_url(step, url):
     :type step: lettuce.core.Step
     """
     world.order_post_uri = url
-    world.order_response = world.browser.post(world.order_post_uri, data=json.dumps(world.order1))
+    world.order_response = world.browser.post(world.order_post_uri, data=json.dumps(world.data))
 
 
 @step("I should get a status of \'(.*)\'")
@@ -469,8 +437,8 @@ def and_I_should_get_a_message(step, message):
     world.resp = json.loads(world.order_response.data)
     assert_equals(world.resp['message'], message)
 
-
-"""Get Order ID sunny case """
+# -----------------------------------------------------------------------------------
+# Get Order ID sunny case
 
 
 @step("Order id \'(.*)\' is in the system")
@@ -501,8 +469,8 @@ def and_the_following_orders_are_returned(step):
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
 
-
-""" Get order ID rainy case """
+# --------------------------------------------------------------------------------------
+# Get order ID rainy case
 
 
 @step("I retrieve a  JSON result")
@@ -537,15 +505,8 @@ def and_It_should_have_an_empty_field_entries(step):
     """
     assert_equals(len(world.resp['entries']), 0)
 
-""" Create order item sunny and rainy case """
-
-
-@step("I have the following order item details")
-def given_I_have_the_following_order_item_details(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.orderItem1 = step.hashes[0]
+# -----------------------------------------------------------------------------------
+# Create order item sunny and rainy case
 
 
 @step("I Post the order item to resource_url  \'(.*)\'")
@@ -554,7 +515,7 @@ def when_I_Post_the_order_item_to_resource_url(step, url):
     :type step: lettuce.core.Step
     """
     world.orderItem_post_uri = url
-    world.orderItem_post_response = world.browser.post(world.orderItem_post_uri, data=json.dumps(world.orderItem1))
+    world.orderItem_post_response = world.browser.post(world.orderItem_post_uri, data=json.dumps(world.data))
 
 
 @step("I should have a response \'(.*)\'")
@@ -583,8 +544,8 @@ def and_I_should_have_a_message_containing_ok(step, message):
     """
     assert_equals(world.orderItem_post_response_json['message'], message)
 
-
-""" Get order item sunny case """
+# ----------------------------------------------------------------------------------------------
+# Get order item sunny case
 
 
 @step("order item id \'(.*)\' is in the system")
@@ -614,8 +575,8 @@ def and_the_following_order_item_details_are_returned(step):
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
 
-
-""" Get order item rainy case """
+# ------------------------------------------------------------------------------------------------
+# Get order item rainy case
 
 
 @step("I retrieve JSON result")
@@ -720,23 +681,13 @@ def step_impl(step, entries):
     """
     assert_equals(len(world.resp[entries]), 0)
 
-
-@step("I have the following customer details:")
-def step_impl(step):
-    """
-    :type step: lettuce.core.Step
-    """
-    world.customer1 = step.hashes[0]
-
-
 @step("I POST to the customer url \'(.*)\'")
 def step_impl(step, url):
     """
     :type step: lettuce.core.Step
     """
     world.customer_post_uri = url
-    world.customer_post_response = world.browser.post(world.customer_post_uri, data=json.dumps(world.customer1))
-
+    world.customer_post_response = world.browser.post(world.customer_post_uri, data=json.dumps(world.data))
 
 
 @step("I get the create customer \'(.*)\' response")
@@ -747,7 +698,6 @@ def step_impl(step, exp_status_code):
     assert_equals(world.customer_post_response.status_code, int(exp_status_code))
 
 
-
 @step("I should get a customer field \'(.*)\' containing \'(.*)\'")
 def step_impl(step, status, txt):
     """
@@ -755,4 +705,3 @@ def step_impl(step, status, txt):
     """
     world.customer_post_response_json = json.loads(world.customer_post_response.data)
     assert_equals(world.customer_post_response_json[status], txt)
-

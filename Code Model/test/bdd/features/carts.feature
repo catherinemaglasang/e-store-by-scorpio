@@ -2,7 +2,7 @@ Feature: Create, Get, Delete and Update Cart
 
 #  Create sunny case
   Scenario: Create cart
-    Given I have the following cart details
+    Given I have the following data
     |id | session_id | date_created| customer_id| is_active |
     |1  | 1          | 2016-03-15  | 1          | True      |
     When I Post the cart to resource_url  '/api/v1/carts/'
@@ -12,7 +12,7 @@ Feature: Create, Get, Delete and Update Cart
 
 #  Create rainy case
   Scenario: Create a duplicate cart
-    Given I have the following cart details
+    Given I have the following data
     |id | session_id | date_created| customer_id| is_active |
     |1  | 1          | 2016-03-15  | 1          | True      |
     When I Post the cart to resource_url  '/api/v1/carts/'

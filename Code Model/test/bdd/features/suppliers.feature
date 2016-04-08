@@ -2,7 +2,7 @@ Feature: Create, Get and Update supplier details
 
 #  Create Sunny Case
    Scenario: Create Supplier
-      Given I have the following supplier details
+      Given I have the following data
       | id | name        | address  | phone   | fax         | email                | is_active |
       | 1  | supplier1   | address1 | 221-2277| 063-221-2277| supplier1@estore.com | True      |
       When I Post the supplier to resource_url  '/api/v1/suppliers/'
@@ -12,7 +12,7 @@ Feature: Create, Get and Update supplier details
 
 #   Create Rainy Case 1
    Scenario: Create duplicate supplier
-     Given I have the following supplier details
+     Given I have the following data
        | id | name        | address  | phone   | fax         | email                | is_active |
        | 1  | supplier1   | address1 | 221-2277| 063-221-2277| supplier1@estore.com | True      |
      When I Post the supplier to resource_url  '/api/v1/suppliers/'
@@ -22,7 +22,7 @@ Feature: Create, Get and Update supplier details
 
 #   Create Rainy Case 2
    Scenario: Create supplier with incomplete details
-     Given I have the following supplier details
+     Given I have the following data
        | id | name | address  | phone   | fax         | email                | is_active |
        |  2 | | | | | supplier1@estore.com | True      |
      When I Post the supplier to resource_url  '/api/v1/suppliers/'

@@ -19,7 +19,7 @@ Feature: Create, Update, Delete, Get Customer
 
 
   Scenario: Create Customer
-    Given I have the following customer details:
+    Given I have the following data
     | id | first_name | last_name | address | city | state | postal_code | country | phone | email | user_id | billing_address | shipping_address | date_created |
     | 9 | first9 | last9 | address9 | city9 | state9 | postalcode9 | country9 | phone9 | test9@estore.com | 9 | baddress9 | saddress9 | 2016-03-11 11:49:17 |
     When I POST to the customer url '/api/v1/customers/'
@@ -28,7 +28,7 @@ Feature: Create, Update, Delete, Get Customer
     And I should get a customer field 'message' containing 'ok'
 
   Scenario: Create Duplicate Customer
-    Given I have the following customer details:
+    Given I have the following data
     | id | first_name | last_name | address | city | state | postal_code | country | phone | email | user_id | billing_address | shipping_address | date_created |
     | 9 | first9 | last9 | address9 | city9 | state9 | postalcode9 | country9 | phone9 | test9@estore.com | 9 | baddress9 | saddress9 | 2016-03-11 11:49:17 |
     When I POST to the customer url '/api/v1/customers/'
@@ -38,7 +38,7 @@ Feature: Create, Update, Delete, Get Customer
 
 
   Scenario: Create Customer with Missing Details
-    Given I have the following customer details:
+    Given I have the following data
     | id | first_name | last_name | address | city | state | postal_code | country | phone | email | user_id | billing_address | shipping_address | date_created |
     | 10 |  | | address9 | city9 | state9 | | country9 | phone9 |  | 9 |  |  | 2016-03-11 11:49:17 |
     When I POST to the customer url '/api/v1/customers/'
