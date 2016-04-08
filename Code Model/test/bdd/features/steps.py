@@ -225,6 +225,7 @@ def and_I_should_get_message(step, message):
     """
     assert_equals(world.cartItem_post_response_json['message'], message)
 
+
 # ---------------------------------------------------------------------------
 # Get Cart Item sunny case
 
@@ -255,6 +256,7 @@ def then_the_following_cart_item_details_are_returned(step):
     """
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
+
 
 # ---------------------------------------------------------------------------------
 # Get Cart Item rainy case
@@ -291,6 +293,7 @@ def and_it_should_get_a_message_No_entries_found(step, message):
     """
     world.resp = json.loads(world.response.data)
     assert_equals(world.resp['message'], message)
+
 
 # -----------------------------------------------------------------------------
 #  Create Cart sunny case and rainy case
@@ -330,6 +333,7 @@ def and_I_should_get_a_message_ok(step, message):
     """
     assert_equals(world.cart_post_response_json['message'], message)
 
+
 # ---------------------------------------------------------------------------------
 #  Get Cart sunny case
 
@@ -361,6 +365,7 @@ def and_the_following_details_are_returned(step):
     """
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
+
 
 # ------------------------------------------------------------------------------------
 # Get Cart rainy case
@@ -439,6 +444,7 @@ def and_I_should_get_a_message(step, message):
     world.resp = json.loads(world.order_response.data)
     assert_equals(world.resp['message'], message)
 
+
 # -----------------------------------------------------------------------------------
 # Get Order ID sunny case
 
@@ -470,6 +476,7 @@ def and_the_following_orders_are_returned(step):
     """
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
+
 
 # --------------------------------------------------------------------------------------
 # Get order ID rainy case
@@ -547,6 +554,7 @@ def and_I_should_have_a_message_containing_ok(step, message):
     """
     assert_equals(world.orderItem_post_response_json['message'], message)
 
+
 # ----------------------------------------------------------------------------------------------
 # Get order item sunny case
 
@@ -577,6 +585,7 @@ def and_the_following_order_item_details_are_returned(step):
     """
     resp = json.loads(world.response.data)
     assert_equals(world.resp['entries'], resp['entries'])
+
 
 # ------------------------------------------------------------------------------------------------
 # Get order item rainy case
@@ -685,6 +694,7 @@ def step_impl(step, entries):
     """
     assert_equals(len(world.resp[entries]), 0)
 
+
 @step("I POST to the customer url \'(.*)\'")
 def step_impl(step, url):
     """
@@ -692,6 +702,7 @@ def step_impl(step, url):
     """
     world.customer_post_uri = url
     world.customer_post_response = world.browser.post(world.customer_post_uri, data=json.dumps(world.data))
+
 
 @step("I get the create customer \'(.*)\' response")
 def step_impl(step, exp_status_code):
@@ -708,9 +719,6 @@ def step_impl(step, status, txt):
     """
     world.customer_post_response_json = json.loads(world.customer_post_response.data)
     assert_equals(world.customer_post_response_json[status], txt)
-
-
- assert_equals(world.customer_post_response_json[status], txt)
 
 
 # -------------------------

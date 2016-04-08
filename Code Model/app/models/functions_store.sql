@@ -362,6 +362,7 @@ $$
      return loc_res;
   end;
 $$
+LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION get_wishlist(IN par_id INT, OUT INT, OUT TEXT)
   RETURNS SETOF RECORD AS
