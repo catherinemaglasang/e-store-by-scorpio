@@ -359,10 +359,7 @@ LANGUAGE 'sql';
 CREATE OR REPLACE FUNCTION get_wishlist(IN par_id INT, OUT INT, OUT TEXT)
   RETURNS SETOF RECORD AS
 $$
-SELECT
-  wishlist_name
-FROM wishlists
-WHERE wishlist_id = par_id;
+SELECT * FROM wishlists WHERE wishlist_id = par_id;
 $$
 LANGUAGE 'sql';
 
