@@ -446,31 +446,44 @@ def new_order_item(order_id):
 """ END OF ORDER"""
 
 
-@api.route('/api/v1/wishlist_details/', methods=['POST'])
-def new_wishlist_detail():
+@api.route('/api/v1/wishlist_items/', methods=['POST'])
+def new_wishlist_item():
     json = request.json
-    id = json['id']
+    wishlist_item_id = json['wishlist_item_id']
     wishlist_id = json['wishlist_id']
-    product_id = json['product_id']
+    item_id = json['item_id']
     time_stamp = json['time_stamp']
-    res = spcall('new_wishlist_detail', (id, wishlist_id, product_id, time_stamp), True)
+    res = spcall('new_wishlist_item', (wishlist_item_id, wishlist_id, product_id, time_stamp), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
-@api.route('/api/v1/wishlist_details/', methods=['GET'])
-def get_wishlist_details():
-    res = spcall('get_wishlist_details', ())
+@api.route('/api/v1/wishlist_items/', methods=['GET'])
+def get_wishlist_items():
+    res = spcall('get_wishlist_items', ())
 
     if 'Error' in str(res[0][0]):
         return jsonify({'status': 'error', 'message': res[0][0]})
 
     recs = []
     for r in res:
-        recs.append({"id": r[0], "cart_id": r[1], "product_id": r[2], "time_stamp": r[3]})
+        recs.append({"wishlist_item_id": r[0], "wishlist_id": r[1], "item_id": r[2], "time_stamp": r[3]})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+
+@api.route('/api/v1/wishlist_items/<wishlist_item_id>/', methods=['GET'])
+def get_wishlist_item(wishlist_item_id):
+    res = spcall('get_wishlist_item', (wishlist_item_id,))
+
+    entries = []
+    if len(res) == 0:
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+    else:
+        row = res[0]
+        entries.append({"wishlist_item_id": r[0], "wishlist_id": r[1], "item_id": r[2], "time_stamp": r[3]})
+        return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
 
 @api.route('/api/v1/wishlist/', methods=['POST'])
@@ -478,12 +491,12 @@ def new_wishlist():
     data = json.loads(request.data)
 
     response = spcall('new_wishlist', (
-        data['id'],), True)
+        data['wishlist_id'],data['wishlist_name']), True)
 
     if 'Error' in response[0][0]:
         return jsonify({'status': 'error', 'message': response[0][0]})
 
-    return jsonify({'status': 'ok', 'message': response[0][0]}), 200
+    return jsonify({'status': 'ok', 'status_code': '200', 'message': response[0][0]}), 200
 
 
 @api.route('/api/v1/wishlist/', methods=['GET'])
@@ -495,7 +508,7 @@ def get_all_wishlists():
 
     recs = []
     for r in res:
-        recs.append({"id": str(r[0])})
+        recs.append({"wishlist_id": (r[0]), "wishlist_name": (r[1])})
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)}), 200
 
 
@@ -508,13 +521,13 @@ def get_wishlist(wishlist_id):
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
     else:
         row = res[0]
-        entries.append({"id": row[0]})
+        entries.append({"wishlist_id": row[0], "wishlist_name": row[1]})
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
 
 @api.route('/api/v1/wishlist/<int:id>/', methods=['DELETE'])
 def delete_wishlist(id):
-    res = spcall("delete_wishlist", (id,), True)
+    res = spcall("delete_wishlist", (wishlist_id,), True)
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
 
