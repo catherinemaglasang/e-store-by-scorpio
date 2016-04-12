@@ -245,7 +245,7 @@ BEGIN
   WHERE wishlist_item_id = par_id;
   IF loc_id ISNULL
   THEN
-    IF par_wishlist_item_id = '' OR par_wishlist_id = '' OR par_item_id = '' OR par_time_stamp = ''
+    IF par_id = '' OR par_wishlist_id = '' OR par_item_id = '' OR par_time_stamp = ''
     THEN
       loc_res='error';
     ELSE
@@ -254,7 +254,7 @@ BEGIN
     END IF;
 
   ELSE
-    loc_res = 'WISHLIST ITEM EXISTED';
+    loc_res = 'ERROR';
   END IF;
   RETURN loc_res;
 END;
@@ -279,13 +279,7 @@ LANGUAGE 'sql';
 CREATE OR REPLACE FUNCTION get_wishlist_item(IN par_id INT, OUT INT, OUT INT, OUT INT, OUT TIMESTAMP)
   RETURNS SETOF RECORD AS
 $$
-SELECT
-  wishlist_item_id,
-  wishlist_id,
-  item_id,
-  time_stamp
-FROM wishlist_items
-WHERE wishlist_item_id = par_id;
+SELECT * FROM wishlist_items WHERE wishlist_item_id = par_id;
 $$
 LANGUAGE 'sql';
 

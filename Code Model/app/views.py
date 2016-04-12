@@ -446,7 +446,7 @@ def new_order_item(order_id):
 """ END OF ORDER"""
 
 
-@api.route('/api/v1/wishlist_items/', methods=['POST'])
+@api.route('/api/v1/wishlist_item/', methods=['POST'])
 def new_wishlist_item():
     json = request.json
     wishlist_item_id = json['wishlist_item_id']
@@ -460,7 +460,7 @@ def new_wishlist_item():
     return jsonify({'status': 'ok', 'message': res[0][0]})
 
 
-@api.route('/api/v1/wishlist_items/', methods=['GET'])
+@api.route('/api/v1/wishlist_item/', methods=['GET'])
 def get_wishlist_items():
     res = spcall('get_wishlist_items', ())
 
@@ -473,7 +473,7 @@ def get_wishlist_items():
     return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
 
 
-@api.route('/api/v1/wishlist_items/<wishlist_item_id>/', methods=['GET'])
+@api.route('/api/v1/wishlist_item/<wishlist_item_id>/', methods=['GET'])
 def get_wishlist_item(wishlist_item_id):
     res = spcall('get_wishlist_item', (wishlist_item_id,))
 
