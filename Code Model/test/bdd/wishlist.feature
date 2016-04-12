@@ -3,24 +3,45 @@ Feature: Get and Create Wishlist
 
   Scenario: Create Wishlist - sunny case
     Given I have the details of wishlist
-    |id |
-    | 1 |
+    | wishlist_id | wishlist_name |
+    | 1 | noob |
     When I POST to url '/api/v1/wishlist/' the wishlist
-    Then I should get '200' status code response
+    Then I should get status code response '200'
     And I should get 'ok' status
     And I should get 'OK' message
 
 
   Scenario: Create a duplicate wishlist - rainy case
     Given I have the details of wishlist
-    |id |
-    | 1 |
+    |wishlist_id | wishlist_name |
+    | 1 | noob |
     When I POST to url '/api/v1/wishlist/' the wishlist
-    Then I should get '200' status code response
+    Then I should get status code response '200'
     And I should get 'ok' status
-    And I should get 'ID EXISTED' message
+    And I should get 'ERROR' message for duplication
 
 
+  Scenario: Create an invalid wishlist - rainy case
+    Given I have the details of wishlist
+    |wishlist_id | wishlist_name |
+    | noob | 1 |
+    When I POST to url '/api/v1/wishlist/' the wishlist
+    Then I should get status code response '200'
+    And I should get 'error' status for invalid details
+    
+    
+  Scenario: Create an incomplete wishlist - rainy case
+    Given I have the details of wishlist
+    |wishlist_id | wishlist_name |
+    | 1 |  |
+    When I POST to url '/api/v1/wishlist/' the wishlist
+    Then I should get status code response '200'
+    And I should get 'ok' status
+    And I should get 'ERROR' message for incomplete details
+ 
+
+
+  
 
 
 
@@ -29,8 +50,8 @@ Feature: Get and Create Wishlist
     When I retrieve the wishlist '1'
     Then I should have a status code response '200'
     And the following details are returned :
-      |id |
-      | 1 |  
+      |wishlist_id | wishlist_name |
+      | 1 | noob |
 
 
   Scenario: Get a wishlist that doesn't exist - rainy case
