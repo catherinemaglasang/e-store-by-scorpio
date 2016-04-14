@@ -34,6 +34,7 @@ mainApp.controller('MainController', ['$scope', '$http', '$location', 'Item', 'L
 
     $scope.addSupplier = function () {
         $scope.supplier.supplier_id = null;
+        $scope.supplier.supplier_id = false;
         $scope.supplier.$save(function () {
             $scope.supplier = new Supplier();
             $location.path('/dashboard/suppliers/all');
