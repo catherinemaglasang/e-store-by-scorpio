@@ -3,20 +3,6 @@ Feature: Get, Create & Update Item Attributes
   Background:
     Given a resource url called "/api/v1/items/1/attributes/"
 
-  Scenario Outline: Retrieve resource
-    Given I access the url "<url>"
-    Then I get a "<status_code>" response
-    And I get an "<status>" status
-    And I get an "<message>" message
-
-    Examples:
-      | url                           | status_code | status | message |
-      | /                             | 200         | ok     | ok      |
-      | /api/v1/items/                | 200         | ok     | ok      |
-      | /api/v1/items/1/              | 200         | ok     | ok      |
-      | /api/v1/items/1/attributes/   | 200         | ok     | ok      |
-      | /api/v1/items/1/attributes/1/ | 200         | ok     | ok      |
-
   Scenario: Add Item Attribute
     Given I have the following data
       | attribute_id | item_id | attribute_value |
@@ -35,3 +21,17 @@ Feature: Get, Create & Update Item Attributes
     Then I get a "200" response
     And I get a field "status" containing "ok"
     And I get a field "message" containing "ok"
+
+  Scenario Outline: Retrieve resource
+    Given I access the url "<url>"
+    Then I get a "<status_code>" response
+    And I get an "<status>" status
+    And I get an "<message>" message
+
+    Examples:
+      | url                           | status_code | status | message |
+      | /                             | 200         | ok     | ok      |
+      | /api/v1/items/                | 200         | ok     | ok      |
+      | /api/v1/items/1/              | 200         | ok     | ok      |
+      | /api/v1/items/1/attributes/   | 200         | ok     | ok      |
+      | /api/v1/items/1/attributes/1/ | 200         | ok     | ok      |
