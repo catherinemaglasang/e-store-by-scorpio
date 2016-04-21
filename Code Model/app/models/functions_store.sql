@@ -245,13 +245,16 @@ BEGIN
   WHERE wishlist_item_id = par_id;
   IF loc_id ISNULL
   THEN
-
-    INSERT INTO wishlist_items (wishlist_item_id, wishlist_id, item_id, time_stamp)
-    VALUES (par_id, par_wishlist_id, par_item_id, par_time_stamp);
-    loc_res = 'OK';
+    IF par_id = '' OR par_wishlist_id = '' OR par_item_id = '' OR par_time_stamp = ''
+    THEN
+      loc_res='error';
+    ELSE
+      INSERT INTO wishlist_items (wishlist_item_id, wishlist_id, item_id, time_stamp) VALUES (par_id, par_wishlist_id, par_item_id, par_time_stamp);
+      loc_res = 'OK';
+    END IF;
 
   ELSE
-    loc_res = 'ID EXISTED';
+    loc_res = 'ERROR';
   END IF;
   RETURN loc_res;
 END;
@@ -273,15 +276,10 @@ $$
 LANGUAGE 'sql';
 
 
-CREATE OR REPLACE FUNCTION get_wishlist_item(IN par_id INT, OUT INT, OUT INT, OUT TIMESTAMP)
+CREATE OR REPLACE FUNCTION get_wishlist_item(IN par_id INT, OUT INT, OUT INT, OUT INT, OUT TIMESTAMP)
   RETURNS SETOF RECORD AS
 $$
-SELECT
-  wishlist_id,
-  item_id,
-  time_stamp
-FROM wishlist_items
-WHERE wishlist_item_id = par_id;
+SELECT * FROM wishlist_items WHERE wishlist_item_id = par_id;
 $$
 LANGUAGE 'sql';
 
@@ -298,38 +296,47 @@ BEGIN
   WHERE wishlist_id = par_id;
   IF loc_id ISNULL
   THEN
-
-    INSERT INTO wishlists (wishlist_name) VALUES (par_wishlist_name);
-    loc_res = 'OK';
+    IF par_id ISNULL OR par_wishlist_name = '' 
+    THEN
+      loc_res='error';
+    ELSE
+      INSERT INTO wishlists (wishlist_id, wishlist_name) VALUES (par_id, par_wishlist_name);
+      loc_res = 'OK';
+    END IF;
 
   ELSE
-    loc_res = 'ID EXISTED';
+    loc_res = 'ERROR';
   END IF;
   RETURN loc_res;
 END;
 $$
-
 LANGUAGE 'plpgsql';
--- create or replace function new_wishlist(in par_id int8) returns text as
+
+
+
+-- CREATE OR REPLACE FUNCTION new_wishlist(IN par_id INT, IN par_wishlist_name TEXT)
+--   RETURNS TEXT AS
 -- $$
---   declare
---     loc_id text;
---     loc_res text;
---   begin
---     select into loc_id id from wishlist where id=par_id;
---     if loc_id isnull then
+-- DECLARE
+--   loc_id  TEXT;
+--   loc_res TEXT;
+-- BEGIN
+--   SELECT INTO loc_id wishlist_id
+--   FROM wishlists
+--   WHERE loc_id = par_id;
+--   IF loc_id ISNULL
+--   THEN
 
---        insert into wishlist(id) values (par_id);
---        loc_res = 'OK';
+--     INSERT INTO wishlists (wishlist_name) VALUES (par_wishlist_name);
+--     loc_res = 'OK';
 
---      else
---        loc_res = 'ID EXISTED';
---      end if;
---      return loc_res;
---   end;
--- $$  
-
--- language 'plpgsql';
+--   ELSE
+--     loc_res = 'ID EXISTED';
+--   END IF;
+--   RETURN loc_res;
+-- END;
+-- $$
+-- LANGUAGE 'plpgsql';
 
 
 CREATE OR REPLACE FUNCTION get_wishlists(OUT INT, OUT TEXT)
@@ -342,38 +349,37 @@ FROM wishlists;
 $$
 LANGUAGE 'sql';
 
-create or replace function new_order(in par_id int, in par_customer_id int, in par_payment_id int, in par_transaction_date date, in par_shipping_date date, in par_time_stamp timestamp, in par_transaction_status text, par_total numeric) returns text as
-$$
-  declare
-    loc_id text;
-    loc_res text;
-  begin
-    select into loc_id order_id from orders where order_id=par_id;
-    if loc_id isnull then
-      if par_transaction_status='' or par_id isnull or par_customer_id isnull or par_payment_id isnull or par_total isnull then
-          loc_res='error';
-      else
-          insert into orders(order_id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_id, par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
-          loc_res = 'OK';
-      end if;
-     else
-       loc_res = 'ID EXISTS';
-     end if;
-     return loc_res;
-  end;
-$$
-LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION get_wishlist(IN par_id INT, OUT INT, OUT TEXT)
   RETURNS SETOF RECORD AS
 $$
-SELECT
-  wishlist_id,
-  wishlist_name
-FROM wishlists
-WHERE wishlist_id = par_id;
+SELECT * FROM wishlists WHERE wishlist_id = par_id;
 $$
 LANGUAGE 'sql';
+
+
+-- create or replace function new_order(in par_id int, in par_customer_id int, in par_payment_id int, in par_transaction_date date, in par_shipping_date date, in par_time_stamp timestamp, in par_transaction_status text, par_total numeric) returns text as
+-- $$
+--   declare
+--     loc_id text;
+--     loc_res text;
+--   begin
+--     select into loc_id order_id from orders where order_id=par_id;
+--     if loc_id isnull then
+--       if par_transaction_status='' or par_id isnull or par_customer_id isnull or par_payment_id isnull or par_total isnull then
+--           loc_res='error';
+--       else
+--           insert into orders(order_id, customer_id, payment_id, transaction_date, shipping_date, time_stamp, transaction_status, total) values (par_id, par_customer_id, par_payment_id, par_transaction_date, par_shipping_date, par_time_stamp, par_transaction_status, par_total);
+--           loc_res = 'OK';
+--       end if;
+--      else
+--        loc_res = 'ID EXISTS';
+--      end if;
+--      return loc_res;
+--   end;
+-- $$
+-- LANGUAGE 'plpgsql';
+
 
 CREATE OR REPLACE FUNCTION new_order(IN par_id               INT, IN par_customer_id INT, IN par_payment_id INT,
                                      IN par_transaction_date DATE, IN par_shipping_date DATE,

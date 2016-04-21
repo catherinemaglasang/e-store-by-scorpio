@@ -33,7 +33,7 @@ def step_impl(step, url):
     world.wishlist_post_response = world.browser.post(world.wishlist_post_uri, data=json.dumps(world.wishlist1))
 
 
-@step("I should get \'(.*)\' status code response")
+@step("I should get status code response \'(.*)\'")
 def step_impl(step, expected_status_code):
     """
     :param expected_status_code:
@@ -47,6 +47,7 @@ def step_impl(step, status):
     """
     :type step: lettuce.core.Step
     """
+    # raise Exception(json.loads(world.wishlist_post_response.data))
     world.wishlist_post_response_json = json.loads(world.wishlist_post_response.data)
     assert_equals(world.wishlist_post_response_json['status'], status)
 
@@ -65,23 +66,24 @@ def step_impl(step, message):
 
 
 @step("wishlist \'(.*)\' is in the system")
-def given_wishlist_is_in_the_system(step, id):
+def given_wishlist_is_in_the_system(step, wishlist_id):
     """
     :param id:
     :type step: lettuce.core.Step
     """
-    world.resp = world.browser.get('/api/v1/wishlists/'.format(id))
+    world.resp = world.browser.get('/api/v1/wishlist/'.format(wishlist_id))
+    # raise Exception(json.loads(world.resp.data))
     data = json.loads(world.resp.data)
     assert_equals(data['status'], 'ok')
 
 
 @step("I retrieve the wishlist \'(.*)\'")
-def when_I_retrieve_the_wishlist(step, id):
+def when_I_retrieve_the_wishlist(step, wishlist_id):
     """
     :param id:
     :type step: lettuce.core.Step
     """
-    world.response = world.browser.get('/api/v1/wishlists/'.format(id))
+    world.response = world.browser.get('/api/v1/wishlist/'.format(wishlist_id))
 
 
 @step("I should have a status code response \'(.*)\'")
@@ -107,12 +109,12 @@ def and_the_following_details_are_returned(step):
 
 
 @step("I retrieve a wishlist with id \'(.*)\'")
-def given_I_retrieve_a_wishlist_with_resource_url(step, id):
+def given_I_retrieve_a_wishlist_with_id(step, wishlist_id):
     """
     :param url:
     :type step: lettuce.core.Step
     """
-    world.wishlist_uri = '/api/v1/wishlists/%s/' % (id)
+    world.wishlist_uri = '/api/v1/wishlists/%s/' % (wishlist_id)
 
 
 @step("I retrieve the wishlist JSON result")
@@ -165,4 +167,13 @@ def and_it_should_have_an_empty_field_entries(step):
     assert_equals(len(world.resp['entries']), 0)
 
 
+
+# Create an invalid wishlist - rainy case
+#     Given I have the details of wishlist
+#     |wishlist_id | wishlist_name |
+#     | noob | 1 |
+#     When I POST to url '/api/v1/wishlist/' the wishlist
+#     Then I should get '200' status code response
+#     And I should get 'ok' status
+#     And I should get 'error' message
 

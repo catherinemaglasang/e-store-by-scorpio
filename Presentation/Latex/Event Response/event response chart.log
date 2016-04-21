@@ -1,0 +1,446 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.2)  19 APR 2016 15:11
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**"event response chart.tex"
+(./event response chart.tex
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 78 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen103
+\extrarowheight=\dimen104
+\NC@list=\toks14
+\extratabsurround=\skip43
+\backup@length=\skip44
+)
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count87
+\Gm@cntv=\count88
+\c@Gm@tempcnt=\count89
+\Gm@bindingoffset=\dimen105
+\Gm@wd@mp=\dimen106
+\Gm@odd@mp=\dimen107
+\Gm@even@mp=\dimen108
+\Gm@layoutwidth=\dimen109
+\Gm@layoutheight=\dimen110
+\Gm@layouthoffset=\dimen111
+\Gm@layoutvoffset=\dimen112
+\Gm@dimlist=\toks16
+)
+(./event response chart.aux)
+\openout1 = `"event response chart.aux"'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(54.2025pt, 489.10287pt, 54.2025pt)
+* v-part:(T,H,B)=(54.2025pt, 736.64185pt, 54.2025pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=489.10287pt
+* \textheight=736.64185pt
+* \oddsidemargin=-18.06749pt
+* \evensidemargin=-18.06749pt
+* \topmargin=-55.06749pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=12.0pt
+* \footskip=30.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 11.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 11.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 11.
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--17
+[]|\OT1/cmr/m/n/12 Display Sign Up
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 20--20
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 4582) in paragraph at lines 21--22
+[]|\OT1/cmr/m/n/12 Verify if Email is
+ []
+
+
+Underfull \hbox (badness 5175) in paragraph at lines 26--27
+[]|\OT1/cmr/m/n/12 Verify if in-put in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--27
+\OT1/cmr/m/n/12 Con-firm Pass-word
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+[]|\OT1/cmr/m/n/12 Verify Va-lid-ity of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+\OT1/cmr/m/n/12 in-for-ma-tion in-side
+ []
+
+
+Underfull \hbox (badness 6047) in paragraph at lines 28--29
+\OT1/cmr/m/n/12 the fields. Post
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+\OT1/cmr/m/n/12 to the Re-source
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 28--29
+\OT1/cmr/m/n/12 '/api/v1/users/'.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 30--31
+[]|\OT1/cmr/m/n/12 Display Sign Up
+ []
+
+
+Underfull \hbox (badness 6300) in paragraph at lines 32--32
+[]|\OT1/cmr/m/n/12 Forgot Your Pass-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
+[]|\OT1/cmr/m/n/12 Send Pass-word to
+ []
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Underfull \hbox (badness 1189) in paragraph at lines 50--51
+[]|\OT1/cmr/m/n/12 Verify if logged in.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--51
+\OT1/cmr/m/n/12 Dis-play Shop-ping
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--52
+[]|\OT1/cmr/m/n/12 Continue Shop-ping
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
+[]|\OT1/cmr/m/n/12 Display Land-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--55
+[]|\OT1/cmr/m/n/12 Display Prod-uct
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 56--57
+[]|\OT1/cmr/m/n/12 Display Land-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 58--59
+[]|\OT1/cmr/m/n/12 POST to
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 58--59
+\OT1/cmr/m/n/12 the Re-source
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--61
+[]|\OT1/cmr/m/n/12 Display Cat-a-logue
+ []
+
+
+Underfull \hbox (badness 4181) in paragraph at lines 62--63
+[]|\OT1/cmr/m/n/12 Record Num-ber of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 66--67
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 5607) in paragraph at lines 68--69
+[]|\OT1/cmr/m/n/12 Find All Prod-ucts
+ []
+
+
+Underfull \hbox (badness 1888) in paragraph at lines 70--71
+\OT1/cmr/m/n/12 min. Load Dash-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
+[]|\OT1/cmr/m/n/12 Display Sup-plier
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--75
+[]|\OT1/cmr/m/n/12 Display Cus-tomer
+ []
+
+[2]
+Underfull \hbox (badness 1264) in paragraph at lines 82--82
+[]|\OT1/cmr/m/n/12 Add New Sup-pli-ers
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
+[]|\OT1/cmr/m/n/12 Display Sup-plier
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 88--89
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 1117) in paragraph at lines 92--93
+[]|\OT1/cmr/m/n/12 Place Cur-sor on Is
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
+[]|\OT1/cmr/m/n/12 Verify the Fields.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--97
+[]|\OT1/cmr/m/n/12 Display pre-vi-ous
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
+[]|\OT1/cmr/m/n/12 Display Dash-board
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+\OT1/cmr/m/n/12 Trans-ac-tion Date
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 112--113
+\OT1/cmr/m/n/12 Trans-ac-tion Sta-tus
+ []
+
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--127
+[]|\OT1/cmr/m/n/12 Display Land-ing
+ []
+
+
+Underfull \hbox (badness 1189) in paragraph at lines 128--129
+[]|\OT1/cmr/m/n/12 Verify if logged in.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 128--129
+\OT1/cmr/m/n/12 Dis-play Ac-count
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--130
+[]|\OT1/cmr/m/n/12 Change Pass-word
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 130--131
+[]|\OT1/cmr/m/n/12 Display Change
+ []
+
+
+Underfull \hbox (badness 6493) in paragraph at lines 134--135
+\OT1/cmr/m/n/12 ter New Pass-word
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
+[]|\OT1/cmr/m/n/12 Verfiy that En-ter
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
+\OT1/cmr/m/n/12 and Ver-ify New
+ []
+
+
+Underfull \hbox (badness 2221) in paragraph at lines 137--138
+\OT1/cmr/m/n/12 Pass-word Field are
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+[]|\OT1/cmr/m/n/12 Verify Fields.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+\OT1/cmr/m/n/12 PUT to Re-source
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+\OT1/cmr/m/n/12 '/api/v1/users/'.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
+[]|\OT1/cmr/m/n/12 Display Ac-count
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
+[]|\OT1/cmr/m/n/12 Display Wish-list
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 145--146
+[]|\OT1/cmr/m/n/12 PUT to Re-source
+ []
+
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+[]|\OT1/cmr/m/n/12 Display Check-out
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 165--166
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 169--170
+[]|\OT1/cmr/m/n/12 Place Cur-sor in
+ []
+
+[5] (./event response chart.aux) ) 
+Here is how much of TeX's memory you used:
+ 795 strings out of 493304
+ 10840 string characters out of 6139872
+ 75493 words of memory out of 5000000
+ 4307 multiletter control sequences out of 15000+600000
+ 7289 words of font info for 26 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 24i,9n,32p,175b,206s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr12.pfb>
+Output written on "event response chart.pdf" (5 pages, 36105 bytes).
+PDF statistics:
+ 28 PDF objects out of 1000 (max. 8388607)
+ 18 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
