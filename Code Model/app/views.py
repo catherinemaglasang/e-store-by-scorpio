@@ -446,6 +446,94 @@ def new_order_item(order_id):
 """ END OF ORDER"""
 
 
+@api.route('/api/v1/wishlist_item/', methods=['POST'])
+def new_wishlist_item():
+    json = request.json
+    wishlist_item_id = json['wishlist_item_id']
+    wishlist_id = json['wishlist_id']
+    item_id = json['item_id']
+    time_stamp = json['time_stamp']
+    res = spcall('new_wishlist_item', (wishlist_item_id, wishlist_id, product_id, time_stamp), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
+@api.route('/api/v1/wishlist_item/', methods=['GET'])
+def get_wishlist_items():
+    res = spcall('get_wishlist_items', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"wishlist_item_id": r[0], "wishlist_id": r[1], "item_id": r[2], "time_stamp": r[3]})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)})
+
+
+@api.route('/api/v1/wishlist_item/<wishlist_item_id>/', methods=['GET'])
+def get_wishlist_item(wishlist_item_id):
+    res = spcall('get_wishlist_item', (wishlist_item_id,))
+
+    entries = []
+    if len(res) == 0:
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+    else:
+        row = res[0]
+        entries.append({"wishlist_item_id": r[0], "wishlist_id": r[1], "item_id": r[2], "time_stamp": r[3]})
+        return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
+
+
+@api.route('/api/v1/wishlist/', methods=['POST'])
+def new_wishlist():
+    data = json.loads(request.data)
+
+    response = spcall('new_wishlist', (
+        data['wishlist_id'],data['wishlist_name']), True)
+
+    if 'Error' in response[0][0]:
+        return jsonify({'status': 'error', 'message': response[0][0]})
+
+    return jsonify({'status': 'ok', 'status_code': '200', 'message': response[0][0]}), 200
+
+
+@api.route('/api/v1/wishlist/', methods=['GET'])
+def get_all_wishlists():
+    res = spcall('get_wishlists', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({"wishlist_id": (r[0]), "wishlist_name": (r[1])})
+    return jsonify({'status': 'ok', 'entries': recs, 'count': len(recs)}), 200
+
+
+@api.route('/api/v1/wishlist/<wishlist_id>/', methods=['GET'])
+def get_wishlist(wishlist_id):
+    res = spcall('get_wishlist', (wishlist_id,))
+
+    entries = []
+    if len(res) == 0:
+        return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
+    else:
+        row = res[0]
+        entries.append({"wishlist_id": row[0], "wishlist_name": row[1]})
+        return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
+
+
+@api.route('/api/v1/wishlist/<int:id>/', methods=['DELETE'])
+def delete_wishlist(id):
+    res = spcall("delete_wishlist", (wishlist_id,), True)
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'error', 'message': res[0][0]})
+
+    return jsonify({'status': 'ok', 'message': res[0][0]})
+
+
 """  CUSTOMER   """
 
 
