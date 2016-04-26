@@ -1,4 +1,3 @@
-<<<<<<< HEAD:Code Model/test/bdd/features/wishlists_items.feature
 Feature: Get, Create & Update Wishlist Item
 
   Background:
@@ -35,8 +34,6 @@ Feature: Get, Create & Update Wishlist Item
       | /api/v1/wishlists/1/items/   | 200         | ok     | ok      |
       | /api/v1/wishlists/1/items/1/ | 200         | ok     | ok      |
 
-
-=======
 Feature: Get and Create Wishlist Items
 
 
@@ -79,11 +76,6 @@ Feature: Get and Create Wishlist Items
     And I should get 'ERROR' message for incomplete details
  
 
-
-  
-
-
-
   Scenario: Get Wishlist Item - sunny case
     Given wishlist item '2' is in the system
     When I retrieve the wishlist '2'
@@ -101,5 +93,4 @@ Feature: Get and Create Wishlist Items
     And it should  have a field message saying 'No entries found'
     And it should  have a field count '0'
     And it should  have an empty field 'entries'
->>>>>>> 2d1d9fb9db897f5c7d1658f88b31bcbf09f4e82a:Code Model/test/bdd/features/wishlist_items.feature
 
