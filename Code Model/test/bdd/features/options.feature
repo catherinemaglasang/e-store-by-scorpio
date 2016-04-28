@@ -3,18 +3,6 @@ Feature: Get, Create & Update Option
   Background:
     Given a resource url called "/api/v1/optiongroups/1/options/"
 
-  Scenario Outline: Retrieve resource
-    Given I access the url "<url>"
-    Then I get a "<status_code>" response
-    And I get an "<status>" status
-    And I get an "<message>" message
-
-    Examples:
-      | url                              | status_code | status | message |
-      | /                                | 200         | ok     | ok      |
-      | /api/v1/optiongroups/1/options/  | 200         | ok     | ok      |
-      | /api/v1/optiongroups/1/options/1/ | 200         | ok     | ok      |
-
   Scenario: Add Option
     Given I have the following data
       | option_group_id | option_value |
@@ -33,3 +21,16 @@ Feature: Get, Create & Update Option
     Then I get a "200" response
     And I get a field "status" containing "ok"
     And I get a field "message" containing "ok"
+
+  Scenario Outline: Retrieve resource
+    Given I access the url "<url>"
+    Then I get a "<status_code>" response
+    And I get an "<status>" status
+    And I get an "<message>" message
+
+    Examples:
+      | url                              | status_code | status | message |
+      | /                                | 200         | ok     | ok      |
+      | /api/v1/optiongroups/1/options/  | 200         | ok     | ok      |
+      | /api/v1/optiongroups/1/options/1/ | 200         | ok     | ok      |
+
