@@ -8,6 +8,16 @@ mainApp.config(function ($routeProvider, $locationProvider, $resourceProvider) {
             controller: 'MainController'
         })
 
+        .when('/register', {
+            templateUrl: 'pages/user/register.html',
+            controller: 'MainController'
+        })
+
+        .when('/login/reset', {
+            templateUrl: 'pages/user/password_reset.html',
+            controller: 'MainController'
+        })
+
         .when('/dashboard/settings', {
             templateUrl: 'pages/dashboard/settings.html',
             controller: 'MainController'
