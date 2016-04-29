@@ -972,6 +972,20 @@ LANGUAGE 'sql';
 
 --select * from get_users();
 
+CREATE OR REPLACE FUNCTION getpassword(IN par_username VARCHAR(100)) returns VARCHAR as
+$$
+  declare
+    loc_password text;
+  begin
+     select into loc_password password from users where username = par_username;
+     if loc_password isnull then
+       loc_password = 'null';
+     end if;
+     return loc_password;
+ end;
+$$
+LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION get_user(IN par_id INT, OUT INT, OUT VARCHAR(100), OUT VARCHAR(100), OUT TIMESTAMP,
                                     OUT       BOOLEAN)
   RETURNS SETOF RECORD AS

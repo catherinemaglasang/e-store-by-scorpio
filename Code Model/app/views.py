@@ -2,11 +2,14 @@ import json, flask
 from flask import request
 from flask import jsonify
 from flask import current_app as app
+from flask.ext.httpauth import HTTPBasicAuth
 from app.db import spcall
 from app import api
 
+auth = HTTPBasicAuth()
 
 @api.route('/api/v1/product_categories/', methods=['POST'])
+@auth.login_required
 def new_product_category():
     id = request.form['inputID']
     name = request.form['inputName']
@@ -63,6 +66,7 @@ def get_product_category(product_category_id):
 
 
 @api.route('/api/v1/product_categories/<product_category_id>/', methods=['PUT'])
+@auth.login_required
 def update_product_category(product_category_id):
     jsn = json.loads(request.data)
     id = jsn.get('id', '')
@@ -83,6 +87,7 @@ def update_product_category(product_category_id):
 
 
 @api.route('/api/v1/product_categories/<int:id>/', methods=['DELETE'])
+@auth.login_required
 def delete_product_category(id):
     res = spcall("delete_product_category", (id,), True)
     if 'Error' in res[0][0]:
@@ -97,6 +102,7 @@ def delete_product_category(id):
 
 
 @api.route('/api/v1/users/', methods=['GET'])
+@auth.login_required
 def get_all_users():
     res = spcall('get_users', ())
 
@@ -115,6 +121,7 @@ def get_all_users():
 
 
 @api.route('/api/v1/users/<user_id>/', methods=['GET'])
+@auth.login_required
 def get_user(user_id):
     res = spcall('get_user', (user_id))
 
@@ -154,6 +161,7 @@ def new_user():
 
 
 @api.route('/api/v1/suppliers/', methods=['POST'])
+@auth.login_required
 def new_supplier(supplier_id=None):
     data = json.loads(request.data)
 
@@ -173,6 +181,7 @@ def new_supplier(supplier_id=None):
 
 
 @api.route('/api/v1/suppliers/<supplier_id>/', methods=['GET'])
+@auth.login_required
 def get_supplier(supplier_id):
     response = spcall('get_supplier', (supplier_id,))
     entries = []
@@ -190,6 +199,7 @@ def get_supplier(supplier_id):
 
 
 @api.route('/api/v1/suppliers/', methods=['GET'])
+@auth.login_required
 def get_all_suppliers():
     res = spcall('get_suppliers', ())
 
@@ -210,6 +220,7 @@ def get_all_suppliers():
 
 
 @api.route('/api/v1/carts/<cart_id>/items/', methods=['POST'])
+@auth.login_required
 def new_cart_item(cart_id):
     data = json.loads(request.data)
 
@@ -227,6 +238,7 @@ def new_cart_item(cart_id):
 
 
 @api.route('/api/v1/carts/<cart_id>/items/', methods=['GET'])
+@auth.login_required
 def get_cart_items(cart_id):
     res = spcall('get_cart_items', (cart_id,))
 
@@ -245,6 +257,7 @@ def get_cart_items(cart_id):
 
 
 @api.route('/api/v1/carts/<cart_id>/items/<cart_item_id>/', methods=['GET'])
+@auth.login_required
 def get_cart_item(cart_id, cart_item_id):
     res = spcall('get_cart_item', (cart_item_id, cart_id,))
 
@@ -267,6 +280,7 @@ def get_cart_item(cart_id, cart_item_id):
 
 
 @api.route('/api/v1/carts/', methods=['POST'])
+@auth.login_required
 def new_cart():
     data = json.loads(request.data)
 
@@ -284,6 +298,7 @@ def new_cart():
 
 
 @api.route('/api/v1/carts/<cart_id>/', methods=['GET'])
+@auth.login_required
 def get_cart(cart_id):
     res = spcall('get_cart', (cart_id,))
 
@@ -301,6 +316,7 @@ def get_cart(cart_id):
 
 
 @api.route('/api/v1/carts/', methods=['GET'])
+@auth.login_required
 def get_carts():
     """
     Retrieve All Orders
@@ -327,6 +343,7 @@ def get_carts():
 
 
 @api.route('/api/v1/orders/', methods=['POST'])
+@auth.login_required
 def new_order():
     data = json.loads(request.data)
 
@@ -347,6 +364,7 @@ def new_order():
 
 
 @api.route('/api/v1/orders/<order_id>/', methods=['GET'])
+@auth.login_required
 def get_order(order_id):
     response = spcall('get_order_id', (order_id,))
     entries = []
@@ -365,6 +383,7 @@ def get_order(order_id):
 
 
 @api.route('/api/v1/orders/', methods=['GET'])
+@auth.login_required
 def get_all_orders():
     """
     Retrieve All Orders
@@ -387,6 +406,7 @@ def get_all_orders():
 
 
 @api.route('/api/v1/orders/<order_id>/items/', methods=['GET'])
+@auth.login_required
 def get_order_items(order_id):
     """
     Retrieve All Order_Details
@@ -406,6 +426,7 @@ def get_order_items(order_id):
 
 
 @api.route('/api/v1/orders/<order_id>/items/<order_item_id>/', methods=['GET'])
+@auth.login_required
 def get_order_item(order_item_id, order_id):
     """
     Retrieve Single Order_Detail
@@ -426,6 +447,7 @@ def get_order_item(order_item_id, order_id):
 
 
 @api.route('/api/v1/orders/<order_id>/items/', methods=['POST'])
+@auth.login_required
 def new_order_item(order_id):
     data = json.loads(request.data)
 
@@ -447,13 +469,14 @@ def new_order_item(order_id):
 
 
 @api.route('/api/v1/wishlist_item/', methods=['POST'])
+@auth.login_required
 def new_wishlist_item():
     json = request.json
     wishlist_item_id = json['wishlist_item_id']
     wishlist_id = json['wishlist_id']
     item_id = json['item_id']
     time_stamp = json['time_stamp']
-    res = spcall('new_wishlist_item', (wishlist_item_id, wishlist_id, product_id, time_stamp), True)
+    res = spcall('new_wishlist_item', (wishlist_item_id, wishlist_id, item_id, time_stamp), True)
 
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
@@ -461,6 +484,7 @@ def new_wishlist_item():
 
 
 @api.route('/api/v1/wishlist_item/', methods=['GET'])
+@auth.login_required
 def get_wishlist_items():
     res = spcall('get_wishlist_items', ())
 
@@ -474,6 +498,7 @@ def get_wishlist_items():
 
 
 @api.route('/api/v1/wishlist_item/<wishlist_item_id>/', methods=['GET'])
+@auth.login_required
 def get_wishlist_item(wishlist_item_id):
     res = spcall('get_wishlist_item', (wishlist_item_id,))
 
@@ -482,11 +507,12 @@ def get_wishlist_item(wishlist_item_id):
         return jsonify({"status": "ok", "message": "No entries found", "entries": [], "count": "0"})
     else:
         row = res[0]
-        entries.append({"wishlist_item_id": r[0], "wishlist_id": r[1], "item_id": r[2], "time_stamp": r[3]})
+        entries.append({"wishlist_item_id": row[0], "wishlist_id": row[1], "item_id": row[2], "time_stamp": row[3]})
         return jsonify({"status": "ok", "message": "ok", "entries": entries, "count": len(entries)})
 
 
 @api.route('/api/v1/wishlist/', methods=['POST'])
+@auth.login_required
 def new_wishlist():
     data = json.loads(request.data)
 
@@ -500,6 +526,7 @@ def new_wishlist():
 
 
 @api.route('/api/v1/wishlist/', methods=['GET'])
+@auth.login_required
 def get_all_wishlists():
     res = spcall('get_wishlists', ())
 
@@ -513,6 +540,7 @@ def get_all_wishlists():
 
 
 @api.route('/api/v1/wishlist/<wishlist_id>/', methods=['GET'])
+@auth.login_required
 def get_wishlist(wishlist_id):
     res = spcall('get_wishlist', (wishlist_id,))
 
@@ -526,8 +554,9 @@ def get_wishlist(wishlist_id):
 
 
 @api.route('/api/v1/wishlist/<int:id>/', methods=['DELETE'])
+@auth.login_required
 def delete_wishlist(id):
-    res = spcall("delete_wishlist", (wishlist_id,), True)
+    res = spcall("delete_wishlist", (id,), True)
     if 'Error' in res[0][0]:
         return jsonify({'status': 'error', 'message': res[0][0]})
 
@@ -538,6 +567,7 @@ def delete_wishlist(id):
 
 
 @api.route('/api/v1/customers/', methods=['POST'])
+@auth.login_required
 def new_customer():
     data = json.loads(request.data)
 
@@ -563,6 +593,7 @@ def new_customer():
 
 
 @api.route('/api/v1/customers/', methods=['GET'])
+@auth.login_required
 def get_all_customers():
     res = spcall('get_all_customers', ())
 
@@ -591,6 +622,7 @@ def get_all_customers():
 
 
 @api.route('/api/v1/customers/<customer_id>/', methods=['GET'])
+@auth.login_required
 def get_customer(customer_id):
     res = spcall('get_single_customer', (customer_id))
 
@@ -620,6 +652,10 @@ def get_customer(customer_id):
 
 """  END CUSTOMER   """
 
+
+@auth.get_password
+def getpassword(username):
+    return spcall("getpassword", (username,))[0][0]
 
 @api.after_request
 def add_cors(resp):
