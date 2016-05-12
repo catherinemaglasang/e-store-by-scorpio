@@ -56,8 +56,10 @@
 \contentsline {subsection}{\numberline {6.14.1}Categories of risks}{43}{subsection.6.14.1}
 \contentsline {subsubsection}{Risks with respect to the work to be done}{43}{section*.10}
 \contentsline {chapter}{\numberline {7}Diagrams}{45}{chapter.7}
-\contentsline {chapter}{\numberline {8}User Testing Results}{50}{chapter.8}
-\contentsline {chapter}{\numberline {9}Questionnaire}{51}{chapter.9}
-\contentsline {section}{\numberline {9.1}Client Questionnaire}{51}{section.9.1}
-\contentsline {chapter}{\numberline {10}Conclusion}{53}{chapter.10}
-\contentsline {chapter}{\numberline {11}References}{54}{chapter.11}
+\contentsline {chapter}{\numberline {8}User Testing Results}{49}{chapter.8}
+\contentsline {section}{\numberline {8.1}System Usability Scale}{49}{section.8.1}
+\contentsline {section}{\numberline {8.2}Discussion}{50}{section.8.2}
+\contentsline {section}{\numberline {8.3}Conclusion}{51}{section.8.3}
+\contentsline {chapter}{\numberline {9}Questionnaire}{52}{chapter.9}
+\contentsline {section}{\numberline {9.1}Client Questionnaire}{52}{section.9.1}
+\contentsline {chapter}{\numberline {10}References}{54}{chapter.10}

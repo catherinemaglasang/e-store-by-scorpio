@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.2)  13 MAY 2016 07:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.2)  13 MAY 2016 07:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Charter.tex
-(./Charter.tex
+**SUS.tex
+(./SUS.tex
 LaTeX2e <2011/06/27>
 Babel <3.9h> and hyphenation patterns for 78 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
@@ -599,39 +599,23 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip57
 )
+(./SUS.aux)
+\openout1 = `SUS.aux'.
 
-Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 23.
-
-
-Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 24.
-
-
-Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 25.
-
-
-Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 26.
-
-(./Charter.aux)
-\openout1 = `Charter.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -697,7 +681,7 @@ e
 ))
 \c@lstlisting=\count135
 \AtBeginShipoutBox=\box33
-Package hyperref Info: Link coloring OFF on input line 37.
+Package hyperref Info: Link coloring OFF on input line 24.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -707,507 +691,65 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count136
 )
-LaTeX Info: Redefining \ref on input line 37.
-LaTeX Info: Redefining \pageref on input line 37.
-LaTeX Info: Redefining \nameref on input line 37.
+LaTeX Info: Redefining \ref on input line 24.
+LaTeX Info: Redefining \pageref on input line 24.
+LaTeX Info: Redefining \nameref on input line 24.
 
-(./Charter.out) (./Charter.out)
+(./SUS.out) (./SUS.out)
 \@outlinefile=\write3
-\openout3 = `Charter.out'.
+\openout3 = `SUS.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 51.
+LaTeX Font Info:    Try loading font information for U+msa on input line 25.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 51.
+LaTeX Font Info:    Try loading font information for U+msb on input line 25.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+Underfull \hbox (badness 10000) in paragraph at lines 26--26
+[]|\T1/cmr/m/n/10 Strongly
+ []
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./Charter.tocpdfTeX warni
-ng (ext4): destination with the same identifier (name{page.}) has been already 
-used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.41 ....4}Coding Standards}{36}{subsection.6.5.4}
-                                                   [1
 
-])
-\tf@toc=\write4
-\openout4 = `Charter.toc'.
+Underfull \hbox (badness 10000) in paragraph at lines 26--27
+[]|\T1/cmr/m/n/10 Strongly
+ []
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.52 \newpage
-              [2]
-Chapter 1.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 38.
 
-Underfull \hbox (badness 10000) in paragraph at lines 77--79
-
+Overfull \hbox (9.83475pt too wide) in paragraph at lines 25--38
+[][] 
  []
 
 [1
 
-]
-Underfull \hbox (badness 10000) in paragraph at lines 81--83
-
- []
-
-[2] [3]
-Chapter 2.
-
-Underfull \hbox (badness 10000) in paragraph at lines 123--125
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 127--137
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 127--137
-
- []
-
-[4
-
-] [5]
-Chapter 3.
-
-Overfull \hbox (2.33931pt too wide) in paragraph at lines 171--207
-[] 
- []
-
-[6
-
-] [7] [8]
-Overfull \hbox (35.61679pt too wide) in paragraph at lines 306--345
-[][] 
- []
-
-[9]
-Overfull \hbox (6.15176pt too wide) in paragraph at lines 347--388
-[][] 
- []
-
-[10]
-Overfull \hbox (44.94785pt too wide) in paragraph at lines 390--435
-[][] 
- []
-
-[11]
-Overfull \hbox (46.00314pt too wide) in paragraph at lines 437--481
-[][] 
- []
-
-[12]
-Chapter 4.
-[13
-
-] [14]
-Overfull \hbox (43.1705pt too wide) in paragraph at lines 564--613
-[][] 
- []
-
-[15] [16]
-Overfull \hbox (73.77414pt too wide) in paragraph at lines 659--699
-[][] 
- []
-
-[17] [18] [19] [20] [21] [22] [23] [24] [25] [26]
-Chapter 5.
-<Diagrams/ArchitectureDiagram.png, id=493, 1365.1pt x 827.09pt>
-File: Diagrams/ArchitectureDiagram.png Graphic file (type png)
-
-<use Diagrams/ArchitectureDiagram.png>
-Package pdftex.def Info: Diagrams/ArchitectureDiagram.png used on input line 10
-72.
-(pdftex.def)             Requested size: 452.9679pt x 274.44235pt.
-
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2013/08/26 1.5b listings language file
-)
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
-) [27
-
- <./Diagrams/ArchitectureDiagram.png (PNG copy)>]
-Overfull \hbox (31.41817pt too wide) in paragraph at lines 1096--1097
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][] 
- []
-
-[28] [29]
-Chapter 6.
-[30
-
-] [31]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1221
-.
- (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1221.
-
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1233
-.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-) [32]
-Underfull \hbox (badness 10000) in paragraph at lines 1246--1247
-
- []
-
-[33] [34] [35] [36]
-Underfull \hbox (badness 4108) in paragraph at lines 1400--1401
-[]|\T1/cmr/m/n/10 Place Cur-sor in User
- []
-
-
-Underfull \hbox (badness 1173) in paragraph at lines 1402--1402
-[]|\T1/cmr/m/n/10 Place Cur-sor in Email
- []
-
-
-Underfull \hbox (badness 2343) in paragraph at lines 1405--1406
-[]|\T1/cmr/m/n/10 Place Cur-sor in Pass-
- []
-
-
-Underfull \hbox (badness 1057) in paragraph at lines 1408--1409
-\T1/cmr/m/n/10 firm Pass-word Field is
- []
-
-
-Underfull \hbox (badness 1769) in paragraph at lines 1408--1409
-\T1/cmr/m/n/10 the same as Pass-word
- []
-
-
-Underfull \hbox (badness 4048) in paragraph at lines 1410--1411
-\T1/cmr/m/n/10 Post to the Re-source
- []
-
-
-Underfull \hbox (badness 1577) in paragraph at lines 1410--1411
-\T1/cmr/m/n/10 '/api/v1/users/'. Dis-
- []
-
-
-Underfull \hbox (badness 3746) in paragraph at lines 1412--1412
-[]|\T1/cmr/m/n/10 Already Have an Ac-
- []
-
-
-Underfull \hbox (badness 3884) in paragraph at lines 1414--1414
-[]|\T1/cmr/m/n/10 Forgot Your Pass-word
- []
-
-
-Underfull \hbox (badness 1648) in paragraph at lines 1416--1417
-[]|\T1/cmr/m/n/10 Place Cur-sor in En-ter
- []
-
-[37]
-Underfull \hbox (badness 3189) in paragraph at lines 1430--1431
-\T1/cmr/m/n/10 in. Dis-play Lad-ning
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1454--1455
-[]|\T1/cmr/m/n/10 Display Sup-plier
- []
-
-
-Underfull \hbox (badness 1360) in paragraph at lines 1454--1455
-\T1/cmr/m/n/10 Page. GET Re-source
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1456--1457
-[]|\T1/cmr/m/n/10 Display Cus-tomer
- []
-
-
-Underfull \hbox (badness 1360) in paragraph at lines 1456--1457
-\T1/cmr/m/n/10 Page. GET Re-source
- []
-
-[38]
-Underfull \hbox (badness 1308) in paragraph at lines 1466--1467
-[]|\T1/cmr/m/n/10 Place Cur-sor in Name
- []
-
-
-Underfull \hbox (badness 3930) in paragraph at lines 1484--1485
-[]|\T1/cmr/m/n/10 Place Cur-sor in Cus-
- []
-
-
-Underfull \hbox (badness 2326) in paragraph at lines 1492--1493
-[]|\T1/cmr/m/n/10 Place Cur-sor in Time
- []
-
-
-Underfull \hbox (badness 2197) in paragraph at lines 1496--1497
-[]|\T1/cmr/m/n/10 Place Cur-sor in To-tal
- []
-
-[39]
-Underfull \hbox (badness 4168) in paragraph at lines 1502--1503
-[]|\T1/cmr/m/n/10 Place Cur-sor in Unit
- []
-
-
-Underfull \hbox (badness 1533) in paragraph at lines 1512--1512
-[]|\T1/cmr/m/n/10 Change Pass-word But-
- []
-
-
-Underfull \hbox (badness 6691) in paragraph at lines 1512--1513
-[]|\T1/cmr/m/n/10 Display Change Pass-
- []
-
-
-Underfull \hbox (badness 1648) in paragraph at lines 1514--1515
-[]|\T1/cmr/m/n/10 Place Cur-sor in En-ter
- []
-
-
-Underfull \hbox (badness 1648) in paragraph at lines 1516--1517
-[]|\T1/cmr/m/n/10 Place Cur-sor in En-ter
- []
-
-
-Underfull \hbox (badness 1043) in paragraph at lines 1518--1518
-[]|\T1/cmr/m/n/10 Place Cur-sor in Ver-ify
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1521--1522
-[]|\T1/cmr/m/n/10 Verify Fields.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1521--1522
-\T1/cmr/m/n/10 PUT to Re-source
- []
-
-
-Underfull \hbox (badness 1577) in paragraph at lines 1521--1522
-\T1/cmr/m/n/10 '/api/v1/users/'. Dis-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1527--1528
-[]|\T1/cmr/m/n/10 PUT to Re-source
- []
-
-[40]
-Underfull \hbox (badness 10000) in paragraph at lines 1533--1534
-[]|\T1/cmr/m/n/10 Display Tar-get So-cial
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1537--1538
-[]|\T1/cmr/m/n/10 Product is Re-moved
- []
-
-
-Underfull \hbox (badness 3281) in paragraph at lines 1539--1540
-[]|\T1/cmr/m/n/10 Place Cur-sor in First
- []
-
-
-Underfull \hbox (badness 4647) in paragraph at lines 1541--1542
-[]|\T1/cmr/m/n/10 Place Cur-sor in Last
- []
-
-
-Underfull \hbox (badness 4792) in paragraph at lines 1543--1544
-[]|\T1/cmr/m/n/10 Place Cur-sor in City
- []
-
-
-Underfull \hbox (badness 2326) in paragraph at lines 1545--1546
-[]|\T1/cmr/m/n/10 Place Cur-sor in State
- []
-
-
-Underfull \hbox (badness 3333) in paragraph at lines 1555--1556
-[]|\T1/cmr/m/n/10 Place Cur-sor in Date
- []
-
-[41] [42]
-Underfull \hbox (badness 10000) in paragraph at lines 1631--1636
-
- []
-
-[43] [44]
-Chapter 7.
-<Diagrams/ClassDiagram.png, id=667, 1688.3075pt x 1149.29375pt>
-File: Diagrams/ClassDiagram.png Graphic file (type png)
-
-<use Diagrams/ClassDiagram.png>
-Package pdftex.def Info: Diagrams/ClassDiagram.png used on input line 1641.
-(pdftex.def)             Requested size: 452.9679pt x 308.34933pt.
-
-<Diagrams/storyboard.png, id=668, 1371.1225pt x 770.88pt>
-File: Diagrams/storyboard.png Graphic file (type png)
-
-<use Diagrams/storyboard.png>
-Package pdftex.def Info: Diagrams/storyboard.png used on input line 1647.
-(pdftex.def)             Requested size: 452.9679pt x 254.6735pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<Diagrams/DataFlowDiagram.png, id=669, 1014.79124pt x 683.55376pt>
-File: Diagrams/DataFlowDiagram.png Graphic file (type png)
-
-<use Diagrams/DataFlowDiagram.png>
-Package pdftex.def Info: Diagrams/DataFlowDiagram.png used on input line 1653.
-(pdftex.def)             Requested size: 452.9679pt x 305.11397pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<Diagrams/UseCaseDiagram.png, id=670, 1218.5525pt x 1921.1775pt>
-File: Diagrams/UseCaseDiagram.png Graphic file (type png)
-
-<use Diagrams/UseCaseDiagram.png>
-Package pdftex.def Info: Diagrams/UseCaseDiagram.png used on input line 1659.
-(pdftex.def)             Requested size: 452.9679pt x 714.13713pt.
-
-
-LaTeX Warning: Float too large for page by 39.9742pt on input line 1662.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<Diagrams/PertChart.png, id=671, 1887.05pt x 2037.6125pt>
-File: Diagrams/PertChart.png Graphic file (type png)
-
-<use Diagrams/PertChart.png>
-Package pdftex.def Info: Diagrams/PertChart.png used on input line 1665.
-(pdftex.def)             Requested size: 452.9679pt x 489.09918pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[45
-
- <./Diagrams/ClassDiagram.png>] [46 <./Diagrams/storyboard.png> <./Diagrams/Dat
-aFlowDiagram.png>] [47 <./Diagrams/UseCaseDiagram.png>] [48 <./Diagrams/PertCha
-rt.png (PNG copy)>]
-Chapter 8.
-
-Overfull \hbox (8.05565pt too wide) in paragraph at lines 1677--1677
-[]|\T1/cmr/m/n/10 Strongly
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1677--1677
-\T1/cmr/m/n/10 Dis-
- []
-
-
-Overfull \hbox (8.05565pt too wide) in paragraph at lines 1677--1677
-[]|\T1/cmr/m/n/10 Strongly
- []
-
-
-Overfull \hbox (0.53558pt too wide) in paragraph at lines 1677--1677
-[]|\T1/cmr/m/n/10 Scale
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1677--1677
-\T1/cmr/m/n/10 Po-si-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1677--1678
-[]|\T1/cmr/m/n/10 Score
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1677--1678
-\T1/cmr/m/n/10 Con-tri-
- []
-
-
-Underfull \hbox (badness 1019) in paragraph at lines 1681--1681
-\T1/cmr/m/n/10 need the sup-port of a
- []
-
-
-Underfull \hbox (badness 1365) in paragraph at lines 1681--1681
-\T1/cmr/m/n/10 tech-ni-cal per-son to be
- []
-
-[49
-
-] [50] [51]
-Chapter 9.
-[52
-
-] [53]
-Chapter 10.
-
-Underfull \hbox (badness 10000) in paragraph at lines 1730--1735
-
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1736.
-[54
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1736.
- (./Charter.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1736.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1736.
-
-Package rerunfilecheck Info: File `Charter.out' has not changed.
-(rerunfilecheck)             Checksum: D7A03D7DF3B047794C977C3C681F783F;3658.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1736.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 38.
+ (./SUS.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 38.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 38.
+Package rerunfilecheck Info: File `SUS.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 38.
  ) 
 Here is how much of TeX's memory you used:
- 10074 strings out of 493304
- 139586 string characters out of 6139872
- 267097 words of memory out of 5000000
- 13068 multiletter control sequences out of 15000+600000
- 25558 words of font info for 65 fonts, out of 8000000 for 9000
+ 9013 strings out of 493304
+ 127629 string characters out of 6139872
+ 229890 words of memory out of 5000000
+ 12346 multiletter control sequences out of 15000+600000
+ 6102 words of font info for 23 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 40i,11n,74p,736b,1866s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 40i,10n,43p,318b,326s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/symbols/msam10.pfb></usr/share/texmf/fonts/type1/public/cm-super
-/sfbx0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/
-share/texmf/fonts/type1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/ty
-pe1/public/cm-super/sfbx1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/
-sfbx1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1728.pfb></usr/s
-hare/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/typ
-e1/public/cm-super/sfbx2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/s
-frm0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/sh
-are/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type
-1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public/cm-super/sf
-ti0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfti1000.pfb></usr/sha
-re/texmf/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Charter.pdf (57 pages, 2844390 bytes).
+e/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf/f
+onts/type1/public/cm-super/sfrm1000.pfb>
+Output written on SUS.pdf (1 page, 27962 bytes).
 PDF statistics:
- 880 PDF objects out of 1000 (max. 8388607)
- 787 compressed objects within 8 object streams
- 287 named destinations out of 1000 (max. 500000)
- 511 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 22 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
+ 2 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
