@@ -11,13 +11,17 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{hyperref}
 %%%
 
 %%% Header and Footer Text %%%
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LE,RO]{e-store}
-\fancyhead[RE,LO]{Charter}
+\fancyhead[RE,LO]{Documentation}
 \fancyfoot[CE,CO]{\leftmark}
 \fancyfoot[LE,RO]{\thepage}
 
@@ -58,26 +62,9 @@ To be the most trusted integrated e-commerce platform for merchants
 To develop a platform with utmost regards in security and customer satisfaction in the e-commerce industry
 
 \section{Objectives}
-\begin{enumerate}
-\item Within 2 weeks after project initiation, the developers will already have a design and plan for the project's interface and architecture. The developers will come up with an initial product backlog and be able to commence the first sprint planning.
-\item Within 7 weeks after planning, the team will finish the first sprint. And come up with 50 \% of the planned major features and interface. 
-	\begin{itemize}
-	\item Within 1 week, the admin dashboard interface and functionalities such as adding products is created.
-	\item Then, Within 1 week, the customers are now able to login and register in the site.
-	\item Then, Within 1 week, the customers can now view the products and the product detail page.
-	\item Then, Within 2 weeks, the search feature is already implemented.  
-	\item Then, Within 2 weeks, the add to cart functionality is created. 
-	\end{itemize}
-\item Within 5 weeks after the first sprint, the second sprint will be completed. The system will complete at least 90 \% of its proposed major features. 
-	\begin{itemize}
-	\item Within 1 week, the customers are now able to add product feedback (or ratings)
-	\item Then, within 1 week, the social sharing, add to favorites features are now implemented.
-	\item Then, within 1 week, the related products section and contact admin features are now implemented. 	
-	\item Then, within 1 week, the recommendation feature is already added.
-	\item Then, within 1 week, the currency converter feature is already added.  
-	\end{itemize}
-\item Within 1 week after the second sprint the main features decided by the team would be completed and tested correctly by the client. 
-\end{enumerate}
+%\begin{enumerate}
+%%% Objectives %%%
+%\end{enumerate}
 
 \section{Principles}
 Secure Transactions
@@ -1087,5 +1074,372 @@ And 			& I get a field "message" containing "ok" \\
 \end{tabular}
 \newpage
 
+\chapter{Diagrams}
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/ClassDiagram.png}
+\caption{Class Diagram}
+\label{fig:ClassDiagram}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/DataFlowDiagram.png}
+\caption{Data Flow Diagram}
+\label{fig:DataFlow}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/UseCaseDiagram.png}
+\caption{Use Case Diagram}
+\label{fig:UseCase}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/PertChart.png}
+\caption{Pert Chart}
+\label{fig:PertChart}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/Entity-RelationshipDiagram.png}
+\caption{ERD}
+\label{fig:ERD}
+\end{figure}
+
+\newpage
+
+\begin{center}
+\newpage
+	\section*{Event Response Chart}	
+	\begin{tabular}{ m{1.5in} | m{1.5in} | m{1.5in} }	
+	\textbf{Form Control} & \textbf{Event} & \textbf{Response} \\
+	\hline
+	Website 				& Page Loads 			& \\
+	\hline
+	Sign Up Button 		& Click 					& Display Sign Up Form \\
+	\hline
+	User Name 			& Field Receives Focus 	& Place Cursor in User Name Field \\
+	\hline
+	Email 				& Field Receives Focus 	& Place Cursor in Email Field. \\ \cline{2-3}
+	      				& Field Loses Focus 		& Verify if Email is Valid \\
+	\hline
+	Password 			& Field Receives Focus 	& Place Cursor in Password Field \\
+	\hline
+	Confirm Password 	& Field Receives Focus 	& Place Cursor in Confirm Password Field. \\ \cline{2-3}
+						& Field Loses Focus 		& Verify if input in Confirm Password Field is the same as Password Field \\
+	\hline
+	Create button 		& Click 					& Verify Validity of information inside the fields. Post to the Resource '/api/v1/users/'. Display Sign In Page  	\\
+	\hline
+	Already Have an Account Link & Click 			& Display Sign Up Form \\
+	\hline
+	Forgot Your Password Link & Click 			& Display Forgot Password Form \\
+	\hline 	
+	Enter Email 			& Field Receives Focus 	& Place Cursor in Enter Email Field \\
+	\hline
+	Next Button 			& Click 					& Verify Email. Display Confirm page \\
+	\hline
+	No Button 			& Click				 	& Display Forget Password Form \\
+	\hline
+	Yes Button 			& Click 					& Send Password to Given Email. Diplay Password Sent Page \\
+	\end{tabular}
+	\newpage
+	
+	\begin{tabular}{ m{1.5in} | m{1.5in} | m{1.5in} }
+	Back to Login Button & Click 				& Display Sign In Form \\ \cline{1-1}
+	Sign In Button 		& 						& \\
+	\hline
+	Login Button 		& Click 					& Verify Fields. Log User in. Display Ladning Page \\
+	\hline
+	Shopping Cart Icon 	& Click 					& Verify if logged in. Display Shopping Cart Page \\
+	\hline
+	Continue Shopping Button & Click 				& Display Landing Page \\
+	\hline 
+	Product Image 		& Click 					& Display Product Page \\
+	\hline 
+	Browse Button 		& Click 					& Display Landing Page \\
+	\hline
+	Add to Cart Button 	& Click 					& POST to the Resource '/api/v1/carts/' \\
+	\hline 
+	Catalogue Button 	& Click 					& Display Catalogue Page \\
+	\hline 
+	5 Stars Icon 		& Click 					& Record Number of Stars Clicked \\
+	\hline
+	Category Buttons 	& Click 					& Display Target Category \\
+	\hline 
+	Search Box 			& Field Receives Focus 	& Place Cursor in Search Box Field \\
+	\hline
+	Search Button 		& Click 					& Find All Products with the same Characters on Field then Show Products \\
+	\hline
+	Dashboard Button 	& Click 					& Verify if User is Admin. Load Dashboard Page \\
+	\hline
+	Suppliers Button 	& Click 					& Display Supplier Page. GET Resource '/api/v1/suppliers/' \\
+	\hline
+	Customers Button 	& Click 					& Display Customer Page. GET Resource '/api/v1/customers/' \\		
+	\end{tabular}
+
+	\newpage	
+	
+	\begin{tabular}{ m{1.5in} | m{1.5in} | m{1.5in} }
+	Orders Button 		& Click 					& Display Orders Page \\
+	\hline
+	Add New Suppliers Button & Click 				& Display Supplier Form. \\
+	\hline
+	Name 				& Field Receives Focus 	& Place Cursor in Name Field \\
+	\hline
+	Address 				& Field Receives Focus 	& Place Cursor in Address Field \\
+	\hline
+	Phone Number 		& Field Receives Focus 	& Place Cursor in Phone Number Field \\ 
+	\hline
+	Fax 					& Field Receives Focus 	& Place Cursor in Fax Field \\
+	\hline
+	Is Active 			& Field Receives Focus 	& Place Cursor on Is ACtive Checkbox \\
+	\hline
+	Add Button 			& Click 					& Verify the Fields. POST to a Resource uri. Display previous Page \\
+	\hline
+	Cancel Button 		& Click 					& Display previous Page \\
+	\hline
+	E-store Logo 		& Click 					& Display Dashboard Page \\
+	\hline 
+	Add New Order Button & Click 				& Display Order Form \\ 
+	\hline
+	Customer ID 			& Field Receives Focus 	& Place Cursor in Customer ID field \\
+	\hline
+	Payment ID 			& Field Receives Focus 	& Place Cursor in Payment ID field \\
+	\hline
+	Transaction Date 	& Field Receives Focus 	& Place Cursor in Transaction Date field \\
+	\hline
+	Shipping Date 		& Field Receives Focus 	& Place Cursor in Shipping Date field \\
+	\hline
+	Time Stamp 			& Option Receives Focus 	& Place Cursor in Time Stamp option \\
+	\hline
+	Transaction Status 	& Field Receives Focus 	& Place Cursor in Transaction Status Field \\
+	\hline
+	Total 				& Field Receives Focus 	& Place Cursor in Total Field \\
+	\end{tabular}
+	
+	\newpage
+	
+	\begin{tabular}{ m{1.5in} | m{1.5in} | m{1.5in} }
+	Unit Price 			& Field Receives Focus 	& Place Cursor in Unit Price field \\
+	\hline
+	Discount 			& Field Receives Focus 	& Place Cursor in Discount field \\
+	\hline
+	Quantity 			& Field Receives Focus 	& Place Cursor in Quantity field \\
+	\hline
+	Back to Store Button & Click 				& Display Landing Page \\
+	\hline
+	Account Button 		& Click 					& Verify if logged in. Display Account Page \\
+	\hline
+	Change Password Button & Click 				& Display Change Password form \\
+	\hline
+	Enter Password 		& Field Receives Focus 	& Place Cursor in Enter Password Field \\
+	\hline
+	Enter New Password 	& Field Receives Focus 	& Place Cursor in Enter New Password Field \\
+	\hline
+	Verify New Password 	& Field Receives Focus 	& Place Cursor in Verify New Password Field \\ \cline{2-3}
+						& Field Loses Focus 		& Verfiy that Enter New Password Field and Verify New Password Field are the same \\
+	\hline
+	Confirm Button 		& Click 					& Verify Fields. PUT to Resource '/api/v1/users/'. Display Success Page \\
+	\hline
+	Click Here to go Back to Account Button & Click & Display Account Page \\
+	\hline
+	Wishlist Button 		& Click 					& Display Wishlist Page \\
+	\hline
+	Heart Icon 			& Click 					& PUT to Resource '/api/v1/wishlist/' \\	
+	\end{tabular}
+		
+	\newpage	
+	
+	\begin{tabular}{ m{1.5in} | m{1.5in} | m{1.5in} }
+	Social Icons & Click & Display Target Social Website \\
+	\hline
+	Checkout Button 		& Click 					& Display Checkout Form \\
+	\hline
+	Remove Button 		& Click 					& Product is Removed from Shopping Bag \\
+	\hline
+	First Name 			& Field Receives Focus 	& Place Cursor in First Name Field \\
+	\hline
+	Last Name 			& Field Receives Focus 	& Place Cursor in Last Name Field \\
+	\hline
+	City 				& Field Receives Focus 	& Place Cursor in City Field \\
+	\hline
+	State 				& Field Receives Focus 	& Place Cursor in State Field \\
+	\hline
+	Postal Code 			& Field Receives Focus 	& Place Cursor in Postal Code Field \\
+	\hline
+	Country 				& Field Receives Focus 	& Place Cursor in Country Field \\
+	\hline
+	Billing Address 		& Field Receives Focus 	& Place Cursor in Billing Address Field \\
+	\hline
+	Shipping Address 	& Field Receives Focus 	& Place Cursor in Shipping Address Field \\
+	\hline
+	Date Created 		& Field Receives Focus 	& Place Cursor in Date Created Field \\
+	\hline
+	Next Button 			& Click 					& Display Paypal Page \\
+	\hline
+	Continue Button 		& Click 					& Display Order Information \\
+	
+	\end{tabular}
+		
+	
+\end{center}
+
+\chapter{Questionnaire}
+\section{Client Questionnaire}
+\begin{enumerate}
+\item What kind of business is your company in?
+\item What specific industries do you cater to?
+\item On average, how many employees and departments do you have in your
+company/business?
+\item How many people at your company/business will be involved with this project?
+\item How did you manage your products or inventory, manually or you're using some
+applications(e.g. spreadsheets)?
+\item What benefits do you expect from this project?
+\item What keywords do you want people to use in search engines to find your site?
+\item What are your design requirements?
+\item What kinds of products will you be selling?
+\item Roughly how many products will be listed on the site?
+\item How would you like to organize your product?
+\item Do you have product descriptions available?
+\item Do you have high quality photos available for each product?
+\item Do you want to allow product reviews or ratings?
+\item Do you want to add social sharing icons to product pages?
+\item Do you want the web site to track inventory?
+\item Do you want to build an email list of customers for promotional purposes?
+\item Do you offer quantity discounts?
+\item Do you want to offer coupons?
+\item Do you want to offer wish lists?
+\item Do you have terms of service and refund policies in place for the site?
+\item Would you want to integrate online payment methods in the system so that your
+customers will be able to pay online? (i.e. Credit Cards, Paypal)
+\item Do you have any suggested features you’d like to be implemented in the system?
+\item Does this project have a deadline?
+\item What is your budget for this project? Are you willing to pay?
+\item Do you have anything to add?
+\end{enumerate}
+
+\chapter{API Model}
+\section{System Architecture}
+The architectural style adopted by the system is the Client-Server two-tier cloud based architecture. In a two-tiered cloud based architecture the web services, application logic, transaction logic and data storage are deployed and executed in the back-end cloud servers, And on the client side are the Graphical User Interface based on HTML. 
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/TopLevelSystemLevelArchitecture.png}
+\caption{Architecture Diagram}
+\label{fig:ArchDia}
+\end{figure}
+\section{Design Patterns}
+The system shall use the AngularJS framework in the client side. The design patterns used in the development of the single page application using angularjs include the following: 
+
+
+In creating directives, the composite pattern will be used in order to describe that a group of objects are to be treated in the same way as a single instance of an object. \\
+Here is an example of creating a directive for a single product:
+\begin{lstlisting}
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <single-product title="Zippy">
+      <-- product thumbnails and details-->
+    </single-product>
+  </body>
+</html>
+myModule.directive('singleProduct', function () {
+  return {
+    restrict: 'E',
+    template: '<div><div class="header"></div><div class="content" ng-transclude></div></div>',
+    link: function (scope, el) {
+      el.find('.header').click(function () {
+        el.find('.content').toggle();
+      });
+    }
+  }
+});
+\end{lstlisting}
+In order to export the public API and resources from the server, the module pattern will be used. The module pattern  is very useful when defining services in AngularJS. Using this pattern we can simulate (and actually achieve) privacy:
+\begin{lstlisting}
+app.factory('foo', function () {
+
+  function privateMember() {
+    //body...
+  }
+
+  function publicMember() {
+    //body...
+    privateMember();
+    //body
+  }
+
+  return {
+    publicMember: publicMember
+  };
+});
+\end{lstlisting}
+This way, once we want to inject a function inside any other component we won't be able to use the private methods, but only the public ones. This solution is extremely powerful especially when one is building a reusable library. \\
+In implementing the REST resource access, another option would be to use the Data Mapper pattern. A data mapper is used for bidirectional transfer of data between a persistent data store and an in memory data representation. The AngularJS application will communicate with the API server, which is written in Flask(Python).\\
+The angular \$resource will help us communicate with the server and access our restful api. For example,
+\begin{lstlisting}
+API Method:
+GET /api/v1/producttypes/:id
+
+app.factory('ProductType', function ($q) {
+
+  function ProductType(name, description) {
+    this.name = name;
+    this.description = description;
+  }
+
+  ProductType.get = function (params) {
+    var type = $http.get('/api/v1/producttypes/' + params.id);
+   
+    $q.all([type])
+    .then(function (type) {
+      return new ProductType(type.name, type.description);
+    });
+  };
+  return ProductType;
+});
+\end{lstlisting}
+This way we create pseudo-data mapper, which adapts our API according to the SPA requirements. \\
+We can use the User service by:
+\begin{lstlisting}
+function MainCtrl($scope, User) {
+  User.get({ id: 1 })
+  .then(function (data) {
+    $scope.user = data;
+  });
+}
+\end{lstlisting}
+\section{API Documentation}
+\subsection{HTTP Status Codes}
+\subsubsection{Success Codes}
+\begin{itemize}
+\item 200 OK - Request succeeded. Response included
+\item 201 Created - Resource created. URL to new resource in Location header
+\item 204 No Content - Request succeeded, but no response body
+\end{itemize}
+\subsubsection{Error Codes}
+\begin{itemize}
+\item 400 Bad Request - Could not parse request
+\item 401 Unauthorized - No authentication credentials provided or authentication failed
+\item 403 Forbidden - Authenticated user does not have access
+\item 404 Not Found - Resource not found
+\item 415 Unsupported Media Type - POST/PUT/PATCH request occurred without a application/json content type
+\item 422 Unprocessable Entry - A request to modify or create a resource failed due to a validation error
+\item 429 Too Many Requests - Request rejected due to rate limiting
+\item 500, 501, 502, 503, etc - An internal server error occured
+\end{itemize}
+All 400 series errors (400, 401, 403, etc) will be returned with a JSON object in the body and a application/json content type.\\
+\{ \\
+“status”: “error”, \\
+"message": "Not Found" \\
+\}
+\newpage
+
+
+\chapter{References}
+\url {https://bocoup.com/weblog/documenting-your-api}\\ 
+\url {https://gist.github.com/iros/3426278}\\
+\url {https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html} \\
+\url {https://sourcemaking.com/design_patterns/flyweight} \\
+\url {http://blog.rackspace.com/4-reference-architectures-to-optimize-your-ecommerce/} \\
 
 \end{document}

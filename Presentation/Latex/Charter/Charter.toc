@@ -1,17 +1,28 @@
-\contentsline {chapter}{\numberline {1}Charter}{1}
-\contentsline {section}{\numberline {1.1}Abstract}{1}
-\contentsline {section}{\numberline {1.2}Vision}{1}
-\contentsline {section}{\numberline {1.3}Mission}{1}
-\contentsline {section}{\numberline {1.4}Objectives}{1}
-\contentsline {section}{\numberline {1.5}Principles}{2}
-\contentsline {section}{\numberline {1.6}Features}{2}
-\contentsline {section}{\numberline {1.7}Business Rules}{3}
-\contentsline {chapter}{\numberline {2}Stories}{4}
-\contentsline {section}{\numberline {2.1}Roles}{4}
-\contentsline {section}{\numberline {2.2}Role Attributes}{4}
-\contentsline {section}{\numberline {2.3}Persona}{4}
-\contentsline {subsection}{\numberline {2.3.1}User}{4}
-\contentsline {subsection}{\numberline {2.3.2}Admin}{4}
-\contentsline {section}{\numberline {2.4}User Stories}{5}
-\contentsline {chapter}{\numberline {3}Use Cases}{6}
-\contentsline {chapter}{\numberline {4}Test Cases}{13}
+\contentsline {chapter}{\numberline {1}Charter}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Abstract}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Vision}{1}{section.1.2}
+\contentsline {section}{\numberline {1.3}Mission}{1}{section.1.3}
+\contentsline {section}{\numberline {1.4}Objectives}{1}{section.1.4}
+\contentsline {section}{\numberline {1.5}Principles}{1}{section.1.5}
+\contentsline {section}{\numberline {1.6}Features}{1}{section.1.6}
+\contentsline {section}{\numberline {1.7}Business Rules}{3}{section.1.7}
+\contentsline {chapter}{\numberline {2}Stories}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}Roles}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}Role Attributes}{4}{section.2.2}
+\contentsline {section}{\numberline {2.3}Persona}{4}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}User}{4}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Admin}{4}{subsection.2.3.2}
+\contentsline {section}{\numberline {2.4}User Stories}{5}{section.2.4}
+\contentsline {chapter}{\numberline {3}Use Cases}{6}{chapter.3}
+\contentsline {chapter}{\numberline {4}Test Cases}{13}{chapter.4}
+\contentsline {chapter}{\numberline {5}Diagrams}{27}{chapter.5}
+\contentsline {chapter}{\numberline {6}Questionnaire}{37}{chapter.6}
+\contentsline {section}{\numberline {6.1}Client Questionnaire}{37}{section.6.1}
+\contentsline {chapter}{\numberline {7}API Model}{39}{chapter.7}
+\contentsline {section}{\numberline {7.1}System Architecture}{39}{section.7.1}
+\contentsline {section}{\numberline {7.2}Design Patterns}{39}{section.7.2}
+\contentsline {section}{\numberline {7.3}API Documentation}{41}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}HTTP Status Codes}{41}{subsection.7.3.1}
+\contentsline {subsubsection}{Success Codes}{41}{section*.3}
+\contentsline {subsubsection}{Error Codes}{41}{section*.4}
+\contentsline {chapter}{\numberline {8}References}{43}{chapter.8}
