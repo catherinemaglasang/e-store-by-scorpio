@@ -15,14 +15,49 @@
 \contentsline {section}{\numberline {2.4}User Stories}{5}{section.2.4}
 \contentsline {chapter}{\numberline {3}Use Cases}{6}{chapter.3}
 \contentsline {chapter}{\numberline {4}Test Cases}{13}{chapter.4}
-\contentsline {chapter}{\numberline {5}Diagrams}{27}{chapter.5}
-\contentsline {chapter}{\numberline {6}Questionnaire}{37}{chapter.6}
-\contentsline {section}{\numberline {6.1}Client Questionnaire}{37}{section.6.1}
-\contentsline {chapter}{\numberline {7}API Model}{39}{chapter.7}
-\contentsline {section}{\numberline {7.1}System Architecture}{39}{section.7.1}
-\contentsline {section}{\numberline {7.2}Design Patterns}{39}{section.7.2}
-\contentsline {section}{\numberline {7.3}API Documentation}{41}{section.7.3}
-\contentsline {subsection}{\numberline {7.3.1}HTTP Status Codes}{41}{subsection.7.3.1}
-\contentsline {subsubsection}{Success Codes}{41}{section*.3}
-\contentsline {subsubsection}{Error Codes}{41}{section*.4}
-\contentsline {chapter}{\numberline {8}References}{43}{chapter.8}
+\contentsline {chapter}{\numberline {5}API Model}{27}{chapter.5}
+\contentsline {section}{\numberline {5.1}System Architecture}{27}{section.5.1}
+\contentsline {section}{\numberline {5.2}Design Patterns}{28}{section.5.2}
+\contentsline {chapter}{\numberline {6}SQAP}{30}{chapter.6}
+\contentsline {section}{\numberline {6.1}Abstract}{30}{section.6.1}
+\contentsline {section}{\numberline {6.2}Introduction}{30}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Purpose}{30}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Scope}{30}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}List of Definitions}{31}{subsection.6.2.3}
+\contentsline {subsection}{\numberline {6.2.4}List of References}{32}{subsection.6.2.4}
+\contentsline {section}{\numberline {6.3}Management}{33}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Organization}{33}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Tasks}{33}{subsection.6.3.2}
+\contentsline {subsection}{\numberline {6.3.3}Responsibilities}{33}{subsection.6.3.3}
+\contentsline {section}{\numberline {6.4}Documentation}{34}{section.6.4}
+\contentsline {section}{\numberline {6.5}Standards, Practices, Conventions And Metrics}{35}{section.6.5}
+\contentsline {subsection}{\numberline {6.5.1}Documentation Standards}{35}{subsection.6.5.1}
+\contentsline {subsubsection}{PEP 8 basically commands developers the following practices: }{35}{section*.2}
+\contentsline {subsubsection}{Docstrings}{35}{section*.3}
+\contentsline {subsubsection}{Comments}{35}{section*.4}
+\contentsline {subsection}{\numberline {6.5.2}Design Standards}{35}{subsection.6.5.2}
+\contentsline {subsection}{\numberline {6.5.3}API Documentation}{35}{subsection.6.5.3}
+\contentsline {subsubsection}{HTTP Status Codes}{35}{section*.5}
+\contentsline {subsection}{\numberline {6.5.4}Coding Standards}{36}{subsection.6.5.4}
+\contentsline {subsection}{\numberline {6.5.5}Comment Standards}{36}{subsection.6.5.5}
+\contentsline {subsection}{\numberline {6.5.6}Testing Standards}{36}{subsection.6.5.6}
+\contentsline {subsection}{\numberline {6.5.7}Pentesting Plan}{36}{subsection.6.5.7}
+\contentsline {subsection}{\numberline {6.5.8}Event Response Chart}{37}{subsection.6.5.8}
+\contentsline {section}{\numberline {6.6}Review}{41}{section.6.6}
+\contentsline {section}{\numberline {6.7}Test}{41}{section.6.7}
+\contentsline {section}{\numberline {6.8}Problem reporting and corrective actions}{41}{section.6.8}
+\contentsline {subsection}{\numberline {6.8.1}Changes in requirements of the customer}{42}{subsection.6.8.1}
+\contentsline {section}{\numberline {6.9}Tools, techniques and methods}{42}{section.6.9}
+\contentsline {section}{\numberline {6.10}Code Control}{42}{section.6.10}
+\contentsline {section}{\numberline {6.11}Media Control}{42}{section.6.11}
+\contentsline {section}{\numberline {6.12}Supplier Control}{43}{section.6.12}
+\contentsline {section}{\numberline {6.13}Training}{43}{section.6.13}
+\contentsline {section}{\numberline {6.14}Risk management}{43}{section.6.14}
+\contentsline {subsection}{\numberline {6.14.1}Categories of risks}{43}{subsection.6.14.1}
+\contentsline {subsubsection}{Risks with respect to the work to be done}{43}{section*.10}
+\contentsline {chapter}{\numberline {7}Diagrams}{45}{chapter.7}
+\contentsline {chapter}{\numberline {8}User Testing Results}{50}{chapter.8}
+\contentsline {chapter}{\numberline {9}Questionnaire}{51}{chapter.9}
+\contentsline {section}{\numberline {9.1}Client Questionnaire}{51}{section.9.1}
+\contentsline {chapter}{\numberline {10}Conclusion}{53}{chapter.10}
+\contentsline {chapter}{\numberline {11}References}{54}{chapter.11}

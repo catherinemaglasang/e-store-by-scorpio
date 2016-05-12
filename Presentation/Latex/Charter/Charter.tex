@@ -31,6 +31,7 @@
 
 %%% Typesetting %%%
 \linespread{1.20}
+
 %%%
 
 \begin{document}
@@ -77,30 +78,20 @@ Scalability and Speed
 \item Customer Login
 \item Customer Logout
 \item Customer Signin \\ \\
-\textbf{Customer Dashboard}
+\textbf{Customer Account}
 \item View my Orders
 \item View my Wishlist
 \item View my Reviews
 \item Re-order items
 \item Update Settings \\ \\
 \textbf{Admin Dashboard}
-\item Add Staff
-\item Update Staff
-\item Revoke Staff Access
-\item Add Order
 \item View Customer Orders
 \item Add Products
 \item View Products
-\item Add Category
-\item View Category
-\item Add Supplier
-\item View Supplier 
-\item Add Customer
 \item View Customers
 \item View Sales Report
 \item Add Promotion 
 \item Add Static page
-\item Add Content Block \\ \\
 \textbf{Store Catalog / Store Page}
 \item Filter Products
 \item Product Social Sharing
@@ -108,8 +99,7 @@ Scalability and Speed
 \item Search Product
 \item Add Feedback
 \item View Related Products
-\item Customer Behaviour Tracking
-\item Abandoned Cart
+\item Abandon Cart
 \item Checkout Payment
 \item Automated Fulfillment
 \end{enumerate}
@@ -1074,42 +1064,334 @@ And 			& I get a field "message" containing "ok" \\
 \end{tabular}
 \newpage
 
-\chapter{Diagrams}
+\chapter{API Model}
+\section{System Architecture}
+The architectural style adopted by the system is the Client-Server cloud based architecture using Jenkins Server as a medium between the Developers and the system. In the Architecture, the Developers push to git repository and Jenkins will then automatically build and activate the preset commands already entered by the developers and will then update the API server, the Database, the Front End Server, and the push notification server. 
 \begin{figure}[h!]
-\includegraphics[width=\linewidth]{Diagrams/ClassDiagram.png}
-\caption{Class Diagram}
-\label{fig:ClassDiagram}
+\includegraphics[width=\linewidth]{Diagrams/ArchitectureDiagram.png}
+\caption{Architecture Diagram}
+\label{fig:ArchDia}
 \end{figure}
+\section{Design Patterns}
+The system shall use the AngularJS framework in the client side. The design patterns used in the development of the single page application using angularjs include the following: 
 
-\begin{figure}[h!]
-\includegraphics[width=\linewidth]{Diagrams/DataFlowDiagram.png}
-\caption{Data Flow Diagram}
-\label{fig:DataFlow}
-\end{figure}
 
-\begin{figure}[h!]
-\includegraphics[width=\linewidth]{Diagrams/UseCaseDiagram.png}
-\caption{Use Case Diagram}
-\label{fig:UseCase}
-\end{figure}
+In creating directives, the composite pattern will be used in order to describe that a group of objects are to be treated in the same way as a single instance of an object. \\
+Here is an example of creating a directive for a single product:
+\begin{lstlisting}[basicstyle=\footnotesize,language=HTML,]
+<!doctype html>
+<html>
+  <head>
+  </head>
+  <body>
+    <single-product title="Zippy">
+      <-- product thumbnails and details-->
+    </single-product>
+  </body>
+</html>
+myModule.directive('singleProduct', function () {
+  return {
+    restrict: 'E',
+    template: '<div><div class="header"></div><div class="content" ng-transclude></div></div>',
+    link: function (scope, el) {
+      el.find('.header').click(function () {
+        el.find('.content').toggle();
+      });
+    }
+  }
+});
+\end{lstlisting}
+In order to export the public API and resources from the server, the module pattern will be used. The module pattern  is very useful when defining services in AngularJS. Using this pattern we can simulate (and actually achieve) privacy:
+\begin{lstlisting}[basicstyle=\footnotesize,frame=single,]
+app.factory('foo', function () {
 
-\begin{figure}[h!]
-\includegraphics[width=\linewidth]{Diagrams/PertChart.png}
-\caption{Pert Chart}
-\label{fig:PertChart}
-\end{figure}
+  function privateMember() {
+    //body...
+  }
 
-\begin{figure}[h!]
-\includegraphics[width=\linewidth]{Diagrams/Entity-RelationshipDiagram.png}
-\caption{ERD}
-\label{fig:ERD}
-\end{figure}
+  function publicMember() {
+    //body...
+    privateMember();
+    //body
+  }
+
+  return {
+    publicMember: publicMember
+  };
+});
+\end{lstlisting}
+This way, once we want to inject a function inside any other component we won't be able to use the private methods, but only the public ones. This solution is extremely powerful especially when one is building a reusable library. \\
+In implementing the REST resource access, another option would be to use the Data Mapper pattern. A data mapper is used for bidirectional transfer of data between a persistent data store and an in memory data representation. The AngularJS application will communicate with the API server, which is written in Flask(Python).\\
+The angular \$resource will help us communicate with the server and access our restful api. For example,
+\begin{lstlisting}[basicstyle=\footnotesize,frame=single,]
+API Method:
+GET /api/v1/producttypes/:id
+
+app.factory('ProductType', function ($q) {
+
+  function ProductType(name, description) {
+    this.name = name;
+    this.description = description;
+  }
+
+  ProductType.get = function (params) {
+    var type = $http.get('/api/v1/producttypes/' + params.id);
+   
+    $q.all([type])
+    .then(function (type) {
+      return new ProductType(type.name, type.description);
+    });
+  };
+  return ProductType;
+});
+\end{lstlisting}
+This way we create pseudo-data mapper, which adapts our API according to the SPA requirements. \\
+We can use the User service by:
+\begin{lstlisting}
+function MainCtrl($scope, User) {
+  User.get({ id: 1 })
+  .then(function (data) {
+    $scope.user = data;
+  });
+}
+\end{lstlisting}
+
+\chapter{SQAP} % Event Response Chart & Pentesting
+\section{Abstract}
+This document is about the Software Quality Assurance Plan $(SQAP)$ of the system, e-store which is an e-commerce platform for online merchants. It provides the power to grow your web business, reach more customers and sell more products and services. It enables businesses to experience an integrated workflow for their business: Sales, Inventory and Order Management and Customer Service under one platform.
+\section{Introduction}
+\subsection{Purpose}
+The purpose of this plan is to define the e-store Software Quality Assurance (SQA) organization, SQA tasks and responsibilities; provide reference documents and guidelines to perform the SQA activities; provide the standards, practices and conventions used in carrying out SQA activities; and provide the tools, techniques, and methodologies to support SQA activities, and SQA reporting.
+	
+\subsection{Scope}
+This plan establishes the SQA activities performed throughout the life cycle of the e-store project.
+
+This plan shall implement a project that follows the RESTful architectural style. The project shall be developed using the Flask microframework. There will be a clear separation of concerns between the client and the server for easy maintenance and scalability.
 
 \newpage
 
+\subsection{List of Definitions}
+\begin{table}[ht]
+\centering
+\begin{adjustbox}{width=1\textwidth,center=\textwidth}
+\small
+\begin{tabular}{| l | l |}
+\hline
+\textbf{Term} & \textbf{Definition} \\
+\hline
+ATDD 			& Acceptance Test Driven Development \\
+TDD 				& Test Driven Development \\
+BDD 				& Behavior-Driven Development \\
+SQA 				& Software Quality Assurance \\
+UML 				& Unified Modeling Language \\
+ERD 				& Entity Relationship Diagram \\
+MSU-IIT 			& Mindanao State University - Iligan Institute of Technology \\
+REST 			& Representational State Transfer \\
+FLASK 			& Web Framework \\
+Python 			& Programming Language \\
+SCS 				& School of Computer Studies \\ 
+Sales Inventory 	& The list of items such as the goods that are in stock \\
+E-commerce 		& The buying and selling of goods over an electronic network, primarily the internet \\
+Customer 		& The person who transacts in the store page of the business \\
+Admin 			& The owner of the products sold in the store. \\
+Product 			& The items being sold in the website \\
+Cart				& The list of items the customer is going to buy \\
+Checkout 		& The process in which the customer is going to buy and pay the items inside the cart \\
+Gherkin 			& Business Readable, Domain Specific Language that lets you describe software’s behaviour without detailing how that behaviour is implemented.\\
+QAM 				& Quality Assurance Manager \\
+SQAP 			& Software Quality Assurance Plan \\
+SQMP 			& Software Quality Management Plan \\
+PM 				& Project Manager \\
+CM 				& Configuration Manager \\
+AD 				& Architectural Design \\
+DD 				& Detailed Design \\ 
+CI 				& Configuration Items \\
+UML 				& Unified Modeling Language \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\caption{List of Definitions} 
+\end{table}
+
+\newpage
+
+\subsection{List of References}
+\begin{itemize}
+\item $[SQAP]$ Software Quality Assurance Plan, SPINGRID team, TU/e, 0.1.3, June 2006
+\item Saleh H. (2013). Javascript Unit Testing.  Packt Publishing
+\item Osmani A., (2012). Javascript Learning Design Patterns
+\item Zlobin G., (2013). Learning Python Design Patterns
+\item Sale D., (2014). Testing Python
+\item IEEE Standard for Software Quality Assurance Processes, IEEE Std 730-2014
+\item Clean Code Cheat Sheet
+\item Test-Driven Development, Dr. Christoph Steindl, Senior IT Architect and Method Exponent, Certified ScrumMaster
+\item Best Practices, Development Methodologies, and the Zen of Python, Valentin Haenel
+\item Test-Driven Development, Gary Brown
+\item Detailed Design, (2006). Parametric Technology Corporation (PTC)
+\item ESA Software Engineering Standards (ESA PSS-05-0 Issue 2), ESA Board for Software Standardization and Control (BSSC), 1991
+\item Configuration Items, \url {http://www.chambers.com.au/glossary/configuration_item.php}
+\item \url {http://flask.pocoo.org/docs/0.10/styleguide/}
+\item \url {http://explore-flask.readthedocs.org/en/latest/conventions.html}
+\end{itemize}
+
+\newpage
+\section{Management}
+This section describes each major element of the organization that influences the quality of the software.
+
+\subsection{Organization}
+The team shall follow the agile approach, and adhere to the scrum approach in development. The team shall consist of the Scrum Master, Product Owner and the Development Team. Throughout each iteration, SQA activities should be headed by the Scrum Master who shall also serve as the Quality Assurance Manager. The team shall follow the Behaviour-driven approach in development as an extension to the Test-driven development approach. Prior to coding any functionality, the individual responsible for the feature shall create just enough acceptance tests, unit tests and code to pass the tests. 
+
+\subsection{Tasks}
+The SQA team’s main task is to check whether the procedures are followed and that standards are handled correctly as defined in the [SQAP]. Additionally, the SQA team inspects whether all group members fulfill their tasks according to the parts of the [SQAP] applying to their specific tasks. \\
+
+Besides the described main task, the SQA team has to check the consistency and coherence between documents.
+
+\subsection{Responsibilities}
+The responsibility of Quality Assurance shall be vested in all of the members of the development team. Each one shall serve as a tester and developer at the same time. However, a Software Quality Assurance Manager (QAM) shall be the one to oversee that the BDD approach is followed, and that tests cover 100 percent coverage throughout the system, in order to avoid any bleeds or regression. The agile team shall be self-organizing individuals and take full responsibility in the feature or story assigned to them. The team shall not only be concerned with the product quality but also with the process quality and relationship between them. Should there be any major problems, the QAM shall take over and plan as needed. 
+
+\newpage
+\section{Documentation}
+The documents to be delivered in the specific phases of the project will be based in Chapter 6, Section 5. Document standards are described in the same section. The Diagrams will be at Chapter 7 with the Storyboard.
+
+\newpage
+\section{Standards, Practices, Conventions And Metrics}
+\subsection{Documentation Standards}
+Documentations may be in the form of a test, a docstring, or any formal document. If possible, the code should serve as enough documentation for the system. Throughout the project, PEP 8 style guide convention shall be used. 
+
+\subsubsection{PEP 8 basically commands developers the following practices: }
+\begin{itemize}
+\item Indentation: Indent with 4 real spaces (no tabs)
+\item Maximum line lenght: 79 characters with a soft limit for 84 if absolutely necessary. Try to avoid too nested code by cleverly placing break, continue and return statements.
+\item Continuing long statements: To continue a statement you can use backslashes in which case you should align the next line with the last dot or equal sign, or indent four spaces.
+\end{itemize}
+
+\subsubsection{Docstrings}
+All docstrings shall be formatted with reStructuredText as understood by Sphinx. Depending on the number of lines in the docstring, they are laid out differently. If it’s just one line, the closing triple quote is on the same line as the opening, otherwise the text is on the same line as the opening quote and the triple quote that closes the string on its own line:
+
+\subsubsection{Comments}
+Rules for comments are similar to docstrings. Both shall be formatted with reStructuredText. If a comment is used to document an attribute, put a colon after the opening pound sign $(\#)$. 
+
+\subsection{Design Standards}
+The system shall follow the restful-architectural style. The API backend shall be built with Flask, while the frontend (running in a different port) shall be built with AngularJS. The following table describes the API model of the project: 
+
+\subsection{API Documentation}
+\subsubsection{HTTP Status Codes}
+\textbf{Success Codes}
+\begin{itemize}
+\item 200 OK - Request succeeded. Response included
+\item 201 Created - Resource created. URL to new resource in Location header
+\item 204 No Content - Request succeeded, but no response body
+\end{itemize}
+\textbf{Error Codes}
+\begin{itemize}
+\item 400 Bad Request - Could not parse request
+\item 401 Unauthorized - No authentication credentials provided or authentication failed
+\item 403 Forbidden - Authenticated user does not have access
+\item 404 Not Found - Resource not found
+\item 415 Unsupported Media Type - POST/PUT/PATCH request occurred without a application/json content type
+\item 422 Unprocessable Entry - A request to modify or create a resource failed due to a validation error
+\item 429 Too Many Requests - Request rejected due to rate limiting
+\item 500, 501, 502, 503, etc - An internal server error occured
+\end{itemize}
+All 400 series errors (400, 401, 403, etc) will be returned with a JSON object in the body and a application/json content type.\\
+\{ \\
+“status”: “error”, \\
+"message": "Not Found" \\
+\}
+
+\begin{table}[ht]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llll}
+\hline
+\textbf{Resource}  			& \textbf{URI}      & \textbf{HTTP Method} & \textbf{Description}							\\ \hline
+Inventory Module  \\ \hline
+Item      				& /api/v1/items/ & GET & Retrieve all items       			\\
+          					& /api/v1/items/:id & GET & Retrieve single item 			\\
+          					& /api/v1/items/:id & PUT & Update item 						\\ 
+          					& /api/v1/items/ & POST & Create new item 					\\ \hline
+Type						& /api/v1/types/ & GET & Retrieve all item types 			\\
+							& /api/v1/types/:id & GET & Retrieve all types \\ 
+							& /api/v1/types/:id & PUT & Update type \\ 
+							& /api/v1/types/ & POST & Create new type \\ \hline
+Attribute				& /api/v1/types/:id/attributes/ & GET & Retrieve all attributes under the type id \\ 
+							& /api/v1/types/:id/attributes/:id/ & GET & Retrieve single attribute under the type id \\
+							& /api/v1/types/:id/attributes/ & POST & Create new attribute under the type id \\
+							& /api/v1/types/:id/attributes/:id/ & PUT & Update attribute details under the type id \\ \hline
+AttributeValue		& /api/v1/items/:id/attributes/ & GET & Retrieve all type-attribute pair values for each item assigned to a particular type \\ 
+							& /api/v1/items/:id/attributes/:id/ & GET & Retrieve a single type-attribute pair value for an item \\ 
+							& /api/v1/items/:id/attributes/:id/ & PUT & Update the type-attribute pair value \\ 
+							& /api/v1/items/:id/attributes/ & POST & Create new attribute value based on the type assigned to an item \\ \hline
+Image 					& /api/v1/items/:id/images/ & GET & Retrieve all images for a single item\\
+							& /api/v1/items/:id/images/:id/ & GET & Retrieve single image for an item \\ 
+							& /api/v1/items/:id/images/:id/ & PUT & Update image for an item \\
+							& /api/v1/items/:id/images/ & POST & Create new image for an item \\ \hline
+Supplier				& /api/v1/suppliers/ & GET & Retrieve all suppliers \\ 
+							& /api/v1/suppliers/:id/ & GET & Retrieve single supplier \\ 
+							& /api/v1/suppliers/:id/ & PUT & Update a supplier \\ 
+							& /api/v1/suppliers/	& POST & Create new supplier \\ \hline
+Cart \& POS Module  \\ \hline
+Cart 						& /api/v1/carts/			& POST & Create new cart instance  \\ 
+							& /api/v1/carts/:id/ 	& PUT &  Update Cart  \\ \hline
+CartItem				& /api/v1/carts/:id/items/ & GET & Retrieve all cart items \\ 
+							& /api/v1/carts/:id/items/:id/ & GET & Retrieve single cart item \\
+							& /api/v1/carts/:id/items/:id/ & PUT & Update single cart item \\
+							& /api/v1/carts/:id/items/ & POST & Add an item to cart \\ \hline
+Order					& /api/v1/orders/ & GET & Retrieve all orders \\ 
+							& /api/v1/orders/:id/ & GET & Retrieve single order \\ 
+							& /api/v1/orders/:id/ & PUT & Update single order \\ 
+							& /api/v1/orders/ & POST & Create new order \\ \hline
+OrderItem				& /api/v1/orders/:id/items/ & GET & Retrieve all order items \\ 
+							& /api/v1/orders/:id/items/:id/ & GET & Retrieve single order item \\ 
+							& /api/v1/orders/:id/items/:id/ & PUT & Update single order item \\
+							& /api/v1/orders/:id/items/ & POST & Add new item in order \\ \hline
+Wishlist 				& /api/v1/wishlists/ & GET & Retrieve all created wishlists \\ 
+							& /api/v1/wishlists/:id/ & GET & Retrieve single wishlist \\ 
+							& /api/v1/wishlists/:id/ & PUT & Update wishlist \\ 
+							& /api/v1/wishlists/ & POST & Create new wishlist \\ \hline
+WishlistItem			& /api/v1/wishlists/:id/items/ & GET & Retrieve all items under a single wishlist \\ 
+							& /api/v1/wishlists/:id/items/:id/ & GET & Retrieve single wishlist item \\ 
+							& /api/v1/wishlists/:id/items/:id/ & PUT & Update wishlist item \\
+							& /api/v1/wishlists/:id/items/ & POST & Add new item in wishlist  \\ \hline
+User 					& /api/v1/users/ & GET & Retrieve all users \\ 
+							& /api/v1/users/:id/ & GET & Retrieve single user \\
+							& /api/v1/users/:id/ & PUT & Update user \\ 
+							& /api/v1/users/ & POST & Create new user \\  \hline							
+Group 					& /api/v1/groups/ & GET & Retrieve all groups \\ 
+							& /api/v1/groups/:id/ & GET & Retrieve single group \\
+							& /api/v1/groups/:id/ & PUT & Update group \\ 
+							& /api/v1/groups/ & POST & Create new group \\  \hline		
+							& /api/v1/groups/:id/users/ & GET & Retrieve all users under a group \\ 
+							& /api/v1/groups/:id/users/:id/ & GET & Retrieve a user under a group \\
+							& /api/v1/groups/:id/users/:id/ & PUT & Update a user in a group (e.g. Permission) \\
+							& /api/v1/groups/:id/users/ & POST & Add a user to a group \\ \hline											
+Customer 			& /api/v1/site/:id/customers/ & GET & Retrieve all customers in a site \\ 
+							& /api/v1/site/:id/customers/:id/ & GET & Retrieve single customer in a site \\
+							& /api/v1/site/:id/customers/:id/ & PUT & Update customer in a site \\ 
+							& /api/v1/site/:id/customers/ & POST & Register new customer in site or business \\ 				
+\end{tabular}
+}
+\caption{REST API Model}
+\label{API Model}
+\end{table}
+
+\subsection{Coding Standards}
+With Regards to the Coding Standards the SQA team will follow the python coding standards.
+
+\subsection{Comment Standards}
+For the Comment Standards the SQA team will follow the python commenting standards.
+
+\subsection{Testing Standards}
+The SQA team will follow the lettuce BDD and Unit testing standard. The team will also follow the Penetration Testing standard in Pentesting.
+
+\subsection{Pentesting Plan}
+%\subsection{Metrics}
+
+%\subsection{Compliance Monitoring}
+
+
+\newpage
+\subsection{Event Response Chart}
 \begin{center}
-\newpage
-	\section*{Event Response Chart}	
 	\begin{tabular}{ m{1.5in} | m{1.5in} | m{1.5in} }	
 	\textbf{Form Control} & \textbf{Event} & \textbf{Response} \\
 	\hline
@@ -1279,9 +1561,120 @@ And 			& I get a field "message" containing "ok" \\
 	Continue Button 		& Click 					& Display Order Information \\
 	
 	\end{tabular}
-		
 	
 \end{center}
+
+
+
+\section{Review}
+
+\section{Test}
+For the tests, the SQA team will test the API's and the User Interface. For the API test refer to the Test Cases in Chapter 4 and for the User Interface Test Refer to Chapter 8. 
+
+\section{Problem reporting and corrective actions}
+If problems arise in either the Documentation or the System they need to be resolved. \\
+Examples of such Problems are:
+\subsection*{Document Problems}
+\begin{itemize}
+\item What is written and what is implemented in the system are different
+\item Errors
+\item Incompleteness
+\item Non compliance with the Documenting Standards
+\end{itemize}
+\subsection*{Code Problems}
+\begin{itemize}
+\item Lack of functionality
+\item Wrong functionality
+\item Non compliance with the coding and commentary standards
+\end{itemize}
+\subsection*{Problem Reporting Procedure}
+When a problem is detected, the person who discovered the error is responsible for reporting it to the PM and QAM. When a problem is discovered during a review, the member of the SQA team present is responsible.
+\subsection*{Problem Solving Procedure}
+\begin{itemize}
+\item The SQA team appoints the member who is responsible for that task. He/She is responsible for solving the problem
+\item When the problem is resovled the SQA team will then be notified and they will check whether the changes solved the problem
+\item If the problem cannot be solved or cannot be solved within a given amount of time, the appointed member will consult with the other team members. In the consultation they will decide on what to do with the problem
+\end{itemize}
+\subsection{Changes in requirements of the customer}
+It is also possible that the requirements of the customer change. In this case, the requested change is matched to the Charter. If the change conforms to the Charter it is accepted. If it does not conform to the Charter, the team decides wether it will discard the changes or not.
+
+\section{Tools, techniques and methods}
+The SQA team has to make sure that appropriate tools, techniques and methods are used. The tools that the team uses are:
+\begin{enumerate}
+\item PyCharm
+\item PgAdmin 3
+\end{enumerate}
+These tools are readily available at \url {https://www.jetbrains.com/}
+
+\section{Code Control}
+It is the SQA teams responsibility to assure the correct handling of the code and the documents.\\
+The following has to be valid:
+\begin{itemize}
+\item Documents are available to all people who are authorized to access them and to no one else.
+\item No file is unnecessarily locked
+\end{itemize}
+
+\section{Media Control}
+The SQA team will check whether all the procedures and the techniques used are handled properly.
+
+\section{Supplier Control}
+All external software components in the program code, that have an unreliable source, will be tested according to the [ESA] standards. Software components that  have reliable sources will undergo some quick tests. These tests will be focused on the parts of this software that are of importance to the project.
+
+%\section{Records collection, maintenance and retention}
+
+\section{Training}
+The project requires sufficient skill in Python, Flask, and front end technologies like Angular, jQuery and Ajax. The learning curve throughout the project development has been steep and required training from the Advisor and co-team members. 
+
+\section{Risk management}
+
+\subsection{Categories of risks}
+The following are categories of risks that are relevant to the project: 
+
+\subsubsection{Risks with respect to the work to be done}
+\textbf{1. Miscommunication} \\
+\textit{Probability:} High \\
+\textit{Prevention:} Daily stand ups or quick huddle should be done by the team on a regular basis. Major weekly meetings are done to keep address pressing issues in development. Team members should not hesitate to ask and re ask questions if things are unclear in order to avoid bottlenecks in the progress of the system. With regards to the customer, bi-monthly face-to-face meetups should be done to update and keep track of progress. If any confusions arise, the team may opt to use other communication mediums like phone calls, or emails to clear up problems. \\
+\textit{Correction:} When it becomes clear that miscommunication is causing problems, the team members involved and the customer are gathered in a meeting to clear things up. \\
+\textit{Impact:} High \\
+
+%\subsubsection{Risks with respect to the customer}
+
+
+\chapter{Diagrams}  %Add Storyboard
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/ClassDiagram.png}
+\caption{Class Diagram}
+\label{fig:ClassDiagram}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/DataFlowDiagram.png}
+\caption{Data Flow Diagram}
+\label{fig:DataFlow}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/UseCaseDiagram.png}
+\caption{Use Case Diagram}
+\label{fig:UseCase}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/PertChart.png}
+\caption{Pert Chart}
+\label{fig:PertChart}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/Entity-RelationshipDiagram.png}
+\caption{ERD}
+\label{fig:ERD}
+\end{figure}
+
+\newpage
+
+
+\chapter{User Testing Results}
 
 \chapter{Questionnaire}
 \section{Client Questionnaire}
@@ -1317,123 +1710,7 @@ customers will be able to pay online? (i.e. Credit Cards, Paypal)
 \item Do you have anything to add?
 \end{enumerate}
 
-\chapter{API Model}
-\section{System Architecture}
-The architectural style adopted by the system is the Client-Server two-tier cloud based architecture. In a two-tiered cloud based architecture the web services, application logic, transaction logic and data storage are deployed and executed in the back-end cloud servers, And on the client side are the Graphical User Interface based on HTML. 
-\begin{figure}[h!]
-\includegraphics[width=\linewidth]{Diagrams/TopLevelSystemLevelArchitecture.png}
-\caption{Architecture Diagram}
-\label{fig:ArchDia}
-\end{figure}
-\section{Design Patterns}
-The system shall use the AngularJS framework in the client side. The design patterns used in the development of the single page application using angularjs include the following: 
-
-
-In creating directives, the composite pattern will be used in order to describe that a group of objects are to be treated in the same way as a single instance of an object. \\
-Here is an example of creating a directive for a single product:
-\begin{lstlisting}
-<!doctype html>
-<html>
-  <head>
-  </head>
-  <body>
-    <single-product title="Zippy">
-      <-- product thumbnails and details-->
-    </single-product>
-  </body>
-</html>
-myModule.directive('singleProduct', function () {
-  return {
-    restrict: 'E',
-    template: '<div><div class="header"></div><div class="content" ng-transclude></div></div>',
-    link: function (scope, el) {
-      el.find('.header').click(function () {
-        el.find('.content').toggle();
-      });
-    }
-  }
-});
-\end{lstlisting}
-In order to export the public API and resources from the server, the module pattern will be used. The module pattern  is very useful when defining services in AngularJS. Using this pattern we can simulate (and actually achieve) privacy:
-\begin{lstlisting}
-app.factory('foo', function () {
-
-  function privateMember() {
-    //body...
-  }
-
-  function publicMember() {
-    //body...
-    privateMember();
-    //body
-  }
-
-  return {
-    publicMember: publicMember
-  };
-});
-\end{lstlisting}
-This way, once we want to inject a function inside any other component we won't be able to use the private methods, but only the public ones. This solution is extremely powerful especially when one is building a reusable library. \\
-In implementing the REST resource access, another option would be to use the Data Mapper pattern. A data mapper is used for bidirectional transfer of data between a persistent data store and an in memory data representation. The AngularJS application will communicate with the API server, which is written in Flask(Python).\\
-The angular \$resource will help us communicate with the server and access our restful api. For example,
-\begin{lstlisting}
-API Method:
-GET /api/v1/producttypes/:id
-
-app.factory('ProductType', function ($q) {
-
-  function ProductType(name, description) {
-    this.name = name;
-    this.description = description;
-  }
-
-  ProductType.get = function (params) {
-    var type = $http.get('/api/v1/producttypes/' + params.id);
-   
-    $q.all([type])
-    .then(function (type) {
-      return new ProductType(type.name, type.description);
-    });
-  };
-  return ProductType;
-});
-\end{lstlisting}
-This way we create pseudo-data mapper, which adapts our API according to the SPA requirements. \\
-We can use the User service by:
-\begin{lstlisting}
-function MainCtrl($scope, User) {
-  User.get({ id: 1 })
-  .then(function (data) {
-    $scope.user = data;
-  });
-}
-\end{lstlisting}
-\section{API Documentation}
-\subsection{HTTP Status Codes}
-\subsubsection{Success Codes}
-\begin{itemize}
-\item 200 OK - Request succeeded. Response included
-\item 201 Created - Resource created. URL to new resource in Location header
-\item 204 No Content - Request succeeded, but no response body
-\end{itemize}
-\subsubsection{Error Codes}
-\begin{itemize}
-\item 400 Bad Request - Could not parse request
-\item 401 Unauthorized - No authentication credentials provided or authentication failed
-\item 403 Forbidden - Authenticated user does not have access
-\item 404 Not Found - Resource not found
-\item 415 Unsupported Media Type - POST/PUT/PATCH request occurred without a application/json content type
-\item 422 Unprocessable Entry - A request to modify or create a resource failed due to a validation error
-\item 429 Too Many Requests - Request rejected due to rate limiting
-\item 500, 501, 502, 503, etc - An internal server error occured
-\end{itemize}
-All 400 series errors (400, 401, 403, etc) will be returned with a JSON object in the body and a application/json content type.\\
-\{ \\
-“status”: “error”, \\
-"message": "Not Found" \\
-\}
-\newpage
-
+\chapter{Conclusion}
 
 \chapter{References}
 \url {https://bocoup.com/weblog/documenting-your-api}\\ 
