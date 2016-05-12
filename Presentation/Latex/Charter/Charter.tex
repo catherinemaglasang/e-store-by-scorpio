@@ -63,9 +63,6 @@ To be the most trusted integrated e-commerce platform for merchants
 To develop a platform with utmost regards in security and customer satisfaction in the e-commerce industry
 
 \section{Objectives}
-%\begin{enumerate}
-%%% Objectives %%%
-%\end{enumerate}
 
 \section{Principles}
 Secure Transactions
@@ -80,28 +77,18 @@ Scalability and Speed
 \item Customer Signin \\ \\
 \textbf{Customer Account}
 \item View my Orders
-\item View my Wishlist
-\item View my Reviews
 \item Re-order items
 \item Update Settings \\ \\
 \textbf{Admin Dashboard}
-\item View Customer Orders
 \item Add Products
 \item View Products
-\item View Customers
-\item View Sales Report
-\item Add Promotion 
-\item Add Static page
+\item View Sales Report \\
 \textbf{Store Catalog / Store Page}
 \item Filter Products
 \item Product Social Sharing
-\item Add to Wishlist
 \item Search Product
-\item Add Feedback
 \item View Related Products
-\item Abandon Cart
 \item Checkout Payment
-\item Automated Fulfillment
 \end{enumerate}
 
 \section{Business Rules}
@@ -115,6 +102,20 @@ Scalability and Speed
 \item The customers not logged in will not be able to checkout their cart
 \item When the admin adds a product all the information of the product must be complete
 \item feedback for a product is limited to only 500 characters
+\item One account per store - that is the store owner
+\item Admin is able to see all stores and all orders made
+\item Seller is only able to see his own products and sales in dashboard 
+\item Seller has account balance / money obtained from sales
+\item Products are shipped by merchants themselves
+\item Stock qty per product can be updated
+\item Once a checkout is made, the item sold appears on the sales page of the merchant, and paid status is T or F. 
+	\begin{enumerate}
+	\item  status is set to pending
+	\item merchant updates status of order (or sale) to shipped once shipped (tracking no will be placed) 
+	\item order status is updated to completed once item is received
+	\item No returns / cancels yet
+	\end{enumerate}
+\item Checkout is an order, with unfinished status (unpaid or pending), the order items become sales.
 \end{enumerate}
 
 \chapter{Stories}
@@ -1384,9 +1385,6 @@ For the Comment Standards the SQA team will follow the python commenting standar
 The SQA team will follow the lettuce BDD and Unit testing standard. The team will also follow the Penetration Testing standard in Pentesting.
 
 \subsection{Pentesting Plan}
-%\subsection{Metrics}
-
-%\subsection{Compliance Monitoring}
 
 
 \newpage
@@ -1620,7 +1618,6 @@ The SQA team will check whether all the procedures and the techniques used are h
 \section{Supplier Control}
 All external software components in the program code, that have an unreliable source, will be tested according to the [ESA] standards. Software components that  have reliable sources will undergo some quick tests. These tests will be focused on the parts of this software that are of importance to the project.
 
-%\section{Records collection, maintenance and retention}
 
 \section{Training}
 The project requires sufficient skill in Python, Flask, and front end technologies like Angular, jQuery and Ajax. The learning curve throughout the project development has been steep and required training from the Advisor and co-team members. 
@@ -1637,14 +1634,19 @@ The following are categories of risks that are relevant to the project:
 \textit{Correction:} When it becomes clear that miscommunication is causing problems, the team members involved and the customer are gathered in a meeting to clear things up. \\
 \textit{Impact:} High \\
 
-%\subsubsection{Risks with respect to the customer}
 
 
-\chapter{Diagrams}  %Add Storyboard
+\chapter{Diagrams}
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{Diagrams/ClassDiagram.png}
 \caption{Class Diagram}
 \label{fig:ClassDiagram}
+\end{figure}
+
+\begin{figure}[h!]
+\includegraphics[width=\linewidth]{Diagrams/storyboard.png}
+\caption{Storyboard}
+\label{fig:Storyboard}
 \end{figure}
 
 \begin{figure}[h!]
