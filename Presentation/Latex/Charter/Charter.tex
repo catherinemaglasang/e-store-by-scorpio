@@ -52,6 +52,7 @@ Esin, Dexter \\
 \pagenumbering {arabic}
 
 \chapter{Charter}
+\label{chpt: Charter}
 \section{Abstract}
 e-store is an open-source, python-based ecommerce platform for online merchants. It provides the power to grow your web business, reach more customers and sell more products and services. It enables businesses to experience an integrated workflow for their business - Accounting, Inventory and Order Management and Customer Service under one platform. 
 
@@ -117,6 +118,7 @@ Scalability and Speed
 \end{enumerate}
 
 \chapter{Stories}
+\label{chpt: Stories}
 \section{Roles}
 Customer - The customer browses and interacts within the store page \\ \\
 Admin - The admin is responsible in handling and managing orders and inventory in the admin dashboard. 
@@ -166,6 +168,7 @@ Jane was a blogger who likes shopping. The owner of the website hired her to man
 \end{enumerate}
 
 \chapter{Use Cases}
+\label{chpt: Use Cases}
 \begin{tabular}{ l l }
 \textbf{Use Case Element} & \textbf{Description} \\
 ID 					& 1 \\
@@ -478,6 +481,7 @@ Exceptions 			& 3a. If the category exists \\
 \end{tabular}
 
 \chapter{Test Cases}
+\label{chap:Test Cases}
 \begin{tabular}{ l l }
 ID 			& 1 \\
 Scenario		& Add Attribute\\
@@ -1064,6 +1068,7 @@ And 			& I get a field "message" containing "ok" \\
 \newpage
 
 \chapter{API Model}
+\label{chap:API Model}
 \section{System Architecture}
 The architectural style adopted by the system is the Client-Server cloud based architecture using Jenkins Server as a medium between the Developers and the system. In the Architecture, the Developers push to git repository and Jenkins will then automatically build and activate the preset commands already entered by the developers and will then update the API server, the Database, the Front End Server, and the push notification server. 
 \begin{figure}[h!]
@@ -1074,31 +1079,22 @@ The architectural style adopted by the system is the Client-Server cloud based a
 \section{Design Patterns}
 The system shall use the AngularJS framework in the client side. The design patterns used in the development of the single page application using angularjs include the following: 
 
+A Revealing Module Pattern technique is used where you expose the callable members of the service which will help you identify which members of the service are callable. An example for this is:
+\begin{lstlisting}[basicstyle=\footnotesize,frame=single,]
+(function () {
+    angular.module('estore', [
+        'ui.router',                    // Routing
+        'oc.lazyLoad',                  // ocLazyLoad
+        'ui.bootstrap',                 // Ui Bootstrap
+        'ngResource',
+        'pascalprecht.translate',       // Angular Translate
+        'ngIdle',                       // Idle timer
+        'ngSanitize',                    // ngSanitize
+        'ngCookies',
+        'ngFileUpload'
+    ])
 
-In creating directives, the composite pattern will be used in order to describe that a group of objects are to be treated in the same way as a single instance of an object. \\
-Here is an example of creating a directive for a single product:
-\begin{lstlisting}[basicstyle=\footnotesize,language=HTML,]
-<!doctype html>
-<html>
-  <head>
-  </head>
-  <body>
-    <single-product title="Zippy">
-      <-- product thumbnails and details-->
-    </single-product>
-  </body>
-</html>
-myModule.directive('singleProduct', function () {
-  return {
-    restrict: 'E',
-    template: '<div><div class="header"></div><div class="content" ng-transclude></div></div>',
-    link: function (scope, el) {
-      el.find('.header').click(function () {
-        el.find('.content').toggle();
-      });
-    }
-  }
-});
+})();
 \end{lstlisting}
 In order to export the public API and resources from the server, the module pattern will be used. The module pattern  is very useful when defining services in AngularJS. Using this pattern we can simulate (and actually achieve) privacy:
 \begin{lstlisting}[basicstyle=\footnotesize,frame=single,]
@@ -1155,7 +1151,8 @@ function MainCtrl($scope, User) {
 }
 \end{lstlisting}
 
-\chapter{SQAP} % Event Response Chart & Pentesting
+\chapter{SQAP}
+\label{chap:SQAP}
 \section{Abstract}
 This document is about the Software Quality Assurance Plan $(SQAP)$ of the system, e-store which is an e-commerce platform for online merchants. It provides the power to grow your web business, reach more customers and sell more products and services. It enables businesses to experience an integrated workflow for their business: Sales, Inventory and Order Management and Customer Service under one platform.
 \section{Introduction}
@@ -1250,7 +1247,7 @@ The responsibility of Quality Assurance shall be vested in all of the members of
 
 \newpage
 \section{Documentation}
-The documents to be delivered in the specific phases of the project will be based in Chapter 6, Section 5. Document standards are described in the same section. The Diagrams will be at Chapter 7 with the Storyboard.
+The documents to be delivered in the specific phases of the project will be based in Chapter 6, Section 5. Document standards are described in the same section. The Diagrams will be at \hyperref[chap:Diagrams]{Chapter 7} with the Storyboard.
 
 \section{Standards, Practices, Conventions And Metrics}
 \subsection{Documentation Standards}
@@ -1373,16 +1370,46 @@ Customer 			& /api/v1/site/:id/customers/ & GET & Retrieve all customers in a si
 \end{table}
 
 \subsection{Coding Standards}
-With Regards to the Coding Standards the SQA team will follow the python coding standards.
-
-\subsection{Comment Standards}
-For the Comment Standards the SQA team will follow the python commenting standards.
+For the Python Coding standard the SQA team follows the PEP 8 -- Style Guide for Python Code. For the Javascript Coding Standard the SQA teams follow the Opinionated Angular Style Guide for Teams by \url {https://twitter.com/john_papa}. \\ 
+The PEP 8 -- Style GUide for Python Code is what most python programmers use. You can find its documentation at \url {https://www.python.org/dev/peps/pep-0008/}.
+Some examples for The Angular Style Guide:
+\begin{enumerate}
+\item Single Responsibility
+	\begin{itemize}
+	\item Rule of 1 - Define 1 component per file, recommended to be less than 400 lines of code.
+	\item Small Functions - Define small functions, no more than 75 LOC (less is better).
+	\end{itemize}
+\item IIFE
+	\begin{itemize}
+	\item JavaScript Scopes - Wrap Angular components in an Immediately Invoked Function Expression (IIFE).
+	\end{itemize}
+\item Modules
+	\begin{itemize}
+	\item Avoid Naming Collisions - Use unique naming conventions with separators for sub-modules.
+	\item Definitions (aka Setters) - Declare modules without a variable using the setter syntax.
+	\item Getters - When using a module, avoid using a variable and instead use chaining with the getter syntax.
+	\end{itemize}
+\end{enumerate}
+More can be found at \url {https://github.com/johnpapa/angular-styleguide/tree/master/a1}
 
 \subsection{Testing Standards}
-The SQA team will follow the lettuce BDD and Unit testing standard. The team will also follow the Penetration Testing standard in Pentesting.
+The SQA team will follow the lettuce BDD and Unit testing standard using the Gherkin syntax. Like Python, Gherkin is a line-oriented to define structure. Line endings terminate statements (eg, steps). Either spaces or tabs may be used for indentation (but spaces are more portable). Most lines start with a keyword(eg, Given, When, Then). \\
+For the UI User tests the SQA team follow the System Usability Scale(SUS) where there are 10 questions and the users write a check in the checkbox on the scale, after which the SQA team will get the mean from the 20 testers and calculate for the Usability Score (More on this at Chapter 8). 
+
+\subsection{Metrics}
+The SQA team will measure the quality of the delivered software, during the monthly checkups, by means of metrics. \\
+The metrics the SQA team will follow are as follows:
+\begin{itemize}
+\item The amount of useful commentary must exceed $1/5$ of the total size of the code.
+\item Maximum Depth of nested if-statements should be less than 4.
+\item 
+\end{itemize}
+If there are any violations on any of these metrics are found then they must be resolved, unless the PM and QAM grants a permit
+
+\subsection{Compliance Monitoring}
+The SQA team will randomly check during which the references to other documents are checked. The referenced documents must include the author and a url link if possible. Any Updates of the software will also be tracked by the way of commits in a git repository. 
 
 \subsection{Pentesting Plan}
-
 
 \newpage
 \subsection{Event Response Chart}
@@ -1562,9 +1589,10 @@ The SQA team will follow the lettuce BDD and Unit testing standard. The team wil
 
 
 \section{Review}
+The SQA team checks all the project and product documents on a random date once a month to make sure that all the documents adhere to the documentation standards. The SQA team also checks if the Code adheres to the coding standards. If there are problems discovered, the problem must be solved within the day after which the document will be checked again.
 
 \section{Test}
-For the tests, the SQA team will test the API's and the User Interface. For the API test refer to the Test Cases in Chapter 4 and for the User Interface Test Refer to Chapter 8. 
+For the tests, the SQA team will test the API's, Javascript, and the User Interface. For the API and Javascript test refer to the Test Cases in \hyperref[chap:Test Cases]{Chapter 4} and for the User Interface Test Refer to Chapter 8. 
 
 \section{Problem reporting and corrective actions}
 If problems arise in either the Documentation or the System they need to be resolved. \\
@@ -1580,6 +1608,7 @@ Examples of such Problems are:
 \begin{itemize}
 \item Lack of functionality
 \item Wrong functionality
+\item Useless or Excess Code
 \item Non compliance with the coding and commentary standards
 \end{itemize}
 \subsection*{Problem Reporting Procedure}
@@ -1598,6 +1627,7 @@ The SQA team has to make sure that appropriate tools, techniques and methods are
 \begin{enumerate}
 \item PyCharm
 \item PgAdmin 3
+\item Webstorm
 \end{enumerate}
 These tools are readily available at \url {https://www.jetbrains.com/}
 
@@ -1605,8 +1635,8 @@ These tools are readily available at \url {https://www.jetbrains.com/}
 It is the SQA teams responsibility to assure the correct handling of the code and the documents.\\
 The following has to be valid:
 \begin{itemize}
-\item Documents are available to all people who are authorized to access them and to no one else.
-\item No file is unnecessarily locked
+\item People are free to distribute and use the documents.
+
 \end{itemize}
 
 \section{Media Control}
@@ -1634,6 +1664,7 @@ The following are categories of risks that are relevant to the project:
 
 
 \chapter{Diagrams}
+\label{chap:Diagrams}
 \begin{figure}[h!]
 \includegraphics[width=\linewidth]{Diagrams/ClassDiagram.png}
 \caption{Class Diagram}
@@ -1694,6 +1725,8 @@ The way SUS scores is:
 \end{itemize}
 We got the scales by getting the mean of the 20 users and recorded them on the scoring form. We then do the way SUS scored it and we got the Score of 65. Having a Score of 65 means our Usability is below average since the average SUS score from all 500 studies is a 68. 
 
+\section{Conclusion}
+
 \chapter{Questionnaire}
 \section{Client Questionnaire}
 \begin{enumerate}
@@ -1734,5 +1767,6 @@ customers will be able to pay online? (i.e. Credit Cards, Paypal)
 \url {https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html} \\
 \url {https://sourcemaking.com/design_patterns/flyweight} \\
 \url {http://blog.rackspace.com/4-reference-architectures-to-optimize-your-ecommerce/} \\
-
+\url {https://github.com/johnpapa/angular-styleguide/tree/master/a1} \\
+\url {https://github.com/cucumber/cucumber/wiki/Gherkin} \\
 \end{document}
