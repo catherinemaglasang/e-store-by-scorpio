@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.15)  14 MAY 2016 07:47
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.2)  17 MAY 2016 22:49
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -599,39 +599,80 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip57
 )
+(/usr/share/texlive/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen155
+\WF@size=\dimen156
+\c@WF@wrappedlines=\count129
+\WF@box=\box32
+\WF@everypar=\toks27
+Package: wrapfig 2003/01/31  v 3.6
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/rotating/rotating.sty
+Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count130
+\rotFPtop=\skip58
+\rotFPbot=\skip59
+\rot@float@box=\box33
+\rot@mess@toks=\toks28
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
 
 Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 23.
+less on input line 27.
 
 
 Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 24.
+less on input line 28.
 
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 25.
+less on input line 29.
 
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 26.
+less on input line 30.
 
-(build/Charter.aux)
+(./Charter.aux)
 \openout1 = `Charter.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
+LaTeX Font Info:    ... okay on input line 41.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -669,66 +710,51 @@ LaTeX Font Info:    ... okay on input line 37.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count129
-\scratchdimen=\dimen155
-\scratchbox=\box32
-\nofMPsegments=\count130
-\nofMParguments=\count131
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count132
-\MPscratchDim=\dimen156
-\MPnumerator=\count133
-\makeMPintoPDFobject=\count134
-\everyMPtoPDFconversion=\toks28
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+\scratchcounter=\count131
+\scratchdimen=\dimen157
+\scratchbox=\box34
+\nofMPsegments=\count132
+\nofMParguments=\count133
+\everyMPshowfont=\toks29
+\MPscratchCnt=\count134
+\MPscratchDim=\dimen158
+\MPnumerator=\count135
+\makeMPintoPDFobject=\count136
+\everyMPtoPDFconversion=\toks30
 )
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-\c@lstlisting=\count135
-\AtBeginShipoutBox=\box33
-Package hyperref Info: Link coloring OFF on input line 37.
-
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+\c@lstlisting=\count137
+\AtBeginShipoutBox=\box35
+Package hyperref Info: Link coloring OFF on input line 41.
+ (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count136
+\c@section@level=\count138
 )
-LaTeX Info: Redefining \ref on input line 37.
-LaTeX Info: Redefining \pageref on input line 37.
-LaTeX Info: Redefining \nameref on input line 37.
+LaTeX Info: Redefining \ref on input line 41.
+LaTeX Info: Redefining \pageref on input line 41.
+LaTeX Info: Redefining \nameref on input line 41.
 
-(build/Charter.out) (build/Charter.out)
+(./Charter.out) (./Charter.out)
 \@outlinefile=\write3
 \openout3 = `Charter.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 51.
+LaTeX Font Info:    Try loading font information for U+msa on input line 55.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 51.
+LaTeX Font Info:    Try loading font information for U+msb on input line 55.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (build/Charter.tocpdfTeX w
-arning (ext4): destination with the same identifier (name{page.}) has been alre
-ady used, duplicate ignored
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./Charter.tocpdfTeX warni
+ng (ext4): destination with the same identifier (name{page.}) has been already 
+used, duplicate ignored
 <to be read again> 
                    \relax 
 l.41 ....4}Coding Standards}{35}{subsection.6.5.4}
@@ -742,16 +768,16 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.52 \newpage
+l.56 \newpage
               [2]
 Chapter 1.
 
-Underfull \hbox (badness 10000) in paragraph at lines 77--79
+Underfull \hbox (badness 10000) in paragraph at lines 81--83
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 81--83
+Underfull \hbox (badness 10000) in paragraph at lines 85--87
 
  []
 
@@ -760,17 +786,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 81--83
 ] [2] [3]
 Chapter 2.
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--126
+Underfull \hbox (badness 10000) in paragraph at lines 128--130
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--138
+Underfull \hbox (badness 10000) in paragraph at lines 132--142
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 128--138
+Underfull \hbox (badness 10000) in paragraph at lines 132--142
 
  []
 
@@ -779,29 +805,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 128--138
 ] [5]
 Chapter 3.
 
-Overfull \hbox (2.33931pt too wide) in paragraph at lines 173--209
+Overfull \hbox (2.33931pt too wide) in paragraph at lines 177--213
 [] 
  []
 
 [6
 
 ] [7] [8]
-Overfull \hbox (35.61679pt too wide) in paragraph at lines 308--347
+Overfull \hbox (35.61679pt too wide) in paragraph at lines 312--351
 [][] 
  []
 
 [9]
-Overfull \hbox (6.15176pt too wide) in paragraph at lines 349--390
+Overfull \hbox (6.15176pt too wide) in paragraph at lines 353--394
 [][] 
  []
 
 [10]
-Overfull \hbox (44.94785pt too wide) in paragraph at lines 392--437
+Overfull \hbox (44.94785pt too wide) in paragraph at lines 396--441
 [][] 
  []
 
 [11]
-Overfull \hbox (46.00314pt too wide) in paragraph at lines 439--483
+Overfull \hbox (46.00314pt too wide) in paragraph at lines 443--487
 [][] 
  []
 
@@ -810,12 +836,12 @@ Chapter 4.
 [13
 
 ] [14]
-Overfull \hbox (43.1705pt too wide) in paragraph at lines 567--616
+Overfull \hbox (43.1705pt too wide) in paragraph at lines 571--620
 [][] 
  []
 
 [15] [16]
-Overfull \hbox (73.77414pt too wide) in paragraph at lines 662--702
+Overfull \hbox (73.77414pt too wide) in paragraph at lines 666--706
 [][] 
  []
 
@@ -826,7 +852,7 @@ File: Diagrams/ArchitectureDiagram.png Graphic file (type png)
 
 <use Diagrams/ArchitectureDiagram.png>
 Package pdftex.def Info: Diagrams/ArchitectureDiagram.png used on input line 10
-76.
+80.
 (pdftex.def)             Requested size: 452.9679pt x 271.17007pt.
  [27
 
@@ -835,256 +861,256 @@ Chapter 6.
 [30
 
 ] [31]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1217
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1221
 .
  (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1217.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1221.
 
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1229
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1233
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 ) [32]
-Underfull \hbox (badness 10000) in paragraph at lines 1242--1243
+Underfull \hbox (badness 10000) in paragraph at lines 1246--1247
 
  []
 
 [33] [34] [35] [36]
-Underfull \hbox (badness 4108) in paragraph at lines 1425--1426
+Underfull \hbox (badness 4108) in paragraph at lines 1429--1430
 []|\T1/cmr/m/n/10 Place Cur-sor in User
  []
 
 
-Underfull \hbox (badness 1173) in paragraph at lines 1427--1427
+Underfull \hbox (badness 1173) in paragraph at lines 1431--1431
 []|\T1/cmr/m/n/10 Place Cur-sor in Email
  []
 
 
-Underfull \hbox (badness 2343) in paragraph at lines 1430--1431
+Underfull \hbox (badness 2343) in paragraph at lines 1434--1435
 []|\T1/cmr/m/n/10 Place Cur-sor in Pass-
  []
 
 
-Underfull \hbox (badness 1057) in paragraph at lines 1433--1434
+Underfull \hbox (badness 1057) in paragraph at lines 1437--1438
 \T1/cmr/m/n/10 firm Pass-word Field is
  []
 
 
-Underfull \hbox (badness 1769) in paragraph at lines 1433--1434
+Underfull \hbox (badness 1769) in paragraph at lines 1437--1438
 \T1/cmr/m/n/10 the same as Pass-word
  []
 
 
-Underfull \hbox (badness 4048) in paragraph at lines 1435--1436
+Underfull \hbox (badness 4048) in paragraph at lines 1439--1440
 \T1/cmr/m/n/10 Post to the Re-source
  []
 
 
-Underfull \hbox (badness 1577) in paragraph at lines 1435--1436
+Underfull \hbox (badness 1577) in paragraph at lines 1439--1440
 \T1/cmr/m/n/10 '/api/v1/users/'. Dis-
  []
 
 
-Underfull \hbox (badness 3746) in paragraph at lines 1437--1437
+Underfull \hbox (badness 3746) in paragraph at lines 1441--1441
 []|\T1/cmr/m/n/10 Already Have an Ac-
  []
 
 
-Underfull \hbox (badness 3884) in paragraph at lines 1439--1439
+Underfull \hbox (badness 3884) in paragraph at lines 1443--1443
 []|\T1/cmr/m/n/10 Forgot Your Pass-word
  []
 
 
-Underfull \hbox (badness 1648) in paragraph at lines 1441--1442
+Underfull \hbox (badness 1648) in paragraph at lines 1445--1446
 []|\T1/cmr/m/n/10 Place Cur-sor in En-ter
  []
 
 [37]
-Underfull \hbox (badness 3189) in paragraph at lines 1455--1456
+Underfull \hbox (badness 3189) in paragraph at lines 1459--1460
 \T1/cmr/m/n/10 in. Dis-play Lad-ning
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1479--1480
+Underfull \hbox (badness 10000) in paragraph at lines 1483--1484
 []|\T1/cmr/m/n/10 Display Sup-plier
  []
 
 
-Underfull \hbox (badness 1360) in paragraph at lines 1479--1480
+Underfull \hbox (badness 1360) in paragraph at lines 1483--1484
 \T1/cmr/m/n/10 Page. GET Re-source
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1481--1482
+Underfull \hbox (badness 10000) in paragraph at lines 1485--1486
 []|\T1/cmr/m/n/10 Display Cus-tomer
  []
 
 
-Underfull \hbox (badness 1360) in paragraph at lines 1481--1482
+Underfull \hbox (badness 1360) in paragraph at lines 1485--1486
 \T1/cmr/m/n/10 Page. GET Re-source
  []
 
 [38]
-Underfull \hbox (badness 1308) in paragraph at lines 1491--1492
+Underfull \hbox (badness 1308) in paragraph at lines 1495--1496
 []|\T1/cmr/m/n/10 Place Cur-sor in Name
  []
 
 
-Underfull \hbox (badness 3930) in paragraph at lines 1509--1510
+Underfull \hbox (badness 3930) in paragraph at lines 1513--1514
 []|\T1/cmr/m/n/10 Place Cur-sor in Cus-
  []
 
 
-Underfull \hbox (badness 2326) in paragraph at lines 1517--1518
+Underfull \hbox (badness 2326) in paragraph at lines 1521--1522
 []|\T1/cmr/m/n/10 Place Cur-sor in Time
  []
 
 
-Underfull \hbox (badness 2197) in paragraph at lines 1521--1522
+Underfull \hbox (badness 2197) in paragraph at lines 1525--1526
 []|\T1/cmr/m/n/10 Place Cur-sor in To-tal
  []
 
 [39]
-Underfull \hbox (badness 4168) in paragraph at lines 1527--1528
+Underfull \hbox (badness 4168) in paragraph at lines 1531--1532
 []|\T1/cmr/m/n/10 Place Cur-sor in Unit
  []
 
 
-Underfull \hbox (badness 1533) in paragraph at lines 1537--1537
+Underfull \hbox (badness 1533) in paragraph at lines 1541--1541
 []|\T1/cmr/m/n/10 Change Pass-word But-
  []
 
 
-Underfull \hbox (badness 6691) in paragraph at lines 1537--1538
+Underfull \hbox (badness 6691) in paragraph at lines 1541--1542
 []|\T1/cmr/m/n/10 Display Change Pass-
  []
 
 
-Underfull \hbox (badness 1648) in paragraph at lines 1539--1540
+Underfull \hbox (badness 1648) in paragraph at lines 1543--1544
 []|\T1/cmr/m/n/10 Place Cur-sor in En-ter
  []
 
 
-Underfull \hbox (badness 1648) in paragraph at lines 1541--1542
+Underfull \hbox (badness 1648) in paragraph at lines 1545--1546
 []|\T1/cmr/m/n/10 Place Cur-sor in En-ter
  []
 
 
-Underfull \hbox (badness 1043) in paragraph at lines 1543--1543
+Underfull \hbox (badness 1043) in paragraph at lines 1547--1547
 []|\T1/cmr/m/n/10 Place Cur-sor in Ver-ify
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1546--1547
+Underfull \hbox (badness 10000) in paragraph at lines 1550--1551
 []|\T1/cmr/m/n/10 Verify Fields.
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1546--1547
+Underfull \hbox (badness 10000) in paragraph at lines 1550--1551
 \T1/cmr/m/n/10 PUT to Re-source
  []
 
 
-Underfull \hbox (badness 1577) in paragraph at lines 1546--1547
+Underfull \hbox (badness 1577) in paragraph at lines 1550--1551
 \T1/cmr/m/n/10 '/api/v1/users/'. Dis-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1552--1553
+Underfull \hbox (badness 10000) in paragraph at lines 1556--1557
 []|\T1/cmr/m/n/10 PUT to Re-source
  []
 
 [40]
-Underfull \hbox (badness 10000) in paragraph at lines 1558--1559
+Underfull \hbox (badness 10000) in paragraph at lines 1562--1563
 []|\T1/cmr/m/n/10 Display Tar-get So-cial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1562--1563
+Underfull \hbox (badness 10000) in paragraph at lines 1566--1567
 []|\T1/cmr/m/n/10 Product is Re-moved
  []
 
 
-Underfull \hbox (badness 3281) in paragraph at lines 1564--1565
+Underfull \hbox (badness 3281) in paragraph at lines 1568--1569
 []|\T1/cmr/m/n/10 Place Cur-sor in First
  []
 
 
-Underfull \hbox (badness 4647) in paragraph at lines 1566--1567
+Underfull \hbox (badness 4647) in paragraph at lines 1570--1571
 []|\T1/cmr/m/n/10 Place Cur-sor in Last
  []
 
 
-Underfull \hbox (badness 4792) in paragraph at lines 1568--1569
+Underfull \hbox (badness 4792) in paragraph at lines 1572--1573
 []|\T1/cmr/m/n/10 Place Cur-sor in City
  []
 
 
-Underfull \hbox (badness 2326) in paragraph at lines 1570--1571
+Underfull \hbox (badness 2326) in paragraph at lines 1574--1575
 []|\T1/cmr/m/n/10 Place Cur-sor in State
  []
 
 
-Underfull \hbox (badness 3333) in paragraph at lines 1580--1581
+Underfull \hbox (badness 3333) in paragraph at lines 1584--1585
 []|\T1/cmr/m/n/10 Place Cur-sor in Date
  []
 
 [41] [42]
-Underfull \hbox (badness 10000) in paragraph at lines 1659--1664
+Underfull \hbox (badness 10000) in paragraph at lines 1664--1669
 
  []
 
 [43] [44]
 Chapter 7.
-<Diagrams/ClassDiagram.png, id=670, 1688.3075pt x 1149.29375pt>
+<Diagrams/ClassDiagram.png, id=671, 1688.3075pt x 1149.29375pt>
 File: Diagrams/ClassDiagram.png Graphic file (type png)
 
 <use Diagrams/ClassDiagram.png>
-Package pdftex.def Info: Diagrams/ClassDiagram.png used on input line 1670.
+Package pdftex.def Info: Diagrams/ClassDiagram.png used on input line 1675.
 (pdftex.def)             Requested size: 452.9679pt x 308.34933pt.
 
-<Diagrams/storyboard.png, id=671, 1371.1225pt x 770.88pt>
+<Diagrams/storyboard.png, id=672, 1371.1225pt x 770.88pt>
 File: Diagrams/storyboard.png Graphic file (type png)
 
 <use Diagrams/storyboard.png>
-Package pdftex.def Info: Diagrams/storyboard.png used on input line 1676.
-(pdftex.def)             Requested size: 452.9679pt x 254.6735pt.
+Package pdftex.def Info: Diagrams/storyboard.png used on input line 1681.
+(pdftex.def)             Requested size: 700.50687pt x 393.84937pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Diagrams/DataFlowDiagram.png, id=672, 1014.79124pt x 683.55376pt>
+<Diagrams/DataFlowDiagram.png, id=673, 1014.79124pt x 683.55376pt>
 File: Diagrams/DataFlowDiagram.png Graphic file (type png)
 
 <use Diagrams/DataFlowDiagram.png>
-Package pdftex.def Info: Diagrams/DataFlowDiagram.png used on input line 1682.
+Package pdftex.def Info: Diagrams/DataFlowDiagram.png used on input line 1687.
 (pdftex.def)             Requested size: 452.9679pt x 305.11397pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Diagrams/UseCaseDiagram.png, id=673, 1218.5525pt x 1921.1775pt>
+<Diagrams/UseCaseDiagram.png, id=674, 1218.5525pt x 1921.1775pt>
 File: Diagrams/UseCaseDiagram.png Graphic file (type png)
 
 <use Diagrams/UseCaseDiagram.png>
-Package pdftex.def Info: Diagrams/UseCaseDiagram.png used on input line 1688.
+Package pdftex.def Info: Diagrams/UseCaseDiagram.png used on input line 1693.
 (pdftex.def)             Requested size: 452.9679pt x 714.13713pt.
 
 
-LaTeX Warning: Float too large for page by 39.9742pt on input line 1691.
+LaTeX Warning: Float too large for page by 39.9742pt on input line 1696.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Diagrams/PertChart.png, id=674, 1887.05pt x 2037.6125pt>
+<Diagrams/PertChart.png, id=675, 1887.05pt x 2037.6125pt>
 File: Diagrams/PertChart.png Graphic file (type png)
 
 <use Diagrams/PertChart.png>
-Package pdftex.def Info: Diagrams/PertChart.png used on input line 1694.
+Package pdftex.def Info: Diagrams/PertChart.png used on input line 1699.
 (pdftex.def)             Requested size: 452.9679pt x 489.09918pt.
 
 
@@ -1092,106 +1118,106 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [45
 
- <./Diagrams/ClassDiagram.png>] [46 <./Diagrams/storyboard.png> <./Diagrams/Dat
-aFlowDiagram.png>] [47 <./Diagrams/UseCaseDiagram.png>] [48 <./Diagrams/PertCha
-rt.png (PNG copy)>]
+ <./Diagrams/ClassDiagram.png>] [46 <./Diagrams/storyboard.png>] [47 <./Diagram
+s/DataFlowDiagram.png>] [48 <./Diagrams/UseCaseDiagram.png>] [49 <./Diagrams/Pe
+rtChart.png (PNG copy)>]
 Chapter 8.
 
-Overfull \hbox (8.05565pt too wide) in paragraph at lines 1703--1703
+Overfull \hbox (8.05565pt too wide) in paragraph at lines 1708--1708
 []|\T1/cmr/m/n/10 Strongly
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1703--1703
+Underfull \hbox (badness 10000) in paragraph at lines 1708--1708
 \T1/cmr/m/n/10 Dis-
  []
 
 
-Overfull \hbox (8.05565pt too wide) in paragraph at lines 1703--1703
+Overfull \hbox (8.05565pt too wide) in paragraph at lines 1708--1708
 []|\T1/cmr/m/n/10 Strongly
  []
 
 
-Overfull \hbox (0.53558pt too wide) in paragraph at lines 1703--1703
+Overfull \hbox (0.53558pt too wide) in paragraph at lines 1708--1708
 []|\T1/cmr/m/n/10 Scale
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1703--1703
+Underfull \hbox (badness 10000) in paragraph at lines 1708--1708
 \T1/cmr/m/n/10 Po-si-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1703--1704
+Underfull \hbox (badness 10000) in paragraph at lines 1708--1709
 []|\T1/cmr/m/n/10 Score
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1703--1704
+Underfull \hbox (badness 10000) in paragraph at lines 1708--1709
 \T1/cmr/m/n/10 Con-tri-
  []
 
 
-Underfull \hbox (badness 1019) in paragraph at lines 1707--1707
+Underfull \hbox (badness 1019) in paragraph at lines 1712--1712
 \T1/cmr/m/n/10 need the sup-port of a
  []
 
 
-Underfull \hbox (badness 1365) in paragraph at lines 1707--1707
+Underfull \hbox (badness 1365) in paragraph at lines 1712--1712
 \T1/cmr/m/n/10 tech-ni-cal per-son to be
  []
 
-[49
+[50
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1720--1724
+Underfull \hbox (badness 10000) in paragraph at lines 1725--1729
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1720--1724
+Underfull \hbox (badness 10000) in paragraph at lines 1725--1729
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1720--1724
+Underfull \hbox (badness 10000) in paragraph at lines 1725--1729
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1731--1749
+Underfull \hbox (badness 10000) in paragraph at lines 1736--1754
 
  []
 
-[50] [51]
+[51] [52]
 Chapter 9.
-[52
+[53
 
-] [53]
+] [54]
 Chapter 10.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1797.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1788--1797
+Underfull \hbox (badness 10000) in paragraph at lines 1793--1802
 
  []
 
-[54
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1802.
+[55
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1797.
- (build/Charter.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1797.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1797.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1802.
+ (./Charter.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1802.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1802.
 
 Package rerunfilecheck Info: File `Charter.out' has not changed.
 (rerunfilecheck)             Checksum: C14CD049FFE20CD5C662D777FD90F237;3723.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1797.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1802.
  ) 
 Here is how much of TeX's memory you used:
- 9778 strings out of 493304
- 136145 string characters out of 6139871
- 251287 words of memory out of 5000000
- 12780 multiletter control sequences out of 15000+600000
+ 9972 strings out of 493304
+ 138775 string characters out of 6139872
+ 254462 words of memory out of 5000000
+ 12958 multiletter control sequences out of 15000+600000
  25630 words of font info for 65 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  40i,16n,43p,1182b,1862s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1212,10 +1238,10 @@ pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texm
 f/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.p
 fb>
-Output written on build/Charter.pdf (57 pages, 3618232 bytes).
+Output written on Charter.pdf (58 pages, 3619136 bytes).
 PDF statistics:
- 886 PDF objects out of 1000 (max. 8388607)
- 794 compressed objects within 8 object streams
- 284 named destinations out of 1000 (max. 500000)
+ 891 PDF objects out of 1000 (max. 8388607)
+ 798 compressed objects within 8 object streams
+ 285 named destinations out of 1000 (max. 500000)
  519 words of extra memory for PDF output out of 10000 (max. 10000000)
 
