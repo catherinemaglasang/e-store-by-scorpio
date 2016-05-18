@@ -1,0 +1,25 @@
+merchant_id
+thumb_url
+title: Apple iPhone 6 - Unlocked (Gold) ,16GB
+long_description:
+
+<ul>
+
+
+						<li><span class="a-list-item"> 4.7-inch (diagonal) LED-backlit widescreen Multi-Touch display with IPS technology</span></li>
+
+						<li><span class="a-list-item"> New 8-megapixel iSight camera with 1.5µ pixels</span></li>
+
+						<li><span class="a-list-item"> A8 chip with 64-bit architecture. M8 motion coprocessor</span></li>
+
+						<li><span class="a-list-item"> 1080p HD video recording (30 fps or 60 fps)</span></li>
+
+						<li><span class="a-list-item"> Unlocked cell phones are compatible with GSM carriers like H2O Wireless.</span></li>
+
+				</ul>
+
+sku: 2314314
+short_description: iPhone 6. Bigger than bigger. iPhone 6 isn’t simply bigger - it’s better in every way.
+
+stock_on_hand: 5
+unit_selling_cost 50,000
