@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.2)  17 MAY 2016 22:49
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.2)  18 MAY 2016 07:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1083,7 +1083,7 @@ Package pdftex.def Info: Diagrams/storyboard.png used on input line 1681.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Diagrams/DataFlowDiagram.png, id=673, 1014.79124pt x 683.55376pt>
+<Diagrams/DataFlowDiagram.png, id=674, 1014.79124pt x 683.55376pt>
 File: Diagrams/DataFlowDiagram.png Graphic file (type png)
 
 <use Diagrams/DataFlowDiagram.png>
@@ -1093,7 +1093,7 @@ Package pdftex.def Info: Diagrams/DataFlowDiagram.png used on input line 1687.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Diagrams/UseCaseDiagram.png, id=674, 1218.5525pt x 1921.1775pt>
+<Diagrams/UseCaseDiagram.png, id=675, 1218.5525pt x 1921.1775pt>
 File: Diagrams/UseCaseDiagram.png Graphic file (type png)
 
 <use Diagrams/UseCaseDiagram.png>
@@ -1106,7 +1106,7 @@ LaTeX Warning: Float too large for page by 39.9742pt on input line 1696.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Diagrams/PertChart.png, id=675, 1887.05pt x 2037.6125pt>
+<Diagrams/PertChart.png, id=676, 1887.05pt x 2037.6125pt>
 File: Diagrams/PertChart.png Graphic file (type png)
 
 <use Diagrams/PertChart.png>
@@ -1211,6 +1211,10 @@ Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1802.
 
 Package rerunfilecheck Info: File `Charter.out' has not changed.
 (rerunfilecheck)             Checksum: C14CD049FFE20CD5C662D777FD90F237;3723.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1802.
  ) 
 Here is how much of TeX's memory you used:
@@ -1238,10 +1242,10 @@ pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texm
 f/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfti1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.p
 fb>
-Output written on Charter.pdf (58 pages, 3619136 bytes).
+Output written on Charter.pdf (58 pages, 3619583 bytes).
 PDF statistics:
- 891 PDF objects out of 1000 (max. 8388607)
- 798 compressed objects within 8 object streams
+ 892 PDF objects out of 1000 (max. 8388607)
+ 799 compressed objects within 8 object streams
  285 named destinations out of 1000 (max. 500000)
  519 words of extra memory for PDF output out of 10000 (max. 10000000)
 
